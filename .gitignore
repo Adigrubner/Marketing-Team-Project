@@ -1,0 +1,12 @@
+# הכספת - לעולם לא עולה ל-GitHub
+.env
+
+# מערכת
+node_modules/
+.DS_Store
+Thumbs.db
+
+# תוצרים כבדים מקומיים (קריאייטיבים נשארים אצלכם)
+clients/*/campaigns/*/creatives/*.png
+clients/*/campaigns/*/creatives/*.jpg
+!clients/_template/**

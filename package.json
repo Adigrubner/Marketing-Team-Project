@@ -1,0 +1,13 @@
+{
+  "name": "campaign-machine-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "מכונת הקמפיינים - פרויקט ה-Starter של הקורס (מועדון 2030)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "doctor": "node tools/doctor.js"
+  }
+}

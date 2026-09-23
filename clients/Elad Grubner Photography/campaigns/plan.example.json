@@ -1,0 +1,16 @@
+{
+  "_הסבר": "דוגמה לתוכנית קמפיין. הקמפיינר (הסוכן) מייצר קובץ כזה בשם plan.json בתוך תיקיית הקמפיין, ואז מריצים: node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין> (קודם dry-run, ואז --confirm)",
+  "name": "וובינר חינם - שם הקמפיין",
+  "objective": "OUTCOME_LEADS",
+  "daily_budget_ils": 50,
+  "link_url": "https://example.com/landing",
+  "cta": "SIGN_UP",
+  "audience": { "countries": ["IL"], "age_min": 25, "age_max": 55 },
+  "conversion_event": "LEAD",
+  "is_dynamic_creative": false,
+  "url_tags": "utm_source=facebook&utm_medium=paid&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{placement}}",
+  "primary_texts": ["הטקסט הראשי של המודעה..."],
+  "headlines": ["הכותרת המודגשת"],
+  "descriptions": ["תיאור קצר"],
+  "images": ["creatives/ad-1.png"]
+}
