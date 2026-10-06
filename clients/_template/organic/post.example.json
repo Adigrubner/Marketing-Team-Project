@@ -1,0 +1,19 @@
+{
+  "_הסבר": "דוגמה לפוסט אורגני. כל פוסט בתיקייה משלו: organic/<YYYY-MM-DD>-<שם>/post.json. רכזת הפרסום קוראת את הקובץ, מציגה תצוגה מקדימה, ושולחת ל-Metricool כטיוטה רק אחרי אישור.",
+  "title": "פרויקט דירה בתל אביב - קרוסלה",
+  "type": "carousel",
+  "networks": ["instagram", "facebook"],
+  "date": "2026-10-12T19:00:00",
+  "text": "הטקסט המלא של הפוסט...\n\nעיצוב: @שם_המעצבת",
+  "first_comment": "",
+  "media": [
+    "https://drive.google.com/...",
+    "https://drive.google.com/..."
+  ],
+  "alt_text": [],
+  "collaborators": ["שם_המשתמש_של_המעצבת"],
+  "designer_approved": true,
+  "ai_generated": false,
+  "status": "ready",
+  "plannerUrl": ""
+}

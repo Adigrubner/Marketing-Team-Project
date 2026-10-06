@@ -1,0 +1,20 @@
+{
+  "_הסבר": "הגדרות רכזת הפרסום (תוכן אורגני דרך Metricool). blogId = המותג 'Elad Grubner Photography New' (שעון ישראל). יש בחשבון גם מותג משותף בשם 'Elad Grubner Photography' (6846317) שמוגדר לשעון שיקגו - לא בשימוש.",
+  "metricool": {
+    "blogId": "6885774",
+    "label": "Elad Grubner Photography New",
+    "timezone": "Asia/Jerusalem"
+  },
+  "networks": ["instagram", "facebook", "gmb"],
+  "defaults": {
+    "draft": true,
+    "postingDays": ["sun", "mon", "tue", "wed", "thu"],
+    "postsPerWeek": 3
+  },
+  "rules": [
+    "פוסט של פרויקט - רק עם designer_approved: true וקרדיט למעצבת/אדריכל בטקסט (ולספקים אם רלוונטי)",
+    "בלי כתובת, שמות או פרטים מזהים של בעלי הבית - גם לא בתגית מיקום",
+    "בלי מחירים, בלי הבטחה לתוצאות עסקיות, בלי השוואה לצלמים אחרים",
+    "המטרה היא עקביות - אם לוח השבוע ריק, להציע למשתמש להכין תוכן"
+  ]
+}

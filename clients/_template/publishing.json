@@ -1,0 +1,17 @@
+{
+  "_הסבר": "הגדרות רכזת הפרסום (תוכן אורגני דרך Metricool). את blogId ממלאים פעם אחת - קלוד יכול למצוא אותו בעזרת getBrandSettings.",
+  "metricool": {
+    "blogId": "",
+    "label": "",
+    "timezone": "Asia/Jerusalem"
+  },
+  "networks": ["instagram", "facebook"],
+  "defaults": {
+    "draft": true,
+    "postingDays": ["sun", "mon", "tue", "wed", "thu"],
+    "postsPerWeek": 3
+  },
+  "rules": [
+    "פוסט של פרויקט - רק עם אישור המעצבת וקרדיט בטקסט"
+  ]
+}
