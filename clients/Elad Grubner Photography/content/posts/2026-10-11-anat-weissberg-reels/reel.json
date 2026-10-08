@@ -1,0 +1,18 @@
+{
+  "style": "motion",
+  "fade": 0.5,
+  "frames": [
+    { "id": "19fzNMyKr9xytrBihROjDCUXimLyDxz3B", "label": "Interior/38 - הוויטרינה, פתיחה", "motion": "zin",
+      "blur": [ { "x": 610, "y": 890, "w": 95, "h": 175 } ] },
+    { "id": "1BJAebJJdrgqHCIRqq_fpgxYYyHQxWXLW", "label": "Interior/24 - הכניסה", "motion": "zin" },
+    { "id": "1zXSi9Actep51EPNqJ1wYyTMtLU2khx05", "label": "Interior/27 - חדר השינה", "motion": "panR", "keep": "right" },
+    { "id": "1JgyT0kRF3rP_0Z8rL5vai-QxGxCEayzG", "label": "Details/76 - למעלה", "motion": "zin" },
+    { "id": "1DD3wtEcAOpDXVQFILLe2CyYaawF-RNGI", "label": "Details/70 - באמצע", "motion": "zout" },
+    { "id": "1umwa9rQUq3wLpIiFF0RHqNVhmMe2e3xZ", "label": "Details/67 - למטה", "motion": "panR" },
+    { "id": "1Jrpf-wB81A4mA2eNkUezEXxoH1zmFYK8", "label": "Interior/34 - הקיר", "motion": "panL", "keep": "left" },
+    { "id": "12O5FiQ_MpacmZwMLGfTMzS3x0qHaieqA", "label": "Details/64 - הידית", "motion": "zin" },
+    { "id": "1tDaeD4MEEu8ohmrtz_hhhOHl0U3zeTxp", "label": "Interior/22 - חדר הרחצה", "motion": "panR" },
+    { "id": "19gdwvzAqpHA6RS0nUWcA-XtCrrtrkPbK", "label": "Interior/23 - המקלחת", "motion": "zin" },
+    { "id": "1_cEOIAIWwC3dImgktJHCY2c68bzSmFVm", "label": "Interior/37 - הוויטרינה, סגירה", "motion": "zout" }
+  ]
+}

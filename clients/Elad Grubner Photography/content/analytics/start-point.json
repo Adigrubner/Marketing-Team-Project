@@ -1,0 +1,15 @@
+{
+  "_note": "נקודת המוצא - לפני שהמכונה התחילה לפרסם. נמשך ממטריקול 8.10.2026 (פוסטים + רילס, 4.9-3.10, 18 פרסומים, שעון ישראל). לא לשנות - זה הקו שמולו מודדים שיפור. historySeed = השבועות שלפני הדוח הראשון, לגרפי המגמה.",
+  "date": "2026-10-07",
+  "label": "לפני המכונה (4.9-3.10)",
+  "avgReach": 193,
+  "avgSavesShares": 0.22,
+  "avgComments": 1.06,
+  "followers": 2793,
+  "historySeed": [
+    { "weekStart": "2026-09-06", "posts": 3, "avgReach": 190, "avgSavesShares": 0.33, "avgComments": 2.0, "followers": null },
+    { "weekStart": "2026-09-13", "posts": 7, "avgReach": 229, "avgSavesShares": 0.29, "avgComments": 0.57, "followers": null },
+    { "weekStart": "2026-09-20", "posts": 7, "avgReach": 159, "avgSavesShares": 0.14, "avgComments": 1.0, "followers": null },
+    { "weekStart": "2026-09-27", "posts": 1, "avgReach": 181, "avgSavesShares": 0, "avgComments": 2.0, "followers": null }
+  ]
+}

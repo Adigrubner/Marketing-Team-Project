@@ -9,4 +9,5 @@ Thumbs.db
 # תוצרים כבדים מקומיים (קריאייטיבים נשארים אצלכם)
 clients/*/campaigns/*/creatives/*.png
 clients/*/campaigns/*/creatives/*.jpg
+clients/*/content/posts/*/*.mp4
 !clients/_template/**
