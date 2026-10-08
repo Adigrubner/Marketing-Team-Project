@@ -1,0 +1,51 @@
+{
+  "client": "Elad Grubner Photography",
+  "reportDate": "2026-10-07",
+  "weekStart": "2026-10-04",
+  "weekEnd": "2026-10-07",
+  "generatedAt": "7.10.2026",
+  "trial": true,
+  "partialWeek": true,
+  "pageUrl": "https://claude.ai/artifact/V3MyYrJgfbnyQasLkCHKq7",
+  "headline": "🧪 הרצת ניסיון על שבוע חלקי (ראשון-רביעי). עלה פוסט אחד של המכונה - הקרוסלה של ענת וייסברג - והוא עדיין צובר: החשיפה מתחת לממוצע, אבל 7 תגובות, יותר מכל פוסט בחודש שלפני.",
+  "account": { "followers": 2793, "followersChange": null },
+  "baseline": { "avgReach": 177, "periodLabel": "30 הימים שלפני 4.10 (14 פוסטים)" },
+  "week": { "posts": 1, "postsNote": "שבוע חלקי · הרצת ניסיון", "avgReach": 146, "avgReachVsBaseline": -18, "savesShares": 1 },
+  "posts": [
+    { "date": "2026-10-06", "time": "17:07", "format": "קרוסלה (6 רוחב)", "title": "ענת וייסברג - הסלון באור הרך", "url": "https://www.instagram.com/p/DeJ9hZxlSo0/",
+      "reach": 146, "likes": 19, "comments": 7, "saves": 1, "shares": null, "follows": 0, "vsAvg": -18, "young": true,
+      "note": "פוסט ראשון של המכונה, יום אחד באוויר - לא שופטים עדיין. מה שכבר בולט: 7 תגובות (ממוצע החודש: 1 לפוסט) ו-19 לייקים (ממוצע: 13). נפתח בענת בתוך הפרויקט - כנראה היא והקהל שלה הגיבו." },
+    { "date": "2026-10-04", "time": "10:49", "format": "Collab - פוסט של המעצבת", "title": "אירית פרייהייטר - מרפסת (Collab)", "url": "https://www.instagram.com/p/DeEIuO3uQg4/",
+      "reach": null, "likes": 13, "comments": 0, "saves": 0, "shares": 0, "follows": null, "vsAvg": null, "young": false,
+      "note": "פוסט של המעצבת שאלעד שותף בו (Collab). מופיע גם בגריד של אלעד. לא נכנס לממוצע." },
+    { "date": "2026-10-06", "time": "20:13", "format": "Collab - פוסט של המעצבת", "title": "אירית פרייהייטר - חדר רחצה (Collab)", "url": "https://www.instagram.com/p/DeKS1QsDuq0/",
+      "reach": null, "likes": 11, "comments": 1, "saves": 0, "shares": 1, "follows": null, "vsAvg": null, "young": true,
+      "note": "Collab רביעי של אירית בשבועיים, והשני שמראה חדר רחצה (גם 27.9). לא נכנס לממוצע." }
+  ],
+  "star": { "title": "ענת וייסברג - 7 תגובות", "why": "סימן ראשון בלבד (פוסט אחד, יום אחד): קרוסלה שנפתחת במעצבת בתוך הפרויקט וכתובה כקרדיט חם לה הביאה יותר שיחה מכל פוסט בחודש שלפני. בשבוע הבא נראה את המספרים הסופיים." },
+  "weak": null,
+  "referencesSummary": "שבוע שקט אצל הרפרנסים - אחרי החגים כמעט אף אחד לא העלה. אורן עמוס: פוסט קרדיט נקי לשתי מעצבות (80 לייקים). מאור מויאל: רילס אישי-הומוריסטי שקיבל 600 לייקים - תוכן אישי, שאצל אלעד שייך לסטורי. אצל קרין רוונה הפוסטים הבולטים בגריד הם Collab שהמעצבות והיזמים מעלים.",
+  "references": [
+    { "name": "שי אפשטיין", "handle": "shai.epstein.photography", "source": "metricool", "followers": 13792, "postsThisWeek": 0, "highlight": "לא העלה השבוע. בחודש האחרון 2 פוסטים בלבד; הבולט (61 לייקים) - \"הצצה\" לבית לפני כתבה, טקסט דו-לשוני עם קרדיט לאדריכל.", "bestUrl": "https://www.instagram.com/p/DdqWOZGDvcx/" },
+    { "name": "אלנה מרגולין", "handle": "alenafoto", "source": "metricool", "followers": 6540, "postsThisWeek": 0, "highlight": "לא העלתה השבוע. ב-28.9 בניין מגורים קיבל 303 לייקים - פי 5 מהרגיל אצלה (40-67) - עם קרדיט לאדריכלים וליזם. מעלה בעיקר בבוקר (09:00-10:00).", "bestUrl": "https://www.instagram.com/p/Dd0fbDbCDJ4/" },
+    { "name": "מירב פלברג", "handle": "merav.felberg.photographer", "source": "metricool", "followers": 6250, "postsThisWeek": 0, "highlight": "לא העלתה השבוע. הפוסט הכי טוב שלה בחודש (19 לייקים, 6 תגובות) עלה במוצאי שבת 3.10 - סיפור רגשי על פאב לזכר נופל, לא פוסט פרויקט רגיל.", "bestUrl": "https://www.instagram.com/p/DeCdYbgins-/" },
+    { "name": "אורית ארנון", "handle": "orit.arnon.photographer", "source": "metricool", "followers": 4620, "postsThisWeek": 0, "highlight": "לא העלתה בכלל ב-30 הימים האחרונים.", "bestUrl": "" },
+    { "name": "Daniel Tzairi", "handle": "danieltz_interior_photography", "source": "metricool", "followers": 2994, "postsThisWeek": 0, "highlight": "לא העלה השבוע. הסגנון שלו הכי קרוב לאלעד: משפט אנגלי קצר על אור (\"That last light of the day\") + קרדיט למעצבת. 22-27 לייקים לפוסט.", "bestUrl": "https://www.instagram.com/p/DdUJldyjREw/" },
+    { "name": "קרין רוונה", "handle": "karinravenna_photography", "source": "browser", "followers": 3622, "postsThisWeek": 0, "highlight": "לא העלתה כבר חודשים. שני הפוסטים הראשונים בגריד שלה הם Collab שהמעצבות/היזמים העלו - הם מה שמחזיק את העמוד.", "bestUrl": "" },
+    { "name": "אורן עמוס", "handle": "oren.amos.photography", "source": "browser", "followers": 7406, "postsThisWeek": 1, "highlight": "פוסט אחד ב-4.10: קרדיט בלבד (\"Designed by\" לשתי מעצבות), בלי טקסט. 80 לייקים, 0 תגובות. הפוסט הקודם שלו - לפני חודשיים.", "bestUrl": "https://www.instagram.com/p/DeEA5QODNOy/" },
+    { "name": "מאור מויאל", "handle": "moyalmaor", "source": "browser", "followers": 7184, "postsThisWeek": 1, "highlight": "רילס אישי והומוריסטי ב-6.10 (על הגיל שלו, עם מוזיקה) - 600 לייקים ו-60 תגובות. מראה כמה הקהל אוהב את האדם מאחורי המצלמה; אצל אלעד התוכן הזה שייך לסטורי.", "bestUrl": "https://www.instagram.com/moyalmaor/reel/DeHeW4FIEqv/" }
+  ],
+  "extra": { "title": "ימי פרסום - מה רואים (30 יום, המלצה בלבד)", "text": "אצל הרפרנסים (15 פוסטים ורילס בחודש האחרון) רוב הפרסומים בימים ב'-ה'. רק 3 עלו בשישי-שבת, ולא היו חלשים: הרילס הכי טוב של אלנה (שישי), הפוסט הכי טוב של מירב (מוצאי שבת). אצל אלעד עצמו 4 פוסטים עלו בשישי-שבת לפני המכונה וקיבלו בממוצע 174 חשיפות - בדיוק כמו הממוצע (177). כלומר: אין סיבה מהנתונים להימנע משישי-שבת, וגם לא לרדוף אחריהם. המדגם קטן - נבדוק שוב בעוד חודש." },
+  "suggestions": [
+    { "id": "2026-10-07-1", "text": "ניסיון לשבועיים: בפוסטי פרויקט של מעצבת אחת, להזמין אותה כשותפה (Collab) - להתחיל ב-13.10 של מיכל שילוני. למה: בחודש האחרון פוסטי Collab שהמעצבות העלו עם אלעד קיבלו 2-4 שמירות ו-5-7 שיתופים לפוסט (קאמיי, אירית), בעוד 14 הפוסטים של אלעד עצמו קיבלו יחד שמירה אחת ו-2 שיתופים. מה יגיד שזה עבד: 3+ שמירות ושיתופים לפוסט, וחשיפה מעל 177.", "owner": "כותבת התוכן (שורת Collab ב-post.md) + עדי מוסיפה בתזמון" },
+    { "id": "2026-10-07-2", "text": "לרשום ב-history.md גם את פוסטי ה-Collab שמעצבות מעלות עם אלעד - הם מופיעים בגריד שלו. אירית פרייהייטר העלתה 4 כאלה בשבועיים, שניים מהם חדר רחצה (27.9, 6.10). לכן בנושאי האמבטיות של 15.10 - לא לפתוח בחדר הרחצה של אירית, ולבדוק שהתמונות שלה לא אותן שכבר עלו אצלה.", "owner": "מתכננת התוכן + בוחרת התמונות" },
+    { "id": "2026-10-07-3", "text": "לשמור על רילס אחד בכל שבוע (4 בחודש, ולא 3 כמו בטבלת התמהיל). למה: 4 הרילסים בחודש שלפני קיבלו בממוצע 241 חשיפות מול 177 לפוסט רגיל (+36%), וכל ארבעתם מעל 165. בודקים על הרילס של 11.10 ושלושת הבאים: אם הממוצע נשאר 20%+ מעל הפוסטים - מעגנים 4 רילסים בחודש בספר התוכן.", "owner": "מתכננת התוכן" }
+  ],
+  "facebook": null,
+  "history": [
+    { "weekStart": "2026-09-13", "avgReach": 206, "posts": 5, "followers": null },
+    { "weekStart": "2026-09-20", "avgReach": 140, "posts": 5, "followers": null },
+    { "weekStart": "2026-09-27", "avgReach": 173, "posts": 1, "followers": null },
+    { "weekStart": "2026-10-04", "avgReach": 146, "posts": 1, "followers": 2793 }
+  ]
+}
