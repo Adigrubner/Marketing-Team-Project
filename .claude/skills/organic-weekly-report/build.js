@@ -70,6 +70,21 @@ if (emailOut) {
       <div style="font-size:14px;color:${ink2};"><b style="font-size:17px;color:${ink};">${n(p.reach)}</b> חשיפה &nbsp;${chip(p.vsAvg)}&nbsp;&nbsp;·&nbsp; ${n(p.saves)} שמירות · ${n(p.shares)} שיתופים · ${n(p.comments)} תגובות</div>
       </div></td></tr>`).join('');
 
+  const yn = (v, yes, no) => (v === true ? yes : v === false ? no : null);
+  const designers = (D.designers || []).map(g => {
+    const facts = [
+      yn(g.commented, 'הגיבה', 'לא הגיבה'), yn(g.storyShare, 'שיתפה בסטורי', null), yn(g.collab, 'Collab אושר', null),
+      g.comments != null ? `${n(g.comments)} תגובות${g.otherComments != null ? ` (${n(g.otherComments)} של אחרים)` : ''}` : null,
+    ].filter(Boolean).join(' · ');
+    return `
+    <tr><td style="padding:4px 0;">
+      <div style="background:#FFFFFF;border:1px solid ${line};border-radius:12px;padding:14px 16px;${font}">
+      <div style="font-size:15px;font-weight:700;color:${ink};">${esc(g.rating || '')} ${esc(g.name)}${g.post ? ` <span style="font-weight:400;font-size:13px;color:${muted};">· ${esc(g.post)}</span>` : ''}</div>
+      <div style="font-size:14px;color:${ink2};padding-top:4px;">${esc(facts)} ${chip(g.commentsVsAvg)}</div>
+      ${g.note ? `<div style="font-size:13.5px;color:${ink2};padding-top:4px;">${esc(g.note)}</div>` : ''}
+      </div></td></tr>`;
+  }).join('');
+
   const sugg = (D.suggestions || []).map((s, i) => `
     <tr><td style="padding:4px 0;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FFFFFF;border:1px solid ${line};border-radius:12px;"><tr>
@@ -124,6 +139,7 @@ if (emailOut) {
   </tr></table></td></tr>
   ${trends}
   ${posts ? `${h2('הפוסטים של השבוע')}${posts}` : ''}
+  ${designers ? `${h2('המעצבות שתויגו')}${designers}` : ''}
   ${D.referencesSummary ? `${h2('אצל צלמי הרפרנס')}
   <tr><td style="background:${panel};border-radius:12px;padding:16px 18px;${font}font-size:15px;line-height:1.6;color:${ink};">${esc(D.referencesSummary)}</td></tr>` : ''}
   ${sugg ? `${h2('מה כדאי לנסות')}${sugg}` : ''}

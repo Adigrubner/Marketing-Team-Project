@@ -173,6 +173,9 @@ td.n, th.n { text-align: center; font-variant-numeric: tabular-nums; }
 .ref .stats { display: flex; flex-wrap: wrap; gap: 6px; }
 .stat { font-size: 12.5px; font-weight: 600; color: var(--ink-2); background: var(--panel); padding: 2px 9px; border-radius: 999px; font-variant-numeric: tabular-nums; }
 .stat.src { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+.stat.yes { background: var(--good-bg); color: var(--good); }
+.ref .who small { font-weight: 400; font-size: 13px; color: var(--muted); }
+.ref .who small a { color: inherit; }
 .ref p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
 @media (max-width: 640px) { .refs { grid-template-columns: 1fr; } }
 
@@ -318,6 +321,24 @@ footer .rule span { width: 32px; }
       if (D.star) html += '<div class="card pick star"><span class="icon">↑</span><span class="k">מה עבד הכי טוב</span><span class="t">' + esc(D.star.title) + '</span><p>' + esc(D.star.why) + '</p></div>';
       if (D.weak) html += '<div class="card pick weak"><span class="icon">↓</span><span class="k">מה עבד פחות</span><span class="t">' + esc(D.weak.title) + '</span><p>' + esc(D.weak.why) + '</p></div>';
       html += '</div>';
+    }
+
+    var G = D.designers || [];
+    if (G.length) {
+      var yn = function (v, yes, no) { return v === true ? '<span class="stat yes">' + yes + '</span>' : v === false ? '<span class="stat">' + no + '</span>' : ''; };
+      html += '<section class="section"><div class="section-head"><h2>המעצבות שתויגו</h2><p class="sub">מי הגיבה ומי הביאה שיחה - כדי לדעת את מי לתייג יותר</p></div><div class="refs">';
+      G.forEach(function (g) {
+        var stats = yn(g.commented, 'הגיבה', 'לא הגיבה') + yn(g.storyShare, 'שיתפה בסטורי', 'לא שיתפה בסטורי') + yn(g.collab, 'Collab אושר', 'בלי Collab');
+        if (g.comments != null) stats += '<span class="stat">' + n(g.comments) + ' תגובות' + (g.otherComments != null ? ' · ' + n(g.otherComments) + ' של אחרים' : '') + '</span>' + chipPct(g.commentsVsAvg);
+        if (g.savesShares != null) stats += '<span class="stat">' + n(g.savesShares) + ' שמירות ושיתופים</span>';
+        var unknown = [g.commented == null ? 'תגובה' : '', g.storyShare == null ? 'סטורי' : ''].filter(Boolean);
+        html += '<div class="card ref"><div class="ref-head"><span class="avatar">' + esc(g.rating || (g.name || '?').trim().charAt(0)) + '</span>' +
+          '<span class="who">' + esc(g.name) + (g.post ? ' <small class="muted">· ' + (g.url ? '<a href="' + esc(g.url) + '" target="_blank" rel="noopener">' + esc(g.post) + '</a>' : esc(g.post)) + '</small>' : '') + '</span>' +
+          (g.handle ? '<a class="handle" href="https://www.instagram.com/' + esc(g.handle) + '/" target="_blank" rel="noopener">@' + esc(g.handle) + '</a>' : '') + '</div>' +
+          '<div class="stats">' + stats + (unknown.length ? '<span class="stat src">עוד לא ידוע: ' + unknown.join(', ') + '</span>' : '') + '</div>' +
+          (g.note ? '<p>' + esc(g.note) + '</p>' : '') + '</div>';
+      });
+      html += '</div></section>';
     }
 
     var R = D.references || [];
