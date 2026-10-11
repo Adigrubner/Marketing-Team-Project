@@ -21,7 +21,7 @@ const FOLDER_ID = '1ne_cEXZckyT1q2ks9K2rDgxQ0STZo85N'; // התיקייה "_דו�
 const FILE_NAME = 'weekly-email.html';
 const ELAD = 'grubnerelad@gmail.com';
 const TIMEZONE = 'Asia/Jerusalem';
-const SENDER_NAME = 'הדוח השבועי - אינסטגרם';
+const SENDER_NAME = 'הדוח השבועי - אינסטגרם ופייסבוק';
 const FIRST_HOUR = 7;  // מתי מתחילים לבדוק ביום ראשון
 const LAST_HOUR = 21;  // אחרי השעה הזו - אם אין דוח, התראה לעדי
 
@@ -97,7 +97,7 @@ function readReport_() {
   if (!files.hasNext()) return null;
   const html = files.next().getBlob().getDataAsString('UTF-8');
   const date = (html.match(/<meta name="report-date" content="([^"]+)"/) || [])[1] || null;
-  const subject = ((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || 'הדוח השבועי - אינסטגרם')
+  const subject = ((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || 'הדוח השבועי - אינסטגרם ופייסבוק אורגני')
     .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
   return { html: html, date: date, subject: subject };
 }

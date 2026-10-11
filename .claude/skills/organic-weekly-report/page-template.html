@@ -245,7 +245,7 @@ footer .rule span { width: 32px; }
     }
 
     html += '<header class="hero">' +
-      '<div class="hero-top"><span class="brand">ELAD GRUBNER · INSTAGRAM</span>' +
+      '<div class="hero-top"><span class="brand">ELAD GRUBNER · INSTAGRAM · FACEBOOK</span>' +
       '<span class="dates">' + esc(d(D.weekStart)) + ' – ' + esc(d(D.weekEnd)) + '.' + esc((D.weekEnd || '').slice(0, 4)) + '</span></div>' +
       '<h1>הדוח השבועי</h1>' + rule +
       '<p class="headline">' + esc(D.headline) + '</p>' +
@@ -341,6 +341,23 @@ footer .rule span { width: 32px; }
       html += '</div></section>';
     }
 
+    var FB = D.facebook || null;
+    if (FB && (FB.posts || []).length) {
+      html += '<section class="section"><div class="section-head"><h2>פייסבוק</h2><p class="sub">' + (FB.summary ? esc(FB.summary) + ' · ' : '') + 'מול הממוצע של הדף' + (FB.avgReach != null ? ' (' + n(FB.avgReach) + ' חשיפה לפוסט)' : '') + '</p></div>';
+      html += '<div class="card table-card"><table><thead><tr>' +
+        '<th>פוסט</th><th>חשיפה</th><th class="n">ריאקשנים</th><th class="n">תגובות</th><th class="n">שיתופים</th><th class="n">קליקים</th><th class="n">באינסטגרם</th>' +
+        '</tr></thead><tbody>';
+      FB.posts.forEach(function (p) {
+        var title = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' : esc(p.title);
+        html += '<tr><td><div class="post-title">' + title + '</div>' +
+          '<div class="post-meta"><span>' + esc(d(p.date)) + (p.time ? ' · ' + esc(p.time) : '') + (p.format ? ' · ' + esc(p.format) : '') + '</span>' + (p.young ? '<span class="chip young">עוד צובר נתונים</span>' : '') + '</div>' +
+          (p.note ? '<div class="post-note">' + esc(p.note) + '</div>' : '') + '</td>' +
+          '<td class="reach-cell"><div class="reach"><div class="reach-top"><b>' + n(p.reach) + '</b>' + chipPct(p.vsAvg) + '</div></div></td>' +
+          '<td class="n" data-label="ריאקשנים">' + n(p.reactions) + '</td><td class="n" data-label="תגובות">' + n(p.comments) + '</td><td class="n" data-label="שיתופים">' + n(p.shares) + '</td><td class="n" data-label="קליקים">' + n(p.clicks) + '</td><td class="n" data-label="באינסטגרם">' + n(p.igReach) + '</td></tr>';
+      });
+      html += '</tbody></table></div></section>';
+    }
+
     var R = D.references || [];
     html += '<section class="section"><div class="section-head"><h2>מה קורה אצל צלמי הרפרנס</h2>' + (D.referencesSummary ? '<p class="sub">' + esc(D.referencesSummary) + '</p>' : '') + '</div>';
     if (R.length) {
@@ -375,7 +392,7 @@ footer .rule span { width: 32px; }
     }
     html += '</section>';
 
-    html += '<footer>' + rule + '<span>הנתונים ממטריקול · אינסטגרם, אורגני בלבד · עודכן ' + esc(D.generatedAt || '') + '</span></footer>';
+    html += '<footer>' + rule + '<span>הנתונים ממטריקול · אינסטגרם ופייסבוק, אורגני בלבד · עודכן ' + esc(D.generatedAt || '') + '</span></footer>';
     app.innerHTML = html;
 
     app.querySelectorAll('button[data-i]').forEach(function (bt) {
