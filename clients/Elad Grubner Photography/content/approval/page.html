@@ -1,0 +1,375 @@
+<title>אישור פוסטים לשבוע</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a photographer's proof sheet - one column of posts, each a strip of frames with its caption and a mark-up bar. */
+:root {
+  --paper: #f3f4f2;
+  --sheet: #ffffff;
+  --ink: #1d2226;
+  --muted: #5d666c;
+  --rule: #d9ddda;
+  --accent: #23466b;
+  --accent-soft: #e3eaf2;
+  --ok: #2c6e49;
+  --ok-soft: #e1efe6;
+  --fix: #9a5b13;
+  --fix-soft: #f6ebdc;
+  --sched: #4b4f8a;
+  --sched-soft: #e7e7f4;
+  --frame: #e8eae7;
+  --f-display: "Frank Ruhl Libre", "Times New Roman", serif;
+  --f-body: "Assistant", "Segoe UI", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+    --accent: #8db4dc; --accent-soft: #22303e; --ok: #7cc79a; --ok-soft: #1d3127;
+    --fix: #e0a865; --fix-soft: #3a2c1b; --sched: #a9acec; --sched-soft: #282a44; --frame: #262b2e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+  --accent: #8db4dc; --accent-soft: #22303e; --ok: #7cc79a; --ok-soft: #1d3127;
+  --fix: #e0a865; --fix-soft: #3a2c1b; --sched: #a9acec; --sched-soft: #282a44; --frame: #262b2e;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 28px 56px;
+}
+.wrap { max-width: 860px; margin-inline: auto; display: grid; gap: 28px; }
+
+header { display: grid; gap: 6px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 6vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 60ch; }
+
+.tally { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 999px;
+  background: var(--frame); color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.chip.pending { background: var(--accent-soft); color: var(--accent); }
+.chip.approved { background: var(--ok-soft); color: var(--ok); }
+.chip.changes { background: var(--fix-soft); color: var(--fix); }
+.chip.scheduled { background: var(--sched-soft); color: var(--sched); }
+
+.notice { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; color: var(--muted); }
+.notice strong { color: var(--ink); }
+
+.list { display: grid; gap: 22px; }
+.post { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; display: grid; }
+.post.is-approved { border-color: color-mix(in srgb, var(--ok) 45%, var(--rule)); }
+.post.is-changes { border-color: color-mix(in srgb, var(--fix) 45%, var(--rule)); }
+
+.post-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding: 18px 20px 12px; }
+.when { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.day { font-family: var(--f-display); font-weight: 700; font-size: 22px; }
+.time { font-family: var(--f-mono); font-size: 14px; color: var(--muted); }
+.post-title { padding-inline: 20px; margin: 0; font-size: 18px; font-weight: 700; text-wrap: balance; }
+.meta { padding: 4px 20px 0; color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+
+.strip { display: flex; gap: 8px; overflow-x: auto; padding: 16px 20px; scroll-snap-type: x proximity; }
+.frame { flex: 0 0 auto; display: grid; gap: 4px; scroll-snap-align: start; margin: 0; }
+.frame img { height: 220px; width: auto; max-width: none; display: block; border-radius: 4px; background: var(--frame); }
+.frame figcaption { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.strip-empty { margin: 16px 20px; padding: 28px; border-radius: 6px; background: var(--frame); color: var(--muted); text-align: center; font-size: 14px; }
+
+.caption-wrap { padding: 0 20px; display: grid; gap: 8px; min-width: 0; }
+.label { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
+.caption {
+  margin: 0; white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--paper); border-radius: 8px; padding: 14px 16px; font-size: 15px; line-height: 1.6;
+  text-align: start;
+}
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; padding: 14px 20px 0; font-size: 14px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.facts dd .ltr { direction: ltr; unicode-bidi: isolate; }
+.check { margin: 14px 20px 0; padding: 10px 14px; border-radius: 8px; background: var(--accent-soft); color: var(--ink); font-size: 14px; }
+.check b { color: var(--accent); }
+
+.bar { margin-top: 18px; padding: 14px 20px 18px; border-top: 1px solid var(--rule); display: grid; gap: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+button {
+  font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
+  border-radius: 8px; padding: 10px 18px; border: 1px solid transparent;
+}
+button:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: .55; cursor: progress; }
+.btn-ok { background: var(--ok); color: var(--sheet); }
+.btn-fix { background: transparent; color: var(--fix); border-color: var(--fix); }
+.btn-quiet { background: transparent; color: var(--muted); border-color: var(--rule); font-weight: 600; font-size: 14px; padding: 6px 12px; }
+.btn-send { background: var(--fix); color: var(--sheet); }
+textarea {
+  width: 100%; min-height: 96px; resize: vertical; font: inherit; font-size: 15px;
+  padding: 10px 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+}
+.status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.note-shown { margin: 0; font-size: 14px; color: var(--ink); background: var(--fix-soft); border-radius: 8px; padding: 10px 14px; white-space: pre-wrap; }
+.err { color: var(--fix); font-size: 14px; margin: 0; }
+.revised { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+footer { color: var(--muted); font-size: 13px; }
+@media (max-width: 520px) {
+  .frame img { height: 170px; }
+  .facts { grid-template-columns: 1fr; gap: 2px; }
+  .facts dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .post { transition: border-color .2s ease; }
+}
+</style>
+
+<div class="wrap" dir="rtl">
+  <header>
+    <div class="eyebrow" id="client">דף האישור השבועי</div>
+    <h1 id="week">הפוסטים של השבוע</h1>
+    <p class="lede">לכל פוסט: לעבור על התמונות והטקסט, ולסמן <b>מאשר</b> או <b>צריך תיקון</b>. פוסט שאושר יתוזמן במטריקול ויעלה לבד בשעה שכתובה.</p>
+  </header>
+
+  <div class="tally" id="tally" aria-live="polite"></div>
+
+  <div class="notice" id="notice">טוען את הפוסטים...</div>
+
+  <div class="list" id="list"></div>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var db = null;
+  var meta = null;
+  var posts = [];
+  var approvals = {};
+  var loaded = { posts: false, approvals: false };
+  var ui = {};       // per post: { noteOpen, draft, busy, error }
+  var cards = {};    // per post: { sig, el }
+
+  var NET = { instagram: "אינסטגרם", facebook: "פייסבוק", gmb: "גוגל ביזנס", story: "סטורי" };
+
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "class") n.className = attrs[k];
+      else if (k === "text") n.textContent = attrs[k];
+      else if (k.slice(0, 2) === "on") n.addEventListener(k.slice(2), attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return n;
+  }
+  function uiOf(id) { return ui[id] || (ui[id] = { noteOpen: false, draft: "", busy: false, error: "" }); }
+  function todayKey() {
+    var d = new Date(); d.setDate(d.getDate() - 1);
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function stateOf(p) {
+    if (p.state === "scheduled") return "scheduled";
+    var a = approvals[p.id];
+    if (a && (a.version || 1) === (p.version || 1)) return a.decision === "approved" ? "approved" : "changes";
+    return "pending";
+  }
+  function isRevised(p) {
+    var a = approvals[p.id];
+    return !!a && (a.version || 1) !== (p.version || 1) && p.state !== "scheduled";
+  }
+  var LABEL = { pending: "מחכה לאישור", approved: "✓ אושר", changes: "✎ צריך תיקון", scheduled: "מתוזמן במטריקול" };
+
+  function visiblePosts() {
+    var from = todayKey();
+    return posts.filter(function (p) { return !p.date || p.date >= from; })
+      .sort(function (a, b) { return ((a.date || "") + (a.time || "")).localeCompare((b.date || "") + (b.time || "")); });
+  }
+
+  async function decide(p, decision) {
+    var u = uiOf(p.id);
+    if (decision === "changes" && !u.draft.trim()) { u.error = "כתבו בכמה מילים מה לתקן."; renderAll(); return; }
+    u.busy = true; u.error = ""; renderAll();
+    try {
+      await db.doc("approvals/" + p.id).set({
+        decision: decision,
+        note: decision === "changes" ? u.draft.trim() : "",
+        version: p.version || 1,
+        at: new Date().toISOString()
+      });
+      u.noteOpen = false; u.draft = "";
+    } catch (e) {
+      u.error = "השמירה לא עברה. נסו שוב בעוד רגע.";
+    }
+    u.busy = false; renderAll();
+  }
+  async function undo(p) {
+    var u = uiOf(p.id);
+    u.busy = true; u.error = ""; renderAll();
+    try { await db.doc("approvals/" + p.id).delete(); }
+    catch (e) { u.error = "לא הצלחתי לבטל. נסו שוב בעוד רגע."; }
+    u.busy = false; renderAll();
+  }
+
+  function buildCard(p) {
+    var st = stateOf(p);
+    var u = uiOf(p.id);
+    var a = approvals[p.id];
+
+    var images = Array.isArray(p.images) ? p.images : [];
+    var strip = images.length
+      ? el("div", { class: "strip", dir: "ltr", "aria-label": "התמונות לפי הסדר" }, images.map(function (src, i) {
+          return el("figure", { class: "frame" }, [
+            el("img", { src: src, alt: "תמונה " + (i + 1), loading: "lazy" }),
+            el("figcaption", { text: String(i + 1).padStart(2, "0") })
+          ]);
+        }))
+      : el("div", { class: "strip-empty", text: "התמונות יופיעו כאן" });
+
+    var facts = el("dl", { class: "facts" });
+    function fact(k, v, ltr) {
+      if (!v || (Array.isArray(v) && !v.length)) return;
+      var val = Array.isArray(v) ? v.join(" · ") : String(v);
+      facts.appendChild(el("dt", { text: k }));
+      facts.appendChild(el("dd", null, [ltr ? el("span", { class: "ltr", text: val }) : val]));
+    }
+    fact("רשתות", (p.networks || []).map(function (n) { return NET[n] || n; }));
+    fact("Collab", p.collab, true);
+    fact("מוזיקה", p.music, true);
+    fact("גוגל ביזנס", p.gmbNote);
+
+    var bar = el("div", { class: "bar" });
+    if (st === "scheduled") {
+      bar.appendChild(el("div", { class: "status-line" }, [
+        el("span", { class: "chip scheduled", text: LABEL.scheduled }),
+        el("span", { class: "time", text: "יעלה לבד ב-" + (p.time || "") })
+      ]));
+    } else if (st === "approved" || st === "changes") {
+      bar.appendChild(el("div", { class: "status-line" }, [
+        el("span", { class: "chip " + st, text: LABEL[st] }),
+        el("button", { class: "btn-quiet", type: "button", onclick: function () { undo(p); } , text: "לשנות החלטה" })
+      ]));
+      if (st === "changes" && a && a.note) bar.appendChild(el("p", { class: "note-shown", dir: "auto", text: a.note }));
+      if (st === "approved") bar.appendChild(el("p", { class: "lede", text: "הרכזת תתזמן אותו במטריקול." }));
+    } else {
+      if (isRevised(p)) bar.appendChild(el("span", { class: "revised", text: "גרסה מתוקנת אחרי ההערה שלך" }));
+      var actions = el("div", { class: "actions" }, [
+        el("button", { class: "btn-ok", type: "button", onclick: function () { decide(p, "approved"); }, text: "מאשר ✓" }),
+        el("button", { class: "btn-fix", type: "button", "aria-expanded": String(u.noteOpen),
+          onclick: function () { u.noteOpen = !u.noteOpen; u.error = ""; renderAll(); var t = document.getElementById("note-" + p.id); if (t) t.focus(); },
+          text: "צריך תיקון" })
+      ]);
+      bar.appendChild(actions);
+      if (u.noteOpen) {
+        var ta = el("textarea", { id: "note-" + p.id, dir: "auto", placeholder: "מה לתקן? למשל: להחליף את התמונה השלישית, או שהשורה הראשונה לא נשמעת כמוני", "aria-label": "מה לתקן" });
+        ta.value = u.draft;
+        ta.addEventListener("input", function () { u.draft = ta.value; });
+        bar.appendChild(ta);
+        bar.appendChild(el("div", { class: "actions" }, [
+          el("button", { class: "btn-send", type: "button", onclick: function () { decide(p, "changes"); }, text: "לשלוח הערה" })
+        ]));
+      }
+    }
+    if (u.error) bar.appendChild(el("p", { class: "err", role: "alert", text: u.error }));
+    if (u.busy) bar.querySelectorAll("button").forEach(function (b) { b.disabled = true; });
+
+    var card = el("article", { class: "post is-" + st, id: "post-" + p.id }, [
+      el("div", { class: "post-head" }, [
+        el("div", { class: "when" }, [
+          el("span", { class: "day", text: p.dayLabel || p.date || "" }),
+          el("span", { class: "time", text: p.time || "" })
+        ]),
+        el("span", { class: "chip " + st, text: LABEL[st] })
+      ]),
+      p.title ? el("h2", { class: "post-title", dir: "auto", text: p.title }) : null,
+      el("div", { class: "meta" }, [p.kind ? el("span", { text: p.kind }) : null, p.format ? el("span", { text: p.format }) : null]),
+      strip,
+      p.text ? el("div", { class: "caption-wrap" }, [
+        el("span", { class: "label", text: "הטקסט" }),
+        el("p", { class: "caption", dir: "auto", text: p.text })
+      ]) : null,
+      facts.childNodes.length ? facts : null,
+      p.notes ? el("p", { class: "check" }, [el("b", { text: "כדאי לבדוק: " }), p.notes]) : null,
+      bar
+    ]);
+    return card;
+  }
+
+  function renderAll() {
+    if (meta) {
+      document.getElementById("client").textContent = meta.client || "דף האישור השבועי";
+      if (meta.weekLabel) document.getElementById("week").textContent = "הפוסטים של " + meta.weekLabel;
+      document.getElementById("footer").textContent = meta.updatedAt ? "עודכן ע\"י רכזת הפרסום: " + meta.updatedAt : "";
+    }
+    if (!loaded.posts) return;
+    var list = document.getElementById("list");
+    var vis = visiblePosts();
+    var notice = document.getElementById("notice");
+    if (!vis.length) {
+      notice.hidden = false;
+      notice.innerHTML = "<strong>אין כרגע פוסטים לאישור.</strong> כשרכזת הפרסום תכין את השבוע, הפוסטים יופיעו כאן עם התמונות, הטקסט וכפתורי האישור.";
+    } else notice.hidden = true;
+
+    var counts = { pending: 0, approved: 0, changes: 0, scheduled: 0 };
+    var seen = {};
+    vis.forEach(function (p, i) {
+      var st = stateOf(p); counts[st]++;
+      seen[p.id] = true;
+      var u = uiOf(p.id);
+      var sig = JSON.stringify([p, approvals[p.id] || null, u.noteOpen, u.busy, u.error]);
+      var c = cards[p.id];
+      if (!c || c.sig !== sig) {
+        var fresh = buildCard(p);
+        if (c) list.replaceChild(fresh, c.el);
+        cards[p.id] = c = { sig: sig, el: fresh };
+      }
+      if (list.children[i] !== c.el) list.insertBefore(c.el, list.children[i] || null);
+    });
+    Object.keys(cards).forEach(function (id) {
+      if (!seen[id]) { cards[id].el.remove(); delete cards[id]; }
+    });
+
+    var tally = document.getElementById("tally");
+    tally.textContent = "";
+    if (vis.length) ["pending", "changes", "approved", "scheduled"].forEach(function (k) {
+      if (counts[k]) tally.appendChild(el("span", { class: "chip " + k, text: LABEL[k].replace(/^[✓✎] /, "") + " · " + counts[k] }));
+    });
+  }
+
+  function fail() {
+    var n = document.getElementById("notice");
+    n.hidden = false;
+    n.innerHTML = "<strong>הפוסטים לא נטענו.</strong> רעננו את הדף. אם זה חוזר, ספרו לרכזת הפרסום.";
+  }
+
+  function start() {
+    if (!window.claude || !window.claude.use) {
+      document.getElementById("notice").innerHTML = "<strong>הדף הזה עובד רק מתוך claude.ai.</strong> פתחו אותו מהקישור ששלחה רכזת הפרסום.";
+      return;
+    }
+    window.claude.use("db").then(function (d) {
+      db = d;
+      if (!db) {
+        document.getElementById("notice").innerHTML = "<strong>אי אפשר לטעון את הפוסטים כאן.</strong> פתחו את הדף מהקישור ב-claude.ai, מהחשבון של העסק.";
+        return;
+      }
+      db.doc("meta/info").onSnapshot(function (s) { meta = s.exists ? s.data() : null; renderAll(); }, fail);
+      db.collection("posts").onSnapshot(function (s) {
+        posts = s.docs.map(function (d) { return Object.assign({ id: d.id }, d.data()); });
+        loaded.posts = true; renderAll();
+      }, fail);
+      db.collection("approvals").onSnapshot(function (s) {
+        var next = {};
+        s.docs.forEach(function (d) { next[d.id] = d.data(); });
+        approvals = next; loaded.approvals = true; renderAll();
+      }, fail);
+    });
+  }
+  start();
+})();
+</script>
