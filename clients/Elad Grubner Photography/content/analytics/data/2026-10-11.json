@@ -1,0 +1,69 @@
+{
+  "client": "Elad Grubner Photography",
+  "reportDate": "2026-10-11",
+  "weekStart": "2026-10-04",
+  "weekEnd": "2026-10-10",
+  "generatedAt": "11.10.2026 09:55",
+  "pageUrl": "https://claude.ai/artifact/V3MyYrJgfbnyQasLkCHKq7",
+  "headline": "שבוע ראשון של המכונה: 3 פוסטים. ענת וייסברג בלטה (227 חשיפות, 9 תגובות, 30 לייקים) - והיא גם היחידה שאישרה את ה-Collab והגיבה. מלי ושרה לא אישרו את ה-Collab, ושם כמעט לא היו תגובות.",
+  "account": { "followers": 2793, "followersChange": 0 },
+  "baseline": { "avgReach": 194, "periodLabel": "30 הימים שלפני 4.10 (18 פוסטים ורילס)" },
+  "week": { "posts": 3, "postsNote": "שבוע חזרה מהחגים · פוסט מוצ\"ש בן 13 שעות בלבד", "avgReach": 142, "avgReachVsBaseline": -27, "savesShares": 1 },
+  "posts": [
+    { "date": "2026-10-06", "time": "17:07", "format": "קרוסלה (6 רוחב)", "title": "ענת וייסברג - הסלון באור הרך", "url": "https://www.instagram.com/p/DeJ9hZxlSo0/",
+      "reach": 227, "likes": 30, "comments": 9, "saves": 1, "shares": null, "follows": 0, "vsAvg": 17, "young": false,
+      "note": "Collab עם ענת אושר (שני השמות בראש הפוסט), ענת הגיבה, ואחריה עוד 3 אנשים מהסביבה שלה. 9 תגובות מול ממוצע 1. החשיפה הגבוהה בשבוע, 17% מעל הממוצע." },
+    { "date": "2026-10-08", "time": "20:06", "format": "קרוסלה (6 אורך)", "title": "מלי אלבז - מטבח שבנוי לשבת בו", "url": "https://www.instagram.com/p/DePblfRmyW-/",
+      "reach": 130, "likes": 6, "comments": 0, "saves": 0, "shares": null, "follows": 0, "vsAvg": -33, "young": true,
+      "note": "בן יומיים וחצי. ה-Collab עם מלי לא אושר (רק אלעד בראש הפוסט) ואין אף תגובה. הקהל של מלי לא ראה את הפוסט." },
+    { "date": "2026-10-10", "time": "20:03", "format": "קרוסלה", "title": "שרה יצחק - מהדלת פנימה (מוצ\"ש)", "url": "https://www.instagram.com/p/DeUk0ggnGNR/",
+      "reach": 68, "likes": 4, "comments": 0, "saves": 0, "shares": null, "follows": 0, "vsAvg": -65, "young": true,
+      "note": "פוסט מוצ\"ש ראשון - תמונת מצב אחרי ~13 שעות בלבד, בלי מסקנות. ה-Collab עם שרה עוד לא אושר. ניתוח מלא בדוח של 18.10." },
+    { "date": "2026-10-06", "time": "18:46", "format": "Collab - פוסט של המעצבת", "title": "מריאנה דובניקובה (Collab)", "url": null,
+      "reach": null, "likes": 18, "comments": 10, "saves": 3, "shares": 14, "follows": null, "vsAvg": null, "young": false,
+      "note": "פוסט שהמעצבת העלתה עם אלעד. 3 שמירות ו-14 שיתופים - יותר מכל הפוסטים של אלעד בחודש וחצי יחד. לא רשום ב-history.md. לא נכנס לממוצע." },
+    { "date": "2026-10-06", "time": "20:13", "format": "Collab - פוסט של המעצבת", "title": "אירית פרייהייטר - חדר רחצה (Collab)", "url": "https://www.instagram.com/p/DeKS1QsDuq0/",
+      "reach": null, "likes": 21, "comments": 2, "saves": 0, "shares": 2, "follows": null, "vsAvg": null, "young": false,
+      "note": "פוסט של המעצבת. לא נכנס לממוצע." },
+    { "date": "2026-10-04", "time": "10:49", "format": "Collab - פוסט של המעצבת", "title": "אירית פרייהייטר - מרפסת (Collab)", "url": "https://www.instagram.com/p/DeEIuO3uQg4/",
+      "reach": null, "likes": 16, "comments": 0, "saves": 0, "shares": 0, "follows": null, "vsAvg": null, "young": false,
+      "note": "פוסט של המעצבת. לא נכנס לממוצע." }
+  ],
+  "star": { "title": "ענת וייסברג - הסלון באור הרך", "why": "227 חשיפות (+17%), 9 תגובות ו-30 לייקים. ההבדל הבולט מול שני הפוסטים האחרים: ענת אישרה את ה-Collab והגיבה, כך שהפוסט הגיע גם לקהל שלה. 🔎 סימן ראשון - פוסט אחד." },
+  "weak": { "title": "מלי אלבז - מטבח", "why": "130 חשיפות (-33%), 6 לייקים, 0 תגובות. ה-Collab לא אושר - הפוסט נשאר רק אצל הקהל של אלעד. הפוסט עוד צעיר (יומיים וחצי), אבל הפער מענת גדול." },
+  "referencesSummary": "שבוע שקט גם אצל הרפרנסים. Daniel Tzairi העלה במוצ\"ש ב-20:03 (כמו אלעד) פוסט מלון - 10 לייקים, פחות מהרגיל אצלו. אלנה העלתה רילס 'יום עבודה באילת עם המעצבת' (27 לייקים). אצל אלעד עצמו ה-Collab שמריאנה דובניקובה העלתה קיבל 14 שיתופים - יותר מכל מה שראינו אצל הרפרנסים השבוע.",
+  "references": [
+    { "name": "שי אפשטיין", "handle": "shai.epstein.photography", "source": "metricool", "followers": 13795, "postsThisWeek": 0, "highlight": "לא העלה השבוע.", "bestUrl": "" },
+    { "name": "אלנה מרגולין", "handle": "alenafoto", "source": "metricool", "followers": 6539, "postsThisWeek": 1, "highlight": "רילס 8.10 בבוקר (11:22): 'טיסה בבוקר, חללים יפים, אנשים מוכשרים' - יום צילום באילת עם המעצבת נופר מזיג, מתויגת. 27 לייקים, פחות מהרגיל אצלה (40-67).", "bestUrl": "https://www.instagram.com/reel/DeOfac4oPa9/" },
+    { "name": "מירב פלברג", "handle": "merav.felberg.photographer", "source": "metricool", "followers": 6264, "postsThisWeek": 1, "highlight": "רילס קצר 9.10 בבוקר ('כן, כן') - 0 לייקים לפי מטריקול. לא משהו ללמוד ממנו.", "bestUrl": "https://www.instagram.com/reel/DeQyILro2hx/" },
+    { "name": "אורית ארנון", "handle": "orit.arnon.photographer", "source": "metricool", "followers": 4623, "postsThisWeek": 0, "highlight": "עדיין לא פעילה.", "bestUrl": "" },
+    { "name": "Daniel Tzairi", "handle": "danieltz_interior_photography", "source": "metricool", "followers": 2999, "postsThisWeek": 1, "highlight": "מוצ\"ש 10.10 ב-20:03 - פוסט מצילומי מלון וולדורף אסטוריה ירושלים, שורה אחת + האשטגים. 10 לייקים ו-2 תגובות אחרי ~13 שעות (בדרך כלל 22-27). גם הוא צעיר.", "bestUrl": "https://www.instagram.com/p/DeUk2oRiGXO/" },
+    { "name": "קרין רוונה", "handle": "karinravenna_photography", "source": "browser", "followers": 3625, "postsThisWeek": 0, "highlight": "הגריד נראה כמו בשבוע שעבר - לא נראה פוסט חדש (נבדק רק ראש העמוד).", "bestUrl": "" },
+    { "name": "אורן עמוס", "handle": "oren.amos.photography", "source": "browser", "followers": 7404, "postsThisWeek": null, "highlight": "נבדק רק ראש העמוד - לא נראה שינוי בולט מהשבוע שעבר. תאריכים לא נבדקו.", "bestUrl": "" },
+    { "name": "מאור מויאל", "handle": "moyalmaor", "source": "browser", "followers": null, "postsThisWeek": null, "highlight": "לא נבדק השבוע - העמוד לא נטען.", "bestUrl": "" }
+  ],
+  "designers": [
+    { "name": "ענת וייסברג", "handle": "anat.weissberg.interior.design", "post": "6.10 · סלון", "url": "https://www.instagram.com/p/DeJ9hZxlSo0/",
+      "collab": true, "commented": true, "storyShare": null, "comments": 9, "otherComments": 3, "commentsVsAvg": 750,
+      "savesShares": 1, "rating": "🔥", "note": "🔎 פוסט אחד. אישרה Collab והגיבה; אחריה הגיבו עוד 3 (שניים כנראה בני משפחה). שעת התגובה לא נבדקה. היתר מ-9 - כנראה תשובות של אלעד." },
+    { "name": "מלי אלבז", "handle": "mali_arch_design", "post": "8.10 · מטבח", "url": "https://www.instagram.com/p/DePblfRmyW-/",
+      "collab": false, "commented": false, "storyShare": null, "comments": 0, "otherComments": 0, "commentsVsAvg": -100,
+      "savesShares": 0, "rating": "❔", "note": "Collab לא אושר ואין תגובות (יומיים וחצי). אולי לא ראתה את ההזמנה - כדאי שאלעד יבדוק איתה." },
+    { "name": "שרה יצחק", "handle": "saraleviyitzhak", "post": "10.10 · כניסה (מוצ\"ש)", "url": "https://www.instagram.com/p/DeUk0ggnGNR/",
+      "collab": false, "commented": false, "storyShare": null, "comments": 0, "otherComments": 0, "commentsVsAvg": null,
+      "savesShares": 0, "rating": "❔", "note": "צעיר - 13 שעות. Collab עוד לא אושר. משלימים בדוח של 18.10." }
+  ],
+  "extra": { "title": "פוסט מוצ\"ש הראשון - תמונת מצב", "text": "שרה יצחק עלה ב-20:03 במוצ\"ש. אחרי כ-13 שעות: 68 חשיפות, 4-5 לייקים, 0 תגובות. אין לנו עדיין נתון של 'אותן שעות ראשונות' לפוסטים אחרים, אז אי אפשר להשוות הוגן. מה שכן: גם הוא בלי Collab מאושר, כמו מלי - וזה כנראה משפיע יותר מהיום. את מוצ\"ש נשפוט אחרי 4 שבתות, לפי חשיפה ושמירות אחרי 7 ימים. מעניין: גם Daniel Tzairi העלה באותו ערב ובאותה דקה." },
+  "suggestions": [
+    { "id": "2026-10-11-1", "text": "לוודא שה-Collab מתקבל: לכל פוסט עם Collab, הכותבת מכינה ב-post.md הודעת וואטסאפ קצרה שאלעד שולח למעצבת לפני העלייה ('הפוסט שלך עולה הערב ב-20:00, שלחתי לך הזמנת שותפות - רק לאשר'), ואלעד בודק אחרי שעה שהיא אישרה. למה: הפוסט היחיד השבוע שה-Collab בו אושר (ענת) קיבל 227 חשיפות ו-9 תגובות; שני הפוסטים בלי Collab מאושר (מלי, שרה) - 130 ו-68 חשיפות, 0 תגובות. בודקים על 4 הפוסטים הבאים: הצלחה = Collab מאושר ב-3 מתוך 4, וממוצע 3+ תגובות לפוסט. כדאי גם שאלעד יזכיר עכשיו למלי ולשרה - אפשר לאשר הזמנה גם אחרי העלייה.", "owner": "כותבת התוכן (הודעה ב-post.md) + אלעד שולח" },
+    { "id": "2026-10-11-2", "text": "לרשום ב-history.md גם פוסטי Collab שהמעצבות מעלות עם אלעד (הם בגריד שלו). מריאנה דובניקובה העלתה ב-6.10 פוסט עם אלעד שקיבל 3 שמירות ו-14 שיתופים - יותר מכל הפוסטים של אלעד בחודש וחצי יחד - והוא לא מופיע אצלנו בשום מקום. בלי זה המתכננת לא יודעת אילו חללים כבר נראו בגריד, ואנחנו לא יודעים איזו מעצבת מביאה שיתופים. (זו ההצעה מהרצת הניסיון 2026-10-07-2 - עכשיו עם נתונים אמיתיים.)", "owner": "מתכננת התוכן" }
+  ],
+  "facebook": "פייסבוק: 3 פוסטים, 332 צפיות בתוכן הדף בשבוע, 1,311 עוקבים (ללא שינוי).",
+  "history": [
+    { "weekStart": "2026-09-06", "posts": 3, "avgReach": 190, "avgSavesShares": 0.33, "avgComments": 2.0, "followers": null },
+    { "weekStart": "2026-09-13", "posts": 7, "avgReach": 229, "avgSavesShares": 0.29, "avgComments": 0.57, "followers": null },
+    { "weekStart": "2026-09-20", "posts": 7, "avgReach": 159, "avgSavesShares": 0.14, "avgComments": 1.0, "followers": null },
+    { "weekStart": "2026-09-27", "posts": 1, "avgReach": 181, "avgSavesShares": 0, "avgComments": 2.0, "followers": null },
+    { "weekStart": "2026-10-04", "posts": 3, "avgReach": 142, "avgSavesShares": 0.33, "avgComments": 3.0, "followers": 2793 }
+  ]
+}
