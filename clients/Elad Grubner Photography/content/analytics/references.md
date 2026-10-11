@@ -12,10 +12,10 @@
 | אלנה מרגולין | [`alenafoto`](https://www.instagram.com/alenafoto/) | מטריקול | 6,540 | הכי פעילה (3 פוסטים + 4 רילס בחודש). מעלה בבוקר 09:00-10:00. משפט אנגלי חם + קרדיט. שיא: בניין עם קרדיט לאדריכלים וליזם (303) |
 | מירב פלברג | [`merav.felberg.photographer`](https://www.instagram.com/merav.felberg.photographer/) | מטריקול | 6,250 | "Project in <עיר>" + קרדיטים לכל ספק + הרבה האשטגים. 10-19 לייקים |
 | אורית ארנון | [`orit.arnon.photographer`](https://www.instagram.com/orit.arnon.photographer/) | מטריקול | 4,620 | לא פעילה (0 פוסטים בספטמבר-אוקטובר) |
-| Daniel Tzairi (לאמת איות בעברית) | [`danieltz_interior_photography`](https://www.instagram.com/danieltz_interior_photography/) | מטריקול | 2,994 | הכי קרוב לאלעד: משפט אנגלי קצר על אור + קרדיט למעצבת. מעלה בערב |
+| Daniel Tzairi (לאמת איות בעברית) | [`danieltz_interior_photography`](https://www.instagram.com/danieltz_interior_photography/) | מטריקול | 2,994 | הכי קרוב לאלעד: משפט אנגלי קצר על אור + קרדיט למעצבת. מעלה בערב. 10.10: מוצ"ש 20:03, פוסט מלון (11.10) |
 | קרין רוונה | [`karinravenna_photography`](https://www.instagram.com/karinravenna_photography/) | דפדפן | 3,622 | לא העלתה חודשים. הגריד נפתח ב-Collab שמעצבות ויזמים העלו |
 | אורן עמוס | [`oren.amos.photography`](https://www.instagram.com/oren.amos.photography/) | דפדפן | 7,406 | שם אומת 7.10. קרדיט בלבד, בלי טקסט. מעלה לעיתים רחוקות. נוסף 7.10 |
-| מאור מויאל | [`moyalmaor`](https://www.instagram.com/moyalmaor/) | דפדפן | 7,184 | שם אומת 7.10. רילס אישיים-הומוריסטיים מקבלים הכי הרבה (600 לייקים). נוסף 7.10 |
+| מאור מויאל | [`moyalmaor`](https://www.instagram.com/moyalmaor/) | דפדפן | 7,184 | שם אומת 7.10. רילס אישיים-הומוריסטיים מקבלים הכי הרבה (600 לייקים). נוסף 7.10. 11.10: העמוד לא נטען - לא נבדק |
 
 **"איך נבדק":**
 - `מטריקול` - נמצא במסך המתחרים (מותג `6885774`). מספרים מדויקים דרך `IGCO*` / `IGCP*` / `IGCR*`. **התוכנית הנוכחית מאפשרת 5 מתחרים - המכסה מלאה** (נבדק 7.10).

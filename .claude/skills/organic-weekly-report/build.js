@@ -44,7 +44,7 @@ if (emailOut) {
   const dm = iso => { const p = iso.split('-'); return `${Number(p[2])}.${Number(p[1])}`; };
   const pct = v => (v == null ? '' : `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(Math.round(v))}%`);
   const a = D.account || {}, w = D.week || {};
-  const subject = `הדוח השבועי - אינסטגרם · ${dm(D.weekStart)}-${dm(D.weekEnd)}`;
+  const subject = `הדוח השבועי - אינסטגרם ופייסבוק אורגני · ${dm(D.weekStart)}-${dm(D.weekEnd)}`;
   const ink = '#2A2A2A', ink2 = '#5E5850', muted = '#8C857B', bronze = '#7B5A2E', panel = '#F2EEE8', line = '#E6E0D7', bg = '#FBFAF8';
   const good = '#3F6B4A', goodBg = '#E3EDE4', bad = '#9A4A2F', badBg = '#F3E2DA';
   const font = "font-family:Assistant,'Segoe UI',Arial,Helvetica,sans-serif;";
@@ -69,6 +69,30 @@ if (emailOut) {
       <div style="font-size:13px;color:${muted};padding-bottom:8px;">${dm(p.date)}${p.time ? ' · ' + esc(p.time) : ''} · ${esc(p.format)}${p.young ? ' · עוד צובר נתונים' : ''}</div>
       <div style="font-size:14px;color:${ink2};"><b style="font-size:17px;color:${ink};">${n(p.reach)}</b> חשיפה &nbsp;${chip(p.vsAvg)}&nbsp;&nbsp;·&nbsp; ${n(p.saves)} שמירות · ${n(p.shares)} שיתופים · ${n(p.comments)} תגובות</div>
       </div></td></tr>`).join('');
+
+  const yn = (v, yes, no) => (v === true ? yes : v === false ? no : null);
+  const designers = (D.designers || []).map(g => {
+    const facts = [
+      yn(g.commented, 'הגיבה', 'לא הגיבה'), yn(g.storyShare, 'שיתפה בסטורי', null), yn(g.collab, 'Collab אושר', null),
+      g.comments != null ? `${n(g.comments)} תגובות${g.otherComments != null ? ` (${n(g.otherComments)} של אחרים)` : ''}` : null,
+    ].filter(Boolean).join(' · ');
+    return `
+    <tr><td style="padding:4px 0;">
+      <div style="background:#FFFFFF;border:1px solid ${line};border-radius:12px;padding:14px 16px;${font}">
+      <div style="font-size:15px;font-weight:700;color:${ink};">${esc(g.rating || '')} ${esc(g.name)}${g.post ? ` <span style="font-weight:400;font-size:13px;color:${muted};">· ${esc(g.post)}</span>` : ''}</div>
+      <div style="font-size:14px;color:${ink2};padding-top:4px;">${esc(facts)} ${chip(g.commentsVsAvg)}</div>
+      ${g.note ? `<div style="font-size:13.5px;color:${ink2};padding-top:4px;">${esc(g.note)}</div>` : ''}
+      </div></td></tr>`;
+  }).join('');
+
+  const FB = D.facebook || {};
+  const fbPosts = (FB.posts || []).map(p => `
+    <tr><td style="padding:4px 0;">
+      <div style="background:#FFFFFF;border:1px solid ${line};border-radius:12px;padding:12px 16px;${font}">
+      <div style="font-size:14.5px;font-weight:700;color:${ink};">${p.url ? `<a href="${esc(p.url)}" style="color:${ink};text-decoration:none;">${esc(p.title)}</a>` : esc(p.title)} <span style="font-weight:400;font-size:13px;color:${muted};">· ${dm(p.date)}${p.young ? ' · עוד צובר נתונים' : ''}</span></div>
+      <div style="font-size:14px;color:${ink2};padding-top:4px;"><b style="color:${ink};">${n(p.reach)}</b> חשיפה ${chip(p.vsAvg)} · ${n(p.reactions)} ריאקשנים · ${n(p.comments)} תגובות · ${n(p.shares)} שיתופים${p.igReach != null ? ` · <span style="color:${muted};">באינסטגרם: ${n(p.igReach)}</span>` : ''}</div>
+      </div></td></tr>`).join('');
+  const facebook = fbPosts ? `${h2('פייסבוק')}${FB.summary ? `<tr><td style="${font}font-size:14px;color:${ink2};padding-bottom:6px;">${esc(FB.summary)}</td></tr>` : ''}${fbPosts}` : '';
 
   const sugg = (D.suggestions || []).map((s, i) => `
     <tr><td style="padding:4px 0;">
@@ -110,7 +134,7 @@ if (emailOut) {
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${bg};"><tr><td align="center" style="padding:24px 12px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" dir="rtl" style="max-width:620px;text-align:right;">
   <tr><td style="background:${panel};border-radius:16px;padding:28px 26px 24px;${font}">
-    <div style="font-size:11px;font-weight:700;letter-spacing:3px;color:${bronze};direction:ltr;text-align:right;">ELAD GRUBNER · INSTAGRAM</div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:3px;color:${bronze};direction:ltr;text-align:right;">ELAD GRUBNER · INSTAGRAM · FACEBOOK</div>
     <div style="font-size:40px;font-weight:200;color:${ink};line-height:1.15;padding-top:8px;">הדוח השבועי</div>
     <div style="font-size:14px;font-weight:700;color:${ink2};padding:6px 0 14px;">${dm(D.weekStart)} – ${dm(D.weekEnd)}.${D.weekEnd.slice(0, 4)}</div>
     <div style="width:56px;border-top:1px solid ${bronze};font-size:0;line-height:0;">&nbsp;</div>
@@ -124,11 +148,13 @@ if (emailOut) {
   </tr></table></td></tr>
   ${trends}
   ${posts ? `${h2('הפוסטים של השבוע')}${posts}` : ''}
+  ${designers ? `${h2('המעצבות שתויגו')}${designers}` : ''}
+  ${facebook}
   ${D.referencesSummary ? `${h2('אצל צלמי הרפרנס')}
   <tr><td style="background:${panel};border-radius:12px;padding:16px 18px;${font}font-size:15px;line-height:1.6;color:${ink};">${esc(D.referencesSummary)}</td></tr>` : ''}
   ${sugg ? `${h2('מה כדאי לנסות')}${sugg}` : ''}
   ${D.pageUrl ? `<tr><td align="center" style="padding:30px 0 6px;"><a href="${esc(D.pageUrl)}" style="${font}display:inline-block;background:${ink};color:${bg};text-decoration:none;font-size:15px;font-weight:700;padding:13px 28px;border-radius:999px;">לדוח המלא עם הגרפים</a></td></tr>` : ''}
-  <tr><td align="center" style="${font}font-size:12px;color:${muted};padding-top:24px;">הדוח נוצר אוטומטית מנתוני מטריקול · אינסטגרם, אורגני בלבד</td></tr>
+  <tr><td align="center" style="${font}font-size:12px;color:${muted};padding-top:24px;">הדוח נוצר אוטומטית מנתוני מטריקול · אינסטגרם ופייסבוק, אורגני בלבד</td></tr>
 </table></td></tr></table>
 </body></html>`;
   fs.mkdirSync(path.dirname(emailOut), { recursive: true });

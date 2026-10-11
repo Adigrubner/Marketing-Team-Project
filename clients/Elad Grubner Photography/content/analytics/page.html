@@ -83,15 +83,37 @@ h2 { font-size: 24px; font-weight: 300; line-height: 1.3; }
 .chip.down { color: var(--bad); background: var(--bad-bg); }
 .chip.flat, .chip.young { color: var(--ink-2); background: var(--panel); }
 
-/* chart */
-.chart-card { padding: 20px 20px 14px; }
-.chart { position: relative; }
-.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
-.chart .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px; padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
-.legend-note { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; padding-top: 8px; }
-.legend-note b { font-weight: 600; color: var(--ink-2); }
-.key-bar { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--bronze); vertical-align: -1px; margin-inline-end: 6px; }
-.key-dash { display: inline-block; width: 16px; border-top: 2px dashed var(--ink-2); vertical-align: 3px; margin-inline-end: 6px; }
+/* week selector */
+.weeks { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; }
+.weeks button { font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.weeks button:hover { border-color: var(--bronze); color: var(--ink); }
+.weeks button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.weeks button:focus-visible { outline: 2px solid var(--bronze); outline-offset: 2px; }
+.weeks-label { font-size: 12.5px; font-weight: 700; color: var(--muted); }
+.archive-note { background: var(--bronze-soft); color: var(--ink); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+.archive-note button { font: inherit; font-weight: 700; color: var(--bronze); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+/* since-start strip */
+.since { background: var(--panel); border-radius: 14px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: baseline; }
+.since .k { font-size: 12.5px; font-weight: 700; color: var(--bronze); flex-basis: 100%; }
+.since .item { display: grid; gap: 0; }
+.since .item span { font-size: 12.5px; color: var(--muted); }
+.since .item b { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.since .chip.flat { background: var(--surface); }
+.since .item b small { font-size: 13px; font-weight: 400; color: var(--muted); }
+
+/* trend small multiples */
+.trends { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.trend { padding: 16px 18px 12px; display: grid; gap: 6px; }
+.trend-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.trend-head .label { font-size: 13px; font-weight: 700; color: var(--muted); }
+.trend-head .value { font-size: 30px; font-weight: 200; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.trend-head .cmp { font-size: 12px; color: var(--muted); text-align: left; display: grid; justify-items: end; gap: 2px; }
+.trend .chart { position: relative; }
+.trend svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12.5px; padding: 5px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -100%); z-index: 2; }
+.trend-note { font-size: 13px; color: var(--muted); }
+@media (max-width: 640px) { .trends { grid-template-columns: 1fr; } }
 
 /* posts table */
 .table-card { overflow-x: auto; }
@@ -151,6 +173,9 @@ td.n, th.n { text-align: center; font-variant-numeric: tabular-nums; }
 .ref .stats { display: flex; flex-wrap: wrap; gap: 6px; }
 .stat { font-size: 12.5px; font-weight: 600; color: var(--ink-2); background: var(--panel); padding: 2px 9px; border-radius: 999px; font-variant-numeric: tabular-nums; }
 .stat.src { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+.stat.yes { background: var(--good-bg); color: var(--good); }
+.ref .who small { font-weight: 400; font-size: 13px; color: var(--muted); }
+.ref .who small a { color: inherit; }
 .ref p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
 @media (max-width: 640px) { .refs { grid-template-columns: 1fr; } }
 
@@ -170,158 +195,247 @@ footer .rule span { width: 32px; }
 
 <div class="wrap" id="app"></div>
 
-<script id="report-data" type="application/json">{"client":"Elad Grubner Photography","reportDate":"2026-10-07","weekStart":"2026-10-04","weekEnd":"2026-10-07","generatedAt":"7.10.2026","trial":true,"partialWeek":true,"pageUrl":"https://claude.ai/artifact/V3MyYrJgfbnyQasLkCHKq7","headline":"🧪 הרצת ניסיון על שבוע חלקי (ראשון-רביעי). עלה פוסט אחד של המכונה - הקרוסלה של ענת וייסברג - והוא עדיין צובר: החשיפה מתחת לממוצע, אבל 7 תגובות, יותר מכל פוסט בחודש שלפני.","account":{"followers":2793,"followersChange":null},"baseline":{"avgReach":177,"periodLabel":"30 הימים שלפני 4.10 (14 פוסטים)"},"week":{"posts":1,"postsNote":"שבוע חלקי · הרצת ניסיון","avgReach":146,"avgReachVsBaseline":-18,"savesShares":1},"posts":[{"date":"2026-10-06","time":"17:07","format":"קרוסלה (6 רוחב)","title":"ענת וייסברג - הסלון באור הרך","url":"https://www.instagram.com/p/DeJ9hZxlSo0/","reach":146,"likes":19,"comments":7,"saves":1,"shares":null,"follows":0,"vsAvg":-18,"young":true,"note":"פוסט ראשון של המכונה, יום אחד באוויר - לא שופטים עדיין. מה שכבר בולט: 7 תגובות (ממוצע החודש: 1 לפוסט) ו-19 לייקים (ממוצע: 13). נפתח בענת בתוך הפרויקט - כנראה היא והקהל שלה הגיבו."},{"date":"2026-10-04","time":"10:49","format":"Collab - פוסט של המעצבת","title":"אירית פרייהייטר - מרפסת (Collab)","url":"https://www.instagram.com/p/DeEIuO3uQg4/","reach":null,"likes":13,"comments":0,"saves":0,"shares":0,"follows":null,"vsAvg":null,"young":false,"note":"פוסט של המעצבת שאלעד שותף בו (Collab). מופיע גם בגריד של אלעד. לא נכנס לממוצע."},{"date":"2026-10-06","time":"20:13","format":"Collab - פוסט של המעצבת","title":"אירית פרייהייטר - חדר רחצה (Collab)","url":"https://www.instagram.com/p/DeKS1QsDuq0/","reach":null,"likes":11,"comments":1,"saves":0,"shares":1,"follows":null,"vsAvg":null,"young":true,"note":"Collab רביעי של אירית בשבועיים, והשני שמראה חדר רחצה (גם 27.9). לא נכנס לממוצע."}],"star":{"title":"ענת וייסברג - 7 תגובות","why":"סימן ראשון בלבד (פוסט אחד, יום אחד): קרוסלה שנפתחת במעצבת בתוך הפרויקט וכתובה כקרדיט חם לה הביאה יותר שיחה מכל פוסט בחודש שלפני. בשבוע הבא נראה את המספרים הסופיים."},"weak":null,"referencesSummary":"שבוע שקט אצל הרפרנסים - אחרי החגים כמעט אף אחד לא העלה. אורן עמוס: פוסט קרדיט נקי לשתי מעצבות (80 לייקים). מאור מויאל: רילס אישי-הומוריסטי שקיבל 600 לייקים - תוכן אישי, שאצל אלעד שייך לסטורי. אצל קרין רוונה הפוסטים הבולטים בגריד הם Collab שהמעצבות והיזמים מעלים.","references":[{"name":"שי אפשטיין","handle":"shai.epstein.photography","source":"metricool","followers":13792,"postsThisWeek":0,"highlight":"לא העלה השבוע. בחודש האחרון 2 פוסטים בלבד; הבולט (61 לייקים) - \"הצצה\" לבית לפני כתבה, טקסט דו-לשוני עם קרדיט לאדריכל.","bestUrl":"https://www.instagram.com/p/DdqWOZGDvcx/"},{"name":"אלנה מרגולין","handle":"alenafoto","source":"metricool","followers":6540,"postsThisWeek":0,"highlight":"לא העלתה השבוע. ב-28.9 בניין מגורים קיבל 303 לייקים - פי 5 מהרגיל אצלה (40-67) - עם קרדיט לאדריכלים וליזם. מעלה בעיקר בבוקר (09:00-10:00).","bestUrl":"https://www.instagram.com/p/Dd0fbDbCDJ4/"},{"name":"מירב פלברג","handle":"merav.felberg.photographer","source":"metricool","followers":6250,"postsThisWeek":0,"highlight":"לא העלתה השבוע. הפוסט הכי טוב שלה בחודש (19 לייקים, 6 תגובות) עלה במוצאי שבת 3.10 - סיפור רגשי על פאב לזכר נופל, לא פוסט פרויקט רגיל.","bestUrl":"https://www.instagram.com/p/DeCdYbgins-/"},{"name":"אורית ארנון","handle":"orit.arnon.photographer","source":"metricool","followers":4620,"postsThisWeek":0,"highlight":"לא העלתה בכלל ב-30 הימים האחרונים.","bestUrl":""},{"name":"Daniel Tzairi","handle":"danieltz_interior_photography","source":"metricool","followers":2994,"postsThisWeek":0,"highlight":"לא העלה השבוע. הסגנון שלו הכי קרוב לאלעד: משפט אנגלי קצר על אור (\"That last light of the day\") + קרדיט למעצבת. 22-27 לייקים לפוסט.","bestUrl":"https://www.instagram.com/p/DdUJldyjREw/"},{"name":"קרין רוונה","handle":"karinravenna_photography","source":"browser","followers":3622,"postsThisWeek":0,"highlight":"לא העלתה כבר חודשים. שני הפוסטים הראשונים בגריד שלה הם Collab שהמעצבות/היזמים העלו - הם מה שמחזיק את העמוד.","bestUrl":""},{"name":"אורן עמוס","handle":"oren.amos.photography","source":"browser","followers":7406,"postsThisWeek":1,"highlight":"פוסט אחד ב-4.10: קרדיט בלבד (\"Designed by\" לשתי מעצבות), בלי טקסט. 80 לייקים, 0 תגובות. הפוסט הקודם שלו - לפני חודשיים.","bestUrl":"https://www.instagram.com/p/DeEA5QODNOy/"},{"name":"מאור מויאל","handle":"moyalmaor","source":"browser","followers":7184,"postsThisWeek":1,"highlight":"רילס אישי והומוריסטי ב-6.10 (על הגיל שלו, עם מוזיקה) - 600 לייקים ו-60 תגובות. מראה כמה הקהל אוהב את האדם מאחורי המצלמה; אצל אלעד התוכן הזה שייך לסטורי.","bestUrl":"https://www.instagram.com/moyalmaor/reel/DeHeW4FIEqv/"}],"extra":{"title":"ימי פרסום - מה רואים (30 יום, המלצה בלבד)","text":"אצל הרפרנסים (15 פוסטים ורילס בחודש האחרון) רוב הפרסומים בימים ב'-ה'. רק 3 עלו בשישי-שבת, ולא היו חלשים: הרילס הכי טוב של אלנה (שישי), הפוסט הכי טוב של מירב (מוצאי שבת). אצל אלעד עצמו 4 פוסטים עלו בשישי-שבת לפני המכונה וקיבלו בממוצע 174 חשיפות - בדיוק כמו הממוצע (177). כלומר: אין סיבה מהנתונים להימנע משישי-שבת, וגם לא לרדוף אחריהם. המדגם קטן - נבדוק שוב בעוד חודש."},"suggestions":[{"id":"2026-10-07-1","text":"ניסיון לשבועיים: בפוסטי פרויקט של מעצבת אחת, להזמין אותה כשותפה (Collab) - להתחיל ב-13.10 של מיכל שילוני. למה: בחודש האחרון פוסטי Collab שהמעצבות העלו עם אלעד קיבלו 2-4 שמירות ו-5-7 שיתופים לפוסט (קאמיי, אירית), בעוד 14 הפוסטים של אלעד עצמו קיבלו יחד שמירה אחת ו-2 שיתופים. מה יגיד שזה עבד: 3+ שמירות ושיתופים לפוסט, וחשיפה מעל 177.","owner":"כותבת התוכן (שורת Collab ב-post.md) + עדי מוסיפה בתזמון"},{"id":"2026-10-07-2","text":"לרשום ב-history.md גם את פוסטי ה-Collab שמעצבות מעלות עם אלעד - הם מופיעים בגריד שלו. אירית פרייהייטר העלתה 4 כאלה בשבועיים, שניים מהם חדר רחצה (27.9, 6.10). לכן בנושאי האמבטיות של 15.10 - לא לפתוח בחדר הרחצה של אירית, ולבדוק שהתמונות שלה לא אותן שכבר עלו אצלה.","owner":"מתכננת התוכן + בוחרת התמונות"},{"id":"2026-10-07-3","text":"לשמור על רילס אחד בכל שבוע (4 בחודש, ולא 3 כמו בטבלת התמהיל). למה: 4 הרילסים בחודש שלפני קיבלו בממוצע 241 חשיפות מול 177 לפוסט רגיל (+36%), וכל ארבעתם מעל 165. בודקים על הרילס של 11.10 ושלושת הבאים: אם הממוצע נשאר 20%+ מעל הפוסטים - מעגנים 4 רילסים בחודש בספר התוכן.","owner":"מתכננת התוכן"}],"facebook":null,"history":[{"weekStart":"2026-09-13","avgReach":206,"posts":5,"followers":null},{"weekStart":"2026-09-20","avgReach":140,"posts":5,"followers":null},{"weekStart":"2026-09-27","avgReach":173,"posts":1,"followers":null},{"weekStart":"2026-10-04","avgReach":146,"posts":1,"followers":2793}]}</script>
+<script id="report-data" type="application/json">{"weeks":[{"client":"Elad Grubner Photography","reportDate":"2026-10-11","weekStart":"2026-10-04","weekEnd":"2026-10-10","generatedAt":"11.10.2026 09:55","pageUrl":"https://claude.ai/artifact/V3MyYrJgfbnyQasLkCHKq7","headline":"שבוע ראשון של המכונה: 3 פוסטים. ענת וייסברג בלטה (227 חשיפות, 9 תגובות, 30 לייקים) - והיא גם היחידה שאישרה את ה-Collab והגיבה. מלי ושרה לא אישרו את ה-Collab, ושם כמעט לא היו תגובות.","account":{"followers":2793,"followersChange":0},"baseline":{"avgReach":194,"periodLabel":"30 הימים שלפני 4.10 (18 פוסטים ורילס)"},"week":{"posts":3,"postsNote":"שבוע חזרה מהחגים · פוסט מוצ\"ש בן 13 שעות בלבד","avgReach":142,"avgReachVsBaseline":-27,"savesShares":1},"posts":[{"date":"2026-10-06","time":"17:07","format":"קרוסלה (6 רוחב)","title":"ענת וייסברג - הסלון באור הרך","url":"https://www.instagram.com/p/DeJ9hZxlSo0/","reach":227,"likes":30,"comments":9,"saves":1,"shares":null,"follows":0,"vsAvg":17,"young":false,"note":"Collab עם ענת אושר (שני השמות בראש הפוסט), ענת הגיבה, ואחריה עוד 3 אנשים מהסביבה שלה. 9 תגובות מול ממוצע 1. החשיפה הגבוהה בשבוע, 17% מעל הממוצע."},{"date":"2026-10-08","time":"20:06","format":"קרוסלה (6 אורך)","title":"מלי אלבז - מטבח שבנוי לשבת בו","url":"https://www.instagram.com/p/DePblfRmyW-/","reach":130,"likes":6,"comments":0,"saves":0,"shares":null,"follows":0,"vsAvg":-33,"young":true,"note":"בן יומיים וחצי. ה-Collab עם מלי לא אושר (רק אלעד בראש הפוסט) ואין אף תגובה. הקהל של מלי לא ראה את הפוסט."},{"date":"2026-10-10","time":"20:03","format":"קרוסלה","title":"שרה יצחק - מהדלת פנימה (מוצ\"ש)","url":"https://www.instagram.com/p/DeUk0ggnGNR/","reach":68,"likes":4,"comments":0,"saves":0,"shares":null,"follows":0,"vsAvg":-65,"young":true,"note":"פוסט מוצ\"ש ראשון - תמונת מצב אחרי ~13 שעות בלבד, בלי מסקנות. ה-Collab עם שרה עוד לא אושר. ניתוח מלא בדוח של 18.10."},{"date":"2026-10-06","time":"18:46","format":"Collab - פוסט של המעצבת","title":"מריאנה דובניקובה (Collab)","url":null,"reach":null,"likes":18,"comments":10,"saves":3,"shares":14,"follows":null,"vsAvg":null,"young":false,"note":"פוסט שהמעצבת העלתה עם אלעד. 3 שמירות ו-14 שיתופים - יותר מכל הפוסטים של אלעד בחודש וחצי יחד. לא רשום ב-history.md. לא נכנס לממוצע."},{"date":"2026-10-06","time":"20:13","format":"Collab - פוסט של המעצבת","title":"אירית פרייהייטר - חדר רחצה (Collab)","url":"https://www.instagram.com/p/DeKS1QsDuq0/","reach":null,"likes":21,"comments":2,"saves":0,"shares":2,"follows":null,"vsAvg":null,"young":false,"note":"פוסט של המעצבת. לא נכנס לממוצע."},{"date":"2026-10-04","time":"10:49","format":"Collab - פוסט של המעצבת","title":"אירית פרייהייטר - מרפסת (Collab)","url":"https://www.instagram.com/p/DeEIuO3uQg4/","reach":null,"likes":16,"comments":0,"saves":0,"shares":0,"follows":null,"vsAvg":null,"young":false,"note":"פוסט של המעצבת. לא נכנס לממוצע."}],"star":{"title":"ענת וייסברג - הסלון באור הרך","why":"227 חשיפות (+17%), 9 תגובות ו-30 לייקים. ההבדל הבולט מול שני הפוסטים האחרים: ענת אישרה את ה-Collab והגיבה, כך שהפוסט הגיע גם לקהל שלה. 🔎 סימן ראשון - פוסט אחד."},"weak":{"title":"מלי אלבז - מטבח","why":"130 חשיפות (-33%), 6 לייקים, 0 תגובות. ה-Collab לא אושר - הפוסט נשאר רק אצל הקהל של אלעד. הפוסט עוד צעיר (יומיים וחצי), אבל הפער מענת גדול."},"referencesSummary":"שבוע שקט גם אצל הרפרנסים. Daniel Tzairi העלה במוצ\"ש ב-20:03 (כמו אלעד) פוסט מלון - 10 לייקים, פחות מהרגיל אצלו. אלנה העלתה רילס 'יום עבודה באילת עם המעצבת' (27 לייקים). אצל אלעד עצמו ה-Collab שמריאנה דובניקובה העלתה קיבל 14 שיתופים - יותר מכל מה שראינו אצל הרפרנסים השבוע.","references":[{"name":"שי אפשטיין","handle":"shai.epstein.photography","source":"metricool","followers":13795,"postsThisWeek":0,"highlight":"לא העלה השבוע.","bestUrl":""},{"name":"אלנה מרגולין","handle":"alenafoto","source":"metricool","followers":6539,"postsThisWeek":1,"highlight":"רילס 8.10 בבוקר (11:22): 'טיסה בבוקר, חללים יפים, אנשים מוכשרים' - יום צילום באילת עם המעצבת נופר מזיג, מתויגת. 27 לייקים, פחות מהרגיל אצלה (40-67).","bestUrl":"https://www.instagram.com/reel/DeOfac4oPa9/"},{"name":"מירב פלברג","handle":"merav.felberg.photographer","source":"metricool","followers":6264,"postsThisWeek":1,"highlight":"רילס קצר 9.10 בבוקר ('כן, כן') - 0 לייקים לפי מטריקול. לא משהו ללמוד ממנו.","bestUrl":"https://www.instagram.com/reel/DeQyILro2hx/"},{"name":"אורית ארנון","handle":"orit.arnon.photographer","source":"metricool","followers":4623,"postsThisWeek":0,"highlight":"עדיין לא פעילה.","bestUrl":""},{"name":"Daniel Tzairi","handle":"danieltz_interior_photography","source":"metricool","followers":2999,"postsThisWeek":1,"highlight":"מוצ\"ש 10.10 ב-20:03 - פוסט מצילומי מלון וולדורף אסטוריה ירושלים, שורה אחת + האשטגים. 10 לייקים ו-2 תגובות אחרי ~13 שעות (בדרך כלל 22-27). גם הוא צעיר.","bestUrl":"https://www.instagram.com/p/DeUk2oRiGXO/"},{"name":"קרין רוונה","handle":"karinravenna_photography","source":"browser","followers":3625,"postsThisWeek":0,"highlight":"הגריד נראה כמו בשבוע שעבר - לא נראה פוסט חדש (נבדק רק ראש העמוד).","bestUrl":""},{"name":"אורן עמוס","handle":"oren.amos.photography","source":"browser","followers":7404,"postsThisWeek":null,"highlight":"נבדק רק ראש העמוד - לא נראה שינוי בולט מהשבוע שעבר. תאריכים לא נבדקו.","bestUrl":""},{"name":"מאור מויאל","handle":"moyalmaor","source":"browser","followers":null,"postsThisWeek":null,"highlight":"לא נבדק השבוע - העמוד לא נטען.","bestUrl":""}],"designers":[{"name":"ענת וייסברג","handle":"anat.weissberg.interior.design","post":"6.10 · סלון","url":"https://www.instagram.com/p/DeJ9hZxlSo0/","collab":true,"commented":true,"storyShare":null,"comments":9,"otherComments":3,"commentsVsAvg":750,"savesShares":1,"rating":"🔥","note":"🔎 פוסט אחד. אישרה Collab והגיבה; אחריה הגיבו עוד 3 (שניים כנראה בני משפחה). שעת התגובה לא נבדקה. היתר מ-9 - כנראה תשובות של אלעד."},{"name":"מלי אלבז","handle":"mali_arch_design","post":"8.10 · מטבח","url":"https://www.instagram.com/p/DePblfRmyW-/","collab":false,"commented":false,"storyShare":null,"comments":0,"otherComments":0,"commentsVsAvg":-100,"savesShares":0,"rating":"❔","note":"Collab לא אושר ואין תגובות (יומיים וחצי). אולי לא ראתה את ההזמנה - כדאי שאלעד יבדוק איתה."},{"name":"שרה יצחק","handle":"saraleviyitzhak","post":"10.10 · כניסה (מוצ\"ש)","url":"https://www.instagram.com/p/DeUk0ggnGNR/","collab":false,"commented":false,"storyShare":null,"comments":0,"otherComments":0,"commentsVsAvg":null,"savesShares":0,"rating":"❔","note":"צעיר - 13 שעות. Collab עוד לא אושר. משלימים בדוח של 18.10."}],"extra":{"title":"פוסט מוצ\"ש הראשון - תמונת מצב","text":"שרה יצחק עלה ב-20:03 במוצ\"ש. אחרי כ-13 שעות: 68 חשיפות, 4-5 לייקים, 0 תגובות. אין לנו עדיין נתון של 'אותן שעות ראשונות' לפוסטים אחרים, אז אי אפשר להשוות הוגן. מה שכן: גם הוא בלי Collab מאושר, כמו מלי - וזה כנראה משפיע יותר מהיום. את מוצ\"ש נשפוט אחרי 4 שבתות, לפי חשיפה ושמירות אחרי 7 ימים. מעניין: גם Daniel Tzairi העלה באותו ערב ובאותה דקה."},"suggestions":[{"id":"2026-10-11-1","text":"לוודא שה-Collab מתקבל: לכל פוסט עם Collab, הכותבת מכינה ב-post.md הודעת וואטסאפ קצרה שאלעד שולח למעצבת לפני העלייה ('הפוסט שלך עולה הערב ב-20:00, שלחתי לך הזמנת שותפות - רק לאשר'), ואלעד בודק אחרי שעה שהיא אישרה. למה: הפוסט היחיד השבוע שה-Collab בו אושר (ענת) קיבל 227 חשיפות ו-9 תגובות; שני הפוסטים בלי Collab מאושר (מלי, שרה) - 130 ו-68 חשיפות, 0 תגובות. בודקים על 4 הפוסטים הבאים: הצלחה = Collab מאושר ב-3 מתוך 4, וממוצע 3+ תגובות לפוסט. כדאי גם שאלעד יזכיר עכשיו למלי ולשרה - אפשר לאשר הזמנה גם אחרי העלייה.","owner":"כותבת התוכן (הודעה ב-post.md) + אלעד שולח"},{"id":"2026-10-11-2","text":"לרשום ב-history.md גם פוסטי Collab שהמעצבות מעלות עם אלעד (הם בגריד שלו). מריאנה דובניקובה העלתה ב-6.10 פוסט עם אלעד שקיבל 3 שמירות ו-14 שיתופים - יותר מכל הפוסטים של אלעד בחודש וחצי יחד - והוא לא מופיע אצלנו בשום מקום. בלי זה המתכננת לא יודעת אילו חללים כבר נראו בגריד, ואנחנו לא יודעים איזו מעצבת מביאה שיתופים. (זו ההצעה מהרצת הניסיון 2026-10-07-2 - עכשיו עם נתונים אמיתיים.)","owner":"מתכננת התוכן"}],"facebook":"פייסבוק: 3 פוסטים, 332 צפיות בתוכן הדף בשבוע, 1,311 עוקבים (ללא שינוי).","history":[{"weekStart":"2026-09-06","posts":3,"avgReach":190,"avgSavesShares":0.33,"avgComments":2,"followers":null},{"weekStart":"2026-09-13","posts":7,"avgReach":229,"avgSavesShares":0.29,"avgComments":0.57,"followers":null},{"weekStart":"2026-09-20","posts":7,"avgReach":159,"avgSavesShares":0.14,"avgComments":1,"followers":null},{"weekStart":"2026-09-27","posts":1,"avgReach":181,"avgSavesShares":0,"avgComments":2,"followers":null},{"weekStart":"2026-10-04","posts":3,"avgReach":142,"avgSavesShares":0.33,"avgComments":3,"followers":2793}]}],"start":{"_note":"נקודת המוצא - לפני שהמכונה התחילה לפרסם. נמשך ממטריקול 8.10.2026 (פוסטים + רילס, 4.9-3.10, 18 פרסומים, שעון ישראל). לא לשנות - זה הקו שמולו מודדים שיפור. historySeed = השבועות שלפני הדוח הראשון, לגרפי המגמה.","date":"2026-10-07","label":"לפני המכונה (4.9-3.10)","avgReach":193,"avgSavesShares":0.22,"avgComments":1.06,"followers":2793}}</script>
 <script>
 (function () {
-  var D = JSON.parse(document.getElementById('report-data').textContent);
+  var ALL = JSON.parse(document.getElementById('report-data').textContent);
+  var WEEKS = ALL.weeks || [], START = ALL.start || null;
   var app = document.getElementById('app');
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-  function n(v) { return v == null || v === '' ? '–' : Number(v).toLocaleString('he-IL'); }
+  function n(v, dec) { if (v == null || v === '' || isNaN(v)) return '–'; return Number(v).toLocaleString('he-IL', { maximumFractionDigits: dec || 0, minimumFractionDigits: 0 }); }
   function d(iso) { if (!iso) return ''; var p = iso.split('-'); return Number(p[2]) + '.' + Number(p[1]); }
-  function pct(v) {
-    if (v == null) return '';
+  function chipPct(v) {
+    if (v == null || isNaN(v)) return '';
     var cls = v >= 10 ? 'up' : v <= -10 ? 'down' : 'flat';
     var arrow = v >= 10 ? '↑' : v <= -10 ? '↓' : '';
     return '<span class="chip ' + cls + '"><span dir="ltr">' + (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(Math.round(v)) + '%</span>' + arrow + '</span>';
   }
-  var a = D.account || {}, b = D.baseline || {}, w = D.week || {};
-  var rule = '<div class="rule"><span></span><i></i></div>';
-  var html = '';
-
-  html += '<header class="hero">' +
-    '<div class="hero-top"><span class="brand">ELAD GRUBNER · INSTAGRAM</span>' +
-    '<span class="dates">' + esc(d(D.weekStart)) + ' – ' + esc(d(D.weekEnd)) + '.' + esc((D.weekEnd || '').slice(0, 4)) + '</span></div>' +
-    '<h1>הדוח השבועי</h1>' + rule +
-    '<p class="headline">' + esc(D.headline) + '</p>' +
-  '</header>';
-
-  var fc = a.followersChange;
-  html += '<div class="kpis">' +
-    '<div class="kpi"><span class="label">עוקבים</span><span class="value">' + n(a.followers) + '</span><span class="delta">' + (fc == null ? '' : '<b class="num">' + (fc > 0 ? '+' : '') + fc + '</b> השבוע') + '</span></div>' +
-    '<div class="kpi"><span class="label">חשיפה ממוצעת לפוסט</span><span class="value">' + n(w.avgReach) + '</span><span class="delta">' + pct(w.avgReachVsBaseline) + ' מול הממוצע</span></div>' +
-    '<div class="kpi"><span class="label">שמירות ושיתופים</span><span class="value">' + n(w.savesShares) + '</span><span class="delta">מעצבות ששמרו השראה</span></div>' +
-    '<div class="kpi"><span class="label">פוסטים השבוע</span><span class="value">' + n(w.posts) + '</span><span class="delta">' + esc(w.postsNote || '') + '</span></div>' +
-  '</div>';
-
-  var H = (D.history || []).slice(-12);
-  html += '<section class="section"><div class="section-head"><h2>חשיפה ממוצעת לפוסט, לפי שבוע</h2><p class="sub">כמה אנשים ראו כל פוסט, בממוצע</p></div>';
-  if (H.length) {
-    html += '<div class="card chart-card"><div class="chart" id="chart"></div>' +
-      '<div class="legend-note"><span><i class="key-bar"></i>השבוע מודגש</span><span><i class="key-dash"></i>הממוצע של אלעד, ' + esc(b.periodLabel || '30 הימים האחרונים') + ': <b>' + n(b.avgReach) + '</b></span></div></div>';
-  } else {
-    html += '<p class="empty">הגרף יתמלא מהשבוע השני של הדוח.</p>';
+  function chipChange(from, to) {
+    if (from == null || to == null) return '';
+    if (from === 0) return to > 0 ? '<span class="chip up">↑ מ-0</span>' : '<span class="chip flat">ללא שינוי</span>';
+    if (from > 0 && to / from >= 2) return '<span class="chip up">↑ פי ' + n(to / from, to / from < 10 ? 1 : 0) + '</span>';
+    return chipPct((to - from) / Math.abs(from) * 100);
   }
-  html += '</section>';
+  var METRICS = [
+    { key: 'avgReach', label: 'חשיפה ממוצעת לפוסט', dec: 0 },
+    { key: 'avgSavesShares', label: 'שמירות ושיתופים לפוסט', dec: 2 },
+    { key: 'avgComments', label: 'תגובות לפוסט', dec: 1 },
+    { key: 'followers', label: 'עוקבים', dec: 0 }
+  ];
 
-  var P = D.posts || [];
-  var maxReach = Math.max.apply(null, P.map(function (p) { return p.reach || 0; }).concat([(b.avgReach || 0) * 1.25, 1]));
-  html += '<section class="section"><div class="section-head"><h2>הפוסטים של השבוע</h2><p class="sub">הקו האנכי בכל פס הוא הממוצע של אלעד</p></div>';
-  if (P.length) {
-    html += '<div class="card table-card"><table><thead><tr>' +
-      '<th>פוסט</th><th>חשיפה</th><th class="n">לייקים</th><th class="n">תגובות</th><th class="n">שמירות</th><th class="n">שיתופים</th><th class="n">עוקבים חדשים</th>' +
-      '</tr></thead><tbody>';
-    P.forEach(function (p) {
-      var title = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' : esc(p.title);
-      var fillW = Math.min(100, (p.reach || 0) / maxReach * 100), avgX = Math.min(100, (b.avgReach || 0) / maxReach * 100);
-      html += '<tr><td><div class="post-title">' + title + '</div>' +
-        '<div class="post-meta"><span>' + esc(d(p.date)) + (p.time ? ' · ' + esc(p.time) : '') + ' · ' + esc(p.format) + '</span>' + (p.young ? '<span class="chip young">עוד צובר נתונים</span>' : '') + '</div>' +
-        (p.note ? '<div class="post-note">' + esc(p.note) + '</div>' : '') + '</td>' +
-        '<td class="reach-cell"><div class="reach"><div class="reach-top"><b>' + n(p.reach) + '</b>' + pct(p.vsAvg) + '</div>' +
-        '<div class="track" aria-hidden="true"><div class="fill" style="width:' + fillW + '%"></div>' + (b.avgReach ? '<div class="avg" style="inset-inline-start:calc(' + avgX + '% - 1px)"></div>' : '') + '</div></div></td>' +
-        '<td class="n" data-label="לייקים">' + n(p.likes) + '</td><td class="n" data-label="תגובות">' + n(p.comments) + '</td><td class="n" data-label="שמירות">' + n(p.saves) + '</td><td class="n" data-label="שיתופים">' + n(p.shares) + '</td><td class="n" data-label="עוקבים חדשים">' + n(p.follows) + '</td></tr>';
-    });
-    html += '</tbody></table></div>';
-  } else {
-    html += '<p class="empty">לא עלו פוסטים השבוע.</p>';
-  }
-  html += '</section>';
-
-  if (D.star || D.weak) {
-    html += '<div class="pair">';
-    if (D.star) html += '<div class="card pick star"><span class="icon">↑</span><span class="k">מה עבד הכי טוב</span><span class="t">' + esc(D.star.title) + '</span><p>' + esc(D.star.why) + '</p></div>';
-    if (D.weak) html += '<div class="card pick weak"><span class="icon">↓</span><span class="k">מה עבד פחות</span><span class="t">' + esc(D.weak.title) + '</span><p>' + esc(D.weak.why) + '</p></div>';
-    html += '</div>';
+  function pick() {
+    var h = (location.hash || '').replace('#w', '');
+    for (var i = 0; i < WEEKS.length; i++) if (WEEKS[i].reportDate === h) return i;
+    return 0;
   }
 
-  var R = D.references || [];
-  html += '<section class="section"><div class="section-head"><h2>מה קורה אצל צלמי הרפרנס</h2>' + (D.referencesSummary ? '<p class="sub">' + esc(D.referencesSummary) + '</p>' : '') + '</div>';
-  if (R.length) {
-    html += '<div class="refs">';
-    R.forEach(function (r) {
-      var stats = '';
-      if (r.followers != null) stats += '<span class="stat">' + n(r.followers) + ' עוקבים</span>';
-      if (r.postsThisWeek != null) stats += '<span class="stat">' + r.postsThisWeek + ' פוסטים השבוע</span>';
-      stats += '<span class="stat src">' + (r.source === 'metricool' ? 'מטריקול' : 'נבדק בעמוד') + '</span>';
-      html += '<div class="card ref"><div class="ref-head"><span class="avatar">' + esc((r.name || r.handle || '?').trim().charAt(0)) + '</span>' +
-        '<span class="who">' + esc(r.name) + '</span>' +
-        '<a class="handle" href="https://www.instagram.com/' + esc(r.handle) + '/" target="_blank" rel="noopener">@' + esc(r.handle) + '</a></div>' +
-        '<div class="stats">' + stats + '</div>' +
-        '<p>' + esc(r.highlight || 'לא נבדק השבוע.') + (r.bestUrl ? ' <a href="' + esc(r.bestUrl) + '" target="_blank" rel="noopener">לפוסט</a>' : '') + '</p></div>';
-    });
-    html += '</div>';
-  }
-  html += '</section>';
+  function render(idx) {
+    var D = WEEKS[idx] || {};
+    var a = D.account || {}, b = D.baseline || {}, w = D.week || {};
+    var rule = '<div class="rule"><span></span><i></i></div>';
+    var html = '';
 
-  if (D.extra && D.extra.title) {
-    html += '<section class="section"><div class="section-head"><h2>' + esc(D.extra.title) + '</h2></div><div class="callout"><p>' + esc(D.extra.text) + '</p></div></section>';
-  }
-
-  var S = D.suggestions || [];
-  html += '<section class="section"><div class="section-head"><h2>מה כדאי לנסות</h2><p class="sub">הצעות בלבד - נכנסות לעבודה רק אחרי אישור</p></div>';
-  if (S.length) {
-    html += '<ol class="sugg">';
-    S.forEach(function (s, i) { html += '<li class="card"><span class="no">' + (i + 1) + '</span><span class="text">' + esc(s.text) + '</span><span class="owner">' + (s.owner ? 'מי מיישמת: <b>' + esc(s.owner) + '</b>' : '') + '</span></li>'; });
-    html += '</ol>';
-  } else {
-    html += '<p class="empty">אין שינוי מומלץ השבוע - ממשיכים כמו שזה.</p>';
-  }
-  html += '</section>';
-
-  html += '<footer>' + rule + '<span>הנתונים ממטריקול · אינסטגרם, אורגני בלבד · עודכן ' + esc(D.generatedAt || '') + '</span></footer>';
-  app.innerHTML = html;
-
-  var box = document.getElementById('chart');
-  if (box && H.length) {
-    var W = 800, Ht = 250, padT = 26, padB = 32, padL = 40, padR = 6;
-    var vals = H.map(function (h) { return h.avgReach || 0; });
-    var maxV = Math.max.apply(null, vals.concat([b.avgReach || 0]));
-    var step = maxV <= 200 ? 50 : maxV <= 500 ? 100 : maxV <= 1000 ? 250 : 500;
-    var top = Math.ceil(maxV / step) * step || step;
-    var iw = W - padL - padR, ih = Ht - padT - padB;
-    var y = function (v) { return padT + ih - (v / top) * ih; };
-    var slot = iw / H.length, bw = Math.min(40, slot * 0.5);
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + Ht + '" role="img" aria-label="חשיפה ממוצעת לפוסט לפי שבוע">';
-    for (var t = 0; t <= top; t += step) {
-      svg += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + y(t) + '" y2="' + y(t) + '" stroke="var(--line)" stroke-width="1"/>' +
-        '<text x="' + (padL - 10) + '" y="' + (y(t) + 4) + '" text-anchor="end" font-size="12" fill="var(--muted)" font-family="Assistant, sans-serif">' + t + '</text>';
+    if (WEEKS.length > 1) {
+      html += '<nav class="section" aria-label="בחירת שבוע" style="gap:8px"><span class="weeks-label">דוחות לפי שבוע</span><div class="weeks">';
+      WEEKS.forEach(function (x, i) {
+        html += '<button type="button" id="wk-' + esc(x.reportDate) + '" data-i="' + i + '" aria-pressed="' + (i === idx) + '">' + (i === 0 ? 'השבוע · ' : '') + d(x.weekStart) + '–' + d(x.weekEnd) + '</button>';
+      });
+      html += '</div></nav>';
+      if (idx !== 0) html += '<div class="archive-note">זה הדוח של השבוע ' + d(D.weekStart) + '–' + d(D.weekEnd) + '. <button type="button" data-i="0">חזרה לשבוע האחרון</button></div>';
     }
-    // oldest week on the right, newest on the left - Hebrew reading direction
-    H.forEach(function (h, i) {
-      var cx = W - padR - slot * (i + 0.5), v = h.avgReach || 0, yy = y(v), hh = padT + ih - yy;
-      var r = Math.min(4, hh), x0 = cx - bw / 2, last = i === H.length - 1;
-      var path = 'M' + x0 + ',' + (padT + ih) + ' V' + (yy + r) + ' Q' + x0 + ',' + yy + ' ' + (x0 + r) + ',' + yy +
-        ' H' + (x0 + bw - r) + ' Q' + (x0 + bw) + ',' + yy + ' ' + (x0 + bw) + ',' + (yy + r) + ' V' + (padT + ih) + ' Z';
-      svg += '<path d="' + path + '" fill="var(--bronze)" opacity="' + (last ? 1 : 0.35) + '"/>' +
-        '<rect x="' + (cx - slot / 2) + '" y="' + padT + '" width="' + slot + '" height="' + ih + '" fill="transparent" data-i="' + i + '"/>' +
-        '<text x="' + cx + '" y="' + (Ht - 10) + '" text-anchor="middle" font-size="12" fill="var(--muted)" font-weight="' + (last ? 700 : 400) + '" font-family="Assistant, sans-serif">' + d(h.weekStart) + '</text>';
-      if (last) svg += '<text x="' + cx + '" y="' + (yy - 9) + '" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Assistant, sans-serif">' + n(v) + '</text>';
+
+    html += '<header class="hero">' +
+      '<div class="hero-top"><span class="brand">ELAD GRUBNER · INSTAGRAM</span>' +
+      '<span class="dates">' + esc(d(D.weekStart)) + ' – ' + esc(d(D.weekEnd)) + '.' + esc((D.weekEnd || '').slice(0, 4)) + '</span></div>' +
+      '<h1>הדוח השבועי</h1>' + rule +
+      '<p class="headline">' + esc(D.headline) + '</p>' +
+    '</header>';
+
+    var fc = a.followersChange;
+    html += '<div class="kpis">' +
+      '<div class="kpi"><span class="label">עוקבים</span><span class="value">' + n(a.followers) + '</span><span class="delta">' + (fc == null ? '' : '<b class="num">' + (fc > 0 ? '+' : '') + fc + '</b> השבוע') + '</span></div>' +
+      '<div class="kpi"><span class="label">חשיפה ממוצעת לפוסט</span><span class="value">' + n(w.avgReach) + '</span><span class="delta">' + chipPct(w.avgReachVsBaseline) + ' מול הממוצע</span></div>' +
+      '<div class="kpi"><span class="label">שמירות ושיתופים</span><span class="value">' + n(w.savesShares) + '</span><span class="delta">מעצבות ששמרו השראה</span></div>' +
+      '<div class="kpi"><span class="label">פוסטים השבוע</span><span class="value">' + n(w.posts) + '</span><span class="delta">' + esc(w.postsNote || '') + '</span></div>' +
+    '</div>';
+
+    // since the machine started + trends
+    var H = (D.history || []).slice(-12);
+    var last = H[H.length - 1] || {};
+    function nowOf(m) { return m.key === 'followers' ? (a.followers != null ? a.followers : last.followers) : last[m.key]; }
+    if (START) {
+      html += '<div class="since"><span class="k">מאז שהמכונה התחילה · מול ' + esc(START.label || '') + '</span>';
+      METRICS.forEach(function (m) {
+        var now = nowOf(m), was = START[m.key];
+        if (was == null && now == null) return;
+        html += '<div class="item"><span>' + m.label + '</span><b>' + n(was, m.dec) + ' <small>←</small> ' + n(now, m.dec) + ' ' + chipChange(was, now) + '</b></div>';
+      });
+      html += '</div>';
+    }
+    html += '<section class="section"><div class="section-head"><h2>המגמות</h2><p class="sub">שבוע אחרי שבוע, עד 12 שבועות אחורה. החץ משווה ל-4 שבועות לפני.' + (START ? ' הקו המקווקו הוא נקודת המוצא.' : '') + '</p></div><div class="trends">';
+    METRICS.forEach(function (m, mi) {
+      var pts = [];
+      H.forEach(function (h, i) {
+        var v = h[m.key];
+        if (m.key === 'followers' && i === H.length - 1 && v == null) v = a.followers;
+        if (v != null && !isNaN(v)) pts.push({ i: i, v: Number(v), h: h });
+      });
+      var cur = pts.length ? pts[pts.length - 1] : null, ref = null;
+      if (cur) {
+        for (var k = pts.length - 2; k >= 0; k--) { if (cur.i - pts[k].i >= 4) { ref = pts[k]; break; } }
+        if (!ref && pts.length > 1) ref = pts[0];
+      }
+      html += '<div class="card trend"><div class="trend-head"><div><div class="label">' + m.label + '</div><div class="value">' + (cur ? n(cur.v, m.dec) : '–') + '</div></div>' +
+        '<div class="cmp">' + (ref ? chipChange(ref.v, cur.v) + '<span>מול ' + d(ref.h.weekStart) + '</span>' : '') + '</div></div>';
+      html += pts.length > 1 ? '<div class="chart" id="tr-' + mi + '"></div>' : '<div class="trend-note">המגמה תופיע אחרי עוד שבוע של נתונים.</div>';
+      html += '</div>';
+      m._pts = pts; m._n = H.length;
     });
-    if (b.avgReach) svg += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + y(b.avgReach) + '" y2="' + y(b.avgReach) + '" stroke="var(--ink-2)" stroke-width="1.5" stroke-dasharray="5 5"/>';
+    html += '</div></section>';
+
+    var P = D.posts || [];
+    var maxReach = Math.max.apply(null, P.map(function (p) { return p.reach || 0; }).concat([(b.avgReach || 0) * 1.25, 1]));
+    html += '<section class="section"><div class="section-head"><h2>הפוסטים של השבוע</h2><p class="sub">הקו האנכי בכל פס הוא הממוצע של אלעד</p></div>';
+    if (P.length) {
+      html += '<div class="card table-card"><table><thead><tr>' +
+        '<th>פוסט</th><th>חשיפה</th><th class="n">לייקים</th><th class="n">תגובות</th><th class="n">שמירות</th><th class="n">שיתופים</th><th class="n">עוקבים חדשים</th>' +
+        '</tr></thead><tbody>';
+      P.forEach(function (p) {
+        var title = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' : esc(p.title);
+        var fillW = Math.min(100, (p.reach || 0) / maxReach * 100), avgX = Math.min(100, (b.avgReach || 0) / maxReach * 100);
+        html += '<tr><td><div class="post-title">' + title + '</div>' +
+          '<div class="post-meta"><span>' + esc(d(p.date)) + (p.time ? ' · ' + esc(p.time) : '') + ' · ' + esc(p.format) + '</span>' + (p.young ? '<span class="chip young">עוד צובר נתונים</span>' : '') + '</div>' +
+          (p.note ? '<div class="post-note">' + esc(p.note) + '</div>' : '') + '</td>' +
+          '<td class="reach-cell"><div class="reach"><div class="reach-top"><b>' + n(p.reach) + '</b>' + chipPct(p.vsAvg) + '</div>' +
+          '<div class="track" aria-hidden="true"><div class="fill" style="width:' + fillW + '%"></div>' + (b.avgReach ? '<div class="avg" style="inset-inline-start:calc(' + avgX + '% - 1px)"></div>' : '') + '</div></div></td>' +
+          '<td class="n" data-label="לייקים">' + n(p.likes) + '</td><td class="n" data-label="תגובות">' + n(p.comments) + '</td><td class="n" data-label="שמירות">' + n(p.saves) + '</td><td class="n" data-label="שיתופים">' + n(p.shares) + '</td><td class="n" data-label="עוקבים חדשים">' + n(p.follows) + '</td></tr>';
+      });
+      html += '</tbody></table></div>';
+    } else {
+      html += '<p class="empty">לא עלו פוסטים השבוע.</p>';
+    }
+    html += '</section>';
+
+    if (D.star || D.weak) {
+      html += '<div class="pair">';
+      if (D.star) html += '<div class="card pick star"><span class="icon">↑</span><span class="k">מה עבד הכי טוב</span><span class="t">' + esc(D.star.title) + '</span><p>' + esc(D.star.why) + '</p></div>';
+      if (D.weak) html += '<div class="card pick weak"><span class="icon">↓</span><span class="k">מה עבד פחות</span><span class="t">' + esc(D.weak.title) + '</span><p>' + esc(D.weak.why) + '</p></div>';
+      html += '</div>';
+    }
+
+    var G = D.designers || [];
+    if (G.length) {
+      var yn = function (v, yes, no) { return v === true ? '<span class="stat yes">' + yes + '</span>' : v === false ? '<span class="stat">' + no + '</span>' : ''; };
+      html += '<section class="section"><div class="section-head"><h2>המעצבות שתויגו</h2><p class="sub">מי הגיבה ומי הביאה שיחה - כדי לדעת את מי לתייג יותר</p></div><div class="refs">';
+      G.forEach(function (g) {
+        var stats = yn(g.commented, 'הגיבה', 'לא הגיבה') + yn(g.storyShare, 'שיתפה בסטורי', 'לא שיתפה בסטורי') + yn(g.collab, 'Collab אושר', 'בלי Collab');
+        if (g.comments != null) stats += '<span class="stat">' + n(g.comments) + ' תגובות' + (g.otherComments != null ? ' · ' + n(g.otherComments) + ' של אחרים' : '') + '</span>' + chipPct(g.commentsVsAvg);
+        if (g.savesShares != null) stats += '<span class="stat">' + n(g.savesShares) + ' שמירות ושיתופים</span>';
+        var unknown = [g.commented == null ? 'תגובה' : '', g.storyShare == null ? 'סטורי' : ''].filter(Boolean);
+        html += '<div class="card ref"><div class="ref-head"><span class="avatar">' + esc(g.rating || (g.name || '?').trim().charAt(0)) + '</span>' +
+          '<span class="who">' + esc(g.name) + (g.post ? ' <small class="muted">· ' + (g.url ? '<a href="' + esc(g.url) + '" target="_blank" rel="noopener">' + esc(g.post) + '</a>' : esc(g.post)) + '</small>' : '') + '</span>' +
+          (g.handle ? '<a class="handle" href="https://www.instagram.com/' + esc(g.handle) + '/" target="_blank" rel="noopener">@' + esc(g.handle) + '</a>' : '') + '</div>' +
+          '<div class="stats">' + stats + (unknown.length ? '<span class="stat src">עוד לא ידוע: ' + unknown.join(', ') + '</span>' : '') + '</div>' +
+          (g.note ? '<p>' + esc(g.note) + '</p>' : '') + '</div>';
+      });
+      html += '</div></section>';
+    }
+
+    var R = D.references || [];
+    html += '<section class="section"><div class="section-head"><h2>מה קורה אצל צלמי הרפרנס</h2>' + (D.referencesSummary ? '<p class="sub">' + esc(D.referencesSummary) + '</p>' : '') + '</div>';
+    if (R.length) {
+      html += '<div class="refs">';
+      R.forEach(function (r) {
+        var stats = '';
+        if (r.followers != null) stats += '<span class="stat">' + n(r.followers) + ' עוקבים</span>';
+        if (r.postsThisWeek != null) stats += '<span class="stat">' + r.postsThisWeek + ' פוסטים השבוע</span>';
+        stats += '<span class="stat src">' + (r.source === 'metricool' ? 'מטריקול' : 'נבדק בעמוד') + '</span>';
+        html += '<div class="card ref"><div class="ref-head"><span class="avatar">' + esc((r.name || r.handle || '?').trim().charAt(0)) + '</span>' +
+          '<span class="who">' + esc(r.name) + '</span>' +
+          '<a class="handle" href="https://www.instagram.com/' + esc(r.handle) + '/" target="_blank" rel="noopener">@' + esc(r.handle) + '</a></div>' +
+          '<div class="stats">' + stats + '</div>' +
+          '<p>' + esc(r.highlight || 'לא נבדק השבוע.') + (r.bestUrl ? ' <a href="' + esc(r.bestUrl) + '" target="_blank" rel="noopener">לפוסט</a>' : '') + '</p></div>';
+      });
+      html += '</div>';
+    }
+    html += '</section>';
+
+    if (D.extra && D.extra.title) {
+      html += '<section class="section"><div class="section-head"><h2>' + esc(D.extra.title) + '</h2></div><div class="callout"><p>' + esc(D.extra.text) + '</p></div></section>';
+    }
+
+    var S = D.suggestions || [];
+    html += '<section class="section"><div class="section-head"><h2>מה כדאי לנסות</h2><p class="sub">הצעות בלבד - נכנסות לעבודה רק אחרי אישור</p></div>';
+    if (S.length) {
+      html += '<ol class="sugg">';
+      S.forEach(function (s, i) { html += '<li class="card"><span class="no">' + (i + 1) + '</span><span class="text">' + esc(s.text) + '</span><span class="owner">' + (s.owner ? 'מי מיישמת: <b>' + esc(s.owner) + '</b>' : '') + '</span></li>'; });
+      html += '</ol>';
+    } else {
+      html += '<p class="empty">אין שינוי מומלץ השבוע - ממשיכים כמו שזה.</p>';
+    }
+    html += '</section>';
+
+    html += '<footer>' + rule + '<span>הנתונים ממטריקול · אינסטגרם, אורגני בלבד · עודכן ' + esc(D.generatedAt || '') + '</span></footer>';
+    app.innerHTML = html;
+
+    app.querySelectorAll('button[data-i]').forEach(function (bt) {
+      bt.addEventListener('click', function () {
+        var i = +bt.dataset.i;
+        try { history.replaceState(null, '', i === 0 ? location.pathname + location.search : '#w' + WEEKS[i].reportDate); } catch (e) {}
+        render(i);
+        window.scrollTo({ top: 0 });
+      });
+    });
+    METRICS.forEach(function (m, mi) { drawTrend(document.getElementById('tr-' + mi), m); });
+  }
+
+  function drawTrend(box, m) {
+    if (!box) return;
+    var pts = m._pts, N = m._n, W = 360, Ht = 110, padT = 14, padB = 22, padX = 10;
+    var startV = START ? START[m.key] : null;
+    var vals = pts.map(function (p) { return p.v; });
+    if (startV != null) vals.push(startV);
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    if (m.key !== 'followers') lo = 0;
+    if (hi === lo) hi = lo + (hi || 1);
+    var pad = (hi - lo) * 0.12; hi += pad; if (m.key === 'followers') lo -= pad;
+    var ih = Ht - padT - padB, iw = W - padX * 2;
+    // oldest week on the right, newest on the left - Hebrew reading direction
+    var x = function (i) { return N <= 1 ? W / 2 : W - padX - (i / (N - 1)) * iw; };
+    var y = function (v) { return padT + ih - (v - lo) / (hi - lo) * ih; };
+    var line = pts.map(function (p, k) { return (k ? 'L' : 'M') + x(p.i).toFixed(1) + ',' + y(p.v).toFixed(1); }).join(' ');
+    var area = line + ' L' + x(pts[pts.length - 1].i).toFixed(1) + ',' + (padT + ih) + ' L' + x(pts[0].i).toFixed(1) + ',' + (padT + ih) + ' Z';
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + Ht + '" role="img" aria-label="' + esc(m.label) + ' לפי שבוע">' +
+      '<line x1="' + padX + '" x2="' + (W - padX) + '" y1="' + (padT + ih) + '" y2="' + (padT + ih) + '" stroke="var(--line)" stroke-width="1"/>';
+    if (startV != null) svg += '<line x1="' + padX + '" x2="' + (W - padX) + '" y1="' + y(startV).toFixed(1) + '" y2="' + y(startV).toFixed(1) + '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>';
+    svg += '<path d="' + area + '" fill="var(--bronze)" fill-opacity="0.12"/>' +
+      '<path d="' + line + '" fill="none" stroke="var(--bronze)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    var first = pts[0], lastP = pts[pts.length - 1];
+    svg += '<text x="' + x(first.i) + '" y="' + (Ht - 4) + '" text-anchor="end" font-size="11" fill="var(--muted)" font-family="Assistant, sans-serif">' + d(first.h.weekStart) + '</text>' +
+      '<text x="' + x(lastP.i) + '" y="' + (Ht - 4) + '" text-anchor="start" font-size="11" font-weight="700" fill="var(--ink-2)" font-family="Assistant, sans-serif">' + d(lastP.h.weekStart) + '</text>';
+    pts.forEach(function (p, k) {
+      var isLast = k === pts.length - 1;
+      svg += '<circle cx="' + x(p.i) + '" cy="' + y(p.v) + '" r="' + (isLast ? 5 : 3) + '" fill="' + (isLast ? 'var(--bronze)' : 'var(--surface)') + '" stroke="' + (isLast ? 'var(--surface)' : 'var(--bronze)') + '" stroke-width="2"/>';
+    });
+    var slot = N > 1 ? iw / (N - 1) : iw;
+    pts.forEach(function (p, k) {
+      svg += '<rect x="' + (x(p.i) - slot / 2) + '" y="0" width="' + slot + '" height="' + Ht + '" fill="transparent" data-k="' + k + '"/>';
+    });
     svg += '</svg><div class="tip" hidden></div>';
     box.innerHTML = svg;
     var tip = box.querySelector('.tip'), svgEl = box.querySelector('svg');
-    box.querySelectorAll('rect[data-i]').forEach(function (rc) {
+    box.querySelectorAll('rect[data-k]').forEach(function (rc) {
       rc.addEventListener('mouseenter', function () {
-        var h = H[+rc.dataset.i];
-        tip.textContent = 'שבוע ' + d(h.weekStart) + ': ' + n(h.avgReach) + ' בממוצע · ' + n(h.posts) + ' פוסטים' + (h.followers ? ' · ' + n(h.followers) + ' עוקבים' : '');
-        var sc = svgEl.getBoundingClientRect().width / W;
-        tip.style.left = ((+rc.getAttribute('x') + slot / 2) * sc) + 'px';
-        tip.style.top = (y(h.avgReach || 0) * sc - 8) + 'px';
-        tip.style.transform = 'translate(-50%, -100%)';
+        var p = pts[+rc.dataset.k], sc = svgEl.getBoundingClientRect().width / W;
+        tip.textContent = 'שבוע ' + d(p.h.weekStart) + ': ' + n(p.v, m.dec) + (p.h.posts != null ? ' · ' + p.h.posts + ' פוסטים' : '');
+        tip.style.left = (x(p.i) * sc) + 'px';
+        tip.style.top = (y(p.v) * sc - 8) + 'px';
         tip.hidden = false;
       });
       rc.addEventListener('mouseleave', function () { tip.hidden = true; });
     });
   }
+
+  render(pick());
 })();
 </script>
