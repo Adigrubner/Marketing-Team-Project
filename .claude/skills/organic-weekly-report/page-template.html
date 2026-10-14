@@ -358,6 +358,27 @@ footer .rule span { width: 32px; }
       html += '</tbody></table></div></section>';
     }
 
+    var FP = D.facebookPersonal || null;
+    if (FP && ((FP.posts || []).length || FP.summary)) {
+      var avgTxt = (FP.avgReactions != null ? n(FP.avgReactions) + ' ריאקשנים' : '') + (FP.avgComments != null ? (FP.avgReactions != null ? ' · ' : '') + n(FP.avgComments) + ' תגובות' : '');
+      html += '<section class="section"><div class="section-head"><h2>פייסבוק אישי</h2><p class="sub">' + (FP.summary ? esc(FP.summary) + ' · ' : '') + 'מול הפוסטים הקודמים של אלעד בפרופיל' + (avgTxt ? ' (בממוצע ' + avgTxt + ')' : '') + '</p></div>';
+      if ((FP.posts || []).length) {
+        html += '<div class="card table-card"><table><thead><tr>' +
+          '<th>פוסט</th><th class="n">ריאקשנים</th><th class="n">תגובות</th><th class="n">שיתופים</th><th class="n">מעצבות הגיבו</th>' +
+          '</tr></thead><tbody>';
+        FP.posts.forEach(function (p) {
+          var title = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' : esc(p.title);
+          var dc = p.designersCommented === true ? 'כן' : p.designersCommented === false ? 'לא' : '-';
+          html += '<tr><td><div class="post-title">' + title + '</div>' +
+            '<div class="post-meta"><span>' + esc(d(p.date)) + (p.type ? ' · ' + esc(p.type) : '') + '</span></div>' +
+            (p.note ? '<div class="post-note">' + esc(p.note) + '</div>' : '') + '</td>' +
+            '<td class="n" data-label="ריאקשנים">' + n(p.reactions) + '</td><td class="n" data-label="תגובות">' + n(p.comments) + '</td><td class="n" data-label="שיתופים">' + n(p.shares) + '</td><td class="n" data-label="מעצבות הגיבו">' + dc + '</td></tr>';
+        });
+        html += '</tbody></table></div>';
+      }
+      html += '</section>';
+    }
+
     var R = D.references || [];
     html += '<section class="section"><div class="section-head"><h2>מה קורה אצל צלמי הרפרנס</h2>' + (D.referencesSummary ? '<p class="sub">' + esc(D.referencesSummary) + '</p>' : '') + '</div>';
     if (R.length) {

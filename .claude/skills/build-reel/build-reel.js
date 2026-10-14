@@ -10,6 +10,7 @@
 //     { "id": "<Drive file id>", "label": "Interior/38",
 //       "duration": 2.0,               // אופציונלי. ברירת מחדל: ראשון 2.0, אחרון 4.0, אחרים 2.8
 //       "keep": "center" | "left" | "right",   // איזה צד לשמור בחיתוך ל-9:16
+//       "x": 640,                      // אופציונלי - קצה שמאלי מדויק של החיתוך (פיקסלים במקור), גובר על keep
 //       "motion": "zin" | "zout" | "panR" | "panL",  // רק בסגנון motion
 //       "blur": [ { "x": 610, "y": 890, "w": 95, "h": 175 } ]   // אופציונלי, בפיקסלים של המקור
 //     }
@@ -86,7 +87,8 @@ function args(argv) {
     const D = durs[i];
     const N = Math.round(D * 30);
     const W = 'ih*9/16';
-    const keepX = { left: '0', right: `iw-${W}`, center: `(iw-${W})/2` }[f.keep || 'center'];
+    const keepX = typeof f.x === 'number' ? String(f.x)   // מיקום חיתוך מדויק בפיקסלים של המקור
+      : { left: '0', right: `iw-${W}`, center: `(iw-${W})/2` }[f.keep || 'center'];
 
     let pre = '';
     if (f.blur && f.blur.length) {
