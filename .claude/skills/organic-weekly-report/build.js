@@ -92,7 +92,18 @@ if (emailOut) {
       <div style="font-size:14.5px;font-weight:700;color:${ink};">${p.url ? `<a href="${esc(p.url)}" style="color:${ink};text-decoration:none;">${esc(p.title)}</a>` : esc(p.title)} <span style="font-weight:400;font-size:13px;color:${muted};">· ${dm(p.date)}${p.young ? ' · עוד צובר נתונים' : ''}</span></div>
       <div style="font-size:14px;color:${ink2};padding-top:4px;"><b style="color:${ink};">${n(p.reach)}</b> חשיפה ${chip(p.vsAvg)} · ${n(p.reactions)} ריאקשנים · ${n(p.comments)} תגובות · ${n(p.shares)} שיתופים${p.igReach != null ? ` · <span style="color:${muted};">באינסטגרם: ${n(p.igReach)}</span>` : ''}</div>
       </div></td></tr>`).join('');
-  const facebook = fbPosts ? `${h2('פייסבוק')}${FB.summary ? `<tr><td style="${font}font-size:14px;color:${ink2};padding-bottom:6px;">${esc(FB.summary)}</td></tr>` : ''}${fbPosts}` : '';
+  const facebookBiz = fbPosts ? `${h2('פייסבוק')}${FB.summary ? `<tr><td style="${font}font-size:14px;color:${ink2};padding-bottom:6px;">${esc(FB.summary)}</td></tr>` : ''}${fbPosts}` : '';
+
+  const FP = D.facebookPersonal || {};
+  const fpPosts = (FP.posts || []).map(p => `
+    <tr><td style="padding:4px 0;">
+      <div style="background:#FFFFFF;border:1px solid ${line};border-radius:12px;padding:12px 16px;${font}">
+      <div style="font-size:14.5px;font-weight:700;color:${ink};">${p.url ? `<a href="${esc(p.url)}" style="color:${ink};text-decoration:none;">${esc(p.title)}</a>` : esc(p.title)} <span style="font-weight:400;font-size:13px;color:${muted};">· ${dm(p.date)}${p.type ? ' · ' + esc(p.type) : ''}</span></div>
+      <div style="font-size:14px;color:${ink2};padding-top:4px;">${n(p.reactions)} ריאקשנים · ${n(p.comments)} תגובות · ${n(p.shares)} שיתופים${p.designersCommented === true ? ' · <b style="color:' + ink + ';">מעצבות הגיבו</b>' : ''}</div>
+      </div></td></tr>`).join('');
+  const fpAvg = FP.avgReactions != null ? `<tr><td style="${font}font-size:13px;color:${muted};padding-bottom:6px;">בממוצע בפרופיל: ${n(FP.avgReactions)} ריאקשנים${FP.avgComments != null ? ` · ${n(FP.avgComments)} תגובות` : ''}</td></tr>` : '';
+  const facebookPersonal = (fpPosts || FP.summary) ? `${h2('פייסבוק אישי')}${FP.summary ? `<tr><td style="${font}font-size:14px;color:${ink2};padding-bottom:6px;">${esc(FP.summary)}</td></tr>` : ''}${fpAvg}${fpPosts}` : '';
+  const facebook = facebookBiz + facebookPersonal;
 
   const sugg = (D.suggestions || []).map((s, i) => `
     <tr><td style="padding:4px 0;">

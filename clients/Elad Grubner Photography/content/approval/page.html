@@ -50,6 +50,20 @@ header { display: grid; gap: 6px; }
 h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 6vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
 .lede { color: var(--muted); margin: 0; max-width: 60ch; }
 
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; border-bottom: 1px solid var(--rule); }
+.tab {
+  flex: 0 0 auto; display: grid; gap: 2px; text-align: start;
+  background: transparent; color: var(--muted); border: 0; border-bottom: 3px solid transparent;
+  border-radius: 0; padding: 8px 14px 10px; margin-bottom: -3px;
+}
+.tab-range { font-family: var(--f-display); font-weight: 700; font-size: 19px; color: inherit; font-variant-numeric: tabular-nums; }
+.tab-sub { font-size: 13px; font-weight: 600; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab .tab-sub.pending { color: var(--accent); }
+.tab .tab-sub.changes { color: var(--fix); }
+.tab .tab-sub.done { color: var(--ok); }
+.tab:hover { color: var(--ink); }
+
 .tally { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px;
@@ -60,6 +74,10 @@ h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 6vw
 .chip.approved { background: var(--ok-soft); color: var(--ok); }
 .chip.changes { background: var(--fix-soft); color: var(--fix); }
 .chip.scheduled { background: var(--sched-soft); color: var(--sched); }
+.chip.published { background: var(--frame); color: var(--ok); }
+.chip.missed { background: var(--frame); color: var(--muted); }
+.post-link { color: var(--accent); font-weight: 600; font-size: 14px; }
+.post.is-published, .post.is-missed { background: color-mix(in srgb, var(--sheet) 70%, var(--paper)); }
 
 .notice { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; color: var(--muted); }
 .notice strong { color: var(--ink); }
@@ -132,8 +150,10 @@ footer { color: var(--muted); font-size: 13px; }
   <header>
     <div class="eyebrow" id="client">דף האישור השבועי</div>
     <h1 id="week">הפוסטים של השבוע</h1>
-    <p class="lede">לכל פוסט: לעבור על התמונות והטקסט, ולסמן <b>מאשר</b> או <b>צריך תיקון</b>. פוסט שאושר יתוזמן במטריקול ויעלה לבד בשעה שכתובה.</p>
+    <p class="lede">כל שבוע בלשונית משלו. לכל פוסט: לעבור על התמונות והטקסט, ולסמן <b>מאשר</b> או <b>צריך תיקון</b>. פוסט שאושר יתוזמן במטריקול ויעלה לבד בשעה שכתובה.</p>
   </header>
+
+  <div class="tabs" id="tabs" role="tablist" aria-label="שבועות" hidden></div>
 
   <div class="tally" id="tally" aria-live="polite"></div>
 
@@ -169,11 +189,14 @@ footer { color: var(--muted); font-size: 13px; }
     return n;
   }
   function uiOf(id) { return ui[id] || (ui[id] = { noteOpen: false, draft: "", busy: false, error: "" }); }
-  function todayKey() {
-    var d = new Date(); d.setDate(d.getDate() - 1);
+  function dayKey(back) {
+    var d = new Date(); d.setDate(d.getDate() - (back || 0));
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
+  // A post whose date has passed is history: "published" if it was scheduled, "missed" if it never got through.
   function stateOf(p) {
+    if (p.state === "published") return "published";
+    if (p.date && p.date < dayKey(0)) return p.state === "scheduled" ? "published" : "missed";
     if (p.state === "scheduled") return "scheduled";
     var a = approvals[p.id];
     if (a && (a.version || 1) === (p.version || 1)) return a.decision === "approved" ? "approved" : "changes";
@@ -183,12 +206,41 @@ footer { color: var(--muted); font-size: 13px; }
     var a = approvals[p.id];
     return !!a && (a.version || 1) !== (p.version || 1) && p.state !== "scheduled";
   }
-  var LABEL = { pending: "מחכה לאישור", approved: "✓ אושר", changes: "✎ צריך תיקון", scheduled: "מתוזמן במטריקול" };
+  var LABEL = { pending: "מחכה לאישור", approved: "✓ אושר", changes: "✎ צריך תיקון", scheduled: "מתוזמן במטריקול", published: "✓ עלה", missed: "לא עלה" };
 
+  // Past weeks stay visible for about a month, so each week's tab shows everything that went out that week.
   function visiblePosts() {
-    var from = todayKey();
+    var from = dayKey(35);
     return posts.filter(function (p) { return !p.date || p.date >= from; })
       .sort(function (a, b) { return ((a.date || "") + (a.time || "")).localeCompare((b.date || "") + (b.time || "")); });
+  }
+
+  // Weeks run Sunday to Saturday (the Israeli week), keyed by the Sunday's date.
+  var selectedWeek = null;
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function parseDay(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+  function weekOf(p) {
+    var d = parseDay(p.date);
+    if (!d) return "nodate";
+    d.setDate(d.getDate() - d.getDay());
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+  function weekRange(key) {
+    var a = parseDay(key);
+    if (!a) return "בלי תאריך";
+    var b = new Date(a); b.setDate(a.getDate() + 6);
+    return a.getMonth() === b.getMonth()
+      ? a.getDate() + "-" + b.getDate() + "." + (b.getMonth() + 1)
+      : a.getDate() + "." + (a.getMonth() + 1) + "-" + b.getDate() + "." + (b.getMonth() + 1);
+  }
+  function weekSummary(list) {
+    var c = { pending: 0, approved: 0, changes: 0, scheduled: 0, published: 0, missed: 0 };
+    list.forEach(function (p) { c[stateOf(p)]++; });
+    if (c.pending) return { cls: "pending", text: c.pending === 1 ? "פוסט אחד מחכה" : c.pending + " מחכים לאישור" };
+    if (c.changes) return { cls: "changes", text: c.changes === 1 ? "תיקון אחד" : c.changes + " תיקונים" };
+    if (c.approved) return { cls: "done", text: "הכל אושר" };
+    if (c.scheduled) return { cls: "done", text: c.published ? c.published + " עלו · " + c.scheduled + " מתוזמנים" : "הכל מתוזמן" };
+    return { cls: "", text: "הכל עלה" };
   }
 
   async function decide(p, decision) {
@@ -244,7 +296,17 @@ footer { color: var(--muted); font-size: 13px; }
     fact("גוגל ביזנס", p.gmbNote);
 
     var bar = el("div", { class: "bar" });
-    if (st === "scheduled") {
+    if (st === "published") {
+      bar.appendChild(el("div", { class: "status-line" }, [
+        el("span", { class: "chip published", text: LABEL.published }),
+        p.postUrl ? el("a", { class: "post-link", href: p.postUrl, target: "_blank", rel: "noopener", text: "לפוסט באינסטגרם ↗" }) : null
+      ]));
+    } else if (st === "missed") {
+      bar.appendChild(el("div", { class: "status-line" }, [
+        el("span", { class: "chip missed", text: LABEL.missed }),
+        el("span", { class: "time", text: "התאריך עבר לפני שהפוסט תוזמן" })
+      ]));
+    } else if (st === "scheduled") {
       bar.appendChild(el("div", { class: "status-line" }, [
         el("span", { class: "chip scheduled", text: LABEL.scheduled }),
         el("span", { class: "time", text: "יעלה לבד ב-" + (p.time || "") })
@@ -308,14 +370,43 @@ footer { color: var(--muted); font-size: 13px; }
     }
     if (!loaded.posts) return;
     var list = document.getElementById("list");
-    var vis = visiblePosts();
+    var all = visiblePosts();
     var notice = document.getElementById("notice");
+
+    // Group by week. Open on the first week that still needs a decision, and stay there once chosen.
+    var weeks = [], byWeek = {};
+    all.forEach(function (p) {
+      var k = weekOf(p);
+      if (!byWeek[k]) { byWeek[k] = []; weeks.push(k); }
+      byWeek[k].push(p);
+    });
+    if (!selectedWeek || !byWeek[selectedWeek]) {
+      selectedWeek = weeks.filter(function (k) {
+        return byWeek[k].some(function (p) { var s = stateOf(p); return s === "pending" || s === "changes"; });
+      })[0] || (byWeek[weekOf({ date: dayKey(0) })] ? weekOf({ date: dayKey(0) }) : weeks[weeks.length - 1]) || null;
+    }
+    var tabs = document.getElementById("tabs");
+    tabs.textContent = "";
+    tabs.hidden = weeks.length < 2;
+    weeks.forEach(function (k) {
+      var sum = weekSummary(byWeek[k]);
+      tabs.appendChild(el("button", {
+        class: "tab", type: "button", role: "tab", id: "tab-" + k,
+        "aria-selected": String(k === selectedWeek),
+        onclick: function () { selectedWeek = k; renderAll(); window.scrollTo({ top: 0 }); }
+      }, [
+        el("span", { class: "tab-range", text: weekRange(k) }),
+        el("span", { class: "tab-sub " + sum.cls, text: sum.text })
+      ]));
+    });
+    if (selectedWeek) document.getElementById("week").textContent = "הפוסטים של " + weekRange(selectedWeek);
+    var vis = selectedWeek ? byWeek[selectedWeek] : [];
     if (!vis.length) {
       notice.hidden = false;
       notice.innerHTML = "<strong>אין כרגע פוסטים לאישור.</strong> כשרכזת הפרסום תכין את השבוע, הפוסטים יופיעו כאן עם התמונות, הטקסט וכפתורי האישור.";
     } else notice.hidden = true;
 
-    var counts = { pending: 0, approved: 0, changes: 0, scheduled: 0 };
+    var counts = { pending: 0, approved: 0, changes: 0, scheduled: 0, published: 0, missed: 0 };
     var seen = {};
     vis.forEach(function (p, i) {
       var st = stateOf(p); counts[st]++;
@@ -336,7 +427,7 @@ footer { color: var(--muted); font-size: 13px; }
 
     var tally = document.getElementById("tally");
     tally.textContent = "";
-    if (vis.length) ["pending", "changes", "approved", "scheduled"].forEach(function (k) {
+    if (vis.length) ["pending", "changes", "approved", "scheduled", "published", "missed"].forEach(function (k) {
       if (counts[k]) tally.appendChild(el("span", { class: "chip " + k, text: LABEL[k].replace(/^[✓✎] /, "") + " · " + counts[k] }));
     });
   }

@@ -1,0 +1,26 @@
+{
+  "style": "soft",
+  "fade": 0.5,
+  "_note": "x = offset in source pixels for the 9:16 crop (600px wide window on 1600px landscape frames). build-reel.js currently reads only keep (left/center/right) - x needs a small addition to the builder; until then keep is the fallback. See selection.md, 'crop note'.",
+  "frames": [
+    { "id": "1uNyqjBv_b0vcktAfnLTewmcYcFh2oVgO", "label": "Interior/41 - the sea through the balcony door, opening", "x": 640, "keep": "center" },
+    { "id": "1NPJQX-ICNTNXOcMJKuUesQVeFop99Q2m", "label": "Interior/02 - green swivel armchair", "keep": "left" },
+    { "id": "1e8Hh6F1rbXk_Nzj2mlXvLOFwAWZ3f6AY", "label": "Interior/12 - TV wall, fluted oak unit", "keep": "right" },
+    { "id": "1cLb-5N1hzG6G6vlthLt4WR7wkWGID3un", "label": "Details/78 - black iron shelves", "keep": "center" },
+    { "id": "1zLFYdbHSw2xYQ-V8YnQ9YcUJ0eUxwC6b", "label": "Details/59 - dining table, skyline art", "keep": "center" },
+    { "id": "1Kmk9hQJEQJMNhWXVwZHN7yh7s4xGiw9I", "label": "Interior/34 - white shaker kitchen", "keep": "right" },
+    { "id": "1MA7kq1gO7Ibb8g_zvQiqoAeTJBERLBpE", "label": "Details/75 - kitchen sink, wooden utensils", "keep": "center" },
+    { "id": "1qo_3srt56EoqgKRRlZDKJI-MyvBtphp9", "label": "Interior/33 - oak niche, oval mirror", "keep": "center" },
+    { "id": "1Olr6WKVx9axHUnLcp2QIkXsdoRNqFknq", "label": "Details/57 - striped vases in the niche", "keep": "center" },
+    { "id": "1T9qZJKloiaLYKMd097lIAM8enWDnc39f", "label": "Interior/24 - brown sofa, abstract painting", "keep": "center" },
+    { "id": "1KuzkPcyot597GGTPaqnNmgOiUvEXPWWH", "label": "Details/53 - painting and table centerpiece", "keep": "center" },
+    { "id": "1ZUW5IISnMdH7aOOc2BZZ_ffBmfjxt60S", "label": "Interior/22 - kitchenette", "keep": "center" },
+    { "id": "1nR_DFjJpvWpMg2-ajTQC-9Tvr_p9pNYg", "label": "Interior/44 - kids room, sofa (day)", "x": 370, "keep": "center" },
+    { "id": "1kRWIz2FoUofN24okdmNkISdfBqK_QbqW", "label": "Interior/43 - kids room, bunk bed (night) - same tripod as 44", "x": 370, "keep": "center", "duration": 3.4 },
+    { "id": "1tuDDCTou9HAPp4-OUfDunuPwP-LLtFPC", "label": "Interior/45 - kids room, TV, desk and wardrobe", "keep": "left" },
+    { "id": "1CclXI88Uu_Z6eVMg0fijnBKY7IGR_u56", "label": "Interior/52 - master bedroom, linen curtain, green bench", "keep": "right" },
+    { "id": "1e92xaw5bhDg036mLkhSPH1Qyludbrygk", "label": "Details/80 - green corduroy bench", "keep": "center" },
+    { "id": "1c-pQaUohQEtRmj524bfeQNKZnjU5Hj7h", "label": "Details/81 - nightstand and headboard", "keep": "right" },
+    { "id": "1dJuKOiermUsGF2R_X01lIXS0g2XPKsuD", "label": "Interior/42 - the sofa facing the sea, closing", "x": 340, "keep": "center" }
+  ]
+}
