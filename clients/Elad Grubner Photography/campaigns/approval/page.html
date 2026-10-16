@@ -1,0 +1,375 @@
+<title>אישור מודעות ממומן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the same proof sheet as the organic approval page - one column of ads, each shown in its real ad crops (feed 4:5, story 9:16) with a mark-up bar. */
+:root {
+  --paper: #f3f4f2;
+  --sheet: #ffffff;
+  --ink: #1d2226;
+  --muted: #5d666c;
+  --rule: #d9ddda;
+  --accent: #23466b;
+  --accent-soft: #e3eaf2;
+  --ok: #2c6e49;
+  --ok-soft: #e1efe6;
+  --fix: #9a5b13;
+  --fix-soft: #f6ebdc;
+  --frame: #e8eae7;
+  --f-display: "Frank Ruhl Libre", "Times New Roman", serif;
+  --f-body: "Assistant", "Segoe UI", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+    --accent: #8db4dc; --accent-soft: #22303e; --ok: #7cc79a; --ok-soft: #1d3127;
+    --fix: #e0a865; --fix-soft: #3a2c1b; --frame: #262b2e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+  --accent: #8db4dc; --accent-soft: #22303e; --ok: #7cc79a; --ok-soft: #1d3127;
+  --fix: #e0a865; --fix-soft: #3a2c1b; --frame: #262b2e;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 28px 56px;
+}
+.wrap { max-width: 860px; margin-inline: auto; display: grid; gap: 28px; }
+
+header { display: grid; gap: 6px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 6vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 62ch; }
+
+.tally { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 999px;
+  background: var(--frame); color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.chip.pending { background: var(--accent-soft); color: var(--accent); }
+.chip.approved { background: var(--ok-soft); color: var(--ok); }
+.chip.changes { background: var(--fix-soft); color: var(--fix); }
+.chip.declined { background: var(--frame); color: var(--muted); }
+.chip.stage { background: transparent; border: 1px solid var(--rule); color: var(--muted); font-weight: 600; }
+
+.notice { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; color: var(--muted); }
+.notice strong { color: var(--ink); }
+
+.group { display: grid; gap: 18px; }
+.group-head { display: grid; gap: 2px; padding-top: 6px; }
+.group-title { font-family: var(--f-display); font-weight: 700; font-size: 24px; margin: 0; text-wrap: balance; }
+.group-sub { color: var(--muted); margin: 0; font-size: 15px; }
+.list { display: grid; gap: 28px; }
+
+.ad { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; display: grid; }
+.ad.is-approved { border-color: color-mix(in srgb, var(--ok) 45%, var(--rule)); }
+.ad.is-changes { border-color: color-mix(in srgb, var(--fix) 45%, var(--rule)); }
+.ad.is-optional { border-style: dashed; }
+.ad.is-declined { background: color-mix(in srgb, var(--sheet) 70%, var(--paper)); }
+
+.ad-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 18px 20px 6px; }
+.ad-tag { font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+.ad-title { padding-inline: 20px; margin: 0; font-size: 20px; font-weight: 700; text-wrap: balance; }
+
+.strip { display: flex; gap: 12px; overflow-x: auto; padding: 16px 20px; align-items: flex-end; }
+.frame { flex: 0 0 auto; display: grid; gap: 6px; margin: 0; }
+.frame img { height: 300px; width: auto; max-width: none; display: block; border-radius: 4px; background: var(--frame); }
+.frame figcaption { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.strip-empty { margin: 16px 20px; padding: 28px; border-radius: 6px; background: var(--frame); color: var(--muted); text-align: center; font-size: 14px; }
+
+.body { padding: 0 20px; display: grid; gap: 10px; min-width: 0; }
+.label { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
+.what { margin: 0; max-width: 65ch; }
+.adtext {
+  margin: 0; white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--paper); border-radius: 8px; padding: 14px 16px; font-size: 15px; line-height: 1.6;
+}
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; padding: 14px 20px 0; font-size: 14px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.facts dd .ltr { direction: ltr; unicode-bidi: isolate; }
+.check { margin: 14px 20px 0; padding: 12px 14px; border-radius: 8px; background: var(--accent-soft); color: var(--ink); font-size: 15px; white-space: pre-wrap; }
+.check b { color: var(--accent); }
+
+.bar { margin-top: 18px; padding: 14px 20px 18px; border-top: 1px solid var(--rule); display: grid; gap: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+button {
+  font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
+  border-radius: 8px; padding: 10px 18px; border: 1px solid transparent;
+}
+button:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: .55; cursor: progress; }
+.btn-ok { background: var(--ok); color: var(--sheet); }
+.btn-fix { background: transparent; color: var(--fix); border-color: var(--fix); }
+.btn-quiet { background: transparent; color: var(--muted); border-color: var(--rule); font-weight: 600; font-size: 14px; padding: 6px 12px; }
+.btn-no { background: transparent; color: var(--muted); border-color: var(--rule); }
+.btn-send { background: var(--fix); color: var(--sheet); }
+textarea {
+  width: 100%; min-height: 96px; resize: vertical; font: inherit; font-size: 15px;
+  padding: 10px 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+}
+.status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.note-shown { margin: 0; font-size: 14px; color: var(--ink); background: var(--fix-soft); border-radius: 8px; padding: 10px 14px; white-space: pre-wrap; }
+.err { color: var(--fix); font-size: 14px; margin: 0; }
+.revised { font-size: 13px; font-weight: 700; color: var(--accent); }
+.after { margin: 0; color: var(--muted); font-size: 14px; }
+
+footer { color: var(--muted); font-size: 13px; }
+@media (max-width: 520px) {
+  .frame img { height: 230px; }
+  .facts { grid-template-columns: 1fr; gap: 2px; }
+  .facts dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ad { transition: border-color .2s ease; }
+}
+</style>
+
+<div class="wrap" dir="rtl">
+  <header>
+    <div class="eyebrow" id="client">ממומן · דף אישור</div>
+    <h1 id="title">המודעות לאישור</h1>
+    <p class="lede" id="lede">כל מודעה מוצגת בשני הגדלים שבהם היא תופיע: 4:5 בפיד, 9:16 בסטורי ובריל. לכל מודעה: לעבור על התמונה ועל השאלה בכחול, ולסמן <b>מאשר</b> או <b>צריך תיקון</b>. שום דבר לא עולה ל-Meta מהדף הזה.</p>
+  </header>
+
+  <div class="tally" id="tally" aria-live="polite"></div>
+
+  <div class="notice" id="notice">טוען את המודעות...</div>
+
+  <div class="list" id="list"></div>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var db = null;
+  var meta = null;
+  var ads = [];
+  var approvals = {};
+  var loaded = { ads: false };
+  var ui = {};       // per ad: { noteOpen, draft, busy, error }
+
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "class") n.className = attrs[k];
+      else if (k === "text") n.textContent = attrs[k];
+      else if (k.slice(0, 2) === "on") n.addEventListener(k.slice(2), attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return n;
+  }
+  function uiOf(id) { return ui[id] || (ui[id] = { noteOpen: false, draft: "", busy: false, error: "" }); }
+
+  // An answer counts only for the version it was given on. A revised ad asks again.
+  function stateOf(p) {
+    var a = approvals[p.id];
+    if (a && (a.version || 1) === (p.version || 1)) return a.decision;
+    return "pending";
+  }
+  function isRevised(p) {
+    var a = approvals[p.id];
+    return !!a && (a.version || 1) !== (p.version || 1);
+  }
+  var LABEL = { pending: "מחכה לאישור", approved: "✓ אושר", changes: "✎ צריך תיקון", declined: "לא נבחר" };
+  var OPT_LABEL = { approved: "✓ להכניס", changes: "✎ הערה", declined: "לא צריך" };
+
+  async function decide(p, decision) {
+    var u = uiOf(p.id);
+    if (decision === "changes" && !u.draft.trim()) { u.error = "כתבו בכמה מילים מה לתקן."; render(); return; }
+    u.busy = true; u.error = ""; render();
+    try {
+      await db.doc("approvals/" + p.id).set({
+        decision: decision,
+        note: decision === "changes" ? u.draft.trim() : "",
+        version: p.version || 1,
+        at: new Date().toISOString()
+      });
+      u.noteOpen = false; u.draft = "";
+    } catch (e) {
+      u.error = "השמירה לא עברה. נסו שוב בעוד רגע.";
+    }
+    u.busy = false; render();
+  }
+  async function undo(p) {
+    var u = uiOf(p.id);
+    u.busy = true; u.error = ""; render();
+    try { await db.doc("approvals/" + p.id).delete(); }
+    catch (e) { u.error = "לא הצלחתי לבטל. נסו שוב בעוד רגע."; }
+    u.busy = false; render();
+  }
+
+  function buildCard(p) {
+    var st = stateOf(p);
+    var u = uiOf(p.id);
+    var a = approvals[p.id];
+    var labels = p.optional ? OPT_LABEL : LABEL;
+
+    var images = Array.isArray(p.images) ? p.images : [];
+    var strip = images.length
+      ? el("div", { class: "strip", "aria-label": "התמונות של המודעה" }, images.map(function (im, i) {
+          var src = typeof im === "string" ? im : im.url;
+          var cap = typeof im === "string" ? "" : (im.label || "");
+          return el("figure", { class: "frame" }, [
+            el("img", { src: src, alt: (p.title || "מודעה") + (cap ? " · " + cap : ""), loading: "lazy" }),
+            cap ? el("figcaption", { text: cap }) : null
+          ]);
+        }))
+      : el("div", { class: "strip-empty", text: "התמונות יופיעו כאן" });
+
+    var facts = el("dl", { class: "facts" });
+    function fact(k, v) {
+      if (!v) return;
+      facts.appendChild(el("dt", { text: k }));
+      facts.appendChild(el("dd", { dir: "auto", text: String(v) }));
+    }
+    fact("למי", p.audience);
+    fact("ההוק", p.hook);
+    fact("קרדיט", p.credit);
+
+    var bar = el("div", { class: "bar" });
+    if (st !== "pending") {
+      bar.appendChild(el("div", { class: "status-line" }, [
+        el("span", { class: "chip " + st, text: labels[st] || LABEL[st] }),
+        el("button", { class: "btn-quiet", type: "button", onclick: function () { undo(p); }, text: "לשנות החלטה" })
+      ]));
+      if (st === "changes" && a && a.note) bar.appendChild(el("p", { class: "note-shown", dir: "auto", text: a.note }));
+      if (st === "approved" && !p.optional) bar.appendChild(el("p", { class: "after", text: "עדי תעביר את זה לשלב הבא." }));
+    } else {
+      if (isRevised(p)) bar.appendChild(el("span", { class: "revised", text: "גרסה מתוקנת אחרי ההערה שלך" }));
+      var buttons = [
+        el("button", { class: "btn-ok", type: "button", onclick: function () { decide(p, "approved"); }, text: p.okLabel || "מאשר ✓" })
+      ];
+      if (p.optional) buttons.push(el("button", { class: "btn-no", type: "button", onclick: function () { decide(p, "declined"); }, text: p.noLabel || "לא צריך" }));
+      buttons.push(el("button", { class: "btn-fix", type: "button", "aria-expanded": String(u.noteOpen),
+        onclick: function () { u.noteOpen = !u.noteOpen; u.error = ""; render(); var t = document.getElementById("note-" + p.id); if (t) t.focus(); },
+        text: p.optional ? "הערה" : "צריך תיקון" }));
+      bar.appendChild(el("div", { class: "actions" }, buttons));
+      if (u.noteOpen) {
+        var ta = el("textarea", { id: "note-" + p.id, dir: "auto", placeholder: p.notePlaceholder || "מה לתקן? למשל: להחליף תמונה, או שהחיתוך לסטורי חותך משהו חשוב", "aria-label": "מה לתקן" });
+        ta.value = u.draft;
+        ta.addEventListener("input", function () { u.draft = ta.value; });
+        bar.appendChild(ta);
+        bar.appendChild(el("div", { class: "actions" }, [
+          el("button", { class: "btn-send", type: "button", onclick: function () { decide(p, "changes"); }, text: "לשלוח הערה" })
+        ]));
+      }
+    }
+    if (u.error) bar.appendChild(el("p", { class: "err", role: "alert", text: u.error }));
+    if (u.busy) bar.querySelectorAll("button").forEach(function (b) { b.disabled = true; });
+
+    return el("article", { class: "ad is-" + st + (p.optional ? " is-optional" : ""), id: "ad-" + p.id }, [
+      el("div", { class: "ad-head" }, [
+        el("div", { class: "status-line" }, [
+          p.stage ? el("span", { class: "chip stage", text: p.stage }) : null,
+          p.tag ? el("span", { class: "ad-tag", text: p.tag }) : null
+        ]),
+        el("span", { class: "chip " + st, text: labels[st] || LABEL[st] })
+      ]),
+      p.title ? el("h2", { class: "ad-title", dir: "auto", text: p.title }) : null,
+      strip,
+      (p.what || p.text) ? el("div", { class: "body" }, [
+        p.what ? el("span", { class: "label", text: "מה רואים" }) : null,
+        p.what ? el("p", { class: "what", dir: "auto", text: p.what }) : null,
+        p.text ? el("span", { class: "label", text: "הטקסט של המודעה" }) : null,
+        p.text ? el("p", { class: "adtext", dir: "auto", text: p.text }) : null
+      ]) : null,
+      facts.childNodes.length ? facts : null,
+      p.question ? el("p", { class: "check", dir: "auto" }, [el("b", { text: "השאלה לאלעד: " }), p.question]) : null,
+      bar
+    ]);
+  }
+
+  function render() {
+    if (meta) {
+      if (meta.client) document.getElementById("client").textContent = meta.client;
+      if (meta.title) document.getElementById("title").textContent = meta.title;
+      document.getElementById("footer").textContent = meta.updatedAt ? "עודכן: " + meta.updatedAt : "";
+    }
+    if (!loaded.ads) return;
+    var notice = document.getElementById("notice");
+    var list = document.getElementById("list");
+    var vis = ads.filter(function (p) { return !p.hidden; })
+      .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+    if (!vis.length) {
+      notice.hidden = false;
+      notice.innerHTML = "<strong>אין כרגע מודעות לאישור.</strong> כשהתמונות או הטקסטים של קמפיין יהיו מוכנים, הם יופיעו כאן עם כפתורי האישור.";
+    } else notice.hidden = true;
+
+    // Keep any open comment box (and the text typed in it) across live updates by rebuilding only what changed.
+    var focusId = document.activeElement && document.activeElement.id;
+    list.textContent = "";
+    var groups = [], byGroup = {};
+    vis.forEach(function (p) {
+      var g = p.group || "";
+      if (!byGroup[g]) { byGroup[g] = []; groups.push(g); }
+      byGroup[g].push(p);
+    });
+    var counts = { pending: 0, approved: 0, changes: 0, declined: 0 };
+    groups.forEach(function (g) {
+      var first = byGroup[g][0];
+      var sec = el("section", { class: "group" }, [
+        g ? el("div", { class: "group-head" }, [
+          el("h2", { class: "group-title", dir: "auto", text: g }),
+          first.groupSub ? el("p", { class: "group-sub", dir: "auto", text: first.groupSub }) : null
+        ]) : null
+      ]);
+      byGroup[g].forEach(function (p) {
+        var st = stateOf(p);
+        if (!p.optional || st !== "pending") counts[st] = (counts[st] || 0) + 1;
+        sec.appendChild(buildCard(p));
+      });
+      list.appendChild(sec);
+    });
+    if (focusId) { var f = document.getElementById(focusId); if (f) f.focus(); }
+
+    var tally = document.getElementById("tally");
+    tally.textContent = "";
+    if (vis.length) ["pending", "changes", "approved", "declined"].forEach(function (k) {
+      if (counts[k]) tally.appendChild(el("span", { class: "chip " + k, text: LABEL[k].replace(/^[✓✎] /, "") + " · " + counts[k] }));
+    });
+  }
+
+  function fail() {
+    var n = document.getElementById("notice");
+    n.hidden = false;
+    n.innerHTML = "<strong>המודעות לא נטענו.</strong> רעננו את הדף. אם זה חוזר, ספרו לעדי.";
+  }
+
+  function start() {
+    if (!window.claude || !window.claude.use) {
+      document.getElementById("notice").innerHTML = "<strong>הדף הזה עובד רק מתוך claude.ai.</strong> פתחו אותו מהקישור שעדי שלחה.";
+      return;
+    }
+    window.claude.use("db").then(function (d) {
+      db = d;
+      if (!db) {
+        document.getElementById("notice").innerHTML = "<strong>אי אפשר לטעון את המודעות כאן.</strong> פתחו את הדף מהקישור ב-claude.ai, מהחשבון של העסק.";
+        return;
+      }
+      db.doc("meta/info").onSnapshot(function (s) { meta = s.exists ? s.data() : null; render(); }, fail);
+      db.collection("ads").onSnapshot(function (s) {
+        ads = s.docs.map(function (d) { return Object.assign({ id: d.id }, d.data()); });
+        loaded.ads = true; render();
+      }, fail);
+      db.collection("approvals").onSnapshot(function (s) {
+        var next = {};
+        s.docs.forEach(function (d) { next[d.id] = d.data(); });
+        approvals = next; render();
+      }, fail);
+    });
+  }
+  start();
+})();
+</script>

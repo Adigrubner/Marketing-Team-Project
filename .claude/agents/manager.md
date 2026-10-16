@@ -36,8 +36,8 @@ description: המנכ"ל של המחלקה. מכיר את העסק ומנווט 
 | הסוכן | התפקיד | הפלט | מצב |
 |-------|---------|-------|-----|
 | `ads-strategist` | מציע רעיונות לקמפיינים, ממליץ מאיפה להתחיל, ואחרי הבחירה כותב בריף לקמפיין | `campaigns/strategy.md`, `campaigns/<קמפיין>/campaign-brief.md` | ✅ קיים |
-| `ads-copywriter` | קופי למודעות | `copy.md` | ⏳ בבנייה |
-| `ads-creative` | תמונות למודעות מהמאגר, חיתוך לגדלים, גרסאות | `creatives/` | ⏳ בבנייה |
+| `ads-creative` | תמונות למודעות מהמאגר, חיתוך לגדלים, גרסאות. **בא לפני הקופי**: אצל צלם קודם תמונות, ואחר כך קופי | `creatives/` + `creatives.md` + דף מגע | ✅ קיים |
+| `ads-copywriter` | קופי למודעות, לפי התמונות שנבחרו | `copy.md` | ⏳ בבנייה |
 | `ads-campaigner` | `plan.json` + העלאה דרך `tools/meta-upload.js` בלבד | קמפיין מושהה ב-Meta | ⏳ בבנייה |
 | `ads-analyst` | ניתוח נתונים והצעות | `campaigns/analytics/` | ⏳ בבנייה |
 
