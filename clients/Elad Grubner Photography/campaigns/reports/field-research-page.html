@@ -1,0 +1,288 @@
+<title>מחקר שטח לממומן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a field report - one reading column; the proven ad is laid out as an annotated specimen, evidence sits in tables with Ad Library links, strength of evidence is a chip on every conclusion. */
+:root {
+  --paper: #f3f4f2;
+  --sheet: #ffffff;
+  --ink: #1d2226;
+  --muted: #5d666c;
+  --rule: #d9ddda;
+  --accent: #23466b;
+  --accent-soft: #e3eaf2;
+  --strong: #2c6e49;
+  --strong-soft: #e1efe6;
+  --mid: #8a6a12;
+  --mid-soft: #f4ecd6;
+  --weak: #8a4a3a;
+  --weak-soft: #f5e4df;
+  --f-display: "Frank Ruhl Libre", "Times New Roman", serif;
+  --f-body: "Assistant", "Segoe UI", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+    --accent: #8db4dc; --accent-soft: #22303e; --strong: #7cc79a; --strong-soft: #1d3127;
+    --mid: #e0c070; --mid-soft: #352d17; --weak: #e59a86; --weak-soft: #3a231d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+  --accent: #8db4dc; --accent-soft: #22303e; --strong: #7cc79a; --strong-soft: #1d3127;
+  --mid: #e0c070; --mid-soft: #352d17; --weak: #e59a86; --weak-soft: #3a231d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.65;
+  padding-inline: 16px; padding-block: 32px 64px;
+}
+.wrap { max-width: 820px; margin-inline: auto; display: grid; gap: 40px; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a.id { font-family: var(--f-mono); font-size: 13px; direction: ltr; unicode-bidi: isolate; }
+
+header { display: grid; gap: 10px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(30px, 6.5vw, 46px); line-height: 1.12; margin: 0; text-wrap: balance; }
+.lede { margin: 0; font-size: 19px; color: var(--ink); max-width: 62ch; }
+.caveat { margin: 0; color: var(--muted); font-size: 15px; max-width: 64ch; }
+
+section { display: grid; gap: 14px; }
+h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(23px, 4.5vw, 30px); line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-size: 18px; margin: 6px 0 0; }
+p { margin: 0; max-width: 66ch; }
+.obs, .inf { font-size: 12px; font-weight: 700; letter-spacing: .05em; padding: 1px 8px; border-radius: 4px; margin-inline-end: 6px; white-space: nowrap; }
+.obs { background: var(--accent-soft); color: var(--accent); }
+.inf { background: var(--paper); border: 1px solid var(--rule); color: var(--muted); }
+
+.summary { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px; display: grid; gap: 10px; }
+.summary ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 8px; }
+
+/* The specimen: the one ad structure that has held up in this niche. */
+.specimen { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+.spec-head { padding: 14px 20px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; align-items: baseline; }
+.spec-head b { font-size: 16px; }
+.spec-head span { font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+.lines { list-style: none; margin: 0; padding: 8px 0; counter-reset: line; }
+.lines li { counter-increment: line; display: grid; grid-template-columns: 2.2em 1fr; gap: 4px 12px; padding: 10px 20px; border-bottom: 1px dashed var(--rule); }
+.lines li:last-child { border-bottom: 0; }
+.lines li::before { content: counter(line); font-family: var(--f-display); font-weight: 700; font-size: 22px; color: var(--accent); line-height: 1.2; }
+.lines .what { font-weight: 700; }
+.lines .why { grid-column: 2; color: var(--muted); font-size: 15px; }
+.spec-foot { padding: 14px 20px; background: var(--accent-soft); font-size: 15px; display: grid; gap: 4px; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; min-width: 560px; }
+th, td { text-align: start; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: 13px; color: var(--muted); font-weight: 700; background: var(--paper); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.chip { display: inline-block; font-size: 13px; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.s-strong { background: var(--strong-soft); color: var(--strong); }
+.s-mid { background: var(--mid-soft); color: var(--mid); }
+.s-weak { background: var(--weak-soft); color: var(--weak); }
+
+.concl { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.concl li { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; align-items: start; padding: 12px 16px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; }
+.concl .basis { grid-column: 1 / -1; color: var(--muted); font-size: 14px; }
+
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.opt { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.opt.rec { border: 2px solid var(--accent); }
+.opt h3 { margin: 0; font-family: var(--f-display); font-size: 21px; }
+.opt .tag { font-size: 13px; font-weight: 700; color: var(--accent); }
+.opt dl { margin: 0; display: grid; gap: 2px; font-size: 15px; }
+.opt dt { color: var(--muted); font-size: 13px; font-weight: 700; margin-top: 6px; }
+.opt dd { margin: 0; }
+
+.plan { display: grid; grid-template-columns: max-content 1fr; gap: 10px 18px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; }
+.plan dt { font-weight: 700; color: var(--muted); font-size: 15px; }
+.plan dd { margin: 0; min-width: 0; }
+.draft { margin: 0; padding: 14px 18px; border-inline-start: 3px solid var(--accent); background: var(--sheet); border-radius: 0 8px 8px 0; white-space: pre-line; font-size: 16px; }
+.rules { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; max-width: 66ch; }
+
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.checks li { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 16px; display: grid; gap: 4px; }
+.checks .who { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+
+footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 16px; display: grid; gap: 4px; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .plan { grid-template-columns: 1fr; gap: 2px; }
+  .plan dd { margin-bottom: 10px; }
+  .concl li { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="wrap" dir="rtl">
+
+  <header>
+    <div class="eyebrow">אלעד גרובנר · ממומן · מחקר שטח · 15.10.2026</div>
+    <h1>צלם אחד, תשע מודעות, שנתיים</h1>
+    <p class="lede">מה צלמי עיצוב פנים, ומפרסמים אחרים שפונים למעצבות, מריצים בפועל ב-Meta. מה מחזיק לאורך זמן, ומה אלעד יכול להעתיק מזה.</p>
+    <p class="caveat">נבדק בספריית המודעות של Meta: מאגר ציבורי של כל מודעה שרצה עכשיו בפייסבוק ובאינסטגרם, עם המפרסם ותאריך ההתחלה. בישראל אין נתוני תקציב או תוצאות, ולכן "עובד" נמדד בעקיפין: <b>מודעה שמפרסם ממשיך לשלם עליה חודשים ארוכים</b>. זה סימן חזק, לא הוכחה. כל קישור כאן פותח את המודעה עצמה.</p>
+  </header>
+
+  <section class="summary" aria-label="בקצרה">
+    <h2>בקצרה</h2>
+    <ul>
+      <li><b>כמעט אף צלם או צלמת פנים בישראל לא מפרסמים למעצבות.</b> בדקנו <b>כ-135 צלמים וצלמות בשמם</b> (כולל 8 צלמי הרפרנס של אלעד, וכ-30 צלמות), בכ-290 חיפושים. רק צלם אחד מחזיק מודעות כאלה לאורך זמן: <b>9 מודעות, הוותיקה רצה כבר כשנתיים</b>. כמה אחרים רק מקדמים פוסט פה ושם, או פונים לצלמים.</li>
+      <li>למודעה שלו <b>מבנה קבוע של חמש שורות</b>, ו-7 מתוך 9 הגרסאות הן <b>סרטון של הצלם בעבודה</b> בתוך חלל גמור.</li>
+      <li>"פרויקט גמור? בואו נדבר" נמצא גם אצלו. אז מה נכשל במודעה שאלעד פסל? <b>התמונה</b> (שולחן, מעצבת במטבח), ושלא היה ברור מי מדבר, למי ומה מבקשים.</li>
+      <li>ספקים שפונים למעצבות מחזיקים <b>את אותה נוסחה</b> 6-22 חודשים: שם המקצוע במילים הראשונות, צעד ראשון קל, וכפתור אחד.</li>
+      <li>רוב צלמי הפנים מקבלים חשיפה ממומנת <b>בחינם</b>, דרך קרדיט במודעות של ספקים ומעצבות. ממומן הוא תוספת, לא הערוץ הראשי.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>המבנה שמחזיק בנישה</h2>
+    <p><span class="obs">נצפה</span>לכל 9 המודעות יש אותו טקסט בדיוק. הן מתחלפות רק בסרטון. אף אחת לא כובתה מאז שעלתה.</p>
+    <div class="specimen">
+      <div class="spec-head"><b>אבי קבלו - צילום אדריכלות ועיצוב פנים</b><span>9 מודעות · 9.10.2024 עד היום · כפתור "שליחת הודעה"</span></div>
+      <ol class="lines">
+        <li><span class="what">פנייה בשם המקצוע: מעצב/ת פנים או אדריכל/ית?</span><span class="why">עוצר את מי שזה בשבילה. בעלת בית ממשיכה לגלול.</span></li>
+        <li><span class="what">יש פרויקט שהסתיים, או שמתקרב לסיום?</span><span class="why">הטריגר. "לקראת סיום" עוקף את החסם הגדול: "הבית לא גמור".</span></li>
+        <li><span class="what">הטבה למי שמזמין צילום, בלי מחיר</span><span class="why">סיבה לכתוב עכשיו. מה ההטבה לא נאמר במודעה.</span></li>
+        <li><span class="what">הצגה עצמית בשם: "אני ..., צלם אדריכלות"</span><span class="why">ברור מי מדבר.</span></li>
+        <li><span class="what">הזמנה לשלוח הודעה קצרה</span><span class="why">צעד אחד, קל.</span></li>
+      </ol>
+      <div class="spec-foot">
+        <span><b>הוויזואל:</b> 7 סרטונים אנכיים (37 שניות עד דקה) של הצלם בתוך דירה גמורה, ליד חצובה או מול מסך. 2 קרוסלות של חללים גמורים.</span>
+        <span><b>לפתוח ולראות:</b> <a class="id" href="https://www.facebook.com/ads/library/?active_status=all&amp;ad_type=all&amp;country=IL&amp;view_all_page_id=103015744749113&amp;search_type=page&amp;media_type=all" target="_blank" rel="noopener">כל המודעות שלו</a> · הוותיקה <a class="id" href="https://www.facebook.com/ads/library/?id=546490497922224" target="_blank" rel="noopener">546490497922224</a> · החדשה <a class="id" href="https://www.facebook.com/ads/library/?id=1551910839445789" target="_blank" rel="noopener">1551910839445789</a></span>
+      </div>
+    </div>
+    <p><span class="inf">הסקה</span>שלוש השורות הראשונות עונות מיד על שלוש שאלות: <b>מי</b> מדבר, <b>למי</b>, ו<b>מה</b> מבקשים. והסרטון מראה צלם בעבודה, כך שגם מי שלא קוראת מבינה מיד "צלם ← הפרויקט שלי". המודעה שנפסלה לא ענתה על אף אחת מהשאלות האלה. זה בדיוק מה שאלעד אמר: "מה הקשר? איך אני אמור להגיב?"</p>
+  </section>
+
+  <section>
+    <h2>מה עוד נמצא בישראל</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>מפרסם</th><th>למי ומה</th><th>מאז</th><th>כפתור</th><th>מודעה</th></tr></thead>
+        <tbody>
+          <tr><td>שאדי מקלדה (צלם)</td><td>"בנק תוכן" לאדריכלים ומעצבים</td><td class="num">13.10.2026 · יומיים, אין עדיין הוכחה</td><td>טופס</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=1791318545456623" target="_blank" rel="noopener">1791318545456623</a></td></tr>
+          <tr><td>מירב פלברג (רפרנס)</td><td>תוכנית ליווי ל<b>צלמים</b>, לא למעצבות</td><td class="num">8.10.2026</td><td>טופס</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=1866142974554536" target="_blank" rel="noopener">1866142974554536</a></td></tr>
+          <tr><td>Shai Epstein (רפרנס)</td><td>מודעה אחת, הוצגה ביוון ובקפריסין</td><td class="num">18.1.2026 · 8 ימים</td><td>הודעה</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=911874247887437" target="_blank" rel="noopener">911874247887437</a></td></tr>
+          <tr><td>נגרית יגל (ספק)</td><td>מטבח, עם קרדיט לצלם</td><td class="num">7.11.2023 · כמעט 3 שנים</td><td>-</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=211171135338281" target="_blank" rel="noopener">211171135338281</a></td></tr>
+          <tr><td>בסט סטונס (ספק)</td><td>בית, עם קרדיט לצלם</td><td class="num">29.11.2023 · כמעט 3 שנים</td><td>-</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=258701860527418" target="_blank" rel="noopener">258701860527418</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><span class="obs">נצפה</span>7 מתוך 8 צלמי הרפרנס לא מפרסמים בכלל, אבל השמות שלהם מופיעים בעשרות מודעות של ספקים ומעצבות (מאור מויאל בכ-35, Daniel Tzairi בכ-21). צלמי נדל"ן, דירות ו-Airbnb בישראל לא מפרסמים בכלל.</p>
+  </section>
+
+  <section>
+    <h2>ספקים שמחזרים אחרי מעצבות, באותה נוסחה</h2>
+    <p><span class="obs">נצפה</span>כ-70 מפרסמים פונים למעצבות ולאדריכלים: רהיטים, תאורה, חומרי גמר, נגריות, קורסים, הדמיות. אלה מחזיקים הכי הרבה זמן:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>מפרסם</th><th>מה מציע</th><th>מאז</th><th>כפתור</th><th>מודעה</th></tr></thead>
+        <tbody>
+          <tr><td>Swing Fans</td><td>"מועדון אדריכלים"</td><td class="num">4.12.2024 · כ-22 חודשים</td><td>הרשמה</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=1367479771298508" target="_blank" rel="noopener">1367479771298508</a></td></tr>
+          <tr><td>Home Workshop</td><td>"במיוחד למעצבי פנים ואדריכלים", פגישה חינם</td><td class="num">9.2025 · כ-13 חודשים</td><td>וואטסאפ</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=2490956731290561" target="_blank" rel="noopener">2490956731290561</a></td></tr>
+          <tr><td>Loom</td><td>הדרכה קצרה, ואז "מועדון מעצבים"</td><td class="num">11.9.2025 · כ-13 חודשים</td><td>הרשמה</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=2951939198343393" target="_blank" rel="noopener">2951939198343393</a></td></tr>
+          <tr><td>Divani Center</td><td>מועדון: <b>צילום מקצועי וחשיפה ממומנת עם קרדיט</b> למעצבת</td><td class="num">28.11.2025 · כ-10.5 חודשים</td><td>טופס</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=24582786674729243" target="_blank" rel="noopener">24582786674729243</a></td></tr>
+          <tr><td>Hecht Efraim</td><td>סרטוני מוצר "לאדריכלים ומעצבים"</td><td class="num">18.12.2025 · כ-10 חודשים</td><td>וואטסאפ</td><td><a class="id" href="https://www.facebook.com/ads/library/?id=2239042199919145" target="_blank" rel="noopener">2239042199919145</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><span class="obs">נצפה</span>המשותף לכולן: <b>שם המקצוע במילים הראשונות</b>, פנייה לאינטרס המקצועי של המעצבת (הלקוחות שלה, השם שלה, איך העבודה שלה נראית), <b>צעד ראשון קל ובלי סיכון</b>, וכפתור אחד.</p>
+    <p><span class="inf">הסקה</span>רשת רהיטים משתמשת ב"צילום מקצועי וחשיפה עם קרדיט" כפיתיון למעצבות. זו ראיה שמעצבות רוצות בדיוק את מה שאלעד מוכר.</p>
+  </section>
+
+  <section>
+    <h2>בחו"ל: צלמים כמעט לא משלמים על מודעות</h2>
+    <p><span class="obs">נצפה</span>בחיפוש בכל העולם נמצאו רק כמה עשרות מודעות של צלמי פנים. רוב המודעות עם המילים "interior photographer" הן של מעצבים, ספקים ומגזינים, עם קרדיט לצלם. צלמים מוכרים לא מופיעים. אנשי המקצוע מתארים עסק שבנוי על המלצות, קרדיטים ופנייה אישית, וקורס השיווק המוביל לצלמי אדריכלות לא מזכיר ממומן בכלל.</p>
+    <p><span class="obs">נצפה</span>מה שכנראה <b>לא</b> עובד: תמונות אווירה בלי "למי זה ומה מבקשים" (מעצבת שקידמה סרטוני אווירה קיבלה עוקבים ואף לקוח), בחירת קהל לפי תחום העניין "עיצוב פנים" (מגיע לבעלי בתים), והצגת מחיר במודעה.</p>
+  </section>
+
+  <section>
+    <h2>המסקנות, מהחזקה לחלשה</h2>
+    <ol class="concl">
+      <li><span>יש תבנית אחת שמחזיקה בנישה עצמה: שם המקצוע, פרויקט שהסתיים או לקראת סיום, הטבה בלי מחיר, הצגה עצמית, כפתור להודעה. סרטון של הצלם בעבודה.</span><span class="chip s-strong">חזקה, ממפרסם אחד</span><span class="basis">9 מודעות, 8-24 חודשים, בלי נתוני תוצאות</span></li>
+      <li><span>מי שמחזיק מודעה למעצבות לאורך זמן פותח בשם המקצוע, נותן צעד ראשון קל ושם כפתור אחד.</span><span class="chip s-strong">חזקה</span><span class="basis">כ-9 מפרסמים מתחומים שונים, 6-24 חודשים</span></li>
+      <li><span>רוב החשיפה הממומנת של צלמי פנים מגיעה בחינם, דרך קרדיטים במודעות של ספקים ומעצבות.</span><span class="chip s-strong">חזקה</span><span class="basis">עשרות מודעות, בישראל ובחו"ל</span></li>
+      <li><span>התמונה צריכה להראות את העבודה, או את הצלם בעבודה. תמונת אווירה או דיוקן של מעצבת לא מופיעים באף מודעה ותיקה.</span><span class="chip s-mid">בינונית-חזקה</span><span class="basis">כל הקטלוג, ומקרה מתועד מחו"ל</span></li>
+      <li><span>ממומן הוא תוספת. מעצבות בוחרות צלם לפי המלצות וקרדיטים.</span><span class="chip s-mid">בינונית</span><span class="basis">אנשי מקצוע מחו"ל, ו-7 מתוך 8 צלמי הרפרנס לא מפרסמים</span></li>
+      <li><span>וואטסאפ הוא יעד סביר, אם מסננים. קבלו עצמו שולח למסנג'ר.</span><span class="chip s-mid">בינונית</span><span class="basis">ספקים ששולחים לוואטסאפ 10-13 חודשים</span></li>
+      <li><span>מודעות לספקים, לפני ואחרי של טלפון מול צילום מקצועי, המלצות של מעצבות, מחיר: אף אחד מהם לא מוכח אצל צלמי פנים.</span><span class="chip s-weak">אין ראיה</span><span class="basis">אף אחד לא מריץ את זה</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>שלוש אפשרויות, וממה כל אחת מועתקת</h2>
+    <div class="options">
+      <div class="opt rec">
+        <span class="tag">מומלץ ראשון</span>
+        <h3>א. התבנית של השטח</h3>
+        <dl>
+          <dt>מה</dt><dd>מודעה שפותחת וואטסאפ, לקהל רחב בישראל. הפתיחה היא שמסננת.</dd>
+          <dt>ממה מועתק</dt><dd>9 המודעות של קבלו. המבנה, לא המילים.</dd>
+          <dt>מתי</dt><dd>עכשיו, לשבועיים.</dd>
+        </dl>
+      </div>
+      <div class="opt">
+        <h3>ב. מודעת שותפות עם מעצבת</h3>
+        <dl>
+          <dt>מה</dt><dd>קידום פרויקט גמור בשם המעצבת ובשם אלעד יחד. גם מתנה למעצבת.</dd>
+          <dt>ממה מועתק</dt><dd>הקרדיטים במודעות של ספקים, וההטבה של Divani.</dd>
+          <dt>מתי</dt><dd>אחרי א', או כשמעצבת מסכימה. ראיה חלשה-בינונית.</dd>
+        </dl>
+      </div>
+      <div class="opt">
+        <h3>ג. נוכחות קבועה לקהל חם</h3>
+        <dl>
+          <dt>מה</dt><dd>10-20₪ ליום, רק למי שכבר צפה או הגיב לאלעד.</dd>
+          <dt>ממה מועתק</dt><dd>צלמת מאיטליה שמחזיקה נוכחות כזו יותר משנה.</dd>
+          <dt>מתי</dt><dd>אחרי 2-4 שבועות של א'. ראיה חלשה-בינונית.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>הניסוי הראשון, בפירוט</h2>
+    <dl class="plan">
+      <dt>הוויזואל</dt><dd><b>סרטון אנכי, 30-60 שניות, של אלעד ביום צילום אמיתי:</b> מציב חצובה, מסדר כרית, מזיז פריט, מסתכל במסך, ובסוף התמונה הגמורה. לצידו קרוסלה של פרויקט גמור אחד, עם קרדיט למעצבת. אם אין עדיין סרטון, מתחילים בקרוסלה בלבד (גם היא רצה אצל קבלו 18-20 חודשים).</dd>
+      <dt>הטקסט</dt><dd>חמש שורות לפי המבנה, במילים של אלעד.</dd>
+      <dt>ההטבה</dt><dd>אלעד בוחר משהו שאפשר לומר בלי מחיר. רעיון אחד, <b>שלא נבדק בשטח</b>: "שלחו כמה תמונות מהטלפון, ואגיד אם הפרויקט מוכן לצילום ומה אפשר לסדר ביום עצמו".</dd>
+      <dt>היעד</dt><dd>וואטסאפ, עם הודעת פתיחה מוכנה ושלושה כפתורים: "יש לי פרויקט גמור" · "לקראת סיום" · "שאלה אחרת".</dd>
+      <dt>תקציב</dt><dd>50₪ ליום לשבועיים (כ-700₪). בשבוע הראשון לא נוגעים בכלום. הכל נוצר מושהה, ואלעד מפעיל.</dd>
+      <dt>מדידה</dt><dd>סופרים רק שיחות ממעצבות ואדריכלים עם פרויקט: עד 25₪ לשיחה זה טוב, 25-40₪ סביר.</dd>
+    </dl>
+    <p>שלד לדוגמה, רק כדי להמחיש את המבנה. הנוסח עצמו נכתב בשלב הקופי:</p>
+    <p class="draft">מעצבים ומעצבות פנים? אדריכלים ואדריכליות?
+יש פרויקט שהסתיים, או כזה שעוד מחכה לווילון ולארון של הנגר?
+[ההטבה שאלעד יבחר]
+אני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שהחלל נראה בדיוק כמו שתכננתם.
+שלחו הודעה, ואחזור אליכם.</p>
+    <ul class="rules">
+      <li><b>מעתיקים את המבנה, לא את המילים.</b> מעצבות שראו את המודעה של קבלו שנתיים יזהו אותה.</li>
+      <li><b>הסטייה היחידה מהתבנית: וואטסאפ במקום מסנג'ר.</b> אם יגיעו הרבה שיחות לא רלוונטיות, עוברים למסנג'ר או לטופס עם שתי שאלות.</li>
+      <li>מחוץ לממומן, וזה לא עולה כלום: לוודא שכל ספק ומעצבת שמשתמשים בתמונות של אלעד כותבים "צילום: אלעד גרובנר" ומתייגים.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>מה עוד פתוח, ואפשר לבדוק בכמה דקות</h2>
+    <ul class="checks">
+      <li><b>מה יש בסרטונים של קבלו?</b> לפתוח את <a class="id" href="https://www.facebook.com/ads/library/?id=546490497922224" target="_blank" rel="noopener">546490497922224</a>, להפעיל את הסרטון, ולרשום מה רואים ב-3 השניות הראשונות ומה כתוב על המסך. זה יכוון את הסרטון של אלעד.<span class="who">עדי · 10 דקות</span></li>
+      <li><b>יש לאלעד סרטון שלו בעבודה?</b> אם לא, מצלמים 30-60 שניות ביום הצילום הבא, באישור המעצבת.<span class="who">אלעד</span></li>
+      <li><b>איזו הטבה אלעד רוצה לתת?</b> משהו שאפשר לומר במודעה בלי מחיר.<span class="who">אלעד</span></li>
+      <li><b>איך הלקוחות של אלעד מצאו אותו?</b> שאלה אחת בוואטסאפ ל-5 מעצבות שעבד איתן לאחרונה. זה בודק אם גם אצלו המלצות וקרדיטים הם הערוץ הראשי.<span class="who">אלעד · 15 דקות</span></li>
+      <li><b>האם מעצבות מגיבות למודעות?</b> כשמחוברים לפייסבוק, לקרוא תגובות במודעות של קבלו, Loom ו-Divani.<span class="who">עדי · 15 דקות</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>מבוסס על ארבעה מחקרים: צלמים בישראל, צלמים בחו"ל, מפרסמים שפונים למעצבות, ואיך Meta עובדת בקהל קטן. הדוח המלא, עם כל המקורות: <span dir="ltr">campaigns/reports/</span>.</span>
+    <span>נבדק ב-15.10.2026. מודעות פעילות בלבד: מודעה שנעצרה נעלמת מהספרייה.</span>
+  </footer>
+</div>
