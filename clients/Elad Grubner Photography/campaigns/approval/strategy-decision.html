@@ -108,115 +108,133 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
 }
 </style>
 
+<style>
+.changes { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.changes li { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 14px; display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
+.changes li::before { content: "✓"; color: var(--ok); font-weight: 700; }
+.opts { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.opts li { background: var(--paper); border-radius: 8px; padding: 10px 14px; font-size: 15px; }
+.opts b.k { color: var(--accent); margin-inline-end: 6px; }
+.rec { font-size: 13px; font-weight: 700; color: var(--ok); margin-inline-start: 6px; }
+.old { opacity: .92; }
+.old h2 { color: var(--muted); }
+</style>
+
 <div class="wrap" dir="rtl">
 
   <header>
-    <div class="eyebrow">אלעד גרובנר · ממומן · לאישור</div>
-    <h1>הקמפיין הראשון: מה מצאנו ומה מציעים</h1>
-    <p class="lede">שתי דקות קריאה. בסוף הדף: מאשר או לא מאשר, ההטבה שתרצה לתת, וכמה שאלות קצרות.</p>
+    <div class="eyebrow">אלעד גרובנר · ממומן · לאישור · עודכן 18.10</div>
+    <h1>הקמפיין הראשון: אחרי התיקונים שלך</h1>
+    <p class="lede">תיקנו לפי ההערות והתשובות שלך. למטה: מה השתנה, איך המודעה בנויה עכשיו, ו-5 החלטות קצרות שנשארו לך. התשובות הקודמות שלך שמורות בסוף הדף.</p>
   </header>
 
   <section>
-    <h2>מה מצאנו בשטח</h2>
-    <ul class="points">
-      <li>בדקנו בספריית המודעות של Meta, שם רואים כל מודעה שרצה עכשיו ומאיזה תאריך, <b>כ-135 צלמים וצלמות פנים ואדריכלות בישראל</b>, כל אחד ואחת בשמם. <b>רק צלם אחד מפרסם למעצבות לאורך זמן: אבי קבלו</b> ("אבי קבלו - צילום אדריכלות ועיצוב פנים"). 9 מודעות עם אותו טקסט, והוותיקה רצה כבר כשנתיים (מ-9.10.2024). <a href="https://www.facebook.com/ads/library/?active_status=all&amp;ad_type=all&amp;country=IL&amp;view_all_page_id=103015744749113&amp;search_type=page&amp;media_type=all" target="_blank" rel="noopener">לראות את כל המודעות שלו</a>. אף אחד לא משלם שנתיים על מודעה שלא מביאה עבודה.</li>
-      <li>המודעה שלו בנויה מחמש שורות פשוטות: <b>למי זה, מה הטריגר, למה לכתוב עכשיו, מי אני, ושלחו הודעה.</b> בלי מחיר ובלי תמונות אווירה.</li>
-      <li>ספקים שפונים למעצבות (רהיטים, תאורה, נגריות) מחזיקים את אותה נוסחה 6-22 חודשים: שם המקצוע במילים הראשונות, צעד ראשון קל, וכפתור אחד.</li>
-      <li>הצדקת לגבי המודעה הקודמת. לא היה בה ברור מי מדבר, למי, ומה מבקשים.</li>
+    <h2>מה שינינו לפי מה שכתבת</h2>
+    <ul class="changes">
+      <li><span><b>הורדנו את "מחכה לווילון ולארון של הנגר".</b> כתבת שאין בזה פואנטה.</span></li>
+      <li><span><b>בלי הטבה.</b> במקומה, סיבה אחרת לכתוב עכשיו (החלטה 2).</span></li>
+      <li><span><b>הנקודה שלך הפכה למסר המרכזי:</b> המעצבת שגוללת בטלפון ומחפשת תמונות שצילמה בעצמה כדי להראות ללקוח דוגמה, למשל צבע פרקט, מטבח או חדר ילדים עם ארונות שעיצבה. זה גם בדיוק מה שהמעצבות ענו לך: התמונות משמשות אותן בפגישות, ולקוחות בודקים אותן ברשתות לפני שקובעים פגישה.</span></li>
+      <li><span><b>רק וואטסאפ.</b> בלי מסנג'ר ובלי הודעות באינסטגרם.</span></li>
+      <li><span><b>פרויקט אחד בכל מודעה</b>, כמו שהצעת: לירון חפץ, עליא גפארי, ועוד פרויקט אחד (החלטה 3). לכל המודעות אותו טקסט, כדי ללמוד איזה פרויקט מושך הכי טוב.</span></li>
+      <li><span><b>הסרטון: אתה בעבודה, בלי לדבר</b>, כמו שבחרת. הוא נכנס אחרי השבוע הראשון.</span></li>
     </ul>
-    <p class="small">כל הדוגמאות עם קישורים: <a href="https://claude.ai/artifact/TB4VxGgB56Pf35ocLA1gra" target="_blank" rel="noopener">דף המחקר המלא</a>.</p>
   </section>
 
   <section>
-    <h2>מה מציעים</h2>
-    <p>להעתיק את המבנה שמחזיק בשטח. <b>את המבנה, לא את המילים</b>, ובלי שום רמז לצלם אחר.</p>
+    <h2>איך המודעה בנויה עכשיו</h2>
+    <p class="small">אותו מבנה של חמש שורות שמחזיק בשטח כבר שנתיים, במילים שלנו. את הנוסח הסופי נכתוב אחרי ההחלטות שלך, ותאשר גם אותו.</p>
+    <div class="ad">
+      <ol class="ad-lines">
+        <li><span><b>פנייה בשם המקצוע:</b> מעצבים ומעצבות פנים, אדריכלים ואדריכליות.</span></li>
+        <li><span><b>הסצנה:</b> לפי הכיוון שתבחר (החלטה 1).</span></li>
+        <li><span><b>למה לכתוב עכשיו:</b> בלי הטבה (החלטה 2).</span></li>
+        <li><span><b>מי אני:</b> "אני אלעד גרובנר, צלם עיצוב פנים ואדריכלות", ומשפט אחד על יום הצילום.</span></li>
+        <li><span><b>שלחו הודעה בוואטסאפ</b>, ואחזור אליכם.</span></li>
+      </ol>
+      <div class="ad-foot">ובסוף: קרדיט חם למעצבת של הפרויקט שבתמונות, עם תיוג. מתחת לטקסט, התמונות של פרויקט אחד וכפתור וואטסאפ.</div>
+    </div>
     <dl class="spec">
-      <dt>למי</dt><dd>מעצבות, מעצבים ואדריכלים בכל הארץ. השורה הראשונה במודעה פונה אליהם בשם המקצוע, וככה בעלי בתים מבינים שזה לא בשבילם.</dd>
-      <dt>מה רואים</dt><dd><b>עכשיו:</b> פוסט של 4 תמונות מ<b>פרויקטים שונים</b>: אחת גדולה למעלה (למשל מטבח), ושלוש קטנות מתחת (סלונים, מרפסת). חללים גמורים, רחבים ומוארים. כך בנויה בדיוק מודעת התמונות של אבי קבלו ששלחת, והיא רצה מ-3.2025.<br><b>בעוד כשבוע:</b> מוסיפים סרטון שלך, מיום הצילום עם צלמת הסושיאל. אצל אבי קבלו זה הפורמט המרכזי (7 מתוך 9 מודעות). מה בדיוק לצלם, למטה.</dd>
-      <dt>לאן הכפתור מוביל</dt><dd><b>לוואטסאפ שלך</b>, עם הודעה מוכנה שהמעצבת רק שולחת, ושלושה כפתורים: "יש לי פרויקט גמור" · "לקראת סיום" · "שאלה אחרת". <b>לא למסנג'ר.</b> אפשר להוסיף גם <b>הודעה ישירה באינסטגרם</b>, למי שרואה את המודעה באינסטגרם (שאלה 3).</dd>
-      <dt>תקציב</dt><dd>50₪ ליום, לשבועיים: כ-700₪ בסך הכל.</dd>
-      <dt>איך יודעים אם זה עובד</dt><dd>סופרים רק שיחות ממעצבות ואדריכלים עם פרויקט אמיתי. עד 25₪ לשיחה זה טוב, 25-40₪ סביר. אם אחרי שבוע זה מעל 40-50₪, עוצרים ומשנים.</dd>
-      <dt>מי מפעיל</dt><dd>הכל נבנה מושהה. אתה מסתכל ומפעיל בעצמך. שום שקל לא יוצא בלי זה.</dd>
+      <dt>למי</dt><dd>מעצבות, מעצבים ואדריכלים בכל הארץ. השורה הראשונה מסננת, ובעלי בתים מבינים שזה לא בשבילם.</dd>
+      <dt>תקציב</dt><dd>50₪ ליום, לשבועיים: כ-700₪. בשבוע הראשון לא נוגעים.</dd>
+      <dt>איך יודעים אם זה עובד</dt><dd>סופרים רק שיחות ממעצבות ואדריכלים עם פרויקט. עד 25₪ לשיחה זה טוב, 25-40₪ סביר.</dd>
+      <dt>מי מפעיל</dt><dd>הכל נבנה מושהה. אתה מסתכל ומפעיל בעצמך.</dd>
     </dl>
   </section>
 
-  <section>
-    <h2>השלד של המודעה</h2>
-    <p class="small">רק כדי להראות את המבנה. הנוסח הסופי נכתב אחרי האישור שלך, ותאשר גם אותו.</p>
-    <div class="ad">
-      <ol class="ad-lines">
-        <li><span>מעצבים ומעצבות פנים? אדריכלים ואדריכליות?</span></li>
-        <li><span>יש פרויקט שהסתיים, או כזה שעוד מחכה לווילון ולארון של הנגר?</span></li>
-        <li><span><span class="slot">ההטבה שלך</span></span></li>
-        <li><span>אני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שהחלל נראה בדיוק כמו שתכננתם.</span></li>
-        <li><span>שלחו הודעה, ואחזור אליכם.</span></li>
-      </ol>
-      <div class="ad-foot">מתחת לטקסט: 4 התמונות, וכפתור "שליחת הודעה בוואטסאפ".</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>מה ראינו בשתי המודעות ששלחת</h2>
-    <ul class="points">
-      <li><b>מודעת התמונות (מ-27.3.2025):</b> 4 תמונות מפרויקטים שונים, אותו טקסט של חמש שורות, וכפתור "שליחת הודעה". יש עליה 139 תגובות לייק ו-19 תגובות, ובהן "אשמח לפרטים", "מה המחיר?" ו"מי המעצבת?". <b>אנשים באמת עונים לה</b> (יש שם גם משפחה וחברים).</li>
-      <li><b>מודעת הסרטון (מ-31.10.2024, 37 שניות):</b> כ-27 שניות הוא <b>מדבר ישר למצלמה</b>, עם מיקרופון קטן על החולצה, ליד המצלמה שלו על חצובה, בתוך דירה גמורה. בשנייה הראשונה מופיע על המסך משפט לעצור את הגלילה, שפונה למעצבת: מתלבטת אם לצלם את הפרויקט החדש? הסרטון הזה בשבילך. ב-10 השניות האחרונות רצות תמונות גמורות מפרויקטים.</li>
-      <li><b>מה הוא אומר:</b> מעצבות מתייעצות איתו אם בכלל לצלם, כי הפרויקט קטן ואין הרבה מה לצלם. הוא עונה להן שזה תיק העבודות שלהן ברשתות. "פה לאוזן" זה נחמד, אבל יש לו תקרת זכוכית: כדי להגיע לקהל חדש, צריך להראות את העבודה ברשתות. <b>הוא לא מדבר על עצמו, אלא על האינטרס של המעצבת.</b></li>
-      <li><b>לסרטון הזה יש כ-121 אלף צפיות.</b> לסרטונים הרגילים בעמוד שלו יש 400-800 צפיות. כלומר, <b>כמעט כל החשיפה שלו מגיעה מהממומן.</b></li>
-    </ul>
-  </section>
-
-  <section aria-labelledby="decide-title">
-    <h2 id="decide-title">ההחלטה שלך</h2>
+  <section aria-labelledby="r2-title">
+    <h2 id="r2-title">מה צריך ממך עכשיו</h2>
     <div class="notice" id="notice">טוען...</div>
 
-    <div class="card" id="decision-card" hidden>
-      <p class="q-title">מאשר את הכיוון?</p>
-      <div id="decision-body"></div>
+    <div class="card" id="decision-card-v2" hidden>
+      <p class="q-title">מאשר את הכיוון המעודכן?</p>
+      <p class="q-help">הקהל, המבנה, וואטסאפ, פרויקט אחד במודעה והתקציב. את הטקסט עצמו תאשר בנפרד, אחרי שנכתוב אותו.</p>
+      <div id="decision-body-v2"></div>
     </div>
 
-    <div class="card" id="q-benefit" hidden>
-      <p class="q-title">1. איזו הטבה תרצה לתת?</p>
-      <p class="q-help">זו השורה השלישית במודעה: סיבה לכתוב עכשיו. בלי מחיר ובלי מספרים. כמה רעיונות, אף אחד מהם לא נבדק בשטח, ואפשר לכתוב משהו אחר לגמרי:</p>
-      <ul class="ideas">
-        <li>"שלחו כמה תמונות מהטלפון, ואגיד אם הפרויקט מוכן לצילום ומה אפשר לסדר ביום עצמו"</li>
-        <li>הטבה למי שמזמינה צילום ראשון</li>
-        <li>עזרה בתיאום עם הספקים מהפרויקט שרוצים את התמונות</li>
+    <div class="card" id="q-hook" hidden>
+      <p class="q-title">1. איזו סצנה תפתח את המודעה?</p>
+      <ul class="opts">
+        <li><b class="k">א. הגלילה בטלפון</b><span class="rec">ההמלצה שלנו</span><br>פגישה עם לקוח. הוא רוצה לראות מטבח שעשית, את גוון הפרקט, את חדר הילדים עם הארונות. ואת גוללת בגלריה של הטלפון ומחפשת תמונה שצילמת בעצמך. <span class="small">(הנקודה שלך. מעצבת מזהה את הרגע הזה בשנייה, וזה לא דומה לשום מודעה אחרת בשטח.)</span></li>
+        <li><b class="k">ב. בודקים אותך לפני הפגישה</b><br>לפני שלקוח חדש קובע פגישה, הוא נכנס לאינסטגרם או לאתר כדי לראות אם הסגנון שלך מדבר אליו. <span class="small">(התשובה הראשונה של המעצבות.)</span></li>
+        <li><b class="k">ג. שווה בכלל לצלם?</b><br>"הפרויקט קטן, אין הרבה מה לצלם", אז הוא לא מצולם בכלל. <span class="small">(ההיגיון של הסרטון של אבי קבלו, ולכן הכי קרוב אליו.)</span></li>
+      </ul>
+      <p class="q-help">בשבועיים הראשונים כל המודעות עם אותה סצנה. את השתיים האחרות אפשר לבדוק בסבב הבא.</p>
+    </div>
+
+    <div class="card" id="q-line3" hidden>
+      <p class="q-title">2. במקום הטבה: למה לכתוב עכשיו?</p>
+      <ul class="opts">
+        <li><b class="k">א. מתוך הסצנה</b><span class="rec">ההמלצה שלנו</span><br>למשל: הפגישה הבאה כבר תגיע, והפרויקט שגמרת עכשיו יכול להיות מה שתראי בה.</li>
+        <li><b class="k">ב. צעד ראשון קל</b><br>"ספרו לי איזה פרויקט יש לכם, ונחשוב יחד מה שווה לצלם בו". זו לא הטבה, אלא שיחה. אבל אם זה מרגיש לך כמו הטבה, לא נכתוב את זה.</li>
+        <li><b class="k">ג. שתיהן</b><br>משפט מתוך הסצנה, ואחריו הצעד הקל.</li>
       </ul>
     </div>
 
-    <div class="card" id="q-found" hidden>
-      <p class="q-title">2. איך הלקוחות שלך מוצאות אותך בדרך כלל?</p>
-      <p class="q-help">המלצה ממעצבת אחרת? אינסטגרם? גוגל? קרדיט שראו אצל ספק? אם אפשר, תשאל 3-5 מעצבות שעבדת איתן לאחרונה. זה עוזר להבין כמה משקל לתת לממומן.</p>
+    <div class="card" id="q-third" hidden>
+      <p class="q-title">3. איזה פרויקט שלישי?</p>
+      <p class="q-help">לירון ועליא כבר בפנים. כתבת שיש עוד פרויקטים חזקים. אם לא תבחר, הצעות מהמאגר: חן אברהמוף, לינוי כהן (מזכרת בתיה) או סוניה וספיר. אם זה פרויקט שעוד לא בדרייב, עדי תעלה אותו.</p>
     </div>
 
-    <div class="card" id="q-channel" hidden>
-      <p class="q-title">3. נוח לך לקבל פניות גם בהודעה ישירה באינסטגרם?</p>
-      <p class="q-help">הפניות מגיעות לוואטסאפ. אם תרצה, מי שרואה את המודעה באינסטגרם תוכל לכתוב לך גם שם, בלי לצאת מהאפליקציה. כך זה עובד גם אצל אבי קבלו באינסטגרם. החיסרון: צריך לענות בשני מקומות.</p>
+    <div class="card" id="q-almost" hidden>
+      <p class="q-title">4. להוסיף גם פרויקט "לקראת סיום"?</p>
+      <p class="q-help">הורדנו את הווילון ואת הארון. השאלה היא אם לשאול במודעה גם על פרויקט שכמעט גמור, בשורה קצרה ובלי הסבר, כדי שמעצבת עם פרויקט כזה תרגיש שזה גם בשבילה.</p>
     </div>
 
-    <div class="card" id="q-project" hidden>
-      <p class="q-title">4. יש פרויקט שהיית רוצה במודעה?</p>
-      <p class="q-help">לא חובה. אנחנו צריכים 4 תמונות מפרויקטים שונים. אם לא תבחר, נבחר מטבח, סלונים ומרפסת חזקים ונשלח לך לאישור.</p>
+    <div class="card" id="q-people" hidden>
+      <p class="q-title">5. בפרויקטים של לירון ושל עליא מופיעה אישה בכמה תמונות. זו המעצבת?</p>
+      <p class="q-help">במודעות לא נשתמש בתמונות עם אנשים. זה חשוב לפוסטים האורגניים.</p>
     </div>
 
-    <div class="card" id="q-video" hidden>
-      <p class="q-title">5. איזה סרטון נוח לך לצלם עם צלמת הסושיאל?</p>
-      <p class="q-help">פירוט של שתי האפשרויות בסעיף הבא, "ליום הצילום עם צלמת הסושיאל".</p>
+    <div class="card" id="q-alia-type" hidden>
+      <p class="q-title">6. הפרויקט של עליא באום אל פאחם: בית פרטי או פנטהאוז?</p>
     </div>
   </section>
 
   <section>
-    <h2>ליום הצילום עם צלמת הסושיאל</h2>
-    <p>יש שתי אפשרויות, ואתה בוחר מה נוח לך (שאלה 5 למעלה). בשתיהן הסרטון <b>אנכי</b> (כמו סטורי), והמשפט שעוצר את הגלילה כתוב על המסך מהשנייה הראשונה.</p>
-    <dl class="spec">
-      <dt>א. אתה מדבר למצלמה</dt><dd>
-        <b>כמו הסרטון של אבי קבלו שרץ שנתיים.</b> מיקרופון קטן על החולצה. 20-30 שניות שבהן אתה מדבר ישר למצלמה, ליד המצלמה שלך על החצובה, בתוך החלל הגמור. הוא עונה על ההתלבטות "האם בכלל שווה לצלם": גם פרויקט קטן הוא תיק העבודות של המעצבת. אחר כך ההטבה, מי אתה, ו"שלחו הודעה". את הטקסט נכין לך מראש, במילים שלך, בלי הבטחות מוגזמות. בסוף 4-5 תמונות גמורות.<br>
-        <span class="small">הכי מגובה בשטח.</span></dd>
-      <dt>ב. אתה בעבודה, בלי לדבר</dt><dd>
-        קטעים קצרים שלך בעבודה: מציב חצובה, מסדר כרית, מזיז פריט, מסתכל על המסך. ובסוף התמונה הגמורה של אותה פינה, כדי שיראו מה יצא. את המסר כותבים על המסך ובטקסט של המודעה, ומוסיפים מוזיקה.<br>
-        <span class="small">פחות מגובה בשטח: צלם אחר התחיל לפרסם כך רק השבוע. אבל זה הרבה יותר קל לצלם, ועדיין מראה מי אתה ואיך אתה עובד.</span></dd>
-    </dl>
-    <p>בשתי האפשרויות: כמה צילומים רחבים ויציבים של החלל עצמו, ושהמעצבת תדע מראש שהסרטון ישמש גם למודעות. ואם יש ספק, אפשר לצלם ביום הזה את שני הסוגים ולהחליט אחר כך.</p>
+    <h2>הסרטון, ביום עם צלמת הסושיאל</h2>
+    <p>בחרת: <b>אתה בעבודה, בלי לדבר.</b> כדאי לבקש ממנה:</p>
+    <ul class="points">
+      <li><b>וידאו אנכי</b> (כמו סטורי), וכמה קטעים קצרים.</li>
+      <li><b>אותך בעבודה:</b> מציב חצובה, מסדר כרית, מזיז פריט, מסתכל על המסך.</li>
+      <li><b>ובסוף התמונה הגמורה</b> של אותה פינה, כדי שיראו מה יצא.</li>
+      <li>כמה צילומים רחבים ויציבים של החלל עצמו, ושהמעצבת תדע מראש שזה ישמש גם למודעות.</li>
+    </ul>
+    <p class="small">את המסר כותבים על המסך מהשנייה הראשונה ובטקסט של המודעה, עם מוזיקה.</p>
+  </section>
+
+  <section class="old">
+    <h2>התשובות הקודמות שלך (15.10)</h2>
+    <p class="small">שמורות כאן לתיעוד. אפשר לשנות אותן אם צריך. <a href="https://claude.ai/artifact/TB4VxGgB56Pf35ocLA1gra" target="_blank" rel="noopener">דף המחקר המלא</a>.</p>
+
+    <div class="card" id="decision-card" hidden>
+      <p class="q-title">הכיוון הראשון (15.10)</p>
+      <div id="decision-body"></div>
+    </div>
+    <div class="card" id="q-benefit" hidden><p class="q-title">הטבה</p></div>
+    <div class="card" id="q-found" hidden><p class="q-title">איך הלקוחות שלך מוצאות אותך</p></div>
+    <div class="card" id="q-channel" hidden><p class="q-title">גם הודעות באינסטגרם?</p></div>
+    <div class="card" id="q-project" hidden><p class="q-title">פרויקטים למודעה</p></div>
+    <div class="card" id="q-video" hidden><p class="q-title">איזה סרטון</p></div>
   </section>
 
   <footer>התשובות נשמרות בדף הזה, ועדי רואה אותן. אפשר לחזור ולשנות.</footer>
@@ -226,15 +244,27 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
 (function () {
   "use strict";
   var db = null;
-  var decision = null;
+  var decisions = {};
   var answers = {};
-  var ui = { decision: { draft: "", open: false, busy: false, err: "" } };
+  var ui = {};
+
+  var DECISIONS = [
+    { id: "strategy-v2", card: "decision-card-v2", body: "decision-body-v2", okText: "✓ אישרת את הכיוון המעודכן", noText: "לא אישרת" },
+    { id: "strategy", card: "decision-card", body: "decision-body", okText: "✓ אישרת", noText: "לא אישרת" }
+  ];
 
   var QUESTIONS = [
-    { id: "benefit", card: "q-benefit", type: "text", placeholder: "ההטבה שלי..." },
-    { id: "found", card: "q-found", type: "text", placeholder: "למשל: רובן מהמלצות, חלק מאינסטגרם..." },
+    { id: "hook", card: "q-hook", type: "choice", choices: ["א. הגלילה בטלפון", "ב. בודקים אותך לפני הפגישה", "ג. שווה בכלל לצלם?"] },
+    { id: "line3", card: "q-line3", type: "choice", choices: ["א. מתוך הסצנה", "ב. צעד ראשון קל", "ג. שתיהן"] },
+    { id: "third_project", card: "q-third", type: "text", placeholder: "שם המעצבת או הפרויקט, או \"תבחרו אתם\"" },
+    { id: "almost_done", card: "q-almost", type: "choice", choices: ["כן, להוסיף בשורה קצרה", "לא, רק פרויקט גמור"] },
+    { id: "people_designers", card: "q-people", type: "choice", choices: ["כן, בשתיהן זו המעצבת", "לא בטוח / לא - אכתוב לעדי"] },
+    { id: "alia_type", card: "q-alia-type", type: "choice", choices: ["בית פרטי", "פנטהאוז", "אחר"] },
+    // Answers from 15.10, kept and still editable.
+    { id: "benefit", card: "q-benefit", type: "text", placeholder: "" },
+    { id: "found", card: "q-found", type: "text", placeholder: "" },
     { id: "ig_dm", card: "q-channel", type: "choice", choices: ["כן, וואטסאפ וגם אינסטגרם", "רק וואטסאפ"] },
-    { id: "project", card: "q-project", type: "text", placeholder: "שם המעצבת או הפרויקט, או \"תבחרו אתם\"" },
+    { id: "project", card: "q-project", type: "text", placeholder: "" },
     { id: "video_type", card: "q-video", type: "choice", choices: ["א. אני מדבר למצלמה", "ב. אני בעבודה, בלי לדבר", "נצלם את שניהם", "עוד לא יודע"] }
   ];
 
@@ -249,55 +279,57 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
     (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
     return n;
   }
-  function uiOf(id) { return ui[id] || (ui[id] = { draft: null, busy: false, err: "", justSaved: false }); }
+  function uiOf(id) { return ui[id] || (ui[id] = { draft: null, busy: false, err: "", open: false }); }
   function when(iso) {
     try { var d = new Date(iso); return d.getDate() + "." + (d.getMonth() + 1) + " " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); }
     catch (e) { return ""; }
   }
 
-  async function saveDecision(value) {
-    var u = ui.decision;
-    if (value === "rejected" && !u.draft.trim()) { u.err = "כתוב בכמה מילים מה לא מתאים, כדי שנדע מה לשנות."; u.open = true; renderDecision(); return; }
-    u.busy = true; u.err = ""; renderDecision();
+  async function saveDecision(D, value) {
+    var u = uiOf("d-" + D.id);
+    var note = (u.draft || "").trim();
+    if (value === "rejected" && !note) { u.err = "כתוב בכמה מילים מה לא מתאים, כדי שנדע מה לשנות."; u.open = true; renderDecision(D); return; }
+    u.busy = true; u.err = ""; renderDecision(D);
     try {
-      await db.doc("decision/strategy").set({ decision: value, note: u.draft.trim(), at: new Date().toISOString() });
-      u.open = false; u.draft = "";
+      await db.doc("decision/" + D.id).set({ decision: value, note: note, at: new Date().toISOString() });
+      u.open = false; u.draft = null;
     } catch (e) { u.err = "השמירה לא עברה. נסה שוב בעוד רגע."; }
-    u.busy = false; renderDecision();
+    u.busy = false; renderDecision(D);
   }
-  async function clearDecision() {
-    var u = ui.decision;
-    u.busy = true; renderDecision();
-    try { await db.doc("decision/strategy").delete(); } catch (e) { u.err = "לא הצלחתי לבטל. נסה שוב."; }
-    u.busy = false; renderDecision();
+  async function clearDecision(D) {
+    var u = uiOf("d-" + D.id);
+    u.busy = true; renderDecision(D);
+    try { await db.doc("decision/" + D.id).delete(); } catch (e) { u.err = "לא הצלחתי לבטל. נסה שוב."; }
+    u.busy = false; renderDecision(D);
   }
 
-  function renderDecision() {
-    var card = document.getElementById("decision-card");
-    var body = document.getElementById("decision-body");
-    var u = ui.decision;
+  function renderDecision(D) {
+    var card = document.getElementById(D.card);
+    var body = document.getElementById(D.body);
+    var u = uiOf("d-" + D.id);
+    var dec = decisions[D.id];
     card.hidden = false;
     body.textContent = "";
-    card.className = "card" + (decision ? (decision.decision === "approved" ? " decided-ok" : " decided-no") : "");
-    if (decision) {
-      var ok = decision.decision === "approved";
+    card.className = "card" + (dec ? (dec.decision === "approved" ? " decided-ok" : " decided-no") : "");
+    if (dec) {
+      var ok = dec.decision === "approved";
       body.appendChild(el("div", { class: "actions" }, [
-        el("span", { class: "chip " + (ok ? "ok" : "no"), text: ok ? "✓ אישרת את הכיוון" : "לא אישרת" }),
-        el("span", { class: "q-help", text: when(decision.at) }),
-        el("button", { class: "btn-quiet", type: "button", onclick: clearDecision, text: "לשנות החלטה" })
+        el("span", { class: "chip " + (ok ? "ok" : "no"), text: ok ? D.okText : D.noText }),
+        el("span", { class: "q-help", text: when(dec.at) }),
+        el("button", { class: "btn-quiet", type: "button", onclick: function () { clearDecision(D); }, text: "לשנות החלטה" })
       ]));
-      if (decision.note) body.appendChild(el("p", { class: "note-shown", dir: "auto", text: decision.note }));
+      if (dec.note) body.appendChild(el("p", { class: "note-shown", dir: "auto", text: dec.note }));
     } else {
       body.appendChild(el("div", { class: "actions" }, [
-        el("button", { class: "btn-ok", type: "button", onclick: function () { saveDecision("approved"); }, text: "מאשר ✓" }),
-        el("button", { class: "btn-no", type: "button", onclick: function () { u.open = true; u.err = ""; renderDecision(); var t = document.getElementById("decision-note"); if (t) t.focus(); }, text: "לא מאשר" })
+        el("button", { class: "btn-ok", type: "button", onclick: function () { saveDecision(D, "approved"); }, text: "מאשר ✓" }),
+        el("button", { class: "btn-no", type: "button", onclick: function () { u.open = true; u.err = ""; renderDecision(D); var t = document.getElementById("note-" + D.id); if (t) t.focus(); }, text: "לא מאשר" })
       ]));
-      var ta = el("textarea", { id: "decision-note", dir: "auto", "aria-label": "הערה להחלטה", placeholder: u.open ? "מה לא מתאים? מה היית משנה?" : "הערה (לא חובה)" });
-      ta.value = u.draft;
+      var ta = el("textarea", { id: "note-" + D.id, dir: "auto", "aria-label": "הערה להחלטה", placeholder: u.open ? "מה לא מתאים? מה היית משנה?" : "הערה (לא חובה)" });
+      ta.value = u.draft || "";
       ta.addEventListener("input", function () { u.draft = ta.value; });
       body.appendChild(ta);
       if (u.open) body.appendChild(el("div", { class: "actions" }, [
-        el("button", { class: "btn-no", type: "button", onclick: function () { saveDecision("rejected"); }, text: "לשלוח: לא מאשר" })
+        el("button", { class: "btn-no", type: "button", onclick: function () { saveDecision(D, "rejected"); }, text: "לשלוח: לא מאשר" })
       ]));
     }
     if (u.err) body.appendChild(el("p", { class: "err", role: "alert", text: u.err }));
@@ -309,13 +341,14 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
     u.busy = true; u.err = ""; renderQuestion(q);
     try {
       await db.doc("answers/" + q.id).set({ value: value, at: new Date().toISOString() });
-      u.draft = null; u.justSaved = true;
+      u.draft = null;
     } catch (e) { u.err = "השמירה לא עברה. נסה שוב בעוד רגע."; }
     u.busy = false; renderQuestion(q);
   }
 
   function renderQuestion(q) {
     var card = document.getElementById(q.card);
+    if (!card) return;
     card.hidden = false;
     var hadFocus = document.activeElement && document.activeElement.id === "ans-" + q.id;
     var old = card.querySelector(".answer");
@@ -330,12 +363,11 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
       })));
       if (a) box.appendChild(el("span", { class: "saved", text: "נשמר ✓" }));
     } else {
-      var id = "ans-" + q.id;
-      var ta = el("textarea", { id: id, dir: "auto", placeholder: q.placeholder, "aria-label": "התשובה שלך" });
+      var ta = el("textarea", { id: "ans-" + q.id, dir: "auto", placeholder: q.placeholder, "aria-label": "התשובה שלך" });
       ta.value = u.draft !== null ? u.draft : (a ? a.value : "");
-      ta.addEventListener("input", function () { u.draft = ta.value; u.justSaved = false; status.textContent = ""; });
-      box.appendChild(ta);
       var status = el("span", { class: "saved", text: (a && u.draft === null) ? "נשמר ✓ " + when(a.at) : "" });
+      ta.addEventListener("input", function () { u.draft = ta.value; status.textContent = ""; });
+      box.appendChild(ta);
       box.appendChild(el("div", { class: "actions" }, [
         el("button", { class: "btn-save", type: "button", onclick: function () {
           var v = (u.draft !== null ? u.draft : ta.value).trim();
@@ -351,12 +383,6 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
     if (hadFocus) { var t = document.getElementById("ans-" + q.id); if (t) t.focus(); }
   }
 
-  function renderAll() {
-    document.getElementById("notice").hidden = true;
-    renderDecision();
-    QUESTIONS.forEach(renderQuestion);
-  }
-
   function start() {
     var notice = document.getElementById("notice");
     if (!window.claude || !window.claude.use) {
@@ -367,16 +393,23 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
       db = d;
       if (!db) { notice.innerHTML = "<strong>אי אפשר לשמור תשובות כאן.</strong> פתח את הדף מהקישור ב-claude.ai, מהחשבון של העסק."; return; }
       var got = { d: false, a: false };
-      function ready() { if (got.d && got.a) renderAll(); }
-      db.doc("decision/strategy").onSnapshot(function (s) {
-        decision = s.exists ? s.data() : null; got.d = true;
-        if (got.a) renderDecision(); else ready();
+      function maybeReady() {
+        if (!(got.d && got.a)) return;
+        notice.hidden = true;
+        DECISIONS.forEach(renderDecision);
+        QUESTIONS.forEach(renderQuestion);
+      }
+      db.collection("decision").onSnapshot(function (s) {
+        var next = {};
+        s.docs.forEach(function (x) { next[x.id] = x.data(); });
+        decisions = next;
+        if (got.d && got.a) DECISIONS.forEach(renderDecision); else { got.d = true; maybeReady(); }
       }, function () { notice.innerHTML = "<strong>הדף לא נטען.</strong> רענן את הדף."; });
       db.collection("answers").onSnapshot(function (s) {
         var next = {};
         s.docs.forEach(function (x) { next[x.id] = x.data(); });
-        answers = next; got.a = true;
-        if (got.d) QUESTIONS.forEach(renderQuestion); else ready();
+        answers = next;
+        if (got.d && got.a) QUESTIONS.forEach(renderQuestion); else { got.a = true; maybeReady(); }
       }, function () { notice.innerHTML = "<strong>הדף לא נטען.</strong> רענן את הדף."; });
     });
   }
