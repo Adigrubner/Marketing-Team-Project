@@ -150,8 +150,12 @@ function toEvent(raw, genders) {
     const actor = raw.agent_type ? keyOf(raw.agent_type) : 'lead';
 
     switch (raw.hook_event_name) {
-      case 'UserPromptSubmit':
+      case 'UserPromptSubmit': {
+        // The app also "submits" automatic notices (e.g. a background task finished) - never show raw tags on stage.
+        const tag = String(raw.prompt ?? '').match(/^\s*<([a-z][a-z0-9-]*)[\s>]/i);
+        if (tag) return { type: 'request', text: tag[1] === 'task-notification' ? 'עדכון אוטומטי: משימת רקע הסתיימה' : 'הודעה אוטומטית מהמערכת' };
         return { type: 'request', text: clip(raw.prompt, 140) };
+      }
 
       case 'PreToolUse': {
         const input = raw.tool_input && typeof raw.tool_input === 'object' ? raw.tool_input : {};

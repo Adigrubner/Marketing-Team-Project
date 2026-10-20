@@ -19,6 +19,14 @@ test('long request text is trimmed for display', () => {
   assert.ok(e.text.length <= 140);
 });
 
+test('automatic system prompts are shown in plain words, not as raw tags', () => {
+  const bg = translate({ ...base, hook_event_name: 'UserPromptSubmit', prompt: '<task-notification>\n<task-id>b1</task-id>\n<status>completed</status>' }, ROSTER);
+  assert.equal(bg.type, 'request');
+  assert.equal(bg.text, 'עדכון אוטומטי: משימת רקע הסתיימה');
+  const other = translate({ ...base, hook_event_name: 'UserPromptSubmit', prompt: '<something-else>x</something-else>' }, ROSTER);
+  assert.equal(other.text, 'הודעה אוטומטית מהמערכת');
+});
+
 test('Agent tool from the main chat -> handoff from lead', () => {
   const e = translate({
     ...base, hook_event_name: 'PreToolUse', tool_name: 'Agent', tool_use_id: 't1',

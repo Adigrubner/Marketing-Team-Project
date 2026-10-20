@@ -199,14 +199,14 @@ main { position: relative; min-width: 0; min-height: 0; }
 
 /* name tags + info cards */
 .tag rect.bg { fill: #FFFFFF; }
-.tag text { font-size: 12px; font-weight: 600; fill: #3A4454; }
+.tag text { font-size: 13px; font-weight: 600; fill: #3A4454; }
 .station.busy .tag text { fill: #1B2330; }
 .card { transition: opacity .35s ease; }
 .card.hidden { opacity: 0; }
 .card .bg { fill: #FFFFFF; }
-.card .title { font-size: 13px; font-weight: 800; fill: #1B2330; }
-.card .line { font-size: 12.5px; font-weight: 500; fill: #3A4454; }
-.card .sub { font-size: 11px; font-weight: 500; fill: #8A94A3; }
+.card .title { font-size: 14.5px; font-weight: 800; fill: #1B2330; }
+.card .line { font-size: 14px; font-weight: 500; fill: #3A4454; }
+.card .sub { font-size: 12px; font-weight: 500; fill: #8A94A3; }
 .pop { transform-box: fill-box; transform-origin: 50% 100%; animation: pop .35s cubic-bezier(.2, 1.4, .5, 1); }
 @keyframes pop { from { transform: scale(.6, .6); opacity: 0; } to { transform: scale(1, 1); opacity: 1; } }
 .statusdot.work { animation: dotpulse 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 50%; }
@@ -254,7 +254,7 @@ main { position: relative; min-width: 0; min-height: 0; }
   </header>
 
   <aside>
-    <h2>יומן העבודה <span id="feedCount"></span></h2>
+    <h2>יומן העבודה <span>מה קורה עכשיו, צעד אחר צעד</span></h2>
     <div id="feed"><div class="empty" id="feedEmpty">עדיין שקט כאן.<br>כתבו בקשה בצ'אט של קלוד קוד,<br>והצוות יתחיל לזוז.</div></div>
   </aside>
 
@@ -658,7 +658,7 @@ function setCard(st, { line, sub = '', status = 'work', visible = true }) {
   const wSub = sub ? (c.sub.getComputedTextLength() || sub.length * 6) : 0;
   const w = Math.max(wTitle + dotSpace, wLine, wSub) + padX * 2;
   const rows = 1 + (line ? 1 : 0) + (sub ? 1 : 0);
-  const h = 14 + rows * 18 + 4;
+  const h = 14 + rows * 20 + 4;
   const left = -w / 2, right = w / 2, top = -h - 8;
   c.bg.setAttribute('x', left.toFixed(1)); c.bg.setAttribute('y', top.toFixed(1));
   c.bg.setAttribute('width', w.toFixed(1)); c.bg.setAttribute('height', h.toFixed(1));
@@ -669,9 +669,9 @@ function setCard(st, { line, sub = '', status = 'work', visible = true }) {
   c.title.setAttribute('x', (right - padX - dotSpace).toFixed(1));
   c.title.setAttribute('y', (top + 24).toFixed(1));
   c.line.setAttribute('x', (right - padX).toFixed(1));
-  c.line.setAttribute('y', (top + 24 + 18).toFixed(1));
+  c.line.setAttribute('y', (top + 24 + 20).toFixed(1));
   c.sub.setAttribute('x', (right - padX).toFixed(1));
-  c.sub.setAttribute('y', (top + 24 + 18 * (line ? 2 : 1)).toFixed(1));
+  c.sub.setAttribute('y', (top + 24 + 20 * (line ? 2 : 1)).toFixed(1));
   c.dot.setAttribute('fill', status === 'work' ? '#F59F00' : status === 'done' ? '#2FB36B' : status === 'wait' ? '#4DABF7' : '#ADB5BD');
   c.dot.setAttribute('class', 'statusdot' + (status === 'work' ? ' work' : ''));
   if (visible) delClass(c.g, 'hidden'); else addClass(c.g, 'hidden');
