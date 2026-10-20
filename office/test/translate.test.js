@@ -142,6 +142,20 @@ test('Stop -> turn_end', () => {
   assert.equal(translate({ ...base, hook_event_name: 'Stop' }, ROSTER).type, 'turn_end');
 });
 
+test('every event carries a short session id, so the page can follow one conversation', () => {
+  const raws = [
+    { hook_event_name: 'UserPromptSubmit', prompt: 'x' },
+    { hook_event_name: 'PreToolUse', tool_name: 'Agent', tool_input: { subagent_type: 'manager' } },
+    { hook_event_name: 'PreToolUse', tool_name: 'Read', tool_input: { file_path: 'a.md' } },
+    { hook_event_name: 'SubagentStop', agent_type: 'manager' },
+    { hook_event_name: 'Stop' },
+  ];
+  for (const r of raws) {
+    const e = translate({ ...r, session_id: '76d7ea11-aaaa-bbbb' }, ROSTER);
+    assert.equal(e.sid, '76d7ea11', r.hook_event_name);
+  }
+});
+
 test('events we do not show return null', () => {
   for (const ev of ['SessionStart', 'SessionEnd', 'PostToolUse', 'Notification', 'SubagentStart', 'PreCompact']) {
     assert.equal(translate({ ...base, hook_event_name: ev }, ROSTER), null, ev);

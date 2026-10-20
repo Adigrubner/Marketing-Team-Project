@@ -131,6 +131,18 @@ export function describe(tool, input, gender) {
 export function translate(raw, genders = {}) {
   try {
     if (!raw || typeof raw !== 'object') return null;
+    const ev = toEvent(raw, genders);
+    // Same id for the main chat and its agents (calibration) - which is exactly what lets the page
+    // follow ONE conversation and ignore any other session open in the same project.
+    if (ev) ev.sid = String(raw.session_id ?? '').slice(0, 8);
+    return ev;
+  } catch {
+    return null;
+  }
+}
+
+function toEvent(raw, genders) {
+  {
     const known = (name) => typeof name === 'string' && Object.prototype.hasOwnProperty.call(genders, name);
     const keyOf = (name) => (known(name) ? name : 'helper');
     const genderOf = (key) => (key === 'lead' || key === 'helper' ? 'm' : genders[key] || 'm');
@@ -166,7 +178,5 @@ export function translate(raw, genders = {}) {
       default:
         return null;
     }
-  } catch {
-    return null;
   }
 }

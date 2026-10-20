@@ -169,6 +169,8 @@ main { position: relative; min-width: 0; min-height: 0; }
 .robot.working .eyeglow { opacity: .9; }
 .ant { transform-origin: 50% 100%; }
 .robot.working .antball { fill: #FFFFFF; }
+.anthalo { opacity: 0; transition: opacity .4s ease; }
+.robot.working .anthalo { opacity: 1; }
 .robot.working .ant { animation: antwiggle 1.1s ease-in-out infinite; }
 @keyframes antwiggle { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
 .hop { transform-origin: 50% 100%; }
@@ -188,6 +190,9 @@ main { position: relative; min-width: 0; min-height: 0; }
   80% { opacity: 0; transform: translate(10px, -26px) scale(1.15, 1.15); }
   100% { opacity: 0; }
 }
+.workhalo { opacity: 0; transition: opacity .4s ease; }
+.station.busy .workhalo { opacity: .4; animation: halo 1.6s ease-in-out infinite; }
+@keyframes halo { 0%, 100% { opacity: .25; } 50% { opacity: .5; } }
 .screen { transition: fill .4s ease; }
 .screenglow { opacity: 0; transition: opacity .4s ease; }
 .station.busy .screenglow { opacity: .55; }
@@ -272,6 +277,10 @@ main { position: relative; min-width: 0; min-height: 0; }
         <radialGradient id="floorGlow" cx=".5" cy=".45" r=".6">
           <stop offset="0" stop-color="#FFFFFF"/>
           <stop offset="1" stop-color="#F3F5F8"/>
+        </radialGradient>
+        <radialGradient id="eyeGlow">
+          <stop offset=".35" stop-color="#7EE8FF" stop-opacity=".9"/>
+          <stop offset="1" stop-color="#7EE8FF" stop-opacity="0"/>
         </radialGradient>
         <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
           <feGaussianBlur stdDeviation="2.4" result="b"/>
@@ -502,7 +511,8 @@ function makeRobot(parent, color, kind) {
   // antenna
   const ant = el('g', { class: 'ant' }, bob);
   el('rect', { x: -1.5, y: -102, width: 3, height: 12, rx: 1.5, fill: dark }, ant);
-  el('circle', { class: 'antball', cx: 0, cy: -104, r: 5, fill: shade(color, 0.35), filter: 'url(#glow)' }, ant);
+  el('circle', { class: 'anthalo', cx: 0, cy: -104, r: 13, fill: 'url(#eyeGlow)' }, ant);
+  el('circle', { class: 'antball', cx: 0, cy: -104, r: 5, fill: shade(color, 0.35) }, ant);
   // head
   el('rect', { x: -30, y: -94, width: 60, height: 50, rx: 22, fill: color }, bob);
   el('rect', { x: -30, y: -94, width: 60, height: 50, rx: 22, fill: 'url(#shade)' }, bob);
@@ -512,8 +522,8 @@ function makeRobot(parent, color, kind) {
   el('rect', { x: -23, y: -84, width: 46, height: 30, rx: 13, fill: '#161D2B' }, bob);
   el('ellipse', { cx: -8, cy: -81, rx: 10, ry: 2.6, fill: '#FFFFFF', opacity: .14 }, bob);
   const eyes = el('g', { class: 'eyes' }, bob);
-  el('ellipse', { class: 'eyeglow', cx: -9, cy: -69, rx: 7, ry: 8, fill: '#7EE8FF', filter: 'url(#glow)' }, eyes);
-  el('ellipse', { class: 'eyeglow', cx: 9, cy: -69, rx: 7, ry: 8, fill: '#7EE8FF', filter: 'url(#glow)' }, eyes);
+  el('ellipse', { class: 'eyeglow', cx: -9, cy: -69, rx: 11, ry: 12, fill: 'url(#eyeGlow)' }, eyes);
+  el('ellipse', { class: 'eyeglow', cx: 9, cy: -69, rx: 11, ry: 12, fill: 'url(#eyeGlow)' }, eyes);
   el('ellipse', { class: 'eye', cx: -9, cy: -69, rx: 4.6, ry: 6 }, eyes);
   el('ellipse', { class: 'eye', cx: 9, cy: -69, rx: 4.6, ry: 6 }, eyes);
   // gloss
@@ -573,6 +583,8 @@ function makeStation(agent, gx, gy) {
   const g = el('g', { class: 'station' }, objectsG);
   const rx = gx - 0.75, ry = gy - 0.75;
   const [px, py] = iso(rx, ry);
+  // colored floor glow under a working robot - readable from the back row of the hall
+  el('ellipse', { class: 'workhalo', cx: px.toFixed(1), cy: py.toFixed(1), rx: 52, ry: 17, fill: agent.color }, g);
   const robotWrap = el('g', { transform: `translate(${px.toFixed(1)},${py.toFixed(1)})` }, g);
   const scale = agent.key === 'lead' ? 1.12 : 1;
   const robotScale = el('g', { transform: `scale(${scale})` }, robotWrap);
@@ -717,6 +729,500 @@ function buildOffice(roster) {
 }
 
 setInterval(tickClock, 1000);
+
+// =====================================================================
+//  Kanban notes (live on wall B, in the wall's local coordinates)
+// =====================================================================
+const NOTE_W = 92, NOTE_H = 40, NOTE_MAX = 4;
+let noteSeq = 0;
+const notes = []; // { id, col, g, x, y, anim }
+
+function clipText(s, n) {
+  s = String(s || '').replace(/\s+/g, ' ').trim();
+  return s.length > n ? s.slice(0, n - 1) + '…' : s;
+}
+
+function addNote(text, color, col) {
+  if (!kanban) return null;
+  const g = el('g', { opacity: 0 }, kanban.g);
+  el('rect', { x: 0, y: 0, width: NOTE_W, height: NOTE_H, rx: 5, fill: shade(color, 0.72), stroke: shade(color, 0.35), 'stroke-width': 1 }, g);
+  el('rect', { x: 0, y: 0, width: NOTE_W, height: 5, rx: 2, fill: color }, g);
+  const t = el('g', { class: 'note' }, g);
+  txt(t, NOTE_W - 6, 19, clipText(text, 16), { 'text-anchor': 'start', direction: 'rtl' });
+  txt(t, NOTE_W - 6, 32, clipText(text.slice(15), 16), { 'text-anchor': 'start', direction: 'rtl' });
+  const n = { id: ++noteSeq, col, g, x: null, y: null, anim: 0 };
+  notes.push(n);
+  layoutNotes(true);
+  return n;
+}
+
+function moveNote(n, col) {
+  if (!n) return;
+  n.col = col;
+  layoutNotes(true);
+}
+
+function layoutNotes(animate) {
+  if (!kanban) return;
+  for (const key of ['todo', 'doing', 'done']) {
+    const col = kanban.cols[key];
+    const inCol = notes.filter((n) => n.col === key);
+    // keep the board tidy: only the newest few stay; old "done" notes are removed for good
+    const visible = inCol.slice(-NOTE_MAX);
+    for (const n of inCol) {
+      if (visible.includes(n)) continue;
+      if (key === 'done') {
+        n.g.remove();
+        notes.splice(notes.indexOf(n), 1);
+      } else n.g.setAttribute('opacity', 0);
+    }
+    visible.forEach((n, i) => {
+      const row = Math.floor(i / 2), c = i % 2;
+      const x = col.x + col.w - 6 - (c + 1) * (NOTE_W + 4) + 4;
+      const y = col.y + row * (NOTE_H + 5);
+      tweenNote(n, x, y, animate);
+    });
+  }
+}
+
+function tweenNote(n, x, y, animate) {
+  if (n.x === null || !animate || document.hidden) {
+    n.anim++;
+    n.x = x; n.y = y;
+    n.g.setAttribute('transform', `translate(${x},${y})`);
+    n.g.setAttribute('opacity', 1);
+    return;
+  }
+  const x0 = n.x, y0 = n.y, t0 = performance.now(), dur = 550, my = ++n.anim;
+  n.x = x; n.y = y;
+  n.g.setAttribute('opacity', 1);
+  const step = (now) => {
+    if (my !== n.anim) return;
+    const k = Math.min(1, (now - t0) / dur);
+    const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    const lift = Math.sin(k * Math.PI) * 10;
+    n.g.setAttribute('transform', `translate(${(x0 + (x - x0) * e).toFixed(1)},${(y0 + (y - y0) * e - lift).toFixed(1)})`);
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+  // backup for stalled animation frames: snap to the final spot
+  setTimeout(() => { if (my === n.anim) n.g.setAttribute('transform', `translate(${x},${y})`); }, dur + 200);
+}
+
+function clearNotes() {
+  for (const n of notes) n.g.remove();
+  notes.length = 0;
+}
+
+// =====================================================================
+//  Effects: flying folder, sparkles
+// =====================================================================
+function handPoint(st) { return [st.px, st.py - 46 * st.scale]; }
+
+function flyFolder(from, to, color, kind, onLand) {
+  // Hidden tab = no animation frames. Never let the scene fall behind reality: land right away.
+  if (document.hidden) { try { onLand && onLand(); } catch {} return; }
+  const [x0, y0] = handPoint(from);
+  const [x1, y1] = handPoint(to);
+  const dist = Math.hypot(x1 - x0, y1 - y0);
+  const lift = Math.min(220, 90 + dist * 0.35);
+  const cx = (x0 + x1) / 2, cy = Math.min(y0, y1) - lift;
+  // faint dashed trail
+  const trail = el('path', {
+    d: `M ${x0} ${y0} Q ${cx} ${cy} ${x1} ${y1}`, fill: 'none', stroke: color, 'stroke-width': 2.5,
+    'stroke-dasharray': '2 9', 'stroke-linecap': 'round', opacity: .55,
+  }, fxG);
+  // outer = position (set from JS), inner = tumble (CSS) - trap 2
+  const outer = el('g', { transform: `translate(${x0},${y0})` }, fxG);
+  const inner = el('g', { class: 'spin' }, outer);
+  if (kind === 'report') {
+    el('rect', { x: -15, y: -19, width: 30, height: 38, rx: 5, fill: '#FFFFFF', stroke: '#2FB36B', 'stroke-width': 2, filter: 'url(#soft)' }, inner);
+    el('path', { d: 'M -7 0 L -2 6 L 8 -6', fill: 'none', stroke: '#2FB36B', 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, inner);
+  } else {
+    el('path', { d: 'M -22 -15 h 14 l 5 5 h 25 v 26 h -44 Z', fill: '#F2B33D', filter: 'url(#soft)' }, inner);
+    el('rect', { x: -19, y: -9, width: 38, height: 22, rx: 2, fill: '#FFFFFF' }, inner);
+    el('path', { d: 'M -24 -6 h 48 l -3 22 h -42 Z', fill: '#FFC94D' }, inner);
+    el('rect', { x: -12, y: 2, width: 24, height: 5, rx: 2.5, fill: color }, inner);
+  }
+  const t0 = performance.now(), dur = 1150;
+  let landed = false;
+  const finish = () => {
+    if (landed) return;
+    landed = true;
+    outer.remove();
+    trail.remove();
+    try { onLand && onLand(); } catch {}
+  };
+  // backup: if animation frames stop (tab switched mid-flight), the folder still lands on time
+  setTimeout(finish, dur + 250);
+  const step = (now) => {
+    if (landed) return;
+    const k = Math.min(1, (now - t0) / dur);
+    const e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    const x = (1 - e) * (1 - e) * x0 + 2 * (1 - e) * e * cx + e * e * x1;
+    const y = (1 - e) * (1 - e) * y0 + 2 * (1 - e) * e * cy + e * e * y1;
+    const s = 1 + Math.sin(k * Math.PI) * 0.45;
+    outer.setAttribute('transform', `translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${s.toFixed(3)})`);
+    trail.setAttribute('opacity', (0.55 * (1 - k * 0.6)).toFixed(2));
+    if (k < 1) requestAnimationFrame(step);
+    else finish();
+  };
+  requestAnimationFrame(step);
+}
+
+function sparkles(st, color) {
+  const cx = st.px, cy = st.py - 70 * st.scale;
+  const g = el('g', { class: 'burst' }, fxG);
+  const colors = [color, '#2FB36B', '#FFD43B', '#4DABF7'];
+  for (let i = 0; i < 12; i++) {
+    const a = (i / 12) * Math.PI * 2;
+    const r = 46 + (i % 3) * 12;
+    const c = el('circle', { class: 'sparkle', cx, cy, r: 3 + (i % 2) * 1.5, fill: colors[i % colors.length] }, g);
+    c.style.setProperty('--dx', (Math.cos(a) * r).toFixed(0) + 'px');
+    c.style.setProperty('--dy', (Math.sin(a) * r).toFixed(0) + 'px');
+  }
+  setTimeout(() => g.remove(), 1000);
+}
+
+function flashClass(target, cls, ms) {
+  target.classList.remove(cls);
+  if (document.hidden) return; // nobody is watching - do not queue up hops for later
+  requestAnimationFrame(() => {
+    target.classList.add(cls);
+    setTimeout(() => target.classList.remove(cls), ms);
+  });
+}
+
+// =====================================================================
+//  Feed column
+// =====================================================================
+const feedEl = document.getElementById('feed');
+const feedEmpty = document.getElementById('feedEmpty');
+const FEED_MAX = 150;
+let lastFeed = null; // { agent, node, count }
+
+function hhmmss(ts) {
+  const d = new Date(ts || Date.now());
+  return d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+}
+
+function feedScroll() {
+  // trap 4: after every change, scroll to the bottom - otherwise new cards "vanish" below the fold
+  feedEl.scrollTop = feedEl.scrollHeight;
+}
+
+function feedAdd({ cls, icon, who, what, ts, color, agent }) {
+  if (feedEmpty && feedEmpty.parentNode) feedEmpty.remove();
+  const node = document.createElement('div');
+  node.className = 'fi ' + cls; // HTML element - className is fine here
+  if (color) node.style.borderRightColor = color;
+  if (cls === 'turn') {
+    node.textContent = what;
+  } else {
+    const ic = document.createElement('div'); ic.className = 'ic'; ic.textContent = icon || '•';
+    const body = document.createElement('div'); body.className = 'body';
+    const w = document.createElement('div'); w.className = 'who';
+    const ws = document.createElement('span'); ws.textContent = who;
+    const tm = document.createElement('time'); tm.textContent = hhmmss(ts);
+    w.append(ws, tm);
+    const wh = document.createElement('div'); wh.className = 'what'; wh.textContent = what;
+    body.append(w, wh);
+    node.append(ic, body);
+  }
+  feedEl.appendChild(node);
+  while (feedEl.children.length > FEED_MAX) feedEl.firstChild.remove();
+  lastFeed = { agent: agent || null, cls, node, count: 1 };
+  feedScroll();
+  return node;
+}
+
+function feedAction(st, label, ts) {
+  // consecutive actions of the same agent update one card instead of flooding the column
+  if (lastFeed && lastFeed.cls === 'action' && lastFeed.agent === st.agent.key && lastFeed.node.isConnected) {
+    lastFeed.count++;
+    lastFeed.node.querySelector('.what').textContent = label;
+    lastFeed.node.querySelector('time').textContent = hhmmss(ts);
+    let c = lastFeed.node.querySelector('.count');
+    if (!c) { c = document.createElement('div'); c.className = 'count'; lastFeed.node.querySelector('.body').appendChild(c); }
+    c.textContent = `${lastFeed.count} פעולות ברצף`;
+    feedScroll();
+    return;
+  }
+  feedAdd({ cls: 'action', icon: st.agent.icon, who: st.agent.title, what: label, ts, color: st.agent.color, agent: st.agent.key });
+}
+
+function feedReset() {
+  feedEl.textContent = '';
+  lastFeed = null;
+}
+
+// =====================================================================
+//  The engine: five event types -> what each robot is doing
+// =====================================================================
+const reqEl = document.getElementById('request');
+const reqTag = document.getElementById('requestTag');
+const reqText = document.getElementById('requestText');
+const busyEl = document.getElementById('busyCount');
+const timerEl = document.getElementById('timer');
+const hintEl = document.getElementById('hint');
+let turnActive = false, turnStart = 0, turnEnd = 0;
+const REST_MS = 3500;
+const IMPLICIT_IDLE_MS = 30000;      // an agent we never saw receive a task relaxes after 30s of silence
+const STALE_MS = 15 * 60 * 1000;     // safety net if a "done" was lost
+
+const G = (st, m, f) => (st.agent.gender === 'f' ? f : m);
+const stationOf = (key) => stations.get(key) || stations.get('helper');
+const leadSt = () => stations.get('lead');
+
+function setRobot(st, state) {
+  const extra = [...st.robot.classList].filter((c) => c === 'wave' || c === 'happy');
+  st.robot.setAttribute('class', ['robot', state, ...extra].join(' '));
+  st.g.setAttribute('class', 'station' + (state === 'working' ? ' busy' : ''));
+}
+
+function wake(st) {
+  // trap 10: a robot that just got new work must never be put to sleep by an old timer
+  if (st.restTimer) { clearTimeout(st.restTimer); st.restTimer = null; }
+  st.lastSeen = Date.now();
+  setRobot(st, 'working');
+}
+
+function scheduleRest(st, ms) {
+  if (st.restTimer) clearTimeout(st.restTimer);
+  st.restTimer = setTimeout(() => {
+    st.restTimer = null;
+    if (st.busy > 0) return;
+    if (st.agent.key === 'lead' && turnActive) return;
+    setRobot(st, 'idle');
+    setCard(st, { line: st.card.line.textContent, visible: false });
+    updateStats();
+  }, ms);
+}
+
+function currentTask(st) {
+  const t = st.tasks.find((x) => x.task);
+  return t ? t.task : '';
+}
+
+function showCard(st, line, status, anim) {
+  const wasHidden = st.card.g.classList.contains('hidden');
+  const sub = st.agent.key === 'lead' ? '' : (currentTask(st) ? 'משימה: ' + clipText(currentTask(st), 40) : '');
+  setCard(st, { line, sub, status, visible: true });
+  if (anim && wasHidden) flashClass(st.card.inner, 'pop', 400);
+}
+
+function updateStats() {
+  let n = 0;
+  for (const st of stations.values()) if (st.busy > 0 || (st.agent.key === 'lead' && turnActive)) n++;
+  busyEl.textContent = n;
+}
+
+function tickTimer() {
+  const end = turnActive ? Date.now() : turnEnd;
+  const s = turnStart ? Math.max(0, Math.floor((end - turnStart) / 1000)) : 0;
+  timerEl.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+setInterval(tickTimer, 250);
+
+function startTurn(ts) {
+  turnActive = true;
+  turnStart = ts || Date.now();
+  turnEnd = 0;
+  hintEl.classList.add('gone');
+}
+
+const handlers = {
+  request(ev, anim) {
+    startTurn(ev.ts);
+    reqEl.setAttribute('class', 'request');
+    reqTag.textContent = 'בקשה חדשה';
+    reqText.textContent = ev.text || '';
+    if (anim) { reqEl.classList.remove('flash'); void reqEl.offsetWidth; reqEl.classList.add('flash'); }
+    const lead = leadSt();
+    if (lead) {
+      wake(lead);
+      showCard(lead, 'קורא את הבקשה…', 'work', anim);
+      if (anim) flashClass(lead.robot, 'wave', 1400);
+    }
+    feedAdd({ cls: 'request', icon: '💬', who: 'בקשה חדשה', what: ev.text || '', ts: ev.ts, color: '#7048E8' });
+  },
+
+  handoff(ev, anim) {
+    const from = stationOf(ev.from), to = stationOf(ev.to);
+    if (!from || !to) return;
+    if (from.agent.key === 'lead' && !turnActive) startTurn(ev.ts);
+    const task = ev.task || 'משימה חדשה';
+    // trap 9: a counter per agent + a queue of its tasks, never a single variable
+    const entry = { task, note: null, t: Date.now() };
+    to.busy++;
+    to.tasks.push(entry);
+    to.implicit = false;
+    if (to.restTimer) { clearTimeout(to.restTimer); to.restTimer = null; }
+    to.lastSeen = Date.now();
+    wake(from);
+    showCard(from, `${G(from, 'מעביר', 'מעבירה')} משימה ל${to.agent.title}`, 'work', anim);
+    const whoTo = to.agent.key === 'helper' && ev.rawAgent ? `${to.agent.title} (${ev.rawAgent})` : to.agent.title;
+    feedAdd({ cls: 'handoff', icon: '📁', who: `${from.agent.title} ← ${whoTo}`, what: task, ts: ev.ts, color: to.agent.color });
+    entry.note = addNote(task, to.agent.color, 'todo');
+    const land = () => {
+      if (!to.tasks.includes(entry)) return; // already finished while the folder was in the air
+      moveNote(entry.note, 'doing');
+      wake(to);
+      if (!(to.lastAction > entry.t)) showCard(to, `${G(to, 'קיבל', 'קיבלה')} משימה - ${G(to, 'מתחיל', 'מתחילה')} לעבוד`, 'work', anim);
+      if (anim) flashClass(to.robot, 'wave', 1400);
+      if (from.agent.key === 'lead' && from.card.line.textContent.startsWith('מעביר')) leadWaiting(anim);
+      updateStats();
+    };
+    if (anim && from !== to) {
+      setRobot(to, 'working');
+      showCard(to, `${G(to, 'מקבל', 'מקבלת')} משימה…`, 'wait', true);
+      flyFolder(from, to, to.agent.color, 'task', land);
+    } else land();
+    updateStats();
+  },
+
+  action(ev, anim) {
+    const st = stationOf(ev.agent);
+    if (!st) return;
+    if (st.agent.key === 'lead') {
+      if (!turnActive) startTurn(ev.ts);
+    } else if (st.busy === 0) {
+      // the hooks run in the background, so lines can arrive slightly out of order:
+      // an action from an agent we never saw receive a task still makes it work.
+      st.busy = 1;
+      st.tasks.push({ task: '', note: null, implicit: true });
+      st.implicit = true;
+    }
+    wake(st);
+    st.lastAction = Date.now();
+    showCard(st, ev.label || G(st, 'עובד', 'עובדת'), 'work', anim);
+    feedAction(st, ev.label || '', ev.ts);
+    updateStats();
+  },
+
+  done(ev, anim) {
+    const st = stationOf(ev.agent);
+    if (!st || st.busy <= 0) return; // a "done" for someone not working: nothing to finish
+    st.busy--;
+    const entry = st.tasks.shift();
+    st.implicit = st.tasks.some((t) => t.implicit);
+    if (entry && entry.note) moveNote(entry.note, 'done');
+    st.lastSeen = Date.now();
+    const doneWord = G(st, 'סיים', 'סיימה');
+    feedAdd({ cls: 'done', icon: '✅', who: st.agent.title, what: `${doneWord}${entry && entry.task ? ': ' + entry.task : ' את המשימה'}`, ts: ev.ts, color: '#2FB36B' });
+    if (anim) {
+      flashClass(st.robot, 'happy', 1100);
+      sparkles(st, st.agent.color);
+      const lead = leadSt();
+      if (lead && lead !== st) {
+        flyFolder(st, lead, '#2FB36B', 'report', () => {
+          wake(lead);
+          showCard(lead, `${G(lead, 'קיבל', 'קיבלה')} תוצאה מ${st.agent.title}`, turnActive ? 'work' : 'done', true);
+          if (!turnActive) scheduleRest(lead, REST_MS);
+        });
+      }
+    }
+    if (st.busy > 0) {
+      showCard(st, `${doneWord} משימה - ${G(st, 'ממשיך', 'ממשיכה')} לבאה`, 'work', anim);
+    } else {
+      showCard(st, `${doneWord} ✓`, 'done', anim);
+      setRobot(st, 'working');
+      scheduleRest(st, REST_MS);
+    }
+    updateStats();
+  },
+
+  turn_end(ev, anim) {
+    if (!turnActive && !turnStart) return;
+    turnActive = false;
+    turnEnd = ev.ts || Date.now();
+    reqTag.textContent = 'הושלם ✓';
+    reqEl.setAttribute('class', 'request idle');
+    const lead = leadSt();
+    if (lead) {
+      showCard(lead, 'סיימתי ✓ מחכה לבקשה הבאה', 'done', anim);
+      if (anim) { flashClass(lead.robot, 'happy', 1100); sparkles(lead, lead.agent.color); }
+      scheduleRest(lead, REST_MS + 1500);
+    }
+    const secs = Math.max(0, Math.round((turnEnd - turnStart) / 1000));
+    feedAdd({ cls: 'turn', what: `— התור הסתיים · ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')} דקות —`, ts: ev.ts });
+    updateStats();
+  },
+};
+
+// Follow ONE conversation: the one that sent the latest request. Other sessions open in the same
+// project (another chat window, a test run) would otherwise move the same robots.
+let activeSid = null;
+
+function onOfficeEvent(ev, anim) {
+  if (!ev || !handlers[ev.type] || !stations.size) return;
+  if (ev.sid) {
+    if (ev.type === 'request') activeSid = ev.sid;
+    else if (activeSid && ev.sid !== activeSid) return;
+  }
+  try { handlers[ev.type](ev, anim); } catch (e) { console.error('office event failed', ev, e); }
+}
+
+function teamBusy() {
+  let n = 0;
+  for (const st of stations.values()) if (st.agent.key !== 'lead' && st.busy > 0) n++;
+  return n;
+}
+
+function leadWaiting(anim) {
+  const lead = leadSt();
+  if (!lead || !turnActive) return;
+  const n = teamBusy();
+  if (n > 0) showCard(lead, n === 1 ? 'מחכה לצוות · סוכן אחד עובד' : `מחכה לצוות · ${n} סוכנים עובדים`, 'wait', anim);
+}
+
+function resetState() {
+  for (const st of stations.values()) {
+    if (st.restTimer) clearTimeout(st.restTimer);
+    st.restTimer = null; st.busy = 0; st.tasks = []; st.implicit = false;
+    setRobot(st, 'idle');
+    setCard(st, { line: '', visible: false });
+  }
+  clearNotes();
+  feedReset();
+  fxG.textContent = '';
+  turnActive = false; turnStart = 0; turnEnd = 0;
+  activeSid = null;
+  reqEl.setAttribute('class', 'request idle');
+  reqTag.textContent = 'ממתינים';
+  reqText.textContent = 'הצוות מחכה לבקשה הבאה…';
+  updateStats();
+}
+
+function onHello(data) {
+  // (re)connected: rebuild from the current turn's events without animation
+  resetState();
+  const replay = Array.isArray(data.replay) ? data.replay : [];
+  for (const ev of replay) onOfficeEvent(ev, false);
+  if (!turnActive) { // the replayed turn is already over: everyone who is free rests right away
+    for (const st of stations.values()) if (st.busy === 0) scheduleRest(st, 0);
+  }
+  if (!replay.length) {
+    feedEl.appendChild(feedEmpty);
+    hintEl.classList.remove('gone');
+  }
+}
+
+// safety net: nobody stays "working" forever because of a lost event
+setInterval(() => {
+  const now = Date.now();
+  for (const st of stations.values()) {
+    if (st.busy <= 0 || st.agent.key === 'lead') continue;
+    const silent = now - st.lastSeen;
+    const onlyImplicit = st.tasks.every((t) => t.implicit);
+    if ((onlyImplicit && silent > IMPLICIT_IDLE_MS) || silent > STALE_MS) {
+      for (const t of st.tasks) if (t.note) moveNote(t.note, 'done');
+      st.busy = 0; st.tasks = []; st.implicit = false;
+      scheduleRest(st, 0);
+    }
+  }
+  updateStats();
+}, 5000);
 
 // =====================================================================
 //  Connection
