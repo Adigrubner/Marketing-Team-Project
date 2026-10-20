@@ -83,3 +83,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 10.10.2026 | קרוסלה (5 אורך) - הכניסה, "מהדלת פנימה" · `Interior/31` · `Details/64` · `Interior/13` · `Details/76` · `Interior/40` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס · סטורי | [אינסטגרם](https://www.instagram.com/p/DeUk0ggnGNR/) · `content/posts/2026-10-10-sarah-yitzhak-entry/` |
+| 20.10.2026 | רילס (19 פריימים) - פרויקט מלא, "מקום שחוזרים אליו" · `Interior/41, 02, 12, 34, 33, 24, 22, 44, 43, 45, 52, 42` · `Details/78, 59, 75, 57, 53, 80, 81` | אינסטגרם רילס (Collab) · פייסבוק רילס · גוגל ביזנס · סטורי | [אינסטגרם](https://www.instagram.com/reel/DeuVA6eD1b5/) · `content/posts/2026-10-20-sarah-yitzhak-reel/` |
