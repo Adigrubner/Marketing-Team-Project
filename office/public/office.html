@@ -1,7 +1,754 @@
 <!doctype html>
-<html lang="he" dir="rtl"><head><meta charset="utf-8"><title>המשרד החי</title></head>
-<body><pre id="log"></pre>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>המשרד החי</title>
+<style>
+:root {
+  --bg1: #F4F6FA;
+  --bg2: #E3E8EF;
+  --ink: #1B2330;
+  --muted: #6B7686;
+  --card: #FFFFFF;
+  --line: #E6E9EF;
+  --ok: #2FB36B;
+  --warn: #F59F00;
+  --shadow: 0 8px 28px rgba(30, 40, 60, .10), 0 1px 3px rgba(30, 40, 60, .08);
+  --font: "Segoe UI", "Assistant", "Heebo", system-ui, -apple-system, Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  background: radial-gradient(ellipse at 45% 35%, #FFFFFF 0%, var(--bg1) 45%, var(--bg2) 100%);
+  color: var(--ink);
+  font-family: var(--font);
+}
+.app {
+  display: grid;
+  grid-template-rows: 76px 1fr;
+  grid-template-columns: 380px 1fr; /* RTL: first column (the feed) sits on the right */
+  height: 100vh;
+}
+
+/* ---------- header ---------- */
+header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 28px;
+}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 300px; }
+.brand .logo {
+  width: 44px; height: 44px; border-radius: 14px;
+  background: linear-gradient(135deg, #7048E8, #4DABF7);
+  display: grid; place-items: center; color: #fff; font-size: 22px;
+  box-shadow: 0 6px 16px rgba(112, 72, 232, .35);
+}
+.brand h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
+.brand p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.request {
+  flex: 1;
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card);
+  border-radius: 16px;
+  padding: 10px 18px;
+  box-shadow: var(--shadow);
+  min-height: 48px;
+  overflow: hidden;
+}
+.request .tag {
+  font-size: 12px; font-weight: 700; color: #7048E8;
+  background: #F0EBFF; border-radius: 999px; padding: 3px 10px; white-space: nowrap;
+}
+.request .text { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.request.idle .text { color: var(--muted); font-weight: 500; }
+.request.idle .tag { color: var(--muted); background: #F1F3F6; }
+.request.flash { animation: flash 1.2s ease-out; }
+@keyframes flash {
+  0% { box-shadow: 0 0 0 0 rgba(112, 72, 232, .55), var(--shadow); }
+  100% { box-shadow: 0 0 0 18px rgba(112, 72, 232, 0), var(--shadow); }
+}
+.stats { display: flex; align-items: center; gap: 10px; }
+.pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--card); border-radius: 999px; padding: 8px 14px;
+  box-shadow: var(--shadow); font-size: 13px; font-weight: 600; white-space: nowrap;
+}
+.pill .dot { width: 9px; height: 9px; border-radius: 50%; background: #ADB5BD; }
+.pill.live .dot { background: var(--ok); box-shadow: 0 0 0 0 rgba(47, 179, 107, .6); animation: pulse 2s infinite; }
+.pill.down .dot { background: var(--warn); }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(47, 179, 107, .55); }
+  70% { box-shadow: 0 0 0 9px rgba(47, 179, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 179, 107, 0); }
+}
+.pill b { font-variant-numeric: tabular-nums; }
+
+/* ---------- feed column ---------- */
+aside {
+  display: flex; flex-direction: column;
+  margin: 8px 20px 20px 0;
+  background: rgba(255, 255, 255, .72);
+  backdrop-filter: blur(6px);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  min-height: 0;
+}
+aside h2 {
+  margin: 0; padding: 16px 20px 12px; font-size: 15px; font-weight: 800;
+  border-bottom: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+}
+aside h2 span { font-size: 12px; color: var(--muted); font-weight: 500; }
+#feed { flex: 1; overflow-y: auto; padding: 12px 14px 18px; scroll-behavior: smooth; }
+#feed::-webkit-scrollbar { width: 6px; }
+#feed::-webkit-scrollbar-thumb { background: #D5DAE1; border-radius: 3px; }
+.empty { color: var(--muted); font-size: 14px; text-align: center; margin-top: 40px; line-height: 1.7; }
+.fi {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: var(--card); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(30, 40, 60, .06);
+  animation: slidein .35s ease-out;
+  border-right: 4px solid transparent;
+}
+@keyframes slidein {
+  from { opacity: 0; transform: translate(0px, 10px); }
+  to { opacity: 1; transform: translate(0px, 0px); }
+}
+.fi .ic { font-size: 18px; line-height: 22px; width: 22px; text-align: center; flex: none; }
+.fi .body { min-width: 0; flex: 1; }
+.fi .who { font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; gap: 8px; }
+.fi .who time { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+.fi .what { font-size: 13.5px; margin-top: 2px; color: #2B3443; overflow-wrap: anywhere; }
+.fi .count { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.fi.request { background: linear-gradient(135deg, #F3EEFF, #FFFFFF); }
+.fi.request .what { font-size: 14.5px; font-weight: 600; }
+.fi.handoff .what b { font-weight: 700; }
+.fi.done { background: #F1FBF5; }
+.fi.turn { background: transparent; box-shadow: none; justify-content: center; color: var(--muted); font-size: 12.5px; }
+
+/* ---------- scene ---------- */
+main { position: relative; min-width: 0; min-height: 0; }
+#scene { width: 100%; height: 100%; display: block; }
+#scene text { font-family: var(--font); }
+
+/* robot animation: the OUTER group holds the position (transform attribute),
+   the INNER groups below are the only things CSS animates (trap 2). */
+.bob, .arm, .eyes, .zz, .hop, .ant, .spin, .note-in {
+  transform-box: fill-box;
+}
+.bob { transform-origin: 50% 100%; }
+.robot.idle .bob { animation: breathe 4.2s ease-in-out infinite; }
+.robot.working .bob { animation: bobwork .55s ease-in-out infinite; }
+@keyframes breathe {
+  0%, 100% { transform: translate(0px, 0px) scale(1, 1); }
+  50% { transform: translate(0px, 1px) scale(1.01, .985); }
+}
+@keyframes bobwork {
+  0%, 100% { transform: translate(0px, 0px); }
+  50% { transform: translate(0px, -3px); }
+}
+.arm { transform-origin: 50% 8%; }
+.robot.working .arm.l { animation: typeL .32s ease-in-out infinite; }
+.robot.working .arm.r { animation: typeR .32s ease-in-out infinite .16s; }
+@keyframes typeL { 0%, 100% { transform: rotate(8deg); } 50% { transform: rotate(-18deg); } }
+@keyframes typeR { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(18deg); } }
+.robot.wave .arm.r { animation: wave .45s ease-in-out 3; }
+@keyframes wave { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(-150deg); } }
+.eyes { transform-origin: 50% 50%; }
+.robot.idle .eyes { animation: sleepy 6s ease-in-out infinite; }
+.robot.working .eyes { animation: blink 3.4s infinite; }
+@keyframes sleepy { 0%, 100% { transform: scale(1, .35); } 45%, 55% { transform: scale(1, .25); } }
+@keyframes blink { 0%, 92%, 100% { transform: scale(1, 1); } 95% { transform: scale(1, .1); } }
+.eye { fill: #7EE8FF; }
+.robot.idle .eye { fill: #5FAFC4; }
+.robot.idle .eyeglow { opacity: .15; }
+.robot.working .eyeglow { opacity: .9; }
+.ant { transform-origin: 50% 100%; }
+.robot.working .antball { fill: #FFFFFF; }
+.robot.working .ant { animation: antwiggle 1.1s ease-in-out infinite; }
+@keyframes antwiggle { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+.hop { transform-origin: 50% 100%; }
+.robot.happy .hop { animation: hop .5s cubic-bezier(.3, .0, .4, 1) 2; }
+@keyframes hop {
+  0%, 100% { transform: translate(0px, 0px) scale(1, 1); }
+  15% { transform: translate(0px, 2px) scale(1.06, .92); }
+  50% { transform: translate(0px, -16px) scale(.96, 1.05); }
+  85% { transform: translate(0px, 1px) scale(1.04, .96); }
+}
+.zz { opacity: 0; }
+.robot.idle .zz { animation: zz 4.5s ease-in-out infinite; }
+.robot.idle .zz.z2 { animation-delay: 1.5s; }
+@keyframes zz {
+  0% { opacity: 0; transform: translate(0px, 0px) scale(.6, .6); }
+  20% { opacity: .75; }
+  80% { opacity: 0; transform: translate(10px, -26px) scale(1.15, 1.15); }
+  100% { opacity: 0; }
+}
+.screen { transition: fill .4s ease; }
+.screenglow { opacity: 0; transition: opacity .4s ease; }
+.station.busy .screenglow { opacity: .55; }
+
+/* name tags + info cards */
+.tag rect.bg { fill: #FFFFFF; }
+.tag text { font-size: 12px; font-weight: 600; fill: #3A4454; }
+.station.busy .tag text { fill: #1B2330; }
+.card { transition: opacity .35s ease; }
+.card.hidden { opacity: 0; }
+.card .bg { fill: #FFFFFF; }
+.card .title { font-size: 13px; font-weight: 800; fill: #1B2330; }
+.card .line { font-size: 12.5px; font-weight: 500; fill: #3A4454; }
+.card .sub { font-size: 11px; font-weight: 500; fill: #8A94A3; }
+.pop { transform-box: fill-box; transform-origin: 50% 100%; animation: pop .35s cubic-bezier(.2, 1.4, .5, 1); }
+@keyframes pop { from { transform: scale(.6, .6); opacity: 0; } to { transform: scale(1, 1); opacity: 1; } }
+.statusdot.work { animation: dotpulse 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 50%; }
+@keyframes dotpulse { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.35, 1.35); } }
+
+/* kanban + flying folder */
+.note text { font-size: 9.5px; font-weight: 600; fill: #2B3443; }
+.spin { transform-origin: 50% 50%; animation: tumble .9s linear infinite; }
+@keyframes tumble { 0% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } 100% { transform: rotate(-12deg); } }
+.burst circle { transform-box: fill-box; transform-origin: 50% 50%; }
+.sparkle { animation: sparkle .9s ease-out forwards; }
+@keyframes sparkle {
+  from { opacity: 1; transform: translate(0px, 0px) scale(1, 1); }
+  to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.3, .3); }
+}
+
+.hint {
+  position: absolute; left: 50%; bottom: 18px; transform: translate(-50%, 0px);
+  font-size: 13px; color: var(--muted); background: rgba(255, 255, 255, .8);
+  padding: 6px 14px; border-radius: 999px; box-shadow: 0 2px 8px rgba(30, 40, 60, .06);
+  transition: opacity .5s ease;
+}
+.hint.gone { opacity: 0; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="logo">🏢</div>
+      <div>
+        <h1>המשרד החי</h1>
+        <p>צוות הסוכנים של מכונת הקמפיינים · בזמן אמת</p>
+      </div>
+    </div>
+    <div class="request idle" id="request">
+      <span class="tag" id="requestTag">ממתינים</span>
+      <span class="text" id="requestText">הצוות מחכה לבקשה הבאה…</span>
+    </div>
+    <div class="stats">
+      <div class="pill"><span>עובדים עכשיו</span><b id="busyCount">0</b></div>
+      <div class="pill"><span>זמן</span><b id="timer">00:00</b></div>
+      <div class="pill down" id="conn"><span class="dot"></span><span id="connText">מתחבר…</span></div>
+    </div>
+  </header>
+
+  <aside>
+    <h2>יומן העבודה <span id="feedCount"></span></h2>
+    <div id="feed"><div class="empty" id="feedEmpty">עדיין שקט כאן.<br>כתבו בקשה בצ'אט של קלוד קוד,<br>והצוות יתחיל לזוז.</div></div>
+  </aside>
+
+  <main>
+    <svg id="scene" viewBox="0 0 1600 1130" preserveAspectRatio="xMidYMid meet" aria-label="המשרד">
+      <defs>
+        <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FFFFFF" stop-opacity=".18"/>
+          <stop offset=".55" stop-color="#000000" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000000" stop-opacity=".16"/>
+        </linearGradient>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#CFE8FF"/>
+          <stop offset="1" stop-color="#F3F9FF"/>
+        </linearGradient>
+        <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFF2CC" stop-opacity=".85"/>
+          <stop offset="1" stop-color="#FFF2CC" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="floorGlow" cx=".5" cy=".45" r=".6">
+          <stop offset="0" stop-color="#FFFFFF"/>
+          <stop offset="1" stop-color="#F3F5F8"/>
+        </radialGradient>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="2.4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="soft" x="-30%" y="-30%" width="160%" height="180%">
+          <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#1E283C" flood-opacity=".14"/>
+        </filter>
+        <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+      </defs>
+      <g id="room"></g>
+      <g id="wallB"></g>
+      <g id="wallA"></g>
+      <g id="objects"></g>
+      <g id="fx"></g>
+      <g id="cards"></g>
+    </svg>
+    <div class="hint" id="hint">משרד חי · מחובר לקלוד קוד</div>
+  </main>
+</div>
+
 <script>
-const es = new EventSource('/events');
-es.addEventListener('office', (m) => { document.getElementById('log').textContent += m.data + '\n'; });
-</script></body></html>
+'use strict';
+// =====================================================================
+//  Geometry + SVG helpers
+// =====================================================================
+const NS = 'http://www.w3.org/2000/svg';
+const COS = 0.866, SIN = 0.5;
+const VIEW_W = 1600;
+const WALL_H = 210;
+let K = 4;            // desk grid is K x K
+let N = 14;           // floor size in grid units
+let U = 62;           // screen px per grid unit
+let OX = 800, OY = 236; // screen position of the back corner (floor level)
+
+function iso(x, y, z = 0) {
+  return [OX + (x - y) * U * COS, OY + (x + y) * U * SIN - z];
+}
+const pts = (arr) => arr.map((p) => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+
+// trap 1: SVG elements get their class through setAttribute, never .className
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs) {
+  const t = el('text', Object.assign({ x, y }, attrs || {}), parent);
+  t.textContent = s;
+  return t;
+}
+function addClass(e, c) { e.classList.add(c); }
+function delClass(e, c) { e.classList.remove(c); }
+
+function shade(hex, amt) { // amt -1..1 : darker..lighter
+  const n = parseInt(hex.slice(1), 16);
+  let r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  const t = amt < 0 ? 0 : 255, p = Math.abs(amt);
+  r = Math.round((t - r) * p + r); g = Math.round((t - g) * p + g); b = Math.round((t - b) * p + b);
+  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+// iso box: x/y extents in grid units, h in px. Returns a group.
+function isoBox(parent, cx, cy, w, d, h, top, left, right, z0 = 0) {
+  const g = el('g', null, parent);
+  const x0 = cx - w / 2, x1 = cx + w / 2, y0 = cy - d / 2, y1 = cy + d / 2;
+  el('polygon', { points: pts([iso(x0, y1, z0), iso(x1, y1, z0), iso(x1, y1, z0 + h), iso(x0, y1, z0 + h)]), fill: left }, g);
+  el('polygon', { points: pts([iso(x1, y0, z0), iso(x1, y1, z0), iso(x1, y1, z0 + h), iso(x1, y0, z0 + h)]), fill: right }, g);
+  el('polygon', { points: pts([iso(x0, y0, z0 + h), iso(x1, y0, z0 + h), iso(x1, y1, z0 + h), iso(x0, y1, z0 + h)]), fill: top }, g);
+  return g;
+}
+
+// =====================================================================
+//  The room: floor, two walls, window, clock, sign, kanban board
+// =====================================================================
+const room = document.getElementById('room');
+const wallAg = document.getElementById('wallA');
+const wallBg = document.getElementById('wallB');
+let kanban = null; // { cols: [{x, notes:[]}, ...], g }
+let clockHands = null;
+
+function buildRoom() {
+  room.textContent = ''; wallAg.textContent = ''; wallBg.textContent = '';
+  const slab = 16;
+  // floor slab (diorama look)
+  el('polygon', { points: pts([iso(0, N), iso(N, N), iso(N, N, -slab), iso(0, N, -slab)]), fill: '#DCE1E8' }, room);
+  el('polygon', { points: pts([iso(N, 0), iso(N, N), iso(N, N, -slab), iso(N, 0, -slab)]), fill: '#CDD3DC' }, room);
+  el('ellipse', { cx: OX, cy: iso(N, N)[1] + 10, rx: N * U * 0.9, ry: 26, fill: '#1E283C', opacity: .07, filter: 'url(#blur8)' }, room);
+  el('polygon', { points: pts([iso(0, 0), iso(N, 0), iso(N, N), iso(0, N)]), fill: 'url(#floorGlow)' }, room);
+  // faint tile grid
+  const grid = el('g', { stroke: '#EDF0F4', 'stroke-width': 1 }, room);
+  for (let i = 1; i < N; i++) {
+    el('line', { x1: iso(i, 0)[0], y1: iso(i, 0)[1], x2: iso(i, N)[0], y2: iso(i, N)[1] }, grid);
+    el('line', { x1: iso(0, i)[0], y1: iso(0, i)[1], x2: iso(N, i)[0], y2: iso(N, i)[1] }, grid);
+  }
+  // sunlight patch from the window
+  const wa = N * 0.52, wb = N * 0.9;
+  el('polygon', { points: pts([iso(wa, 0.05), iso(wb, 0.05), iso(wb - 1.6, N * 0.42), iso(wa - 1.6, N * 0.42)]), fill: 'url(#sun)' }, room);
+
+  // walls
+  el('polygon', { points: pts([iso(0, 0), iso(N, 0), iso(N, 0, WALL_H), iso(0, 0, WALL_H)]), fill: '#F8F9FB' }, room);
+  el('polygon', { points: pts([iso(0, 0), iso(0, N), iso(0, N, WALL_H), iso(0, 0, WALL_H)]), fill: '#EEF1F5' }, room);
+  // wall caps
+  const cap = 9;
+  el('polygon', { points: pts([iso(0, 0, WALL_H), iso(N, 0, WALL_H), iso(N, -0.18, WALL_H), iso(-0.18, -0.18, WALL_H)]), fill: '#E2E6EC' }, room);
+  el('polygon', { points: pts([iso(0, 0, WALL_H), iso(0, N, WALL_H), iso(-0.18, N, WALL_H), iso(-0.18, -0.18, WALL_H)]), fill: '#E8EBF0' }, room);
+  el('polygon', { points: pts([iso(N, 0, WALL_H), iso(N, -0.18, WALL_H), iso(N, -0.18, 0), iso(N, 0, 0)]), fill: '#E2E6EC' }, room);
+  el('polygon', { points: pts([iso(0, N, WALL_H), iso(-0.18, N, WALL_H), iso(-0.18, N, 0), iso(0, N, 0)]), fill: '#DADFE6' }, room);
+  // skirting
+  el('polyline', { points: pts([iso(0, N, 6), iso(0, 0, 6), iso(N, 0, 6)]), fill: 'none', stroke: '#E1E5EB', 'stroke-width': 2 }, room);
+  void cap;
+
+  // ---- wall A (right wall, y = 0): local (P along the wall in px, Q = -height) ----
+  const [ax, ay] = iso(0, 0);
+  wallAg.setAttribute('transform', `matrix(${COS},${SIN},0,1,${ax},${ay})`);
+  const L = N * U;
+  // window
+  const w0 = wa * U, w1 = wb * U;
+  el('rect', { x: w0 - 8, y: -186, width: w1 - w0 + 16, height: 146, rx: 6, fill: '#E3E7ED' }, wallAg);
+  el('rect', { x: w0, y: -178, width: w1 - w0, height: 130, rx: 3, fill: 'url(#sky)' }, wallAg);
+  // a few soft clouds + skyline
+  const sky = el('g', { opacity: .9 }, wallAg);
+  for (const [cx, cy, r] of [[w0 + 70, -150, 14], [w0 + 92, -154, 18], [w0 + 116, -149, 13], [w1 - 120, -128, 11], [w1 - 102, -131, 15], [w1 - 84, -127, 10]]) {
+    el('circle', { cx, cy, r, fill: '#FFFFFF' }, sky);
+  }
+  let bx = w0 + 6;
+  const skyline = el('g', { fill: '#C9D6E6' }, wallAg);
+  for (const h of [26, 40, 30, 52, 34, 44, 24, 38, 48, 28, 36, 22]) {
+    const bw = (w1 - w0 - 12) / 12;
+    el('rect', { x: bx, y: -48 - h, width: bw - 3, height: h }, skyline);
+    bx += bw;
+  }
+  el('line', { x1: (w0 + w1) / 2, y1: -178, x2: (w0 + w1) / 2, y2: -48, stroke: '#E3E7ED', 'stroke-width': 6 }, wallAg);
+  el('line', { x1: w0, y1: -113, x2: w1, y2: -113, stroke: '#E3E7ED', 'stroke-width': 4 }, wallAg);
+  el('rect', { x: w0 - 12, y: -44, width: w1 - w0 + 24, height: 8, rx: 3, fill: '#D9DEE5' }, wallAg);
+  // sign
+  const sx = L * 0.06;
+  el('rect', { x: sx, y: -176, width: L * 0.3, height: 44, rx: 12, fill: '#FFFFFF', filter: 'url(#soft)' }, wallAg);
+  el('circle', { cx: sx + L * 0.3 - 26, cy: -154, r: 11, fill: '#7048E8' }, wallAg);
+  el('circle', { cx: sx + L * 0.3 - 26, cy: -154, r: 4.5, fill: '#FFFFFF' }, wallAg);
+  txt(wallAg, sx + (L * 0.3 - 40) / 2, -148, 'מכונת הקמפיינים', { 'font-size': 17, 'font-weight': 800, fill: '#1B2330', 'text-anchor': 'middle' });
+  // clock
+  const ccx = L * 0.36, ccy = -98, cr = 28;
+  el('circle', { cx: ccx, cy: ccy, r: cr + 4, fill: '#FFFFFF', filter: 'url(#soft)' }, wallAg);
+  el('circle', { cx: ccx, cy: ccy, r: cr, fill: '#FFFFFF', stroke: '#1B2330', 'stroke-width': 2.5 }, wallAg);
+  for (let i = 0; i < 12; i++) {
+    const a = i * Math.PI / 6;
+    el('line', { x1: ccx + Math.sin(a) * (cr - 5), y1: ccy - Math.cos(a) * (cr - 5), x2: ccx + Math.sin(a) * (cr - 2), y2: ccy - Math.cos(a) * (cr - 2), stroke: '#9AA3B0', 'stroke-width': 2 }, wallAg);
+  }
+  clockHands = {
+    h: el('line', { x1: ccx, y1: ccy, x2: ccx, y2: ccy - 14, stroke: '#1B2330', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, wallAg),
+    m: el('line', { x1: ccx, y1: ccy, x2: ccx, y2: ccy - 21, stroke: '#1B2330', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, wallAg),
+    s: el('line', { x1: ccx, y1: ccy, x2: ccx, y2: ccy - 23, stroke: '#FF6B6B', 'stroke-width': 1.5, 'stroke-linecap': 'round' }, wallAg),
+    cx: ccx, cy: ccy,
+  };
+  el('circle', { cx: ccx, cy: ccy, r: 3, fill: '#FF6B6B' }, wallAg);
+  tickClock();
+
+  // ---- wall B (left wall, x = 0): local P runs from the front end toward the back corner ----
+  const [bx0, by0] = iso(0, N);
+  wallBg.setAttribute('transform', `matrix(${COS},${-SIN},0,1,${bx0},${by0})`);
+  const kb0 = L * 0.12, kbw = L * 0.74, kby = -196, kbh = 156;
+  const board = el('g', null, wallBg);
+  el('rect', { x: kb0, y: kby, width: kbw, height: kbh, rx: 12, fill: '#FFFFFF', filter: 'url(#soft)' }, board);
+  txt(board, kb0 + kbw - 16, kby + 22, 'לוח המשימות', { 'font-size': 14, 'font-weight': 800, fill: '#1B2330', 'text-anchor': 'start', direction: 'rtl' });
+  const colNames = [['הושלם', '#2FB36B'], ['בעבודה', '#F59F00'], ['חדש', '#4DABF7']]; // left -> right (RTL reads right first)
+  const cw = (kbw - 24) / 3;
+  const cols = [];
+  colNames.forEach(([name, color], i) => {
+    const x = kb0 + 12 + i * cw;
+    el('rect', { x: x + 3, y: kby + 32, width: cw - 6, height: kbh - 42, rx: 8, fill: '#F5F7FA' }, board);
+    el('circle', { cx: x + cw - 16, cy: kby + 45, r: 4, fill: color }, board);
+    txt(board, x + cw - 24, kby + 49, name, { 'font-size': 11.5, 'font-weight': 700, fill: '#4A5568', direction: 'rtl', 'text-anchor': 'start' });
+    cols.push({ x: x + 3, y: kby + 58, w: cw - 6, notes: [] });
+  });
+  // pins + decorative notes so the board never looks empty
+  kanban = { g: el('g', null, wallBg), cols: { done: cols[0], doing: cols[1], todo: cols[2] } };
+
+  // ---- small wall shelf with plant on wall B front end ----
+  const shelf = el('g', null, wallBg);
+  el('rect', { x: L * 0.9, y: -120, width: 56, height: 6, rx: 2, fill: '#D9DEE5' }, shelf);
+  el('rect', { x: L * 0.9 + 12, y: -142, width: 18, height: 22, rx: 4, fill: '#FFFFFF', stroke: '#E1E5EB' }, shelf);
+  for (const [dx, dy, r] of [[21, -150, 9], [13, -146, 7], [29, -146, 7], [21, -160, 6]]) el('circle', { cx: L * 0.9 + dx, cy: dy, r, fill: '#69DB7C' }, shelf);
+}
+
+function tickClock() {
+  if (!clockHands) return;
+  const d = new Date();
+  const s = d.getSeconds(), m = d.getMinutes() + s / 60, h = (d.getHours() % 12) + m / 60;
+  const set = (line, ang, len) => {
+    const a = ang * Math.PI / 180;
+    line.setAttribute('x2', (clockHands.cx + Math.sin(a) * len).toFixed(1));
+    line.setAttribute('y2', (clockHands.cy - Math.cos(a) * len).toFixed(1));
+  };
+  set(clockHands.h, h * 30, 14); set(clockHands.m, m * 6, 21); set(clockHands.s, s * 6, 23);
+}
+
+// =====================================================================
+//  Robots, desks, decor
+// =====================================================================
+const objectsG = document.getElementById('objects');
+const cardsG = document.getElementById('cards');
+const fxG = document.getElementById('fx');
+const stations = new Map(); // key -> station
+
+// Robot drawn front-facing, feet at (0,0). Outer group = position, inner groups = animation (trap 2).
+function makeRobot(parent, color, kind) {
+  const outer = el('g', { class: 'robot idle' }, parent);
+  el('ellipse', { cx: 0, cy: 0, rx: 24, ry: 6.5, fill: '#1E283C', opacity: .13 }, outer);
+  const hop = el('g', { class: 'hop' }, outer);
+  const bob = el('g', { class: 'bob' }, hop);
+  const dark = shade(color, -0.22);
+  // legs
+  el('rect', { x: -13, y: -14, width: 10, height: 14, rx: 5, fill: dark }, bob);
+  el('rect', { x: 3, y: -14, width: 10, height: 14, rx: 5, fill: dark }, bob);
+  // arms (inner groups animate)
+  const armL = el('g', { class: 'arm l' }, bob);
+  el('rect', { x: -29, y: -44, width: 10, height: 22, rx: 5, fill: color }, armL);
+  el('rect', { x: -29, y: -44, width: 10, height: 22, rx: 5, fill: 'url(#shade)' }, armL);
+  const armR = el('g', { class: 'arm r' }, bob);
+  el('rect', { x: 19, y: -44, width: 10, height: 22, rx: 5, fill: color }, armR);
+  el('rect', { x: 19, y: -44, width: 10, height: 22, rx: 5, fill: 'url(#shade)' }, armR);
+  // body
+  el('rect', { x: -20, y: -48, width: 40, height: 38, rx: 17, fill: color }, bob);
+  el('rect', { x: -20, y: -48, width: 40, height: 38, rx: 17, fill: 'url(#shade)' }, bob);
+  el('ellipse', { cx: 0, cy: -28, rx: 10, ry: 8, fill: '#FFFFFF', opacity: .38 }, bob);
+  // antenna
+  const ant = el('g', { class: 'ant' }, bob);
+  el('rect', { x: -1.5, y: -102, width: 3, height: 12, rx: 1.5, fill: dark }, ant);
+  el('circle', { class: 'antball', cx: 0, cy: -104, r: 5, fill: shade(color, 0.35), filter: 'url(#glow)' }, ant);
+  // head
+  el('rect', { x: -30, y: -94, width: 60, height: 50, rx: 22, fill: color }, bob);
+  el('rect', { x: -30, y: -94, width: 60, height: 50, rx: 22, fill: 'url(#shade)' }, bob);
+  el('rect', { x: -33, y: -76, width: 6, height: 14, rx: 3, fill: dark }, bob);
+  el('rect', { x: 27, y: -76, width: 6, height: 14, rx: 3, fill: dark }, bob);
+  // visor + eyes
+  el('rect', { x: -23, y: -84, width: 46, height: 30, rx: 13, fill: '#161D2B' }, bob);
+  el('ellipse', { cx: -8, cy: -81, rx: 10, ry: 2.6, fill: '#FFFFFF', opacity: .14 }, bob);
+  const eyes = el('g', { class: 'eyes' }, bob);
+  el('ellipse', { class: 'eyeglow', cx: -9, cy: -69, rx: 7, ry: 8, fill: '#7EE8FF', filter: 'url(#glow)' }, eyes);
+  el('ellipse', { class: 'eyeglow', cx: 9, cy: -69, rx: 7, ry: 8, fill: '#7EE8FF', filter: 'url(#glow)' }, eyes);
+  el('ellipse', { class: 'eye', cx: -9, cy: -69, rx: 4.6, ry: 6 }, eyes);
+  el('ellipse', { class: 'eye', cx: 9, cy: -69, rx: 4.6, ry: 6 }, eyes);
+  // gloss
+  el('ellipse', { cx: -14, cy: -88, rx: 9, ry: 3.6, fill: '#FFFFFF', opacity: .5 }, bob);
+  if (kind === 'lead') { // a tiny gold crown for the head of the team
+    el('polygon', { points: '-14,-93 -10,-106 -3,-97 0,-109 3,-97 10,-106 14,-93', fill: '#FFC93C', stroke: '#F0A800', 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, bob);
+  }
+  if (kind === 'helper') { // a little cap
+    el('path', { d: 'M -26 -86 Q 0 -112 26 -86 Z', fill: shade(color, -0.35) }, bob);
+    el('rect', { x: 2, y: -90, width: 30, height: 6, rx: 3, fill: shade(color, -0.35) }, bob);
+  }
+  // sleepy zz
+  const zz1 = el('g', { class: 'zz z1' }, outer);
+  txt(zz1, 26, -90, 'z', { 'font-size': 15, 'font-weight': 800, fill: '#9AA6B8' });
+  const zz2 = el('g', { class: 'zz z2' }, outer);
+  txt(zz2, 32, -100, 'z', { 'font-size': 11, 'font-weight': 800, fill: '#B4BDCA' });
+  return outer;
+}
+
+function makeDecor(parent, kind, x, y) {
+  const g = el('g', null, parent);
+  const [sx, sy] = iso(x, y);
+  if (kind === 'plant') {
+    el('ellipse', { cx: sx, cy: sy, rx: 22, ry: 7, fill: '#1E283C', opacity: .1 }, g);
+    isoBox(g, x, y, 0.55, 0.55, 30, '#FFFFFF', '#E9ECF1', '#DDE1E7');
+    const leaves = el('g', null, g);
+    for (const [dx, dy, r, c] of [[0, -62, 20, '#51CF66'], [-16, -50, 15, '#69DB7C'], [16, -50, 15, '#40C057'], [-6, -78, 13, '#8CE99A'], [10, -74, 12, '#69DB7C']]) {
+      el('circle', { cx: sx + dx, cy: sy + dy, r, fill: c }, leaves);
+    }
+  } else if (kind === 'coffee') {
+    el('ellipse', { cx: sx, cy: sy + 4, rx: 54, ry: 14, fill: '#1E283C', opacity: .08 }, g);
+    isoBox(g, x, y, 1.6, 1.0, 46, '#FFFFFF', '#EEF1F5', '#E2E6EC');
+    isoBox(g, x - 0.2, y - 0.1, 0.6, 0.5, 34, '#3A4454', '#2B3443', '#222A36', 46);
+    const [mx, my] = iso(x - 0.2, y - 0.1, 70);
+    el('circle', { cx: mx + 8, cy: my + 14, r: 3, fill: '#69DB7C', filter: 'url(#glow)' }, g);
+    const [cx2, cy2] = iso(x + 0.45, y + 0.2, 46);
+    el('rect', { x: cx2 - 7, y: cy2 - 12, width: 14, height: 12, rx: 3, fill: '#FF8787' }, g);
+    el('path', { d: `M ${cx2 - 3} ${cy2 - 16} q 3 -6 0 -10 M ${cx2 + 3} ${cy2 - 16} q 3 -6 0 -10`, stroke: '#C9D1DB', 'stroke-width': 1.6, fill: 'none', 'stroke-linecap': 'round' }, g);
+    txt(g, sx - 8, sy + 34, '☕ פינת קפה', { 'font-size': 11, fill: '#8A94A3', 'font-weight': 600, 'text-anchor': 'middle' });
+  } else if (kind === 'sofa') {
+    el('ellipse', { cx: sx, cy: sy + 4, rx: 60, ry: 15, fill: '#1E283C', opacity: .08 }, g);
+    isoBox(g, x, y + 0.35, 2.0, 0.35, 44, '#B197FC', '#9775FA', '#845EF7');
+    isoBox(g, x, y - 0.1, 2.0, 0.9, 22, '#C5B3FF', '#9775FA', '#845EF7');
+    isoBox(g, x - 0.95, y - 0.1, 0.3, 0.9, 32, '#B197FC', '#9775FA', '#845EF7');
+    isoBox(g, x + 0.95, y - 0.1, 0.3, 0.9, 32, '#B197FC', '#9775FA', '#845EF7');
+  } else if (kind === 'printer') {
+    el('ellipse', { cx: sx, cy: sy + 4, rx: 34, ry: 10, fill: '#1E283C', opacity: .08 }, g);
+    isoBox(g, x, y, 1.0, 0.8, 30, '#FFFFFF', '#EEF1F5', '#E2E6EC');
+    isoBox(g, x, y, 0.8, 0.6, 18, '#F1F3F6', '#DDE1E7', '#CED4DC', 30);
+    isoBox(g, x + 0.1, y, 0.35, 0.45, 2, '#FFFFFF', '#FFFFFF', '#FFFFFF', 48);
+  }
+  return g;
+}
+
+// A station = desk + robot + monitor + name tag (+ info card in the cards layer).
+function makeStation(agent, gx, gy) {
+  const g = el('g', { class: 'station' }, objectsG);
+  const rx = gx - 0.75, ry = gy - 0.75;
+  const [px, py] = iso(rx, ry);
+  const robotWrap = el('g', { transform: `translate(${px.toFixed(1)},${py.toFixed(1)})` }, g);
+  const scale = agent.key === 'lead' ? 1.12 : 1;
+  const robotScale = el('g', { transform: `scale(${scale})` }, robotWrap);
+  const robot = makeRobot(robotScale, agent.color, agent.key);
+
+  // chair back hint behind robot is skipped - the robot is the star.
+  const deskW = agent.key === 'lead' ? 2.2 : 1.75, deskD = 0.95, deskH = 28;
+  isoBox(g, gx, gy, deskW, deskD, deskH, '#FFFFFF', '#E8EBF0', '#DCE0E7');
+  // desk accent strip in the agent color
+  const x0 = gx - deskW / 2, x1 = gx + deskW / 2, y1 = gy + deskD / 2;
+  el('polygon', { points: pts([iso(x0, y1, deskH - 5), iso(x1, y1, deskH - 5), iso(x1, y1, deskH - 9), iso(x0, y1, deskH - 9)]), fill: agent.color, opacity: .75 }, g);
+  // monitor (seen from the back) with the agent icon - it lights up while working
+  const [mx, my] = iso(gx + 0.55, gy - 0.05, deskH);
+  const mon = el('g', { transform: `translate(${mx.toFixed(1)},${my.toFixed(1)})` }, g);
+  el('rect', { x: -3, y: -12, width: 6, height: 12, fill: '#C9D0DA' }, mon);
+  el('rect', { class: 'screenglow', x: -30, y: -50, width: 60, height: 42, rx: 10, fill: agent.color, filter: 'url(#blur8)' }, mon);
+  el('rect', { class: 'screen', x: -24, y: -46, width: 48, height: 34, rx: 7, fill: '#F1F3F6', stroke: '#DDE2E9', 'stroke-width': 1.5 }, mon);
+  txt(mon, 0, -23, agent.icon, { 'font-size': 17, 'text-anchor': 'middle' });
+  // papers on the desk
+  const [ppx, ppy] = iso(gx - 0.45, gy + 0.1, deskH);
+  el('polygon', { points: `${ppx - 12},${ppy} ${ppx},${ppy - 6} ${ppx + 12},${ppy} ${ppx},${ppy + 6}`, fill: '#F5F7FA', stroke: '#E3E7ED' }, g);
+
+  // name tag on the floor in front of the desk
+  const [tx, ty] = iso(gx + deskW / 2, gy + deskD / 2);
+  const tag = el('g', { class: 'tag', transform: `translate(${OX + (gx - gy) * U * COS},${ty + 22})` }, g);
+  const tagBg = el('rect', { class: 'bg', x: 0, y: -12, height: 24, rx: 12, filter: 'url(#soft)' }, tag);
+  const tagDot = el('circle', { cx: 0, cy: 0, r: 4.5, fill: agent.color }, tag);
+  const tagText = txt(tag, 0, 4.5, agent.title, { 'text-anchor': 'middle', direction: 'rtl' });
+  void tx;
+
+  // info card (cards layer, above everything)
+  const headY = py - 112 * scale;
+  const card = el('g', { class: 'card hidden', transform: `translate(${px.toFixed(1)},${headY.toFixed(1)})` }, cardsG);
+  const cardInner = el('g', null, card);
+  const cardBg = el('rect', { class: 'bg', rx: 13, filter: 'url(#soft)' }, cardInner);
+  const cardTip = el('polygon', { points: '-7,-1 7,-1 0,8', fill: '#FFFFFF' }, cardInner);
+  const cardDot = el('circle', { class: 'statusdot', r: 4.5, fill: '#ADB5BD' }, cardInner);
+  const cardTitle = txt(cardInner, 0, 0, agent.title, { class: 'title', direction: 'rtl', 'text-anchor': 'start' });
+  const cardLine = txt(cardInner, 0, 0, '', { class: 'line', direction: 'rtl', 'text-anchor': 'start' });
+  const cardSub = txt(cardInner, 0, 0, '', { class: 'sub', direction: 'rtl', 'text-anchor': 'start' });
+
+  const st = {
+    agent, g, robot, px, py, headY, gx, gy, scale,
+    tag: { g: tag, bg: tagBg, dot: tagDot, text: tagText },
+    card: { g: card, inner: cardInner, bg: cardBg, tip: cardTip, dot: cardDot, title: cardTitle, line: cardLine, sub: cardSub },
+    // engine state
+    busy: 0, tasks: [], restTimer: null, implicit: false, lastSeen: 0, label: '',
+  };
+  layoutTag(st);
+  return st;
+}
+
+function layoutTag(st) {
+  const w = st.tag.text.getComputedTextLength() || st.agent.title.length * 7;
+  const total = w + 34;
+  st.tag.bg.setAttribute('x', (-total / 2).toFixed(1));
+  st.tag.bg.setAttribute('width', total.toFixed(1));
+  // RTL: dot on the right side of the text
+  st.tag.dot.setAttribute('cx', (total / 2 - 13).toFixed(1));
+  st.tag.text.setAttribute('x', (-6).toFixed(1));
+}
+
+// Card: title line + action line (+ optional small sub line). Width follows the text.
+function setCard(st, { line, sub = '', status = 'work', visible = true }) {
+  const c = st.card;
+  c.line.textContent = line || '';
+  c.sub.textContent = sub || '';
+  const padX = 16, dotSpace = 16;
+  const wTitle = c.title.getComputedTextLength() || 80;
+  const wLine = line ? (c.line.getComputedTextLength() || line.length * 7) : 0;
+  const wSub = sub ? (c.sub.getComputedTextLength() || sub.length * 6) : 0;
+  const w = Math.max(wTitle + dotSpace, wLine, wSub) + padX * 2;
+  const rows = 1 + (line ? 1 : 0) + (sub ? 1 : 0);
+  const h = 14 + rows * 18 + 4;
+  const left = -w / 2, right = w / 2, top = -h - 8;
+  c.bg.setAttribute('x', left.toFixed(1)); c.bg.setAttribute('y', top.toFixed(1));
+  c.bg.setAttribute('width', w.toFixed(1)); c.bg.setAttribute('height', h.toFixed(1));
+  c.tip.setAttribute('points', `-7,-9 7,-9 0,-1`);
+  // RTL: right-aligned rows
+  c.dot.setAttribute('cx', (right - padX - 4).toFixed(1));
+  c.dot.setAttribute('cy', (top + 19).toFixed(1));
+  c.title.setAttribute('x', (right - padX - dotSpace).toFixed(1));
+  c.title.setAttribute('y', (top + 24).toFixed(1));
+  c.line.setAttribute('x', (right - padX).toFixed(1));
+  c.line.setAttribute('y', (top + 24 + 18).toFixed(1));
+  c.sub.setAttribute('x', (right - padX).toFixed(1));
+  c.sub.setAttribute('y', (top + 24 + 18 * (line ? 2 : 1)).toFixed(1));
+  c.dot.setAttribute('fill', status === 'work' ? '#F59F00' : status === 'done' ? '#2FB36B' : status === 'wait' ? '#4DABF7' : '#ADB5BD');
+  c.dot.setAttribute('class', 'statusdot' + (status === 'work' ? ' work' : ''));
+  if (visible) delClass(c.g, 'hidden'); else addClass(c.g, 'hidden');
+}
+
+function buildOffice(roster) {
+  objectsG.textContent = ''; cardsG.textContent = ''; fxG.textContent = '';
+  stations.clear();
+  const others = roster.filter((a) => a.key !== 'lead');
+  K = Math.max(4, Math.ceil(Math.sqrt(roster.length + 3)));
+  const STEP = 3.35;
+  N = 2 + STEP * (K - 1) + 2.05;
+  U = 62 * 14.05 / N;
+  OX = VIEW_W / 2; OY = 236;
+  buildRoom();
+
+  // slots: (i, j) grid; j > i = left side of the screen, i > j = right side, i == j = center line
+  const slots = [];
+  for (let i = 0; i < K; i++) for (let j = 0; j < K; j++) slots.push({ i, j, x: 2 + STEP * i, y: 2 + STEP * j, depth: i + j, used: false });
+  const byFront = (a, b) => b.depth - a.depth || Math.abs(a.i - a.j) - Math.abs(b.i - b.j);
+  const take = (filter) => {
+    const s = slots.filter((x) => !x.used && filter(x)).sort(byFront)[0];
+    if (s) s.used = true;
+    return s;
+  };
+  const place = [];
+  const leadA = roster.find((a) => a.key === 'lead');
+  if (leadA) place.push([leadA, take((s) => s.i === K - 1 && s.j === K - 1)]);
+  const helperA = others.find((a) => a.key === 'helper');
+  for (const a of others.filter((a) => a.dept === 'mgmt')) place.push([a, take((s) => s.i === s.j) || take(() => true)]);
+  for (const a of others.filter((a) => a.dept === 'paid')) place.push([a, take((s) => s.j > s.i) || take(() => true)]);
+  for (const a of others.filter((a) => a.dept === 'organic')) place.push([a, take((s) => s.i > s.j) || take(() => true)]);
+  for (const a of others.filter((a) => !['mgmt', 'paid', 'organic', 'helper'].includes(a.dept))) place.push([a, take(() => true)]);
+  if (helperA) place.push([helperA, take((s) => s.i === s.j && s.depth > 0) || take(() => true)]);
+
+  // free slots get furniture: the back corner is the coffee corner
+  const decor = [];
+  const decorKinds = ['plant', 'sofa', 'printer', 'plant', 'plant'];
+  let di = 0;
+  for (const s of slots.filter((x) => !x.used).sort((a, b) => a.depth - b.depth)) {
+    decor.push({ kind: s.i === 0 && s.j === 0 ? 'coffee' : decorKinds[di++ % decorKinds.length], x: s.x, y: s.y, depth: s.depth });
+  }
+
+  // painter's order: back to front
+  const items = [
+    ...place.filter(([, s]) => s).map(([a, s]) => ({ type: 'agent', a, s, depth: s.x + s.y })),
+    ...decor.map((d) => ({ type: 'decor', d, depth: d.x + d.y })),
+  ].sort((p, q) => p.depth - q.depth);
+  for (const it of items) {
+    if (it.type === 'decor') makeDecor(objectsG, it.d.kind, it.d.x, it.d.y);
+    else stations.set(it.a.key, makeStation(it.a, it.s.x, it.s.y));
+  }
+  // cards: front stations on top of back ones
+  [...stations.values()].sort((p, q) => (p.gx + p.gy) - (q.gx + q.gy)).forEach((st) => cardsG.appendChild(st.card.g));
+}
+
+setInterval(tickClock, 1000);
+
+// =====================================================================
+//  Connection
+// =====================================================================
+const connEl = document.getElementById('conn');
+const connText = document.getElementById('connText');
+let rosterSig = '';
+
+function setConn(ok) {
+  connEl.setAttribute('class', 'pill ' + (ok ? 'live' : 'down'));
+  connText.textContent = ok ? 'מחובר · חי' : 'מתחבר מחדש…';
+}
+
+function connect() {
+  const es = new EventSource('/events');
+  es.onopen = () => setConn(true);
+  es.onerror = () => setConn(false);
+  es.addEventListener('hello', (m) => {
+    setConn(true);
+    let data;
+    try { data = JSON.parse(m.data); } catch { return; }
+    const sig = JSON.stringify(data.roster || []);
+    if (sig !== rosterSig) { rosterSig = sig; buildOffice(data.roster || []); }
+    if (typeof onHello === 'function') onHello(data);
+  });
+  es.addEventListener('office', (m) => {
+    let ev;
+    try { ev = JSON.parse(m.data); } catch { return; }
+    if (typeof onOfficeEvent === 'function') onOfficeEvent(ev, true);
+  });
+}
+connect();
+</script>
+</body>
+</html>
