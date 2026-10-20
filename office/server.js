@@ -77,12 +77,16 @@ export function createOfficeServer({ logFile = LOG_FILE, agentsDir = AGENTS_DIR,
     if (replay.length > REPLAY_MAX) replay = replay.slice(-REPLAY_MAX);
     for (const res of [...clients]) send(res, 'office', ev);
   });
-  const pollTimer = setInterval(() => { try { tailer.poll(); } catch {} }, pollMs);
-  const beatTimer = setInterval(() => {
-    for (const res of [...clients]) {
-      try { res.write(': ping\n\n'); } catch { clients.delete(res); }
-    }
-  }, HEARTBEAT_MS);
+  // timers start only once we really own the port - a failed start must leave nothing running
+  let pollTimer = null, beatTimer = null;
+  const startTimers = () => {
+    pollTimer = setInterval(() => { try { tailer.poll(); } catch {} }, pollMs);
+    beatTimer = setInterval(() => {
+      for (const res of [...clients]) {
+        try { res.write(': ping\n\n'); } catch { clients.delete(res); }
+      }
+    }, HEARTBEAT_MS);
+  };
 
   const server = http.createServer((req, res) => {
     res.on('error', () => clients.delete(res));
@@ -127,6 +131,7 @@ export function createOfficeServer({ logFile = LOG_FILE, agentsDir = AGENTS_DIR,
     server.listen(port, '127.0.0.1', () => { // trap 7: local machine only
       server.off('error', reject);
       server.on('error', () => {});
+      startTimers();
       server.stop = () => new Promise((done) => {
         clearInterval(pollTimer);
         clearInterval(beatTimer);

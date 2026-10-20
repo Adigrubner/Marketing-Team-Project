@@ -153,6 +153,25 @@ test('missing log file is fine, and it is picked up once created', async () => {
   } finally { c.close(); await s.stop(); }
 });
 
+test('a second server on a busy port fails cleanly and leaves nothing running', async () => {
+  const { spawn } = await import('node:child_process');
+  const serverUrl = new URL('../server.js', import.meta.url).href;
+  const code = `
+    const { createOfficeServer } = await import(${JSON.stringify(serverUrl)});
+    const a = await createOfficeServer({ port: 0, pollMs: 50 });
+    try { await createOfficeServer({ port: a.address().port, pollMs: 50 }); } catch (e) { console.log(e.code); }
+    await a.stop();`;
+  const child = spawn(process.execPath, ['--input-type=module', '-e', code], { stdio: ['ignore', 'pipe', 'pipe'] });
+  let out = '';
+  child.stdout.on('data', (c) => { out += c; });
+  const exited = await new Promise((resolve) => {
+    const t = setTimeout(() => { child.kill(); resolve(false); }, 5000);
+    child.on('exit', () => { clearTimeout(t); resolve(true); });
+  });
+  assert.match(out, /EADDRINUSE/);
+  assert.ok(exited, 'process kept running after the failed second server (leaked timers)');
+});
+
 test('serves the page and 404s everything else', async () => {
   const s = await createOfficeServer({ logFile: tmpLog(), port: 0, pollMs: 50 });
   const get = (p) => new Promise((resolve) => http.get({ host: '127.0.0.1', port: s.address().port, path: p }, (res) => {

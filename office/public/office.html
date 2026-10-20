@@ -197,11 +197,10 @@ main { position: relative; min-width: 0; min-height: 0; }
 .screenglow { opacity: 0; transition: opacity .4s ease; }
 .station.busy .screenglow { opacity: .55; }
 
-/* name tags + info cards */
-.tag rect.bg { fill: #FFFFFF; }
-.tag text { font-size: 13px; font-weight: 600; fill: #3A4454; }
-.station.busy .tag text { fill: #1B2330; }
+/* name pills + info cards */
 .card { transition: opacity .35s ease; }
+.card.idle .title { font-size: 13.5px; font-weight: 700; fill: #3A4454; }
+.card.idle .bg { fill: rgba(255, 255, 255, .94); }
 .card.hidden { opacity: 0; }
 .card .bg { fill: #FFFFFF; }
 .card .title { font-size: 14.5px; font-weight: 800; fill: #1B2330; }
@@ -212,8 +211,40 @@ main { position: relative; min-width: 0; min-height: 0; }
 .statusdot.work { animation: dotpulse 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 50%; }
 @keyframes dotpulse { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.35, 1.35); } }
 
-/* kanban + flying folder */
-.note text { font-size: 9.5px; font-weight: 600; fill: #2B3443; }
+/* task board (flat panel over the empty top corner of the scene) */
+.board {
+  position: absolute; top: 10px; left: 18px;
+  width: min(560px, 40%);
+  background: rgba(255, 255, 255, .9);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 12px 14px 14px;
+  z-index: 2;
+}
+.bhead { font-size: 15px; font-weight: 800; margin: 0 4px 10px; display: flex; justify-content: space-between; align-items: baseline; }
+.bhead span { font-size: 12px; font-weight: 500; color: var(--muted); }
+.bcols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.bcol { background: #F5F7FA; border-radius: 14px; padding: 8px; min-height: 150px; }
+.bct { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 800; color: #3A4454; margin: 2px 4px 8px; }
+.bct i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.bct em { font-style: normal; margin-inline-start: auto; font-size: 12px; font-weight: 700; color: var(--muted); background: #FFFFFF; border-radius: 999px; padding: 1px 9px; }
+.bnote {
+  background: #FFFFFF; border-radius: 10px; padding: 7px 9px; margin-bottom: 6px;
+  border-right: 5px solid var(--c);
+  box-shadow: 0 1px 4px rgba(30, 40, 60, .08);
+}
+.bnote .bt { font-size: 13px; font-weight: 600; line-height: 1.3; color: #1B2330; }
+.bnote .bw { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.bnote.enter { animation: noteIn .55s cubic-bezier(.2, 1.3, .5, 1); }
+@keyframes noteIn {
+  0% { opacity: 0; transform: translate(14px, 0px) scale(.92, .92); background: #FFF6D6; }
+  60% { background: #FFF6D6; }
+  100% { opacity: 1; transform: translate(0px, 0px) scale(1, 1); background: #FFFFFF; }
+}
+.bmore { font-size: 11.5px; color: var(--muted); text-align: center; padding-top: 2px; }
+
+/* flying folder */
 .spin { transform-origin: 50% 50%; animation: tumble .9s linear infinite; }
 @keyframes tumble { 0% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } 100% { transform: rotate(-12deg); } }
 .burst circle { transform-box: fill-box; transform-origin: 50% 50%; }
@@ -230,6 +261,26 @@ main { position: relative; min-width: 0; min-height: 0; }
   transition: opacity .5s ease;
 }
 .hint.gone { opacity: 0; }
+
+/* smaller screens (a laptop, a side pane): the scene stays the star */
+@media (max-width: 1150px) {
+  .app { grid-template-columns: 290px minmax(0, 1fr); }
+  .brand { min-width: 0; }
+  .brand p, .stats .pill:nth-child(2) { display: none; }
+}
+@media (max-width: 760px) {
+  .app { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .stats { flex-wrap: wrap; }
+  .brand h1 { font-size: 18px; }
+  header { flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
+  .request { order: 3; flex-basis: 100%; }
+  aside { display: none; }
+  main { display: flex; flex-direction: column; }
+  #scene { flex: 1; min-height: 0; }
+  .board { position: static; width: auto; margin: 4px 12px 0; padding: 10px; }
+  .bcol { min-height: 0; }
+  .bnote .bw, .bhead span { display: none; }
+}
 </style>
 </head>
 <body>
@@ -259,6 +310,14 @@ main { position: relative; min-width: 0; min-height: 0; }
   </aside>
 
   <main>
+    <div class="board" id="board">
+      <div class="bhead">📋 לוח המשימות <span>כל תיקייה שעפה = משימה חדשה</span></div>
+      <div class="bcols">
+        <div class="bcol" data-col="todo"><div class="bct"><i style="background:#4DABF7"></i>חדש<em>0</em></div><div class="blist"></div></div>
+        <div class="bcol" data-col="doing"><div class="bct"><i style="background:#F59F00"></i>בעבודה<em>0</em></div><div class="blist"></div></div>
+        <div class="bcol" data-col="done"><div class="bct"><i style="background:#2FB36B"></i>הושלם<em>0</em></div><div class="blist"></div></div>
+      </div>
+    </div>
     <svg id="scene" viewBox="0 0 1600 1130" preserveAspectRatio="xMidYMid meet" aria-label="המשרד">
       <defs>
         <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
@@ -355,12 +414,11 @@ function isoBox(parent, cx, cy, w, d, h, top, left, right, z0 = 0) {
 }
 
 // =====================================================================
-//  The room: floor, two walls, window, clock, sign, kanban board
+//  The room: floor, two walls, window, clock, sign, framed pictures
 // =====================================================================
 const room = document.getElementById('room');
 const wallAg = document.getElementById('wallA');
 const wallBg = document.getElementById('wallB');
-let kanban = null; // { cols: [{x, notes:[]}, ...], g }
 let clockHands = null;
 
 function buildRoom() {
@@ -443,22 +501,16 @@ function buildRoom() {
   // ---- wall B (left wall, x = 0): local P runs from the front end toward the back corner ----
   const [bx0, by0] = iso(0, N);
   wallBg.setAttribute('transform', `matrix(${COS},${-SIN},0,1,${bx0},${by0})`);
-  const kb0 = L * 0.12, kbw = L * 0.74, kby = -196, kbh = 156;
-  const board = el('g', null, wallBg);
-  el('rect', { x: kb0, y: kby, width: kbw, height: kbh, rx: 12, fill: '#FFFFFF', filter: 'url(#soft)' }, board);
-  txt(board, kb0 + kbw - 16, kby + 22, 'לוח המשימות', { 'font-size': 14, 'font-weight': 800, fill: '#1B2330', 'text-anchor': 'start', direction: 'rtl' });
-  const colNames = [['הושלם', '#2FB36B'], ['בעבודה', '#F59F00'], ['חדש', '#4DABF7']]; // left -> right (RTL reads right first)
-  const cw = (kbw - 24) / 3;
-  const cols = [];
-  colNames.forEach(([name, color], i) => {
-    const x = kb0 + 12 + i * cw;
-    el('rect', { x: x + 3, y: kby + 32, width: cw - 6, height: kbh - 42, rx: 8, fill: '#F5F7FA' }, board);
-    el('circle', { cx: x + cw - 16, cy: kby + 45, r: 4, fill: color }, board);
-    txt(board, x + cw - 24, kby + 49, name, { 'font-size': 11.5, 'font-weight': 700, fill: '#4A5568', direction: 'rtl', 'text-anchor': 'start' });
-    cols.push({ x: x + 3, y: kby + 58, w: cw - 6, notes: [] });
-  });
-  // pins + decorative notes so the board never looks empty
-  kanban = { g: el('g', null, wallBg), cols: { done: cols[0], doing: cols[1], todo: cols[2] } };
+  // framed pictures (the readable task board lives in a flat panel above the scene)
+  const frames = [[L * 0.14, -170, 150, 96, ['#FFD8A8', '#FFA94D', '#E8590C']], [L * 0.36, -150, 96, 70, ['#D0EBFF', '#74C0FC', '#1C7ED6']], [L * 0.52, -176, 190, 112, ['#D3F9D8', '#8CE99A', '#2F9E44']]];
+  for (const [fx, fy, fw, fh, [sky, hill, hill2]] of frames) {
+    const fr = el('g', null, wallBg);
+    el('rect', { x: fx - 7, y: fy - 7, width: fw + 14, height: fh + 14, rx: 4, fill: '#FFFFFF', filter: 'url(#soft)' }, fr);
+    el('rect', { x: fx, y: fy, width: fw, height: fh, fill: sky }, fr);
+    el('circle', { cx: fx + fw * 0.72, cy: fy + fh * 0.3, r: fh * 0.13, fill: '#FFFFFF', opacity: .85 }, fr);
+    el('path', { d: `M ${fx} ${fy + fh * 0.75} Q ${fx + fw * 0.3} ${fy + fh * 0.4} ${fx + fw * 0.6} ${fy + fh * 0.7} T ${fx + fw} ${fy + fh * 0.6} V ${fy + fh} H ${fx} Z`, fill: hill }, fr);
+    el('path', { d: `M ${fx} ${fy + fh * 0.9} Q ${fx + fw * 0.5} ${fy + fh * 0.65} ${fx + fw} ${fy + fh * 0.88} V ${fy + fh} H ${fx} Z`, fill: hill2, opacity: .8 }, fr);
+  }
 
   // ---- small wall shelf with plant on wall B front end ----
   const shelf = el('g', null, wallBg);
@@ -578,103 +630,87 @@ function makeDecor(parent, kind, x, y) {
   return g;
 }
 
-// A station = desk + robot + monitor + name tag (+ info card in the cards layer).
+// A station = desk + robot + monitor (+ name / info card in the cards layer).
 function makeStation(agent, gx, gy) {
   const g = el('g', { class: 'station' }, objectsG);
-  const rx = gx - 0.75, ry = gy - 0.75;
+  const rx = gx - 0.85, ry = gy - 0.85;
   const [px, py] = iso(rx, ry);
   // colored floor glow under a working robot - readable from the back row of the hall
-  el('ellipse', { class: 'workhalo', cx: px.toFixed(1), cy: py.toFixed(1), rx: 52, ry: 17, fill: agent.color }, g);
+  el('ellipse', { class: 'workhalo', cx: px.toFixed(1), cy: py.toFixed(1), rx: 70, ry: 23, fill: agent.color }, g);
   const robotWrap = el('g', { transform: `translate(${px.toFixed(1)},${py.toFixed(1)})` }, g);
-  const scale = agent.key === 'lead' ? 1.12 : 1;
+  const scale = agent.key === 'lead' ? 1.55 : 1.4;
   const robotScale = el('g', { transform: `scale(${scale})` }, robotWrap);
   const robot = makeRobot(robotScale, agent.color, agent.key);
 
   // chair back hint behind robot is skipped - the robot is the star.
-  const deskW = agent.key === 'lead' ? 2.2 : 1.75, deskD = 0.95, deskH = 28;
+  const deskW = agent.key === 'lead' ? 2.5 : 2.1, deskD = 1.1, deskH = 36;
   isoBox(g, gx, gy, deskW, deskD, deskH, '#FFFFFF', '#E8EBF0', '#DCE0E7');
   // desk accent strip in the agent color
   const x0 = gx - deskW / 2, x1 = gx + deskW / 2, y1 = gy + deskD / 2;
   el('polygon', { points: pts([iso(x0, y1, deskH - 5), iso(x1, y1, deskH - 5), iso(x1, y1, deskH - 9), iso(x0, y1, deskH - 9)]), fill: agent.color, opacity: .75 }, g);
   // monitor (seen from the back) with the agent icon - it lights up while working
-  const [mx, my] = iso(gx + 0.55, gy - 0.05, deskH);
-  const mon = el('g', { transform: `translate(${mx.toFixed(1)},${my.toFixed(1)})` }, g);
+  const [mx, my] = iso(gx + 0.7, gy - 0.05, deskH);
+  const mon = el('g', { transform: `translate(${mx.toFixed(1)},${my.toFixed(1)}) scale(1.2)` }, g);
   el('rect', { x: -3, y: -12, width: 6, height: 12, fill: '#C9D0DA' }, mon);
   el('rect', { class: 'screenglow', x: -30, y: -50, width: 60, height: 42, rx: 10, fill: agent.color, filter: 'url(#blur8)' }, mon);
   el('rect', { class: 'screen', x: -24, y: -46, width: 48, height: 34, rx: 7, fill: '#F1F3F6', stroke: '#DDE2E9', 'stroke-width': 1.5 }, mon);
   txt(mon, 0, -23, agent.icon, { 'font-size': 17, 'text-anchor': 'middle' });
   // papers on the desk
-  const [ppx, ppy] = iso(gx - 0.45, gy + 0.1, deskH);
-  el('polygon', { points: `${ppx - 12},${ppy} ${ppx},${ppy - 6} ${ppx + 12},${ppy} ${ppx},${ppy + 6}`, fill: '#F5F7FA', stroke: '#E3E7ED' }, g);
+  const [ppx, ppy] = iso(gx - 0.55, gy + 0.1, deskH);
+  el('polygon', { points: `${ppx - 14},${ppy} ${ppx},${ppy - 7} ${ppx + 14},${ppy} ${ppx},${ppy + 7}`, fill: '#F5F7FA', stroke: '#E3E7ED' }, g);
 
-  // name tag on the floor in front of the desk
-  const [tx, ty] = iso(gx + deskW / 2, gy + deskD / 2);
-  const tag = el('g', { class: 'tag', transform: `translate(${OX + (gx - gy) * U * COS},${ty + 22})` }, g);
-  const tagBg = el('rect', { class: 'bg', x: 0, y: -12, height: 24, rx: 12, filter: 'url(#soft)' }, tag);
-  const tagDot = el('circle', { cx: 0, cy: 0, r: 4.5, fill: agent.color }, tag);
-  const tagText = txt(tag, 0, 4.5, agent.title, { 'text-anchor': 'middle', direction: 'rtl' });
-  void tx;
-
-  // info card (cards layer, above everything)
+  // name / info card above the head (cards layer, above everything): resting = just the name,
+  // working = name + what it is doing right now + the task.
   const headY = py - 112 * scale;
-  const card = el('g', { class: 'card hidden', transform: `translate(${px.toFixed(1)},${headY.toFixed(1)})` }, cardsG);
+  const card = el('g', { class: 'card idle', transform: `translate(${px.toFixed(1)},${headY.toFixed(1)})` }, cardsG);
   const cardInner = el('g', null, card);
   const cardBg = el('rect', { class: 'bg', rx: 13, filter: 'url(#soft)' }, cardInner);
   const cardTip = el('polygon', { points: '-7,-1 7,-1 0,8', fill: '#FFFFFF' }, cardInner);
-  const cardDot = el('circle', { class: 'statusdot', r: 4.5, fill: '#ADB5BD' }, cardInner);
+  const cardDot = el('circle', { class: 'statusdot', r: 4.5, fill: agent.color }, cardInner);
   const cardTitle = txt(cardInner, 0, 0, agent.title, { class: 'title', direction: 'rtl', 'text-anchor': 'start' });
   const cardLine = txt(cardInner, 0, 0, '', { class: 'line', direction: 'rtl', 'text-anchor': 'start' });
   const cardSub = txt(cardInner, 0, 0, '', { class: 'sub', direction: 'rtl', 'text-anchor': 'start' });
 
   const st = {
     agent, g, robot, px, py, headY, gx, gy, scale,
-    tag: { g: tag, bg: tagBg, dot: tagDot, text: tagText },
     card: { g: card, inner: cardInner, bg: cardBg, tip: cardTip, dot: cardDot, title: cardTitle, line: cardLine, sub: cardSub },
     // engine state
     busy: 0, tasks: [], restTimer: null, implicit: false, lastSeen: 0, label: '',
   };
-  layoutTag(st);
+  setCard(st, { line: '', status: 'idle' });
   return st;
 }
 
-function layoutTag(st) {
-  const w = st.tag.text.getComputedTextLength() || st.agent.title.length * 7;
-  const total = w + 34;
-  st.tag.bg.setAttribute('x', (-total / 2).toFixed(1));
-  st.tag.bg.setAttribute('width', total.toFixed(1));
-  // RTL: dot on the right side of the text
-  st.tag.dot.setAttribute('cx', (total / 2 - 13).toFixed(1));
-  st.tag.text.setAttribute('x', (-6).toFixed(1));
-}
-
 // Card: title line + action line (+ optional small sub line). Width follows the text.
+// status 'idle' = a small name pill (the robot is resting).
 function setCard(st, { line, sub = '', status = 'work', visible = true }) {
   const c = st.card;
+  const idle = status === 'idle';
+  c.g.setAttribute('class', 'card' + (idle ? ' idle' : '') + (visible ? '' : ' hidden'));
   c.line.textContent = line || '';
   c.sub.textContent = sub || '';
-  const padX = 16, dotSpace = 16;
-  const wTitle = c.title.getComputedTextLength() || 80;
+  const padX = idle ? 13 : 16, dotSpace = 16;
+  const wTitle = c.title.getComputedTextLength() || st.agent.title.length * 8;
   const wLine = line ? (c.line.getComputedTextLength() || line.length * 7) : 0;
   const wSub = sub ? (c.sub.getComputedTextLength() || sub.length * 6) : 0;
   const w = Math.max(wTitle + dotSpace, wLine, wSub) + padX * 2;
   const rows = 1 + (line ? 1 : 0) + (sub ? 1 : 0);
-  const h = 14 + rows * 20 + 4;
+  const h = idle ? 30 : 14 + rows * 20 + 4;
   const left = -w / 2, right = w / 2, top = -h - 8;
   c.bg.setAttribute('x', left.toFixed(1)); c.bg.setAttribute('y', top.toFixed(1));
   c.bg.setAttribute('width', w.toFixed(1)); c.bg.setAttribute('height', h.toFixed(1));
   c.tip.setAttribute('points', `-7,-9 7,-9 0,-1`);
   // RTL: right-aligned rows
   c.dot.setAttribute('cx', (right - padX - 4).toFixed(1));
-  c.dot.setAttribute('cy', (top + 19).toFixed(1));
+  c.dot.setAttribute('cy', (top + (idle ? 15 : 19)).toFixed(1));
   c.title.setAttribute('x', (right - padX - dotSpace).toFixed(1));
-  c.title.setAttribute('y', (top + 24).toFixed(1));
+  c.title.setAttribute('y', (top + (idle ? 20 : 24)).toFixed(1));
   c.line.setAttribute('x', (right - padX).toFixed(1));
   c.line.setAttribute('y', (top + 24 + 20).toFixed(1));
   c.sub.setAttribute('x', (right - padX).toFixed(1));
   c.sub.setAttribute('y', (top + 24 + 20 * (line ? 2 : 1)).toFixed(1));
-  c.dot.setAttribute('fill', status === 'work' ? '#F59F00' : status === 'done' ? '#2FB36B' : status === 'wait' ? '#4DABF7' : '#ADB5BD');
+  c.dot.setAttribute('fill', status === 'work' ? '#F59F00' : status === 'done' ? '#2FB36B' : status === 'wait' ? '#4DABF7' : st.agent.color);
   c.dot.setAttribute('class', 'statusdot' + (status === 'work' ? ' work' : ''));
-  if (visible) delClass(c.g, 'hidden'); else addClass(c.g, 'hidden');
 }
 
 function buildOffice(roster) {
@@ -731,87 +767,67 @@ function buildOffice(roster) {
 setInterval(tickClock, 1000);
 
 // =====================================================================
-//  Kanban notes (live on wall B, in the wall's local coordinates)
+//  Task board: a flat, readable panel (HTML) - New / In progress / Done
 // =====================================================================
-const NOTE_W = 92, NOTE_H = 40, NOTE_MAX = 4;
+const BOARD_SHOW = 3, DONE_KEEP = 12;
 let noteSeq = 0;
-const notes = []; // { id, col, g, x, y, anim }
+const notes = []; // { id, text, title, color, col, fresh }
+const boardCols = {};
+document.querySelectorAll('.bcol').forEach((c) => {
+  boardCols[c.dataset.col] = { list: c.querySelector('.blist'), count: c.querySelector('em') };
+});
 
 function clipText(s, n) {
   s = String(s || '').replace(/\s+/g, ' ').trim();
   return s.length > n ? s.slice(0, n - 1) + '…' : s;
 }
 
-function addNote(text, color, col) {
-  if (!kanban) return null;
-  const g = el('g', { opacity: 0 }, kanban.g);
-  el('rect', { x: 0, y: 0, width: NOTE_W, height: NOTE_H, rx: 5, fill: shade(color, 0.72), stroke: shade(color, 0.35), 'stroke-width': 1 }, g);
-  el('rect', { x: 0, y: 0, width: NOTE_W, height: 5, rx: 2, fill: color }, g);
-  const t = el('g', { class: 'note' }, g);
-  txt(t, NOTE_W - 6, 19, clipText(text, 16), { 'text-anchor': 'start', direction: 'rtl' });
-  txt(t, NOTE_W - 6, 32, clipText(text.slice(15), 16), { 'text-anchor': 'start', direction: 'rtl' });
-  const n = { id: ++noteSeq, col, g, x: null, y: null, anim: 0 };
+function addNote(text, agent, col) {
+  const n = { id: ++noteSeq, text, title: agent.title, color: agent.color, col, fresh: true };
   notes.push(n);
-  layoutNotes(true);
+  renderBoard();
   return n;
 }
 
 function moveNote(n, col) {
-  if (!n) return;
+  if (!n || n.col === col) return;
   n.col = col;
-  layoutNotes(true);
+  n.fresh = true;
+  renderBoard();
 }
 
-function layoutNotes(animate) {
-  if (!kanban) return;
+function renderBoard() {
+  // only the most recent finished notes are kept
+  const done = notes.filter((n) => n.col === 'done');
+  for (const n of done.slice(0, Math.max(0, done.length - DONE_KEEP))) notes.splice(notes.indexOf(n), 1);
   for (const key of ['todo', 'doing', 'done']) {
-    const col = kanban.cols[key];
-    const inCol = notes.filter((n) => n.col === key);
-    // keep the board tidy: only the newest few stay; old "done" notes are removed for good
-    const visible = inCol.slice(-NOTE_MAX);
-    for (const n of inCol) {
-      if (visible.includes(n)) continue;
-      if (key === 'done') {
-        n.g.remove();
-        notes.splice(notes.indexOf(n), 1);
-      } else n.g.setAttribute('opacity', 0);
+    const col = boardCols[key];
+    if (!col) continue;
+    const items = notes.filter((n) => n.col === key);
+    col.count.textContent = items.length;
+    col.list.textContent = '';
+    for (const n of items.slice(-BOARD_SHOW).reverse()) { // newest on top
+      const d = document.createElement('div');
+      d.className = 'bnote' + (n.fresh ? ' enter' : '');
+      d.style.setProperty('--c', n.color);
+      const t = document.createElement('div'); t.className = 'bt'; t.textContent = clipText(n.text, 46);
+      const w = document.createElement('div'); w.className = 'bw'; w.textContent = n.title;
+      d.append(t, w);
+      col.list.appendChild(d);
+      n.fresh = false;
     }
-    visible.forEach((n, i) => {
-      const row = Math.floor(i / 2), c = i % 2;
-      const x = col.x + col.w - 6 - (c + 1) * (NOTE_W + 4) + 4;
-      const y = col.y + row * (NOTE_H + 5);
-      tweenNote(n, x, y, animate);
-    });
+    if (items.length > BOARD_SHOW) {
+      const more = document.createElement('div');
+      more.className = 'bmore';
+      more.textContent = `ועוד ${items.length - BOARD_SHOW}`;
+      col.list.appendChild(more);
+    }
   }
-}
-
-function tweenNote(n, x, y, animate) {
-  if (n.x === null || !animate || document.hidden) {
-    n.anim++;
-    n.x = x; n.y = y;
-    n.g.setAttribute('transform', `translate(${x},${y})`);
-    n.g.setAttribute('opacity', 1);
-    return;
-  }
-  const x0 = n.x, y0 = n.y, t0 = performance.now(), dur = 550, my = ++n.anim;
-  n.x = x; n.y = y;
-  n.g.setAttribute('opacity', 1);
-  const step = (now) => {
-    if (my !== n.anim) return;
-    const k = Math.min(1, (now - t0) / dur);
-    const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-    const lift = Math.sin(k * Math.PI) * 10;
-    n.g.setAttribute('transform', `translate(${(x0 + (x - x0) * e).toFixed(1)},${(y0 + (y - y0) * e - lift).toFixed(1)})`);
-    if (k < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-  // backup for stalled animation frames: snap to the final spot
-  setTimeout(() => { if (my === n.anim) n.g.setAttribute('transform', `translate(${x},${y})`); }, dur + 200);
 }
 
 function clearNotes() {
-  for (const n of notes) n.g.remove();
   notes.length = 0;
+  renderBoard();
 }
 
 // =====================================================================
@@ -994,7 +1010,7 @@ function scheduleRest(st, ms) {
     if (st.busy > 0) return;
     if (st.agent.key === 'lead' && turnActive) return;
     setRobot(st, 'idle');
-    setCard(st, { line: st.card.line.textContent, visible: false });
+    setCard(st, { line: '', status: 'idle' });
     updateStats();
   }, ms);
 }
@@ -1005,7 +1021,7 @@ function currentTask(st) {
 }
 
 function showCard(st, line, status, anim) {
-  const wasHidden = st.card.g.classList.contains('hidden');
+  const wasHidden = st.card.g.classList.contains('idle') || st.card.g.classList.contains('hidden');
   const sub = st.agent.key === 'lead' ? '' : (currentTask(st) ? 'משימה: ' + clipText(currentTask(st), 40) : '');
   setCard(st, { line, sub, status, visible: true });
   if (anim && wasHidden) flashClass(st.card.inner, 'pop', 400);
@@ -1063,7 +1079,7 @@ const handlers = {
     showCard(from, `${G(from, 'מעביר', 'מעבירה')} משימה ל${to.agent.title}`, 'work', anim);
     const whoTo = to.agent.key === 'helper' && ev.rawAgent ? `${to.agent.title} (${ev.rawAgent})` : to.agent.title;
     feedAdd({ cls: 'handoff', icon: '📁', who: `${from.agent.title} ← ${whoTo}`, what: task, ts: ev.ts, color: to.agent.color });
-    entry.note = addNote(task, to.agent.color, 'todo');
+    entry.note = addNote(task, to.agent, 'todo');
     const land = () => {
       if (!to.tasks.includes(entry)) return; // already finished while the folder was in the air
       moveNote(entry.note, 'doing');
@@ -1181,7 +1197,7 @@ function resetState() {
     if (st.restTimer) clearTimeout(st.restTimer);
     st.restTimer = null; st.busy = 0; st.tasks = []; st.implicit = false;
     setRobot(st, 'idle');
-    setCard(st, { line: '', visible: false });
+    setCard(st, { line: '', status: 'idle' });
   }
   clearNotes();
   feedReset();
