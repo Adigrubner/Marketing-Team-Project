@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><title>המשרד החי</title></head>
+<body><pre id="log"></pre>
+<script>
+const es = new EventSource('/events');
+es.addEventListener('office', (m) => { document.getElementById('log').textContent += m.data + '\n'; });
+</script></body></html>
