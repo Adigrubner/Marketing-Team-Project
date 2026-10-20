@@ -11,3 +11,6 @@ clients/*/campaigns/*/creatives/*.png
 clients/*/campaigns/*/creatives/*.jpg
 clients/*/content/posts/*/*.mp4
 !clients/_template/**
+
+# המשרד החי - קובצי ריצה (יומן אירועים ומצב)
+office/.runtime/
