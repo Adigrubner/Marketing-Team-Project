@@ -79,8 +79,37 @@ if (missingMeta.length === metaKeys.length) {
     const acct = await graphGet(`act_${process.env.META_AD_ACCOUNT_ID}`, { fields: 'name,account_status,currency' });
     ok(`חשבון המודעות מחובר: "${acct.name}" (מטבע: ${acct.currency})`);
     if (acct.account_status !== 1) { bad('שימו לב: חשבון המודעות אינו במצב פעיל'); fix('בדקו את סטטוס החשבון ב-Ads Manager (חיוב/אימות)'); }
+    let currency = null;
+    try { currency = readSafety().currency; } catch {}
+    if (currency && acct.currency !== currency) {
+      bad(`חשבון המודעות במטבע ${acct.currency}, אבל תקרת הבטיחות ב-${currency} - כלי ההעלאה יסרב לעבוד`);
+      fix('מטבע של חשבון מודעות אי אפשר לשנות. פותחים חשבון מודעות חדש בשקלים (ILS)');
+    }
     const page = await graphGet(process.env.META_PAGE_ID, { fields: 'name' });
     ok(`הדף מחובר: "${page.name}"`);
+
+    // אינסטגרם - קריאה בלבד: איזה חשבון מחובר לדף, ומה כתוב ב-.env
+    try {
+      const pg = await graphGet(process.env.META_PAGE_ID, { fields: 'instagram_business_account{id,username}' });
+      const ig = pg.instagram_business_account;
+      if (!ig) {
+        warn('לדף לא מחובר חשבון אינסטגרם מקצועי - מודעות באינסטגרם לא יופיעו בשם החשבון');
+      } else if (!process.env.META_INSTAGRAM_USER_ID) {
+        warn(`לדף מחובר האינסטגרם @${ig.username}. מוסיפים ל-.env: META_INSTAGRAM_USER_ID=${ig.id}`);
+      } else if (process.env.META_INSTAGRAM_USER_ID !== ig.id) {
+        bad(`META_INSTAGRAM_USER_ID ב-.env לא תואם לאינסטגרם שמחובר לדף (@${ig.username})`);
+        fix(`מתקנים ל-META_INSTAGRAM_USER_ID=${ig.id}`);
+      } else {
+        ok(`האינסטגרם מחובר: @${ig.username}`);
+      }
+    } catch { warn('לא הצלחתי לבדוק את האינסטגרם של הדף (לרוב חסרה לטוקן ההרשאה instagram_basic)'); }
+
+    // וואטסאפ - קריאה בלבד: האם מספר מקושר לדף
+    try {
+      const pg = await graphGet(process.env.META_PAGE_ID, { fields: 'whatsapp_number' });
+      if (pg.whatsapp_number) ok(`וואטסאפ מקושר לדף: ${pg.whatsapp_number}`);
+      else warn('לא מצאתי מספר וואטסאפ שמקושר לדף. בהגדרות הדף: חשבונות מקושרים ← וואטסאפ');
+    } catch { warn('לא הצלחתי לבדוק את הוואטסאפ של הדף. בודקים ידנית: הגדרות הדף ← חשבונות מקושרים ← וואטסאפ'); }
     if (process.env.META_PIXEL_ID) {
       try {
         const px = await graphGet(process.env.META_PIXEL_ID, { fields: 'name' });

@@ -1,0 +1,418 @@
+<title>יומן שיחות מהמודעות</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Rubik:wght@500;600&display=swap">
+<style>
+/* פריסה: עמודה אחת צרה לטלפון - סיכום למעלה, הוספה מהירה, ואז היומן. כמו פנקס עבודה של צלם בשטח. */
+:root {
+  --bg: #f2f3f1;
+  --surface: #ffffff;
+  --ink: #1d2321;
+  --muted: #5d6662;
+  --line: #d9ddd9;
+  --accent: #2f5d57;
+  --accent-soft: #e1ebe8;
+  --won: #2e7d4f;
+  --won-soft: #e0f1e6;
+  --quote: #9a6a12;
+  --quote-soft: #f6ecd6;
+  --lost: #7a817e;
+  --lost-soft: #eceeec;
+  --danger: #b23a3a;
+  --f-display: "Rubik", "Assistant", system-ui, sans-serif;
+  --f-body: "Assistant", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141917; --surface: #1d2422; --ink: #e8ece9; --muted: #9aa5a0; --line: #303a37;
+    --accent: #7fb5ab; --accent-soft: #233532; --won: #6cc58f; --won-soft: #1f3528;
+    --quote: #e0b25a; --quote-soft: #3a3020; --lost: #9aa29e; --lost-soft: #262c2a; --danger: #e07a7a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141917; --surface: #1d2422; --ink: #e8ece9; --muted: #9aa5a0; --line: #303a37;
+  --accent: #7fb5ab; --accent-soft: #233532; --won: #6cc58f; --won-soft: #1f3528;
+  --quote: #e0b25a; --quote-soft: #3a3020; --lost: #9aa29e; --lost-soft: #262c2a; --danger: #e07a7a;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5; direction: rtl; }
+.wrap { max-width: 640px; margin: 0 auto; padding-block: 20px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 22px; }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: 1.6rem; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 500; font-size: 1.1rem; margin: 0; }
+.sub { color: var(--muted); margin: 4px 0 0; }
+.eyebrow { font-size: .78rem; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+.notice { background: var(--quote-soft); color: var(--ink); border-radius: 10px; padding: 12px 14px; font-size: .95rem; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.stat b { font-family: var(--f-display); font-weight: 600; font-size: 1.45rem; font-variant-numeric: tabular-nums; }
+.stat span { font-size: .8rem; color: var(--muted); }
+@media (max-width: 420px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field > label, .field > .lbl { font-weight: 600; font-size: .92rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: .93rem; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); font-weight: 600; }
+.chip:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type="date"], input[type="number"], input[type="text"] { font: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); color: var(--ink); width: 100%; box-sizing: border-box; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
+.btn { font: inherit; font-weight: 700; border: 0; border-radius: 10px; padding: 11px 16px; cursor: pointer; background: var(--accent); color: var(--surface); }
+.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--line); font-weight: 600; }
+.btn.danger { background: transparent; color: var(--danger); border: 1px solid var(--line); font-weight: 600; }
+.btn:disabled { opacity: .5; cursor: default; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.msg { font-size: .9rem; color: var(--muted); }
+
+.byad { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .93rem; }
+.byad th, .byad td { text-align: right; padding: 7px 6px; border-bottom: 1px solid var(--line); }
+.byad th { font-weight: 600; color: var(--muted); font-size: .8rem; }
+.byad td.n, .byad th.n { text-align: center; }
+.tablebox { overflow-x: auto; }
+
+.log { display: flex; flex-direction: column; gap: 8px; }
+.entry { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.entry > button.head { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 12px 14px; cursor: pointer; }
+.entry > button.head:focus-visible { outline: 2px solid var(--accent); border-radius: 12px; }
+.e-title { font-weight: 700; min-width: 0; }
+.e-meta { color: var(--muted); font-size: .88rem; min-width: 0; }
+.e-side { grid-row: span 2; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.pill { font-size: .8rem; font-weight: 700; border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+.pill.open { background: var(--accent-soft); color: var(--accent); }
+.pill.quote { background: var(--quote-soft); color: var(--quote); }
+.pill.won { background: var(--won-soft); color: var(--won); }
+.pill.lost, .pill.none { background: var(--lost-soft); color: var(--lost); }
+.timeline { list-style: none; margin: 0; padding: 0 12px 0 0; border-right: 2px solid var(--line); display: flex; flex-direction: column; gap: 6px; font-size: .9rem; }
+.timeline li { display: flex; flex-wrap: wrap; gap: 0 8px; align-items: baseline; }
+.t-date { color: var(--muted); font-variant-numeric: tabular-nums; }
+.t-status { font-weight: 600; }
+.t-note { color: var(--muted); flex-basis: 100%; }
+.amount { font-family: var(--f-display); font-weight: 600; font-variant-numeric: tabular-nums; }
+.tag-rel { color: var(--won); font-weight: 600; }
+.edit { border-top: 1px solid var(--line); padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 12px; }
+.empty { color: var(--muted); text-align: center; padding: 22px 12px; border: 1px dashed var(--line); border-radius: 12px; }
+@media (prefers-reduced-motion: no-preference) { .chip, .btn { transition: background-color .15s, color .15s; } }
+</style>
+
+<div class="wrap" dir="rtl">
+  <header>
+    <div class="eyebrow">אלעד גרובנר · ממומן</div>
+    <h1>יומן שיחות מהמודעות</h1>
+    <p class="sub">אחרי כל שיחה שהגיעה ממודעה - חצי דקה כאן. בצ'אט רואים תמונה קטנה מהמודעה, ולפיה יודעים מאיזה פרויקט היא הגיעה. שיחה שנמשכת כמה ימים לא נרשמת שוב: כשמשהו מתקדם (הצעת מחיר, סגירה, או סתם עדכון) לוחצים על השורה שלה ומעדכנים, וכל עדכון נשמר עם התאריך שלו.</p>
+  </header>
+
+  <div id="notice" class="notice" hidden></div>
+
+  <section aria-label="סיכום" class="stats">
+    <div class="stat"><b id="s-all">0</b><span>שיחות</span></div>
+    <div class="stat"><b id="s-rel">0</b><span>רלוונטיות (מעצבות ואדריכלים)</span></div>
+    <div class="stat"><b id="s-won">0</b><span>נסגרו</span></div>
+    <div class="stat"><b id="s-rev">0₪</b><span>הכנסות מהמודעות</span></div>
+  </section>
+
+  <form id="add" class="card" autocomplete="off">
+    <h2>שיחה חדשה</h2>
+    <div class="row2">
+      <div class="field"><label for="f-date">מתי פנו</label><input id="f-date" type="date" required></div>
+      <div class="field"><label for="f-note">שם או הערה (רשות)</label><input id="f-note" type="text" maxlength="120" placeholder="למשל: מעצבת מרעננה, וילה"></div>
+    </div>
+    <div class="field"><span class="lbl" id="l-ad">מאיזו מודעה</span><div class="chips" id="f-ad" role="group" aria-labelledby="l-ad"></div></div>
+    <div class="field"><span class="lbl" id="l-who">מי פנה</span><div class="chips" id="f-who" role="group" aria-labelledby="l-who"></div></div>
+    <div class="field" id="f-other-box" hidden><label for="f-other">מה זה "אחר"?</label><input id="f-other" type="text" maxlength="80" placeholder="למשל: סטודנטית לעיצוב, משרד תדמית"></div>
+    <div class="field" id="f-status-box"><span class="lbl" id="l-status">איפה זה עומד</span><div class="chips" id="f-status" role="group" aria-labelledby="l-status"></div></div>
+    <div class="field" id="f-amount-box" hidden><label for="f-amount">סכום העסקה (₪, לפני מע"מ)</label><input id="f-amount" type="number" min="0" step="50" inputmode="numeric"></div>
+    <div class="actions"><button class="btn" id="f-submit" type="submit">הוספה ליומן</button><span class="msg" id="f-msg" role="status"></span></div>
+  </form>
+
+  <section class="card" aria-labelledby="h-byad">
+    <h2 id="h-byad">לפי פרויקט</h2>
+    <div class="tablebox"><table class="byad"><thead><tr><th>מודעה</th><th class="n">שיחות</th><th class="n">רלוונטיות</th><th class="n">נסגרו</th><th class="n">הכנסות</th></tr></thead><tbody id="byad"></tbody></table></div>
+  </section>
+
+  <section aria-labelledby="h-log" style="display:flex;flex-direction:column;gap:10px">
+    <h2 id="h-log">היומן</h2>
+    <div class="chips" id="log-filter" role="group" aria-label="מה להציג"></div>
+    <div class="log" id="log"><div class="empty">טוען את היומן...</div></div>
+  </section>
+</div>
+
+<script>
+// הקמפיין הנוכחי והמודעות שלו. קמפיין חדש = מוסיפים כאן שורה.
+const CAMPAIGN = 'designers-portfolio-whatsapp-v2';
+const ADS = [
+  { key: 'liron', name: 'לירון חפץ - נתניה' },
+  { key: 'alia', name: 'עליא גפארי' },
+  { key: 'linoy', name: 'לינוי כהן - מזכרת בתיה' },
+  { key: 'sonia', name: 'סוניה וספיר - תל מונד' },
+  { key: 'unknown', name: 'לא בטוח' },
+];
+// מי פנה. relevant = נספר כשיחה רלוונטית. noDeal = פנייה שמלכתחילה לא תהפוך ליום צילום (בלי "איפה זה עומד").
+const WHO = [
+  { key: 'designer', name: 'מעצב/ת פנים', relevant: true },
+  { key: 'architect', name: 'אדריכל/ית', relevant: true },
+  { key: 'supplier', name: 'ספק', relevant: false },
+  { key: 'other', name: 'אחר', relevant: false },
+  { key: 'irrelevant', name: 'לא רלוונטי', relevant: false, noDeal: true },
+];
+const STATUS = [
+  { key: 'open', name: 'בשיחה' },
+  { key: 'quote', name: 'נשלחה הצעת מחיר' },
+  { key: 'won', name: 'נסגר יום צילום' },
+  { key: 'lost', name: 'לא נסגר' },
+];
+const STATUS_NONE = { key: 'none', name: 'לא רלוונטי' };
+const byKey = (list, k) => list.find((x) => x.key === k) || (k === 'none' ? STATUS_NONE : { key: k, name: k || '-' });
+const isRelevant = (r) => byKey(WHO, r.who).relevant === true;
+const noDeal = (who) => byKey(WHO, who).noDeal === true;
+const isOpen = (r) => r.status === 'open' || r.status === 'quote';
+const daysSince = (s) => (s ? Math.floor((Date.parse(todayStr()) - Date.parse(s)) / 86400000) : 0);
+const ils = (n) => `${Math.round(Number(n) || 0).toLocaleString('he-IL')}₪`;
+const todayStr = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+const fmtDate = (s) => (s ? s.split('-').reverse().slice(0, 2).join('.') : '');
+const $ = (id) => document.getElementById(id);
+
+let db = null;
+let rows = [];
+let openId = null;
+let logFilter = 'all';
+const form = { ad: null, who: null, status: 'open' };
+
+function chips(container, list, getValue, setValue) {
+  container.replaceChildren(...list.map((it) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = it.name;
+    b.setAttribute('aria-pressed', String(getValue() === it.key));
+    b.addEventListener('click', () => { setValue(it.key); chips(container, list, getValue, setValue); });
+    return b;
+  }));
+}
+function drawForm() {
+  chips($('f-ad'), ADS, () => form.ad, (v) => { form.ad = v; });
+  chips($('f-who'), WHO, () => form.who, (v) => { form.who = v; drawFormVisibility(); });
+  chips($('f-status'), STATUS, () => form.status, (v) => { form.status = v; drawFormVisibility(); });
+  drawFormVisibility();
+}
+function drawFormVisibility() {
+  const nd = noDeal(form.who);
+  $('f-other-box').hidden = form.who !== 'other';
+  $('f-status-box').hidden = nd;
+  $('f-amount-box').hidden = nd || form.status !== 'won';
+}
+
+// היסטוריה של ליד: כל שינוי מצב או הערה נרשם עם תאריך, כדי לראות איך שיחה התקדמה עד הסגירה.
+function historyOf(r) {
+  if (Array.isArray(r.history) && r.history.length) return r.history;
+  return [{ date: r.date, status: r.status }];
+}
+function timeline(r) {
+  const ol = document.createElement('ol'); ol.className = 'timeline';
+  for (const h of historyOf(r)) {
+    const li = document.createElement('li');
+    const d = document.createElement('span'); d.className = 't-date'; d.textContent = fmtDate(h.date);
+    const s = document.createElement('span'); s.className = 't-status'; s.textContent = h.status ? byKey(STATUS, h.status).name : 'עדכון';
+    li.append(d, s);
+    if (h.amount_ils) li.append(` · ${ils(h.amount_ils)}`);
+    if (h.note) { const n = document.createElement('span'); n.className = 't-note'; n.textContent = h.note; li.append(n); }
+    ol.append(li);
+  }
+  return ol;
+}
+
+function render() {
+  const mine = rows.filter((r) => r.campaign === CAMPAIGN);
+  const won = mine.filter((r) => r.status === 'won');
+  $('s-all').textContent = mine.length;
+  $('s-rel').textContent = mine.filter(isRelevant).length;
+  $('s-won').textContent = won.length;
+  $('s-rev').textContent = ils(won.reduce((s, r) => s + (Number(r.amount_ils) || 0), 0));
+
+  $('byad').replaceChildren(...ADS.map((ad) => {
+    const list = mine.filter((r) => r.ad === ad.key);
+    const w = list.filter((r) => r.status === 'won');
+    const tr = document.createElement('tr');
+    [ad.name, list.length, list.filter(isRelevant).length, w.length, ils(w.reduce((s, r) => s + (Number(r.amount_ils) || 0), 0))]
+      .forEach((v, i) => { const td = document.createElement('td'); td.textContent = v; if (i) td.className = 'n'; tr.append(td); });
+    return tr;
+  }));
+
+  const FILTERS = [
+    { key: 'open', name: `בטיפול (${mine.filter(isOpen).length})`, test: isOpen },
+    { key: 'all', name: `הכל (${mine.length})`, test: () => true },
+    { key: 'done', name: 'נסגרו או לא רלוונטיות', test: (r) => !isOpen(r) },
+  ];
+  chips($('log-filter'), FILTERS, () => logFilter, (v) => { logFilter = v; render(); });
+  const shown = mine.filter(byKey(FILTERS, logFilter).test || (() => true));
+
+  const log = $('log');
+  if (mine.length && !shown.length) {
+    const e = document.createElement('div'); e.className = 'empty';
+    e.textContent = logFilter === 'open' ? 'אין כרגע שיחות בטיפול.' : 'אין שיחות כאלה.';
+    log.replaceChildren(e); return;
+  }
+  if (!mine.length) {
+    const e = document.createElement('div'); e.className = 'empty';
+    e.textContent = db ? 'עוד אין שיחות ביומן. הראשונה תופיע כאן אחרי שתוסיפו אותה בטופס למעלה.' : 'היומן לא זמין בתצוגה הזו.';
+    log.replaceChildren(e); return;
+  }
+  log.replaceChildren(...shown.map(entry));
+}
+
+function entry(r) {
+  const box = document.createElement('div'); box.className = 'entry';
+  const head = document.createElement('button'); head.type = 'button'; head.className = 'head';
+  head.setAttribute('aria-expanded', String(openId === r.id));
+  const t = document.createElement('div'); t.className = 'e-title';
+  t.textContent = `${byKey(ADS, r.ad).name}`;
+  const m = document.createElement('div'); m.className = 'e-meta';
+  const who = document.createElement('span');
+  who.textContent = byKey(WHO, r.who).name + (r.who === 'other' && r.who_other ? `: ${r.who_other}` : '');
+  if (isRelevant(r)) who.className = 'tag-rel';
+  const age = isOpen(r) ? ` · פתוח ${daysSince(r.date)} ימים` : r.closed_at && r.closed_at !== r.date ? ` · נסגר ${fmtDate(r.closed_at)}` : '';
+  m.append(`${fmtDate(r.date)} · `, who, age, r.note ? ` · ${r.note}` : '');
+  const side = document.createElement('div'); side.className = 'e-side';
+  const p = document.createElement('span'); p.className = `pill ${r.status}`; p.textContent = byKey(STATUS, r.status).name;
+  side.append(p);
+  if (r.status === 'won' && r.amount_ils) { const a = document.createElement('span'); a.className = 'amount'; a.textContent = ils(r.amount_ils); side.append(a); }
+  head.append(t, side, m);
+  head.addEventListener('click', () => { openId = openId === r.id ? null : r.id; render(); });
+  box.append(head);
+  if (openId === r.id) box.append(editor(r));
+  return box;
+}
+
+function editor(r) {
+  const st = { status: r.status === 'none' ? 'open' : r.status, who: r.who, ad: r.ad };
+  const wrap = document.createElement('div'); wrap.className = 'edit';
+  const field = (labelText, forId) => {
+    const f = document.createElement('div'); f.className = 'field';
+    const l = document.createElement(forId ? 'label' : 'span');
+    if (forId) l.htmlFor = forId; else l.className = 'lbl';
+    l.textContent = labelText; f.append(l); return f;
+  };
+  const input = (id, type, value, extra = {}) => Object.assign(document.createElement('input'), { id, type, value: value ?? '', ...extra });
+  const refresh = () => {
+    otherBox.hidden = st.who !== 'other';
+    statusBox.hidden = noDeal(st.who);
+    amtBox.hidden = noDeal(st.who) || st.status !== 'won';
+  };
+  const mk = (label, list, key) => {
+    const f = field(label);
+    const c = document.createElement('div'); c.className = 'chips';
+    chips(c, list, () => st[key], (v) => { st[key] = v; refresh(); });
+    f.append(c); return f;
+  };
+
+  const histBox = field('מה קרה עד עכשיו');
+  histBox.append(timeline(r));
+  const statusBox = mk('איפה זה עומד עכשיו', STATUS, 'status');
+  const amtBox = field('סכום העסקה (₪, לפני מע"מ)', `amt-${r.id}`);
+  const ai = input(`amt-${r.id}`, 'number', r.amount_ils, { min: '0', step: '50', inputMode: 'numeric' });
+  amtBox.append(ai);
+  const upd = document.createElement('div'); upd.className = 'row2';
+  const dBox = field('תאריך העדכון', `upd-${r.id}`);
+  const di = input(`upd-${r.id}`, 'date', todayStr());
+  dBox.append(di);
+  const uBox = field('מה התחדש? (רשות)', `unote-${r.id}`);
+  const ui = input(`unote-${r.id}`, 'text', '', { maxLength: 160, placeholder: 'למשל: שלחתי הצעה, מחכה לתשובה' });
+  uBox.append(ui);
+  upd.append(dBox, uBox);
+  const otherBox = field('מה זה "אחר"?', `other-${r.id}`);
+  const oi = input(`other-${r.id}`, 'text', r.who_other || '', { maxLength: 80 });
+  otherBox.append(oi);
+  const nb = field('שם או הערה כללית', `note-${r.id}`);
+  const ni = input(`note-${r.id}`, 'text', r.note || '', { maxLength: 120 });
+  nb.append(ni);
+  refresh();
+
+  const acts = document.createElement('div'); acts.className = 'actions';
+  const save = document.createElement('button'); save.type = 'button'; save.className = 'btn'; save.textContent = 'שמירה';
+  const del = document.createElement('button'); del.type = 'button'; del.className = 'btn danger'; del.textContent = 'מחיקה';
+  const msg = document.createElement('span'); msg.className = 'msg'; msg.setAttribute('role', 'status');
+  save.addEventListener('click', async () => {
+    const status = noDeal(st.who) ? 'none' : st.status;
+    const amount = status === 'won' && ai.value !== '' ? Number(ai.value) : null;
+    const when = di.value || todayStr();
+    const changed = status !== r.status;
+    const note = ui.value.trim();
+    const history = historyOf(r).slice();
+    if (changed || note || (status === 'won' && amount !== (r.amount_ils ?? null))) {
+      const h = { date: when, status: changed ? status : null };
+      if (note) h.note = note;
+      if (status === 'won' && amount != null) h.amount_ils = amount;
+      history.push(h);
+    }
+    let closed_at = r.closed_at ?? null;
+    if (status === 'won' || status === 'lost') { if (changed || !closed_at) closed_at = when; } else closed_at = null;
+    save.disabled = true; msg.textContent = 'שומר...';
+    try {
+      await db.doc(`conversations/${r.id}`).update({
+        status, who: st.who, who_other: st.who === 'other' ? oi.value.trim() : '', ad: st.ad, note: ni.value.trim(), amount_ils: amount,
+        history, closed_at, updated_at: new Date().toISOString(),
+      });
+      openId = null; render();
+    } catch (e) { msg.textContent = saveError(e); save.disabled = false; }
+  });
+  let armed = false;
+  del.addEventListener('click', async () => {
+    if (!armed) { armed = true; del.textContent = 'בטוח? ללחוץ שוב כדי למחוק'; return; }
+    del.disabled = true;
+    try { await db.doc(`conversations/${r.id}`).delete(); openId = null; }
+    catch (e) { msg.textContent = saveError(e); del.disabled = false; }
+  });
+  acts.append(save, del, msg);
+  wrap.append(histBox, statusBox, amtBox, upd, mk('מאיזו מודעה', ADS, 'ad'), mk('מי פנה', WHO, 'who'), otherBox, nb, acts);
+  return wrap;
+}
+
+function saveError(e) {
+  if (e?.code === 'invalid_argument') return 'אין הרשאה לשמור כאן. צריך להיות מחוברים לחשבון של העסק.';
+  if (e?.code === 'quota_exceeded') return 'היומן מלא. ספרו לקלוד כדי לפנות מקום.';
+  return 'השמירה לא הצליחה. נסו שוב בעוד רגע.';
+}
+
+$('add').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const msg = $('f-msg');
+  if (!db) { msg.textContent = 'היומן לא זמין בתצוגה הזו.'; return; }
+  if (!form.ad || !form.who) { msg.textContent = 'חסר: מאיזו מודעה ומי פנה.'; return; }
+  const status = noDeal(form.who) ? 'none' : form.status;
+  const amount = status === 'won' && $('f-amount').value !== '' ? Number($('f-amount').value) : null;
+  const date = $('f-date').value || todayStr();
+  const first = { date, status };
+  if (amount != null) first.amount_ils = amount;
+  $('f-submit').disabled = true; msg.textContent = 'שומר...';
+  try {
+    await db.collection('conversations').add({
+      campaign: CAMPAIGN, date, ad: form.ad, who: form.who,
+      who_other: form.who === 'other' ? $('f-other').value.trim() : '',
+      status, amount_ils: amount, note: $('f-note').value.trim(),
+      history: [first], closed_at: status === 'won' || status === 'lost' ? date : null,
+      created_at: new Date().toISOString(),
+    });
+    form.ad = null; form.who = null; form.status = 'open';
+    $('f-note').value = ''; $('f-amount').value = ''; $('f-other').value = ''; $('f-date').value = todayStr();
+    drawForm(); msg.textContent = 'נוסף ✓';
+  } catch (e) { msg.textContent = saveError(e); }
+  $('f-submit').disabled = false;
+});
+
+$('f-date').value = todayStr();
+drawForm();
+render();
+
+(async () => {
+  db = window.claude?.use ? await window.claude.use('db') : null;
+  if (!db) {
+    const n = $('notice'); n.hidden = false;
+    n.textContent = 'היומן נשמר רק בתוך claude.ai, כשמחוברים לחשבון. בתצוגה הזו אפשר לראות את הדף, אבל לא לשמור.';
+    $('f-submit').disabled = true; render(); return;
+  }
+  db.collection('conversations').orderBy('date', 'desc').onSnapshot(
+    (snap) => { rows = snap.docs.map((d) => ({ id: d.id, ...d.data() })); render(); },
+    () => { const n = $('notice'); n.hidden = false; n.textContent = 'החיבור ליומן נקטע. רעננו את הדף.'; }
+  );
+})();
+</script>

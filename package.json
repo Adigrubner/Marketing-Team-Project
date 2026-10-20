@@ -8,6 +8,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "doctor": "node tools/doctor.js"
+    "doctor": "node tools/doctor.js",
+    "test": "node --test \"tools/**/*.test.js\""
   }
 }

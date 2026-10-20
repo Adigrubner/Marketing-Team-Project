@@ -1,0 +1,29 @@
+{
+  "_הסבר": "דוגמה לתוכנית של קמפיין וואטסאפ עם כמה מודעות. הקמפיינר מייצר קובץ כזה בשם plan.json בתוך תיקיית הקמפיין. מריצים: node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין> (קודם בלי כלום = dry-run, אחר כך --check, ובסוף --confirm). מודעה עם תמונה אחת = מודעת תמונה; עם 2-10 תמונות = קרוסלה, בסדר שכתוב כאן.",
+  "name": "שם הקמפיין",
+  "destination": "whatsapp",
+  "daily_budget_ils": 50,
+  "_end_date": "רשות: YYYY-MM-DD. בלי השדה הזה הקמפיין רץ עד שמכבים ידנית",
+  "audience": { "countries": ["IL"], "age_min": 25, "advantage_audience": true },
+  "placements": {
+    "facebook": ["feed", "story", "facebook_reels"],
+    "instagram": ["stream", "story", "reels"]
+  },
+  "headline": "הכותרת שמתחת לתמונה",
+  "whatsapp": {
+    "autofill_message": "ההודעה המוכנה שהלקוח שולח בלחיצה אחת",
+    "greeting": "הודעת הברכה שמופיעה בוואטסאפ לפני ההודעה המוכנה (חובה - Meta דוחה בלעדיה)"
+  },
+  "ads": [
+    {
+      "name": "פרויקט 1",
+      "text": "הטקסט הראשי המלא של המודעה, כולל שורת הקרדיט",
+      "images": ["creatives/p1-1-4x5.jpg", "creatives/p1-2-4x5.jpg", "creatives/p1-3-4x5.jpg"]
+    },
+    {
+      "name": "פרויקט 2",
+      "text": "הטקסט הראשי המלא של המודעה, כולל שורת הקרדיט",
+      "images": ["creatives/p2-1-4x5.jpg", "creatives/p2-2-4x5.jpg", "creatives/p2-3-4x5.jpg"]
+    }
+  ]
+}
