@@ -1,0 +1,320 @@
+{
+  "campaign_id": "120254773853720745",
+  "range": {
+    "preset": "maximum"
+  },
+  "fetched_at": "2026-10-22T06:14:48.780Z",
+  "status": {
+    "name": "מעצבות - תיק עבודות - וואטסאפ - 10/2026 - בלי סטורי",
+    "effective_status": "ACTIVE",
+    "ads": [
+      {
+        "id": "120254773863190745",
+        "name": "סוניה וספיר - תל מונד",
+        "effective_status": "ACTIVE"
+      },
+      {
+        "id": "120254773855900745",
+        "name": "לירון חפץ - נתניה",
+        "effective_status": "ACTIVE"
+      },
+      {
+        "id": "120254773858390745",
+        "name": "עליא גפארי",
+        "effective_status": "ACTIVE"
+      },
+      {
+        "id": "120254773860180745",
+        "name": "לינוי כהן - מזכרת בתיה",
+        "effective_status": "ACTIVE"
+      }
+    ]
+  },
+  "total": {
+    "spend_ils": 137.9,
+    "impressions": 2461,
+    "reach": 1154,
+    "frequency": 2.13,
+    "clicks": 75,
+    "ctr_pct": 3.05,
+    "conversations": 6,
+    "first_replies": 3,
+    "cost_per_conversation_ils": 22.98,
+    "leads": 0
+  },
+  "days_with_spend": 4,
+  "first_spend_date": "2026-10-19",
+  "daily": [
+    {
+      "date": "2026-10-19",
+      "spend_ils": 23.09,
+      "impressions": 0,
+      "reach": 0,
+      "frequency": 0,
+      "clicks": 0,
+      "ctr_pct": 0,
+      "conversations": 2,
+      "first_replies": 0,
+      "cost_per_conversation_ils": 11.55,
+      "leads": 0
+    },
+    {
+      "date": "2026-10-20",
+      "spend_ils": 57.61,
+      "impressions": 0,
+      "reach": 0,
+      "frequency": 0,
+      "clicks": 0,
+      "ctr_pct": 0,
+      "conversations": 1,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 57.61,
+      "leads": 0
+    },
+    {
+      "date": "2026-10-21",
+      "spend_ils": 48.96,
+      "impressions": 0,
+      "reach": 0,
+      "frequency": 0,
+      "clicks": 0,
+      "ctr_pct": 0,
+      "conversations": 2,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 24.48,
+      "leads": 0
+    },
+    {
+      "date": "2026-10-22",
+      "spend_ils": 8.24,
+      "impressions": 0,
+      "reach": 0,
+      "frequency": 0,
+      "clicks": 0,
+      "ctr_pct": 0,
+      "conversations": 1,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 8.24,
+      "leads": 0
+    }
+  ],
+  "ads": [
+    {
+      "ad_id": "120254773855900745",
+      "ad": "לירון חפץ - נתניה",
+      "spend_ils": 43.26,
+      "impressions": 637,
+      "reach": 402,
+      "frequency": 1.58,
+      "clicks": 19,
+      "ctr_pct": 2.98,
+      "conversations": 1,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 43.26,
+      "leads": 0
+    },
+    {
+      "ad_id": "120254773858390745",
+      "ad": "עליא גפארי",
+      "spend_ils": 38.57,
+      "impressions": 725,
+      "reach": 428,
+      "frequency": 1.69,
+      "clicks": 27,
+      "ctr_pct": 3.72,
+      "conversations": 1,
+      "first_replies": 0,
+      "cost_per_conversation_ils": 38.57,
+      "leads": 0
+    },
+    {
+      "ad_id": "120254773860180745",
+      "ad": "לינוי כהן - מזכרת בתיה",
+      "spend_ils": 36.56,
+      "impressions": 774,
+      "reach": 492,
+      "frequency": 1.57,
+      "clicks": 18,
+      "ctr_pct": 2.33,
+      "conversations": 3,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 12.19,
+      "leads": 0
+    },
+    {
+      "ad_id": "120254773863190745",
+      "ad": "סוניה וספיר - תל מונד",
+      "spend_ils": 19.51,
+      "impressions": 325,
+      "reach": 229,
+      "frequency": 1.42,
+      "clicks": 11,
+      "ctr_pct": 3.38,
+      "conversations": 1,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 19.51,
+      "leads": 0
+    }
+  ],
+  "platforms": [
+    {
+      "platform": "facebook",
+      "spend_ils": 65.07,
+      "impressions": 1396,
+      "reach": 797,
+      "frequency": 1.75,
+      "clicks": 65,
+      "ctr_pct": 4.66,
+      "conversations": 3,
+      "first_replies": 2,
+      "cost_per_conversation_ils": 21.69,
+      "leads": 0
+    },
+    {
+      "platform": "instagram",
+      "spend_ils": 72.51,
+      "impressions": 1065,
+      "reach": 451,
+      "frequency": 2.36,
+      "clicks": 10,
+      "ctr_pct": 0.94,
+      "conversations": 3,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 24.17,
+      "leads": 0
+    }
+  ],
+  "positions": [
+    {
+      "platform": "facebook",
+      "position": "feed",
+      "spend_ils": 64.53,
+      "impressions": 1382,
+      "reach": 792,
+      "frequency": 1.74,
+      "clicks": 65,
+      "ctr_pct": 4.7,
+      "conversations": 3,
+      "first_replies": 2,
+      "cost_per_conversation_ils": 21.51,
+      "leads": 0
+    },
+    {
+      "platform": "instagram",
+      "position": "feed",
+      "spend_ils": 59.38,
+      "impressions": 819,
+      "reach": 369,
+      "frequency": 2.22,
+      "clicks": 7,
+      "ctr_pct": 0.85,
+      "conversations": 3,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 19.79,
+      "leads": 0
+    },
+    {
+      "platform": "instagram",
+      "position": "instagram_reels",
+      "spend_ils": 13.13,
+      "impressions": 246,
+      "reach": 145,
+      "frequency": 1.7,
+      "clicks": 3,
+      "ctr_pct": 1.22,
+      "conversations": 0,
+      "first_replies": 0,
+      "cost_per_conversation_ils": null,
+      "leads": 0
+    },
+    {
+      "platform": "facebook",
+      "position": "facebook_reels",
+      "spend_ils": 0.54,
+      "impressions": 14,
+      "reach": 6,
+      "frequency": 2.33,
+      "clicks": 0,
+      "ctr_pct": 0,
+      "conversations": 0,
+      "first_replies": 0,
+      "cost_per_conversation_ils": null,
+      "leads": 0
+    }
+  ],
+  "age": [
+    {
+      "age": "25-34",
+      "spend_ils": 34.5,
+      "impressions": 659,
+      "reach": 285,
+      "frequency": 2.31,
+      "clicks": 14,
+      "ctr_pct": 2.12,
+      "conversations": 1,
+      "first_replies": 0,
+      "cost_per_conversation_ils": 34.5,
+      "leads": 0
+    },
+    {
+      "age": "35-44",
+      "spend_ils": 46.02,
+      "impressions": 713,
+      "reach": 278,
+      "frequency": 2.56,
+      "clicks": 18,
+      "ctr_pct": 2.52,
+      "conversations": 3,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 15.34,
+      "leads": 0
+    },
+    {
+      "age": "45-54",
+      "spend_ils": 33.35,
+      "impressions": 457,
+      "reach": 226,
+      "frequency": 2.02,
+      "clicks": 19,
+      "ctr_pct": 4.16,
+      "conversations": 0,
+      "first_replies": 0,
+      "cost_per_conversation_ils": null,
+      "leads": 0
+    },
+    {
+      "age": "55-64",
+      "spend_ils": 15.39,
+      "impressions": 311,
+      "reach": 172,
+      "frequency": 1.81,
+      "clicks": 12,
+      "ctr_pct": 3.86,
+      "conversations": 1,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 15.39,
+      "leads": 0
+    },
+    {
+      "age": "65+",
+      "spend_ils": 8.64,
+      "impressions": 321,
+      "reach": 212,
+      "frequency": 1.51,
+      "clicks": 12,
+      "ctr_pct": 3.74,
+      "conversations": 1,
+      "first_replies": 1,
+      "cost_per_conversation_ils": 8.64,
+      "leads": 0
+    }
+  ],
+  "young_age": {
+    "bucket": "25-34",
+    "spend_ils": 34.5,
+    "spend_pct": 25,
+    "conversations": 1,
+    "conversations_pct": 16.7
+  },
+  "missing": []
+}

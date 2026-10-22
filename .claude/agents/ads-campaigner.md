@@ -57,6 +57,14 @@ description: הקמפיינר של הממומן. לוקח את מה שכבר א�
 - **`images`** = נתיבים יחסיים לתיקיית הקמפיין (`creatives/...`), בסדר הסופי. תמונה אחת = מודעת תמונה, 2-10 = קרוסלה.
 - **`headline`**, **`whatsapp.autofill_message`**, **`whatsapp.greeting`** - מ-`copy.md`.
 - **`audience`**, **`placements`**, **`daily_budget_ils`** - מהבריף. קהל אוטומטי של Meta = `advantage_audience: true`.
+- **מ-21.10 - כמה קבוצות מודעות וקהלים מותאמים** (עדי אישרה את השדרוג). הדוגמה: `clients/_template/campaigns/plan.whatsapp.adsets.example.json`.
+  - **`ad_sets`:** רשימה, ולכל קבוצה `name`, `daily_budget_ils` ו-`audience` משלה. התקרה נאכפת לכל קבוצה וגם על הסכום.
+  - **ב-`audience`:**
+    - `custom_audiences` ו-`excluded_custom_audiences` (`[{id, name}]`, המזהה כמחרוזת).
+    - `detailed` (`education_majors` / `work_positions`).
+    - `custom_audience_expansion` ו-`detailed_expansion`.
+  - **⚠️ בשיחות וואטסאפ Meta לא מאפשרת לכבות את `detailed_expansion`**, וב-`--check` זה נכשל. כלומר פירוט טירגוט הוא תמיד "הצעה", ואת זה צריך להגיד לעדי. כיבוי ההרחבה של קהלים מותאמים עבר בהערכת הגודל, אבל ביצירה עוד לא אומת.
+  - **`ad.description`:** תיאור לכרטיס, רשות. מופיע רק בפייסבוק.
 - **`name`** של הקמפיין: קצר וברור, בעברית או באנגלית, למשל "מעצבות - תיק עבודות - וואטסאפ - 10/2026".
 - לא מוסיפים שדות שלא הוחלטו (`end_date`, `creative_features_opt_out` וכו') בלי סיבה כתובה.
 
