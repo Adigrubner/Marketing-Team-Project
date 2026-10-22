@@ -1,0 +1,54 @@
+{
+  "_הסבר": "דוגמה לתוכנית וואטסאפ עם כמה קבוצות מודעות (ad_sets), לכל קבוצה קהל ותקציב משלה. כל קבוצה מקבלת את כל המודעות שב-ads (קריאייטיב אחד לכל מודעה, משותף לכל הקבוצות). כשיש ad_sets אין daily_budget_ils ואין audience בראש התוכנית. התקרה מ-config/safety.json נאכפת לכל קבוצה וגם על הסכום. מזהים של Meta כותבים תמיד בגרשיים.",
+  "_קהל": "custom_audiences / excluded_custom_audiences = קהלים מותאמים מהחשבון ({id, name}; ה-name לתצוגה בלבד). detailed = פירוט טירגוט מקצועי: education_majors (תחומי לימוד) ו-work_positions (תפקידים) - מספיק אחד מהם. את המזהים מוצאים בחיפוש של Meta: GET /search?type=adeducationmajor או adworkposition. custom_audience_expansion / detailed_expansion = האם Meta רשאית להרחיב (ברירת המחדל: כמו advantage_audience). שימו לב: באופטימיזציה לשיחות Meta לא מאפשרת לכבות את ההרחבה של פירוט הטירגוט (נבדק 21.10.2026).",
+  "_description": "רשות, בכל מודעה: description - טקסט אחד לכל הכרטיסים, או רשימה אחת לכל תמונה. מופיע בפייסבוק בלבד.",
+  "name": "שם הקמפיין",
+  "destination": "whatsapp",
+  "placements": {
+    "facebook": ["feed", "facebook_reels"],
+    "instagram": ["stream", "reels"]
+  },
+  "headline": "הכותרת שמתחת לתמונה",
+  "whatsapp": {
+    "autofill_message": "ההודעה המוכנה שהלקוח שולח בלחיצה אחת",
+    "greeting": "הודעת הברכה שמופיעה בוואטסאפ לפני ההודעה המוכנה (חובה - Meta דוחה בלעדיה)"
+  },
+  "ad_sets": [
+    {
+      "name": "קהל חם",
+      "daily_budget_ils": 25,
+      "audience": {
+        "countries": ["IL"],
+        "age_min": 25,
+        "advantage_audience": false,
+        "custom_audiences": [
+          { "id": "000000000000000000", "name": "שם הקהל ב-Meta" }
+        ],
+        "custom_audience_expansion": false
+      }
+    },
+    {
+      "name": "לפי מקצוע",
+      "daily_budget_ils": 15,
+      "audience": {
+        "countries": ["IL"],
+        "age_min": 25,
+        "advantage_audience": false,
+        "detailed": {
+          "education_majors": [{ "id": "000000000000000", "name": "שם תחום הלימוד" }],
+          "work_positions": [{ "id": "000000000000000", "name": "שם התפקיד" }]
+        },
+        "excluded_custom_audiences": [
+          { "id": "000000000000000000", "name": "שם הקהל ב-Meta" }
+        ]
+      }
+    }
+  ],
+  "ads": [
+    {
+      "name": "פרויקט 1",
+      "text": "הטקסט הראשי המלא של המודעה, כולל שורת הקרדיט",
+      "images": ["creatives/p1-1-4x5.jpg", "creatives/p1-2-4x5.jpg", "creatives/p1-3-4x5.jpg"]
+    }
+  ]
+}

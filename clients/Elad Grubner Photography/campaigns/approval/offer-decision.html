@@ -1,0 +1,334 @@
+<title>ההצעה במודעה החדשה</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: אותו מזכר החלטה כמו דף הקמפיין הראשון - מה למדנו, ינואר מול היום, שתי האפשרויות, ואז שאלות שנשמרות בדף. */
+:root {
+  --paper: #f3f4f2;
+  --sheet: #ffffff;
+  --ink: #1d2226;
+  --muted: #5d666c;
+  --rule: #d9ddda;
+  --accent: #23466b;
+  --accent-soft: #e3eaf2;
+  --ok: #2c6e49;
+  --ok-soft: #e1efe6;
+  --fix: #9a5b13;
+  --fix-soft: #f6ebdc;
+  --f-display: "Frank Ruhl Libre", "Times New Roman", serif;
+  --f-body: "Assistant", "Segoe UI", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+    --accent: #8db4dc; --accent-soft: #22303e; --ok: #7cc79a; --ok-soft: #1d3127;
+    --fix: #e0a865; --fix-soft: #3a2c1b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141719; --sheet: #1c2023; --ink: #e8ebea; --muted: #9aa3a8; --rule: #30363a;
+  --accent: #8db4dc; --accent-soft: #22303e; --ok: #7cc79a; --ok-soft: #1d3127;
+  --fix: #e0a865; --fix-soft: #3a2c1b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 760px; margin-inline: auto; display: grid; gap: 34px; }
+
+header { display: grid; gap: 8px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px); line-height: 1.12; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); max-width: 60ch; }
+
+section { display: grid; gap: 12px; }
+h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(22px, 4.5vw, 28px); line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; max-width: 64ch; }
+.points { margin: 0; padding-inline-start: 22px; display: grid; gap: 8px; max-width: 64ch; }
+.small { font-size: 15px; color: var(--muted); }
+blockquote { margin: 0; padding: 12px 16px; border-inline-start: 3px solid var(--accent); background: var(--sheet); border-radius: 0 8px 8px 0; font-size: 16px; }
+
+/* ינואר מול היום: שתי עמודות שמתקפלות לאחת בטלפון */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.col { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.col.win { border-color: color-mix(in srgb, var(--ok) 45%, var(--rule)); }
+.col h3 { margin: 0; font-size: 17px; }
+.col .tag { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; color: var(--muted); }
+.col.win .tag { color: var(--ok); }
+.col ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 4px; font-size: 15px; }
+.num { font-variant-numeric: tabular-nums; }
+
+.spec { display: grid; grid-template-columns: max-content 1fr; gap: 10px 18px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; margin: 0; }
+.spec dt { font-weight: 700; color: var(--muted); font-size: 15px; }
+.spec dd { margin: 0; min-width: 0; }
+
+.opts { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.opts li { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 16px; font-size: 16px; display: grid; gap: 4px; }
+.opts b.k { color: var(--accent); }
+.rec { font-size: 13px; font-weight: 700; color: var(--ok); margin-inline-start: 6px; }
+
+.card { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; display: grid; gap: 12px; }
+.card.answered { border-color: color-mix(in srgb, var(--ok) 45%, var(--rule)); }
+.q-title { font-weight: 700; font-size: 18px; margin: 0; }
+.q-help { margin: 0; color: var(--muted); font-size: 15px; }
+.optional { font-weight: 600; font-size: 14px; color: var(--muted); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+button {
+  font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
+  border-radius: 8px; padding: 10px 18px; border: 1px solid transparent;
+}
+button:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: .55; cursor: progress; }
+.btn-save { background: var(--accent); color: var(--sheet); }
+.btn-choice { background: transparent; color: var(--ink); border-color: var(--rule); font-weight: 600; text-align: start; }
+.btn-choice[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+textarea {
+  width: 100%; min-height: 84px; resize: vertical; font: inherit; font-size: 16px;
+  padding: 10px 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+}
+.saved { font-size: 14px; font-weight: 700; color: var(--ok); }
+.err { font-size: 14px; color: var(--fix); margin: 0; }
+.notice { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px; color: var(--muted); font-size: 15px; }
+.notice strong { color: var(--ink); }
+.progress { font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+
+footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 14px; }
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .compare { grid-template-columns: 1fr; }
+  .spec { grid-template-columns: 1fr; gap: 2px; }
+  .spec dd { margin-bottom: 10px; }
+}
+</style>
+
+<div class="wrap" dir="rtl">
+
+  <header>
+    <div class="eyebrow">אלעד גרובנר · ממומן · להחלטה שלך · 21.10</div>
+    <h1>ההצעה במודעה החדשה</h1>
+    <p class="lede">מה שסיפרת על ינואר שינה את התוכנית. כדי לבנות את המודעה הבאה, אנחנו צריכים ממך כמה החלטות על ההצעה. כל תשובה נשמרת לבד ברגע שבוחרים או לוחצים "שמירה".</p>
+  </header>
+
+  <section>
+    <h2>מה למדנו השבוע</h2>
+    <ul class="points">
+      <li><b>הקמפיין הנוכחי רץ 3 ימים, והוצאנו 90₪.</b> היו 2 פניות: טלמרקטינג, ו"מעצבת" שהתבררה כבוט. עוד אין אף פנייה רלוונטית.</li>
+      <li><b>זו לא תקלה.</b> עדי בדקה בטלפון: המודעה מוצגת טוב, והלחיצה פותחת וואטסאפ אצלך עם ההודעה המוכנה.</li>
+      <li><b>במודעה הנוכחית אין סיבה לפנות דווקא עכשיו.</b> היא אומרת "ספרו לי איזה פרויקט יש לכם", וזהו. מעצבת יכולה לחשוב "נחמד, אולי מתישהו" ולהמשיך לגלול.</li>
+      <li><b>ההערה שלך על התמונה הראשונה נכנסה.</b> במודעות החדשות התמונה הראשונה בכל קרוסלה תהיה החזקה ביותר בפרויקט, ואתה תבחר אותה.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>ינואר מול היום</h2>
+    <div class="compare">
+      <div class="col win">
+        <span class="tag">ינואר-פברואר · הביא סגירות</span>
+        <h3>"חבילת צילום + וידאו (Reels) במחיר השקה!"</h3>
+        <ul>
+          <li class="num">2,400₪ + מע"מ במקום 3,500₪</li>
+          <li>3 רילסים ערוכים במתנה</li>
+          <li>ל-5 הנרשמות הראשונות בלבד</li>
+          <li class="num">64 פניות, ולפחות שני ימי צילום. השני, האדריכלית, עומד להיסגר רק עכשיו</li>
+        </ul>
+      </div>
+      <div class="col">
+        <span class="tag">אוקטובר · עוד אין פניות רלוונטיות</span>
+        <h3>"מעצבות ומעצבי פנים? אדריכלים ואדריכליות?"</h3>
+        <ul>
+          <li>בלי הצעה, בלי מתנה ובלי מחיר</li>
+          <li>"ספרו לי איזה פרויקט יש לכם"</li>
+          <li class="num">3 ימים, 90₪, 2 פניות לא רלוונטיות</li>
+        </ul>
+      </div>
+    </div>
+    <blockquote>ב-15.10 כתבת "לא מעוניין לתת הטבה", ולכן במודעה הנוכחית אין הצעה. ינואר הוא הסיבה שאנחנו שואלים שוב.</blockquote>
+  </section>
+
+  <section>
+    <h2>מה אנחנו מציעים</h2>
+    <dl class="spec">
+      <dt>המודעה</dt>
+      <dd>הפתיחה שכתבת ("מעצבות ומעצבי פנים? אדריכלים ואדריכליות?"), ומיד אחריה ההצעה. בתמונה הראשונה, התמונה הכי חזקה בפרויקט.</dd>
+      <dt>מי יראה אותה</dt>
+      <dd>שתי קבוצות. "מכירים את אלעד": מי שעוקב או היה פעיל אצלך באינסטגרם, ורשימת המעצבות. ו"קהל חדש": קהל כמו בינואר, שמתחיל ממי שדומה למעצבות שלך.</dd>
+      <dt>תקציב</dt>
+      <dd class="num">75₪ ליום בסך הכל: 25₪ לקבוצה הראשונה ו-50₪ לשנייה. אין תאריך סיום, והאנליסט ממליץ לפי התוצאות.</dd>
+      <dt>מתי</dt>
+      <dd>בשבת בבוקר (24.10) בודקים את הקמפיין הנוכחי. אם עדיין אין פנייה רלוונטית, עוברים לחדש.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>שתי אפשרויות להצעה</h2>
+    <ul class="opts">
+      <li><span><b class="k">א. עם מחיר, כמו בינואר</b></span><span>זה מה שעבד אצלך. החיסרון: מעצבות שכבר עבדו איתך במחיר מלא יראו את המבצע, ומחיר שפורסם קשה להחזיר אחר כך.</span></li>
+      <li><span><b class="k">ב. מתנה ומקומות מוגבלים, בלי מחיר</b><span class="rec">ההמלצה שלנו להתחלה</span></span><span>למשל: רילסים במתנה ל-X הפרויקטים הראשונים. המחיר נשאר לשיחה. אצלך זה עוד לא נוסה, אבל מפרסמים אחרים בתחום מחזיקים מודעה כזו לאורך זמן. אם אחרי כ-500₪ לא יגיעו פניות, עוברים ל-א'.</span></li>
+    </ul>
+    <p class="small">בשתי האפשרויות, המקומות המוגבלים צריכים להיות אמיתיים. כותבים כמה פרויקטים, ולא "רק השבוע".</p>
+  </section>
+
+  <section aria-labelledby="q-head">
+    <h2 id="q-head">מה צריך ממך</h2>
+    <div class="notice" id="notice">טוען...</div>
+    <div class="progress" id="progress" hidden></div>
+
+    <div class="card" id="q-offer" hidden>
+      <p class="q-title">1. איזו הצעה תהיה במודעה?</p>
+    </div>
+
+    <div class="card" id="q-content" hidden>
+      <p class="q-title">2. מה כלול בהצעה, ומה המתנה?</p>
+      <p class="q-help">בינואר: יום צילום עד 5 חללים, עריכה מלאה, ו-3 רילסים ערוכים במתנה. חשוב שתוכל לתת את המתנה בכל פרויקט שייסגר מהמודעה.</p>
+    </div>
+
+    <div class="card" id="q-slots" hidden>
+      <p class="q-title">3. כמה מקומות אמיתיים יש לך, ועד מתי?</p>
+      <p class="q-help">למשל: "5 פרויקטים עד סוף נובמבר".</p>
+    </div>
+
+    <div class="card" id="q-price" hidden>
+      <p class="q-title">4. אם בחרת א': איזה מחיר יופיע במודעה? <span class="optional">(רק אם בחרת א')</span></p>
+      <p class="q-help">בינואר: 2,400₪ + מע"מ, במקום 3,500₪.</p>
+    </div>
+
+    <div class="card" id="q-switch" hidden>
+      <p class="q-title">5. אם ב' לא תביא פניות אחרי כ-500₪, לעבור ל-א'?</p>
+    </div>
+
+    <div class="card" id="q-clients" hidden>
+      <p class="q-title">6. מעצבות שכבר עבדו איתך יראו את ההצעה. זה בסדר מבחינתך?</p>
+      <p class="q-help">בינואר דווקא הגיעו מזה פניות ממעצבות שאתה מכיר. אם עדיף שלא יראו, נוציא אותן מהקהל של המודעה עם ההצעה.</p>
+    </div>
+
+    <div class="card" id="q-more" hidden>
+      <p class="q-title">7. עוד משהו שחשוב לך? <span class="optional">(לא חובה)</span></p>
+    </div>
+  </section>
+
+  <footer>כשתסיים, תגיד לעדי. הקופירייטר יכתוב את המודעה לפי התשובות, ותקבל אותה לאישור בדף האישור, עם שתי אפשרויות לתמונה הראשונה בכל פרויקט.</footer>
+</div>
+
+<script>
+(function () {
+  var db = null;
+  var answers = {};
+  var ui = {};
+
+  // תשובה אחת לכל שאלה, ב-answers/<id>. את התשובות קוראים מהשיחה עם ArtifactData.
+  var QUESTIONS = [
+    { id: "offer", card: "q-offer", type: "choice", choices: ["א. עם מחיר, כמו בינואר", "ב. מתנה ומקומות מוגבלים, בלי מחיר", "בלי הצעה בכלל"] },
+    { id: "offer_content", card: "q-content", type: "text", placeholder: "מה כלול, ומה המתנה" },
+    { id: "slots", card: "q-slots", type: "text", placeholder: "כמה פרויקטים, ועד מתי" },
+    { id: "price", card: "q-price", type: "text", placeholder: "המחיר במודעה, ואם יש גם \"במקום\"", optional: true },
+    { id: "switch_to_price", card: "q-switch", type: "choice", choices: ["כן, לעבור ל-א'", "לא, לא לשים מחיר", "נדבר על זה אז"] },
+    { id: "clients_see_offer", card: "q-clients", type: "choice", choices: ["בסדר שיראו", "עדיף שלא יראו"] },
+    { id: "more", card: "q-more", type: "text", placeholder: "כל מה שחשוב לך", optional: true }
+  ];
+
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "class") n.className = attrs[k];
+      else if (k === "text") n.textContent = attrs[k];
+      else if (k.slice(0, 2) === "on") n.addEventListener(k.slice(2), attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return n;
+  }
+  function uiOf(id) { return ui[id] || (ui[id] = { draft: null, busy: false, err: "" }); }
+  function when(iso) {
+    try { var d = new Date(iso); return d.getDate() + "." + (d.getMonth() + 1) + " " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); }
+    catch (e) { return ""; }
+  }
+
+  function renderProgress() {
+    var p = document.getElementById("progress");
+    var must = QUESTIONS.filter(function (q) { return !q.optional; });
+    var done = must.filter(function (q) { return answers[q.id]; }).length;
+    p.hidden = false;
+    p.textContent = done === must.length ? "ענית על כל השאלות ✓ אפשר להגיד לעדי." : "ענית על " + done + " מתוך " + must.length + " שאלות החובה";
+  }
+
+  async function saveAnswer(q, value) {
+    var u = uiOf(q.id);
+    u.busy = true; u.err = ""; renderQuestion(q);
+    try {
+      await db.doc("answers/" + q.id).set({ value: value, at: new Date().toISOString() });
+      u.draft = null;
+    } catch (e) { u.err = "השמירה לא עברה. נסה שוב בעוד רגע."; }
+    u.busy = false; renderQuestion(q);
+  }
+
+  function renderQuestion(q) {
+    var card = document.getElementById(q.card);
+    if (!card) return;
+    card.hidden = false;
+    var hadFocus = document.activeElement && document.activeElement.id === "ans-" + q.id;
+    var old = card.querySelector(".answer");
+    if (old) old.remove();
+    var u = uiOf(q.id);
+    var a = answers[q.id];
+    card.className = "card" + (a ? " answered" : "");
+    var box = el("div", { class: "answer" });
+    box.style.display = "grid"; box.style.gap = "10px";
+    if (q.type === "choice") {
+      box.appendChild(el("div", { class: "actions", role: "group" }, q.choices.map(function (c) {
+        return el("button", { class: "btn-choice", type: "button", "aria-pressed": String(!!a && a.value === c), onclick: function () { saveAnswer(q, c); }, text: c });
+      })));
+      if (a) box.appendChild(el("span", { class: "saved", text: "נשמר ✓ " + when(a.at) }));
+    } else {
+      var ta = el("textarea", { id: "ans-" + q.id, dir: "auto", placeholder: q.placeholder, "aria-label": "התשובה שלך" });
+      ta.value = u.draft !== null ? u.draft : (a ? a.value : "");
+      var status = el("span", { class: "saved", text: (a && u.draft === null) ? "נשמר ✓ " + when(a.at) : "" });
+      ta.addEventListener("input", function () { u.draft = ta.value; status.textContent = ""; });
+      box.appendChild(ta);
+      box.appendChild(el("div", { class: "actions" }, [
+        el("button", { class: "btn-save", type: "button", onclick: function () {
+          var v = (u.draft !== null ? u.draft : ta.value).trim();
+          if (!v) { u.err = "כתוב תשובה לפני השמירה."; renderQuestion(q); return; }
+          saveAnswer(q, v);
+        }, text: "שמירה" }),
+        status
+      ]));
+    }
+    if (u.err) box.appendChild(el("p", { class: "err", role: "alert", text: u.err }));
+    if (u.busy) box.querySelectorAll("button").forEach(function (b) { b.disabled = true; });
+    card.appendChild(box);
+    if (hadFocus) { var t = document.getElementById("ans-" + q.id); if (t) t.focus(); }
+  }
+
+  function start() {
+    var notice = document.getElementById("notice");
+    if (!window.claude || !window.claude.use) {
+      notice.innerHTML = "<strong>הדף הזה עובד רק מתוך claude.ai.</strong> פתח אותו מהקישור שעדי שלחה.";
+      return;
+    }
+    window.claude.use("db").then(function (d) {
+      db = d;
+      if (!db) { notice.innerHTML = "<strong>אי אפשר לשמור תשובות כאן.</strong> פתח את הדף מהקישור ב-claude.ai, מהחשבון של העסק."; return; }
+      var ready = false;
+      db.collection("answers").onSnapshot(function (s) {
+        var next = {};
+        s.docs.forEach(function (x) { next[x.id] = x.data(); });
+        answers = next;
+        if (!ready) { ready = true; notice.hidden = true; }
+        QUESTIONS.forEach(renderQuestion);
+        renderProgress();
+      }, function () { notice.innerHTML = "<strong>הדף לא נטען.</strong> רענן את הדף."; });
+    });
+  }
+  start();
+})();
+</script>

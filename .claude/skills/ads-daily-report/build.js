@@ -34,6 +34,9 @@ const log = walk(logDir)
   .filter((r) => r && r.campaign === campaignKey);
 const RELEVANT = new Set(['designer', 'architect']);
 const isRel = (r) => RELEVANT.has(r.who);
+// via: 'private' = ראתה את המודעה ופנתה בפרטי (מ-21.10). Meta לא סופרת אותה, ולכן בהשוואה ל-Meta מורידים אותה.
+// בלי השדה = דרך הכפתור במודעה.
+const isPrivate = (r) => r.via === 'private';
 const amount = (r) => (r.status === 'won' ? Number(r.amount_ils) || 0 : 0);
 
 // --- לפי יום ---
@@ -62,6 +65,7 @@ const daily = dates.map((date) => {
     spend_ils: round(spend),
     meta_conversations: Number(m.conversations) || 0,
     log_conversations: dayLog.length,
+    private_conversations: dayLog.filter(isPrivate).length,
     relevant,
     won: dayWon.length,
     revenue_ils: revenue,
@@ -85,6 +89,7 @@ const ads = Object.entries(adsMap).map(([key, word]) => {
     spend_ils: round(spend),
     meta_conversations: Number(m.conversations) || 0,
     log_conversations: list.length,
+    private_conversations: list.filter(isPrivate).length,
     relevant,
     won: list.filter((r) => r.status === 'won').length,
     revenue_ils: list.reduce((s, r) => s + amount(r), 0),
@@ -128,6 +133,7 @@ const status = [{
   spend_ils: round(totalSpend),
   meta_conversations: Number(t.conversations) || 0,
   log_conversations: log.length,
+  private_conversations: log.filter(isPrivate).length,
   relevant: totalRel,
   open: log.filter((r) => r.status === 'open' || r.status === 'quote').length,
   // כמה ימים בממוצע מהפנייה ועד הסגירה (רק מה שנסגר)
