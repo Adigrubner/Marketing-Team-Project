@@ -1,6 +1,6 @@
 {
-  "_הסבר": "קידום הפוסט 'ארבעה סלונים, ארבע מעצבות' מאינסטגרם (15.10.2026), לפי promote-card.md שעדי אישרה ב-25.10: פיד אינסטגרם בלבד, 15 ש\"ח ליום, בלי תאריך סיום, קהל חם סגור בלי החרגות.",
-  "name": "קידום - סלונים 15.10 - מכירים את אלעד",
+  "_הסבר": "גרסה 2 (25.10): מודעת קרוסלה חדשה עם 10 תמונות הסלונים, במקום קידום הפוסט (גרסה 1 בוטלה - plan.v1-existing-post-CANCELLED.json). לפי promote-card.md גרסה 2, creatives.md (סדר א'), copy.md גרסה 2 שאלעד אישר בדף (approvals/promote-living-rooms-ad, version 2). בלי שורת התאריכים, בלי תאריך סיום.",
+  "name": "קידום - סלונים, ארבע מעצבות - מכירים את אלעד",
   "destination": "whatsapp",
   "daily_budget_ils": 15,
   "audience": {
@@ -14,16 +14,30 @@
     "custom_audience_expansion": false
   },
   "placements": {
+    "facebook": ["feed"],
     "instagram": ["stream"]
+  },
+  "headline": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+  "whatsapp": {
+    "autofill_message": "היי אלעד, ראיתי את המודעה. סיימתי פרויקט ואשמח לספר לך עליו",
+    "greeting": "היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?"
   },
   "ads": [
     {
-      "name": "סלונים 15.10",
-      "existing_post": {
-        "platform": "instagram",
-        "id": "18039493251482139",
-        "url": "https://www.instagram.com/p/Dehc8VBm6-x/"
-      }
+      "name": "ארבעה סלונים, ארבע מעצבות",
+      "text": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nאותו חדר, ארבע מעצבות, ארבע תשובות שונות לגמרי!\n\nארבעה סלונים שנהניתי לצלם, עבודות מהממות של שירן פורת, מיימונה טאהא, ליז לוז ואירית פרייהייטר.\nביום הצילום אני מסדר, מזיז ומדייק עד שבכל תמונה רואים את השפה שלכם.\n\nספרו לי בוואטסאפ על הפרויקט שסיימתם, ונחשוב יחד מה שווה לצלם בו.",
+      "images": [
+        "creatives/warm-shiran-1-4x5.jpg",
+        "creatives/warm-shiran-2-4x5.jpg",
+        "creatives/warm-shiran-3-4x5.jpg",
+        "creatives/warm-maymuna-1-4x5.jpg",
+        "creatives/warm-maymuna-2-4x5.jpg",
+        "creatives/warm-maymuna-3-4x5.jpg",
+        "creatives/warm-liz-1-4x5.jpg",
+        "creatives/warm-liz-2-4x5.jpg",
+        "creatives/warm-irit-1-4x5.jpg",
+        "creatives/warm-irit-2-4x5.jpg"
+      ]
     }
   ]
 }

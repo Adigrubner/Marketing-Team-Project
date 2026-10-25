@@ -1,0 +1,30 @@
+{
+  "_מבוטל": "גרסה 1 - בוטלה ב-25.10. ב---check Meta דחתה את הפוסט (12 תמונות, מותר עד 10, code 105). ההחלטה של עדי: מודעה חדשה במקום קידום הפוסט - ראו plan.json. שום דבר לא נוצר מהגרסה הזו.",
+  "_הסבר": "קידום הפוסט 'ארבעה סלונים, ארבע מעצבות' מאינסטגרם (15.10.2026), לפי promote-card.md שעדי אישרה ב-25.10: פיד אינסטגרם בלבד, 15 ש\"ח ליום, בלי תאריך סיום, קהל חם סגור בלי החרגות.",
+  "name": "קידום - סלונים 15.10 - מכירים את אלעד",
+  "destination": "whatsapp",
+  "daily_budget_ils": 15,
+  "audience": {
+    "countries": ["IL"],
+    "age_min": 25,
+    "advantage_audience": false,
+    "custom_audiences": [
+      { "id": "120240633155310745", "name": "IG Engagement 365 Days" },
+      { "id": "120240633031420745", "name": "Designers Phone List - Jan 2026" }
+    ],
+    "custom_audience_expansion": false
+  },
+  "placements": {
+    "instagram": ["stream"]
+  },
+  "ads": [
+    {
+      "name": "סלונים 15.10",
+      "existing_post": {
+        "platform": "instagram",
+        "id": "18039493251482139",
+        "url": "https://www.instagram.com/p/Dehc8VBm6-x/"
+      }
+    }
+  ]
+}
