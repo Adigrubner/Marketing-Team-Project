@@ -1,4 +1,5 @@
 <title>אישור מודעות ממומן</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -39,7 +40,9 @@
 body {
   background: var(--paper); color: var(--ink);
   font-family: var(--f-body); font-size: 16px; line-height: 1.55;
-  padding-inline: 16px; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
 }
 .wrap { max-width: 860px; margin-inline: auto; display: grid; gap: 28px; }
 
@@ -59,6 +62,19 @@ h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 6vw
 .chip.changes { background: var(--fix-soft); color: var(--fix); }
 .chip.declined { background: var(--frame); color: var(--muted); }
 .chip.stage { background: transparent; border: 1px solid var(--rule); color: var(--muted); font-weight: 600; }
+
+/* לשונית לכל קמפיין. הלשונית שבה מחכה החלטה נפתחת ראשונה. */
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--rule); }
+.tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--muted); font-weight: 600; font-size: 15px;
+  border: 1px solid transparent; border-bottom: 0; border-radius: 8px 8px 0 0;
+  padding: 10px 16px; margin-bottom: -1px;
+}
+.tab[aria-selected="true"] { background: var(--sheet); color: var(--ink); font-weight: 700; border-color: var(--rule); }
+.tab:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.tab-badge { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 1px 9px; background: var(--accent-soft); color: var(--accent); font-variant-numeric: tabular-nums; }
+.tab-badge.done { background: var(--ok-soft); color: var(--ok); }
 
 .notice { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; color: var(--muted); }
 .notice strong { color: var(--ink); }
@@ -137,8 +153,10 @@ footer { color: var(--muted); font-size: 13px; }
   <header>
     <div class="eyebrow" id="client">ממומן · דף אישור</div>
     <h1 id="title">המודעות לאישור</h1>
-    <p class="lede" id="lede">כל מודעה מוצגת בשני הגדלים שבהם היא תופיע: 4:5 בפיד, 9:16 בסטורי ובריל. לכל מודעה: לעבור על התמונה ועל השאלה בכחול, ולסמן <b>מאשר</b> או <b>צריך תיקון</b>. שום דבר לא עולה ל-Meta מהדף הזה.</p>
+    <p class="lede" id="lede">כל קמפיין בלשונית משלו. לכל מודעה: לעבור על התמונות ועל השאלה בכחול, ולסמן <b>מאשר</b> או <b>צריך תיקון</b>. שום דבר לא עולה ל-Meta מהדף הזה.</p>
   </header>
+
+  <div class="tabs" id="tabs" role="tablist" aria-label="קמפיינים" hidden></div>
 
   <div class="tally" id="tally" aria-live="polite"></div>
 
@@ -158,6 +176,11 @@ footer { color: var(--muted); font-size: 13px; }
   var approvals = {};
   var loaded = { ads: false };
   var ui = {};       // per ad: { noteOpen, draft, busy, error }
+  // הלשונית: השדה tab בכל מודעה (בלעדיו - הקבוצה). בכל כניסה נפתחת הלשונית שבה מחכה החלטה,
+  // ולכן הבחירה לא נשמרת בין כניסות.
+  var activeTab = null;
+  function tabOf(p) { return p.tab || p.group || ""; }
+  function chooseTab(t) { activeTab = t; render(); }
 
   function el(tag, attrs, kids) {
     var n = document.createElement(tag);
@@ -306,6 +329,32 @@ footer { color: var(--muted); font-size: 13px; }
       notice.hidden = false;
       notice.innerHTML = "<strong>אין כרגע מודעות לאישור.</strong> כשהתמונות או הטקסטים של קמפיין יהיו מוכנים, הם יופיעו כאן עם כפתורי האישור.";
     } else notice.hidden = true;
+
+    // Tabs, in the order of their first ad. Opens on the first one with something waiting.
+    var tabs = [], pendingIn = {};
+    vis.forEach(function (p) {
+      var t = tabOf(p);
+      if (!(t in pendingIn)) { pendingIn[t] = 0; tabs.push(t); }
+      if (stateOf(p) === "pending") pendingIn[t]++;
+    });
+    if (tabs.indexOf(activeTab) === -1) {
+      activeTab = tabs.filter(function (t) { return pendingIn[t] > 0; })[0] || tabs[0] || null;
+    }
+    var tabBar = document.getElementById("tabs");
+    tabBar.textContent = "";
+    tabBar.hidden = tabs.length < 2;
+    tabs.forEach(function (t) {
+      var n = pendingIn[t];
+      tabBar.appendChild(el("button", {
+        class: "tab", type: "button", role: "tab", id: "tab-" + tabs.indexOf(t),
+        "aria-selected": String(t === activeTab),
+        onclick: function () { if (t !== activeTab) chooseTab(t); }
+      }, [
+        el("span", { dir: "auto", text: t || "מודעות" }),
+        el("span", { class: "tab-badge" + (n ? "" : " done"), "aria-label": n ? n + " מחכות להחלטה" : "הכל נבדק", text: n ? String(n) : "✓" })
+      ]));
+    });
+    if (tabs.length > 1) vis = vis.filter(function (p) { return tabOf(p) === activeTab; });
 
     // Keep any open comment box (and the text typed in it) across live updates by rebuilding only what changed.
     var focusId = document.activeElement && document.activeElement.id;

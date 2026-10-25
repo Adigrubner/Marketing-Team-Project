@@ -66,6 +66,24 @@ export async function uploadAdImage(imageBuffer, fileName = 'creative.png') {
 
 export const adAccountPath = (suffix) => `act_${process.env.META_AD_ACCOUNT_ID}/${suffix}`;
 
+// קריאה בלבד בשם הדף (פוסטים של הדף דורשים טוקן של דף). הטוקן נשמר בזיכרון בלבד - לא מודפס ולא נכתב לקובץ.
+// אין כאן, בכוונה, POST בשם הדף.
+let pageToken;
+export async function graphGetAsPage(path, params = {}) {
+  if (!pageToken) {
+    const r = await graphGet(process.env.META_PAGE_ID, { fields: 'access_token' });
+    if (!r.access_token) throw new Error('לא התקבל טוקן של הדף - לבדוק שלחיבור יש הרשאה pages_read_engagement (npm run doctor)');
+    pageToken = r.access_token;
+  }
+  const url = new URL(`https://graph.facebook.com/${V()}/${path}`);
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, String(v));
+  url.searchParams.set('access_token', pageToken);
+  const res = await fetch(url);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || data?.error) throw metaError(data?.error, res.status);
+  return data;
+}
+
 // שגיאה עם ההודעה המלאה, ועם הקודים עצמם (code/subcode) - כדי שהכלים יזהו למשל הגבלת בקשות (code 17).
 function metaError(err, status) {
   const e = new Error(describeError(err, status));

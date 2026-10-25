@@ -109,6 +109,6 @@
 ## היסטוריית פרסום
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
-|       |        |     |        |
+| 22.10.2026 16:00 | קרוסלה 12 אורך - פרויקט מלא (בטון חשוף) | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DezDC8ClY0d/) · `content/posts/2026-10-22-reut-zilberberg-full/` |
 
-> 📝 **טיוטה:** 22.10.2026 - קרוסלה 12 אורך (`content/posts/2026-10-22-reut-zilberberg-full/selection.md`): `Designer/104` · `Interior/07` · `Interior/01` · `Interior/22` · `Designer/114` · `Designer/109` · `Interior/19` · `Designer/117` · `Interior/43` · `Details/91` · `Interior/62` · `Details/81`. נרשם ב-`history.md` רק אחרי שעולה.
+> ✅ **פורסם 22.10.2026:** `Designer/104` · `Interior/07` · `Interior/01` · `Interior/22` · `Designer/114` · `Designer/109` · `Interior/19` · `Designer/117` · `Interior/43` · `Details/91` · `Interior/62` · `Details/81`. נרשם ב-`history.md`.

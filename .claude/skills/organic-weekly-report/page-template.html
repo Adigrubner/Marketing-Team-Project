@@ -413,6 +413,22 @@ footer .rule span { width: 32px; }
     }
     html += '</section>';
 
+    // promotion candidates: flagged by the analyst, decided by the ads strategist, approved by Adi
+    var PR = D.promote || null;
+    if (PR && ((PR.candidates || []).length || PR.summary)) {
+      html += '<section class="section"><div class="section-head"><h2>מועמדים לקידום ממומן</h2><p class="sub">' + (PR.summary ? esc(PR.summary) : 'פוסטים שבלטו באורגני - האסטרטג של הממומן מחליט, ועדי מאשרת') + '</p></div>';
+      if ((PR.candidates || []).length) {
+        html += '<div class="refs">';
+        PR.candidates.forEach(function (c) {
+          html += '<div class="card ref"><div class="who">' + (c.url ? '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.title) + '</a>' : esc(c.title)) + (c.date ? ' <small>· ' + esc(d(c.date)) + '</small>' : '') + '</div>' +
+            (c.why ? '<p>' + esc(c.why) + '</p>' : '') +
+            (c.decision ? '<div class="stats"><span class="stat src">החלטה: ' + esc(c.decision) + '</span></div>' : '') + '</div>';
+        });
+        html += '</div>';
+      }
+      html += '</section>';
+    }
+
     html += '<footer>' + rule + '<span>הנתונים ממטריקול · אינסטגרם ופייסבוק, אורגני בלבד · עודכן ' + esc(D.generatedAt || '') + '</span></footer>';
     app.innerHTML = html;
 

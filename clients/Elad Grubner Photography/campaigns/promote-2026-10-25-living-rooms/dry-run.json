@@ -1,0 +1,82 @@
+{
+  "images": [],
+  "campaign": {
+    "name": "קידום - סלונים 15.10 - מכירים את אלעד",
+    "objective": "OUTCOME_ENGAGEMENT",
+    "special_ad_categories": [],
+    "is_adset_budget_sharing_enabled": false,
+    "status": "PAUSED"
+  },
+  "adSet": {
+    "name": "קידום - סלונים 15.10 - מכירים את אלעד · Ad Set",
+    "campaign_id": "<מזהה הקמפיין>",
+    "daily_budget": 1500,
+    "billing_event": "IMPRESSIONS",
+    "optimization_goal": "CONVERSATIONS",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "destination_type": "WHATSAPP",
+    "promoted_object": {
+      "page_id": "2129327774004845"
+    },
+    "targeting": {
+      "geo_locations": {
+        "countries": [
+          "IL"
+        ]
+      },
+      "age_min": 25,
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "custom_audiences": [
+        {
+          "id": "120240633155310745"
+        },
+        {
+          "id": "120240633031420745"
+        }
+      ],
+      "targeting_relaxation_types": {
+        "custom_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "status": "PAUSED"
+  },
+  "ads": [
+    {
+      "name": "סלונים 15.10",
+      "images": [],
+      "creative": {
+        "name": "קידום - סלונים 15.10 - מכירים את אלעד · סלונים 15.10 · Creative",
+        "object_id": "2129327774004845",
+        "instagram_user_id": "17841408216480135",
+        "source_instagram_media_id": "18039493251482139",
+        "call_to_action": {
+          "type": "WHATSAPP_MESSAGE",
+          "value": {
+            "app_destination": "WHATSAPP",
+            "link": "https://api.whatsapp.com/send"
+          }
+        }
+      },
+      "ad": {
+        "name": "קידום - סלונים 15.10 - מכירים את אלעד · סלונים 15.10",
+        "adset_id": "<מזהה האד-סט>",
+        "creative": {
+          "creative_id": "<הקריאייטיב של סלונים 15.10>"
+        },
+        "status": "PAUSED"
+      }
+    }
+  ]
+}

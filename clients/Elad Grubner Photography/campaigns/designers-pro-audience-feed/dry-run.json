@@ -1,0 +1,725 @@
+{
+  "images": [
+    "creatives/alia-v2-A1-4x5.jpg",
+    "creatives/alia-v2-6-4x5.jpg",
+    "creatives/alia-1-4x5.jpg",
+    "creatives/alia-v2-B1-4x5.jpg",
+    "creatives/alia-v2-7-4x5.jpg",
+    "creatives/linoy-v2-B1-4x5.jpg",
+    "creatives/linoy-v2-A1-4x5.jpg",
+    "creatives/linoy-1-4x5.jpg",
+    "creatives/linoy-v2-6-4x5.jpg",
+    "creatives/linoy-5-4x5.jpg",
+    "creatives/liron-B1-4x5.jpg",
+    "creatives/liron-2-4x5.jpg",
+    "creatives/liron-v2-6-4x5.jpg",
+    "creatives/liron-v2-7-4x5.jpg",
+    "creatives/liron-5-4x5.jpg",
+    "creatives/sonia-A1-4x5.jpg",
+    "creatives/sonia-1-4x5.jpg",
+    "creatives/sonia-3-4x5.jpg",
+    "creatives/sonia-4-4x5.jpg",
+    "creatives/sonia-v3-5-4x5.jpg"
+  ],
+  "campaign": {
+    "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד",
+    "objective": "OUTCOME_ENGAGEMENT",
+    "special_ad_categories": [],
+    "is_adset_budget_sharing_enabled": false,
+    "status": "PAUSED"
+  },
+  "ad_sets": [
+    {
+      "name": "מכירים את אלעד",
+      "adSet": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · מכירים את אלעד",
+        "campaign_id": "<מזהה הקמפיין>",
+        "daily_budget": 2500,
+        "billing_event": "IMPRESSIONS",
+        "optimization_goal": "CONVERSATIONS",
+        "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+        "destination_type": "WHATSAPP",
+        "promoted_object": {
+          "page_id": "2129327774004845"
+        },
+        "targeting": {
+          "geo_locations": {
+            "countries": [
+              "IL"
+            ]
+          },
+          "age_min": 25,
+          "targeting_automation": {
+            "advantage_audience": 0
+          },
+          "custom_audiences": [
+            {
+              "id": "120240633155310745"
+            },
+            {
+              "id": "120240633031420745"
+            }
+          ],
+          "targeting_relaxation_types": {
+            "custom_audience": 0
+          },
+          "publisher_platforms": [
+            "facebook",
+            "instagram"
+          ],
+          "facebook_positions": [
+            "feed"
+          ],
+          "instagram_positions": [
+            "stream"
+          ],
+          "device_platforms": [
+            "mobile",
+            "desktop"
+          ]
+        },
+        "status": "PAUSED"
+      },
+      "ads": [
+        {
+          "name": "עליא גפארי - A",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · מכירים את אלעד · עליא גפארי - A",
+            "adset_id": "<מזהה האד-סט מכירים את אלעד>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של עליא גפארי - A>"
+            },
+            "status": "PAUSED"
+          }
+        },
+        {
+          "name": "לינוי כהן - מזכרת בתיה - B",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · מכירים את אלעד · לינוי כהן - מזכרת בתיה - B",
+            "adset_id": "<מזהה האד-סט מכירים את אלעד>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של לינוי כהן - מזכרת בתיה - B>"
+            },
+            "status": "PAUSED"
+          }
+        },
+        {
+          "name": "לירון חפץ - נתניה - B",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · מכירים את אלעד · לירון חפץ - נתניה - B",
+            "adset_id": "<מזהה האד-סט מכירים את אלעד>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של לירון חפץ - נתניה - B>"
+            },
+            "status": "PAUSED"
+          }
+        },
+        {
+          "name": "סוניה וספיר - תל מונד - A",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · מכירים את אלעד · סוניה וספיר - תל מונד - A",
+            "adset_id": "<מזהה האד-סט מכירים את אלעד>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של סוניה וספיר - תל מונד - A>"
+            },
+            "status": "PAUSED"
+          }
+        }
+      ]
+    },
+    {
+      "name": "קהל חדש",
+      "adSet": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · קהל חדש",
+        "campaign_id": "<מזהה הקמפיין>",
+        "daily_budget": 5000,
+        "billing_event": "IMPRESSIONS",
+        "optimization_goal": "CONVERSATIONS",
+        "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+        "destination_type": "WHATSAPP",
+        "promoted_object": {
+          "page_id": "2129327774004845"
+        },
+        "targeting": {
+          "geo_locations": {
+            "countries": [
+              "IL"
+            ]
+          },
+          "age_min": 25,
+          "targeting_automation": {
+            "advantage_audience": 1
+          },
+          "custom_audiences": [
+            {
+              "id": "120254805380880745"
+            }
+          ],
+          "excluded_custom_audiences": [
+            {
+              "id": "120240633155310745"
+            },
+            {
+              "id": "120240633031420745"
+            }
+          ],
+          "publisher_platforms": [
+            "facebook",
+            "instagram"
+          ],
+          "facebook_positions": [
+            "feed"
+          ],
+          "instagram_positions": [
+            "stream"
+          ],
+          "device_platforms": [
+            "mobile",
+            "desktop"
+          ]
+        },
+        "status": "PAUSED"
+      },
+      "ads": [
+        {
+          "name": "עליא גפארי - A",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · קהל חדש · עליא גפארי - A",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של עליא גפארי - A>"
+            },
+            "status": "PAUSED"
+          }
+        },
+        {
+          "name": "לינוי כהן - מזכרת בתיה - B",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · קהל חדש · לינוי כהן - מזכרת בתיה - B",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של לינוי כהן - מזכרת בתיה - B>"
+            },
+            "status": "PAUSED"
+          }
+        },
+        {
+          "name": "לירון חפץ - נתניה - B",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · קהל חדש · לירון חפץ - נתניה - B",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של לירון חפץ - נתניה - B>"
+            },
+            "status": "PAUSED"
+          }
+        },
+        {
+          "name": "סוניה וספיר - תל מונד - A",
+          "ad": {
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · קהל חדש · סוניה וספיר - תל מונד - A",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
+            "creative": {
+              "creative_id": "<הקריאייטיב של סוניה וספיר - תל מונד - A>"
+            },
+            "status": "PAUSED"
+          }
+        }
+      ]
+    }
+  ],
+  "ads": [
+    {
+      "name": "עליא גפארי - A",
+      "images": [
+        "creatives/alia-v2-A1-4x5.jpg",
+        "creatives/alia-v2-6-4x5.jpg",
+        "creatives/alia-1-4x5.jpg",
+        "creatives/alia-v2-B1-4x5.jpg",
+        "creatives/alia-v2-7-4x5.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · עליא גפארי - A · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135",
+          "link_data": {
+            "link": "https://api.whatsapp.com/send",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של עליא, עם מטבח אגוז וטרוורטין שנהניתי לצלם מכל זווית - עבודה מדהימה של @alia.gafari",
+            "call_to_action": {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            },
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "child_attachments": [
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/alia-v2-A1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/alia-v2-6-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/alia-1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/alia-v2-B1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/alia-v2-7-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              }
+            ],
+            "multi_share_optimized": false,
+            "multi_share_end_card": false
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "לינוי כהן - מזכרת בתיה - B",
+      "images": [
+        "creatives/linoy-v2-B1-4x5.jpg",
+        "creatives/linoy-v2-A1-4x5.jpg",
+        "creatives/linoy-1-4x5.jpg",
+        "creatives/linoy-v2-6-4x5.jpg",
+        "creatives/linoy-5-4x5.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · לינוי כהן - מזכרת בתיה - B · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135",
+          "link_data": {
+            "link": "https://api.whatsapp.com/send",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של לינוי במזכרת בתיה, לבן ושקט, עם קיר ויטרינות אגוז מואר שמחמם את כל החלל - עבודה נהדרת של @linoycohen_design",
+            "call_to_action": {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            },
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "child_attachments": [
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/linoy-v2-B1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/linoy-v2-A1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/linoy-1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/linoy-v2-6-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/linoy-5-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              }
+            ],
+            "multi_share_optimized": false,
+            "multi_share_end_card": false
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "לירון חפץ - נתניה - B",
+      "images": [
+        "creatives/liron-B1-4x5.jpg",
+        "creatives/liron-2-4x5.jpg",
+        "creatives/liron-v2-6-4x5.jpg",
+        "creatives/liron-v2-7-4x5.jpg",
+        "creatives/liron-5-4x5.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · לירון חפץ - נתניה - B · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135",
+          "link_data": {
+            "link": "https://api.whatsapp.com/send",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של לירון בנתניה, רך ושקט, עם ארון אלון מעוגל שלא יכולתי להפסיק לצלם - עבודה מקסימה של @liron_hefetz_interiordesign",
+            "call_to_action": {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            },
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "child_attachments": [
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-B1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-2-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-v2-6-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-v2-7-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-5-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              }
+            ],
+            "multi_share_optimized": false,
+            "multi_share_end_card": false
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "סוניה וספיר - תל מונד - A",
+      "images": [
+        "creatives/sonia-A1-4x5.jpg",
+        "creatives/sonia-1-4x5.jpg",
+        "creatives/sonia-3-4x5.jpg",
+        "creatives/sonia-4-4x5.jpg",
+        "creatives/sonia-v3-5-4x5.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד · סוניה וספיר - תל מונד - A · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135",
+          "link_data": {
+            "link": "https://api.whatsapp.com/send",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של סוניה וספיר בתל מונד, לבן ועץ עם כיסאות ורודים שעושים שמח - עבודה מהממת של @local.studiodesign",
+            "call_to_action": {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            },
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "child_attachments": [
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/sonia-A1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/sonia-1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/sonia-3-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/sonia-4-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/sonia-v3-5-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              }
+            ],
+            "multi_share_optimized": false,
+            "multi_share_end_card": false
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -114,6 +114,17 @@ if (emailOut) {
           ${s.owner ? `<div style="font-size:12.5px;color:${muted};padding-top:2px;">מי מיישמת: <b style="color:${bronze};">${esc(s.owner)}</b></div>` : ''}
         </td></tr></table></td></tr>`).join('');
 
+  // promotion candidates: posts the analyst flagged for a small paid boost (the strategist decides, Adi approves)
+  const PR = D.promote || {};
+  const prCards = (PR.candidates || []).map(c => `
+    <tr><td style="padding:4px 0;">
+      <div style="background:#FFFFFF;border:1px solid ${line};border-radius:12px;padding:14px 16px;${font}">
+      <div style="font-size:15px;font-weight:700;color:${ink};">${c.url ? `<a href="${esc(c.url)}" style="color:${ink};text-decoration:none;">${esc(c.title)}</a>` : esc(c.title)}${c.date ? ` <span style="font-weight:400;font-size:13px;color:${muted};">· ${dm(c.date)}</span>` : ''}</div>
+      ${c.why ? `<div style="font-size:14px;color:${ink2};padding-top:4px;">${esc(c.why)}</div>` : ''}
+      ${c.decision ? `<div style="font-size:12.5px;color:${muted};padding-top:4px;">החלטה: <b style="color:${bronze};">${esc(c.decision)}</b></div>` : ''}
+      </div></td></tr>`).join('');
+  const promote = (prCards || PR.summary) ? `${h2('מועמדים לקידום ממומן')}${PR.summary ? `<tr><td style="${font}font-size:14px;color:${ink2};padding-bottom:6px;">${esc(PR.summary)}</td></tr>` : ''}${prCards}` : '';
+
   // trends: last week vs 4 weeks earlier, and vs the starting point
   const H = (D.history || []).slice(-12);
   const lastH = H[H.length - 1] || {};
@@ -164,6 +175,7 @@ if (emailOut) {
   ${D.referencesSummary ? `${h2('אצל צלמי הרפרנס')}
   <tr><td style="background:${panel};border-radius:12px;padding:16px 18px;${font}font-size:15px;line-height:1.6;color:${ink};">${esc(D.referencesSummary)}</td></tr>` : ''}
   ${sugg ? `${h2('מה כדאי לנסות')}${sugg}` : ''}
+  ${promote}
   ${D.pageUrl ? `<tr><td align="center" style="padding:30px 0 6px;"><a href="${esc(D.pageUrl)}" style="${font}display:inline-block;background:${ink};color:${bg};text-decoration:none;font-size:15px;font-weight:700;padding:13px 28px;border-radius:999px;">לדוח המלא עם הגרפים</a></td></tr>` : ''}
   <tr><td align="center" style="${font}font-size:12px;color:${muted};padding-top:24px;">הדוח נוצר אוטומטית מנתוני מטריקול · אינסטגרם ופייסבוק, אורגני בלבד</td></tr>
 </table></td></tr></table>

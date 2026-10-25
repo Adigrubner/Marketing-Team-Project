@@ -6,6 +6,8 @@
 //   - כל קמפיין, אד-סט ומודעה נבנים עם status: 'PAUSED'. אין פרמטר שמשנה את זה.
 //   - תקציב מעל התקרה (לכל קבוצת מודעות, וגם הסכום של כל הקבוצות), רשת שותפים, מסנג'ר
 //     או מדינה שלא ב-safety.json - נעצרים בבדיקת התוכנית.
+//   - קידום פוסט קיים: רק פוסט של הדף של הלקוח. והסך היומי של כל מה שרץ בחשבון + התוכנית
+//     נבדק מול התקרה (judgeAccountBudget) לפני יצירה.
 
 export const WHATSAPP_LINK = 'https://api.whatsapp.com/send';
 
@@ -56,6 +58,15 @@ export const isMultiAdPlan = (plan) => Array.isArray(plan?.ads);
 
 // האם בתוכנית יש כמה קבוצות מודעות (ad_sets), לכל אחת קהל ותקציב משלה?
 export const hasAdSets = (plan) => Array.isArray(plan?.ad_sets);
+
+// קידום פוסט שכבר עלה (existing_post במודעה): הפוסט רץ כמו שהוא - אותו טקסט, אותן תמונות,
+// והלייקים והתגובות נשארים עליו. אין כאן תמונות להעלות ואין טקסט לכתוב.
+//   { "name": "...", "existing_post": { "platform": "facebook", "id": "<PAGE_ID>_<POST_ID>", "url": "..." } }
+//   { "name": "...", "existing_post": { "platform": "instagram", "id": "<מזהה המדיה>", "url": "..." } }
+// את המזהים מוצאים עם node tools/meta-posts.js (קריאה בלבד).
+export const EXISTING_POST_PLATFORMS = { facebook: 'פייסבוק', instagram: 'אינסטגרם' };
+export const isExistingPostAd = (ad) => Boolean(ad && ad.existing_post !== undefined);
+const imagesOfAds = (plan) => [...new Set(plan.ads.filter((ad) => !isExistingPostAd(ad)).flatMap((ad) => ad.images))];
 
 export function placementsOf(plan) {
   return plan.placements || DEFAULT_PLACEMENTS;
@@ -224,9 +235,13 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
   // --- הפורמט החדש ---
   need(plan.destination === 'whatsapp', 'destination חייב להיות "whatsapp" (כרגע זה היעד היחיד שהכלי בונה בפורמט הזה)');
   need(!plan.objective || plan.objective === 'OUTCOME_ENGAGEMENT', 'למודעת וואטסאפ המטרה היא OUTCOME_ENGAGEMENT');
-  need(isNonEmptyString(plan.whatsapp?.autofill_message), 'חסרה whatsapp.autofill_message (ההודעה המוכנה שנשלחת בוואטסאפ)');
-  // Meta דוחה הודעה מוכנה בלי הודעת ברכה (נבדק 19.10.2026 - בלעדיה מתקבל 'unknown error').
-  need(isNonEmptyString(plan.whatsapp?.greeting), 'חסרה whatsapp.greeting (הודעת הברכה שמופיעה בוואטסאפ לפני ההודעה המוכנה - Meta מחייבת אותה)');
+  // ההודעה המוכנה והברכה נבנות רק במודעה חדשה (תמונות + טקסט). קידום פוסט קיים רץ כמו שהוא.
+  const hasNewAds = Array.isArray(plan.ads) && plan.ads.some((ad) => !isExistingPostAd(ad));
+  if (hasNewAds) {
+    need(isNonEmptyString(plan.whatsapp?.autofill_message), 'חסרה whatsapp.autofill_message (ההודעה המוכנה שנשלחת בוואטסאפ)');
+    // Meta דוחה הודעה מוכנה בלי הודעת ברכה (נבדק 19.10.2026 - בלעדיה מתקבל 'unknown error').
+    need(isNonEmptyString(plan.whatsapp?.greeting), 'חסרה whatsapp.greeting (הודעת הברכה שמופיעה בוואטסאפ לפני ההודעה המוכנה - Meta מחייבת אותה)');
+  }
 
   // 🛑 בלם: רק פייסבוק ואינסטגרם, ורק מיקומים מהרשימה
   const placements = placementsOf(plan);
@@ -261,6 +276,10 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
       if (names.has(ad.name)) errors.push(`${label}: השם כבר קיים במודעה אחרת`);
       names.add(ad.name);
     }
+    if (isExistingPostAd(ad)) {
+      errors.push(...validateExistingPost(ad, label));
+      return;
+    }
     need(isNonEmptyString(ad?.text), `${label}: חסר text (הטקסט הראשי של המודעה)`);
     need(isNonEmptyString(ad?.headline || plan.headline), `${label}: חסרה כותרת (headline במודעה או בתוכנית)`);
     const imgs = ad?.images;
@@ -284,6 +303,28 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
     }
   });
 
+  return errors;
+}
+
+// מודעה שמקדמת פוסט קיים: פלטפורמה, מזהה, ובלי שדות של מודעה חדשה (שלא ייראה כאילו הם נשלחים).
+function validateExistingPost(ad, label) {
+  const errors = [];
+  const p = ad.existing_post;
+  if (!p || typeof p !== 'object' || Array.isArray(p)) return [`${label}: existing_post צריך להיות אובייקט { platform, id, url }`];
+  if (!EXISTING_POST_PLATFORMS[p.platform]) {
+    errors.push(`${label}: existing_post.platform צריך להיות "facebook" או "instagram"`);
+  } else if (p.platform === 'facebook' && !(typeof p.id === 'string' && /^\d+_\d+$/.test(p.id))) {
+    errors.push(`${label}: existing_post.id של פוסט בפייסבוק נראה כך: "<מזהה הדף>_<מזהה הפוסט>" (בגרשיים). מוצאים אותו עם node tools/meta-posts.js`);
+  } else if (p.platform === 'instagram' && !isIdString(p.id)) {
+    errors.push(`${label}: existing_post.id של פוסט באינסטגרם הוא מספר בתוך גרשיים. מוצאים אותו עם node tools/meta-posts.js`);
+  }
+  if (p.url !== undefined && !(typeof p.url === 'string' && /^https:\/\//.test(p.url))) {
+    errors.push(`${label}: existing_post.url צריך להיות קישור (https://...)`);
+  }
+  const extra = ['images', 'text', 'headline', 'description'].filter((k) => ad[k] !== undefined);
+  if (extra.length) {
+    errors.push(`${label}: בקידום פוסט קיים הפוסט רץ כמו שהוא, בלי ${extra.join(', ')}. מורידים אותם מהמודעה (או בונים מודעה חדשה בלי existing_post)`);
+  }
   return errors;
 }
 
@@ -448,7 +489,41 @@ export function validateEnvForPlan(plan, env) {
       'מוסיפים אותו (npm run doctor מראה את המספר), או מורידים את instagram מ-placements.'
     );
   }
+  for (const ad of plan.ads.filter(isExistingPostAd)) {
+    const p = ad.existing_post || {};
+    // 🛑 בלם: מקדמים רק פוסט של הדף של הלקוח (המזהה של פוסט בפייסבוק מתחיל במזהה הדף)
+    if (p.platform === 'facebook' && env.META_PAGE_ID && typeof p.id === 'string' && !p.id.startsWith(`${env.META_PAGE_ID}_`)) {
+      errors.push(`מודעה "${ad.name}": הפוסט ${p.id} לא שייך לדף של הלקוח (META_PAGE_ID). מקדמים רק פוסטים של הדף שלו.`);
+    }
+    if (p.platform === 'instagram' && !env.META_INSTAGRAM_USER_ID) {
+      errors.push(`מודעה "${ad.name}": לקידום פוסט מאינסטגרם חסר META_INSTAGRAM_USER_ID ב-.env.`);
+    }
+  }
   return errors;
+}
+
+// 🛑 תקרה על הסך הכולל בחשבון: כל מה שרץ עכשיו (ACTIVE) + התוכנית החדשה, כאילו כבר הופעלה.
+// כולל גם מה שנוצר ידנית ב-Ads Manager או בכפתור "קידום" - לכן נמשך מ-Meta ולא מהתיקיות שלנו.
+// running: [{ level: 'campaign'|'adset', name, daily_budget (אגורות, מחרוזת או מספר), lifetime_budget }]
+// התקרה: safety.maxTotalDailyBudgetIls, ואם אין - אותה תקרה של maxDailyBudgetIls.
+export const totalCapOf = (safety) => safety.maxTotalDailyBudgetIls ?? safety.maxDailyBudgetIls;
+
+// Meta משאירה "ACTIVE" גם קידום שתאריך הסיום שלו עבר (נמצא 22.10.2026: קידומים ממאי-יוני) - אותם לא סופרים.
+export function judgeAccountBudget(running, planTotalIls, safety, now = new Date()) {
+  const capIls = totalCapOf(safety);
+  const live = running.filter((r) => !(r.stop_time && new Date(r.stop_time) <= now));
+  const daily = live.filter((r) => Number(r.daily_budget) > 0);
+  const lifetime = live.filter((r) => !(Number(r.daily_budget) > 0) && Number(r.lifetime_budget) > 0);
+  const runningIls = daily.reduce((sum, r) => sum + Number(r.daily_budget) / 100, 0);
+  const totalIls = Math.round((runningIls + planTotalIls) * 100) / 100;
+  return {
+    capIls,
+    runningIls: Math.round(runningIls * 100) / 100,
+    totalIls,
+    over: totalIls > capIls,
+    lines: daily.map((r) => `${r.name}: ${Number(r.daily_budget) / 100}₪ ליום`),
+    warnings: lifetime.map((r) => `"${r.name}" רץ עם תקציב כולל (לא יומי) - לא נספר בסכום. לבדוק ב-Ads Manager כמה הוא מוציא ביום`),
+  };
 }
 
 // --- הבקשות ---
@@ -620,6 +695,29 @@ export function buildCreative(plan, ad, { hashes, env }) {
   };
 }
 
+// קידום פוסט קיים: הקריאייטיב מצביע על הפוסט עצמו, ולכן הלייקים והתגובות של המודעה נצברים עליו.
+//   פייסבוק: object_story_id = "<PAGE_ID>_<POST_ID>"
+//   אינסטגרם: source_instagram_media_id + החשבון והדף שבשמם הוא רץ, עם כפתור וואטסאפ
+// בשני המקרים הקידום יכול לרוץ גם בפייסבוק וגם באינסטגרם (לפי placements).
+export function buildExistingPostCreative(plan, ad, { env }) {
+  const p = ad.existing_post;
+  const name = `${plan.name} · ${ad.name} · Creative`;
+  if (p.platform === 'facebook') return { name, object_story_id: p.id };
+  return {
+    name,
+    object_id: env.META_PAGE_ID,
+    instagram_user_id: env.META_INSTAGRAM_USER_ID,
+    source_instagram_media_id: p.id,
+    // Meta מחייבת link בכפתור (נבדק 22.10.2026: subcode 2061015 בלעדיו) - אותו קישור כמו במודעה חדשה
+    call_to_action: { type: 'WHATSAPP_MESSAGE', value: { app_destination: 'WHATSAPP', link: WHATSAPP_LINK } },
+  };
+}
+
+const creativeOf = (plan, ad, { ids, env }) =>
+  isExistingPostAd(ad)
+    ? buildExistingPostCreative(plan, ad, { env })
+    : buildCreative(plan, ad, { hashes: ad.images.map((p) => ids.hashOf(p)), env });
+
 // הפורמט הישן: קריאייטיב אחד, כמו שהיה
 export function buildLegacyCreative(plan, { hashes, env }) {
   const body = plan.is_dynamic_creative
@@ -678,7 +776,7 @@ export function buildAll(plan, { env, safety, ids }) {
   if (hasAdSets(plan) && isMultiAdPlan(plan)) {
     const adSetIdOf = ids.adSetIdOf || (() => ids.adSetId);
     return {
-      images: [...new Set(plan.ads.flatMap((ad) => ad.images))],
+      images: imagesOfAds(plan),
       campaign,
       ad_sets: adSetsOf(plan).map((s) => ({
         name: s.label,
@@ -690,8 +788,8 @@ export function buildAll(plan, { env, safety, ids }) {
       })),
       ads: plan.ads.map((ad) => ({
         name: ad.name,
-        images: [...ad.images],
-        creative: buildCreative(plan, ad, { hashes: ad.images.map((p) => ids.hashOf(p)), env }),
+        images: isExistingPostAd(ad) ? [] : [...ad.images],
+        creative: creativeOf(plan, ad, { ids, env }),
       })),
     };
   }
@@ -713,15 +811,15 @@ export function buildAll(plan, { env, safety, ids }) {
     };
   }
 
-  const images = [...new Set(plan.ads.flatMap((ad) => ad.images))];
+  const images = imagesOfAds(plan);
   return {
     images,
     campaign,
     adSet,
     ads: plan.ads.map((ad) => ({
       name: ad.name,
-      images: [...ad.images],
-      creative: buildCreative(plan, ad, { hashes: ad.images.map((p) => ids.hashOf(p)), env }),
+      images: isExistingPostAd(ad) ? [] : [...ad.images],
+      creative: creativeOf(plan, ad, { ids, env }),
       ad: buildAd(plan, ad, { adSetId: ids.adSetId, creativeId: ids.creativeIdOf(ad.name) }),
     })),
   };

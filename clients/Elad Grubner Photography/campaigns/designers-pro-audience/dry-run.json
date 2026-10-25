@@ -1,28 +1,28 @@
 {
   "images": [
-    "creatives/liron-1-4x5.jpg",
-    "creatives/liron-2-4x5.jpg",
-    "creatives/liron-3-4x5.jpg",
-    "creatives/liron-4-4x5.jpg",
-    "creatives/liron-5-4x5.jpg",
+    "creatives/alia-v2-A1-4x5.jpg",
+    "creatives/alia-v2-6-4x5.jpg",
     "creatives/alia-1-4x5.jpg",
-    "creatives/alia-2-4x5.jpg",
-    "creatives/alia-3-4x5.jpg",
-    "creatives/alia-4-4x5.jpg",
-    "creatives/alia-5-4x5.jpg",
+    "creatives/alia-v2-B1-4x5.jpg",
+    "creatives/alia-v2-7-4x5.jpg",
+    "creatives/linoy-v2-B1-4x5.jpg",
+    "creatives/linoy-v2-A1-4x5.jpg",
     "creatives/linoy-1-4x5.jpg",
-    "creatives/linoy-2-4x5.jpg",
-    "creatives/linoy-3-4x5.jpg",
-    "creatives/linoy-4-4x5.jpg",
+    "creatives/linoy-v2-6-4x5.jpg",
     "creatives/linoy-5-4x5.jpg",
+    "creatives/liron-B1-4x5.jpg",
+    "creatives/liron-2-4x5.jpg",
+    "creatives/liron-v2-6-4x5.jpg",
+    "creatives/liron-v2-7-4x5.jpg",
+    "creatives/liron-5-4x5.jpg",
+    "creatives/sonia-A1-4x5.jpg",
     "creatives/sonia-1-4x5.jpg",
-    "creatives/sonia-2-4x5.jpg",
     "creatives/sonia-3-4x5.jpg",
     "creatives/sonia-4-4x5.jpg",
-    "creatives/sonia-5-4x5.jpg"
+    "creatives/sonia-v3-5-4x5.jpg"
   ],
   "campaign": {
-    "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026",
+    "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ",
     "objective": "OUTCOME_ENGAGEMENT",
     "special_ad_categories": [],
     "is_adset_budget_sharing_enabled": false,
@@ -32,7 +32,7 @@
     {
       "name": "מכירים את אלעד",
       "adSet": {
-        "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מכירים את אלעד",
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · מכירים את אלעד",
         "campaign_id": "<מזהה הקמפיין>",
         "daily_budget": 2500,
         "billing_event": "IMPRESSIONS",
@@ -84,45 +84,45 @@
       },
       "ads": [
         {
-          "name": "לירון חפץ - נתניה",
+          "name": "עליא גפארי - A",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מכירים את אלעד · לירון חפץ - נתניה",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · מכירים את אלעד · עליא גפארי - A",
             "adset_id": "<מזהה האד-סט מכירים את אלעד>",
             "creative": {
-              "creative_id": "<הקריאייטיב של לירון חפץ - נתניה>"
+              "creative_id": "<הקריאייטיב של עליא גפארי - A>"
             },
             "status": "PAUSED"
           }
         },
         {
-          "name": "עליא גפארי",
+          "name": "לינוי כהן - מזכרת בתיה - B",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מכירים את אלעד · עליא גפארי",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · מכירים את אלעד · לינוי כהן - מזכרת בתיה - B",
             "adset_id": "<מזהה האד-סט מכירים את אלעד>",
             "creative": {
-              "creative_id": "<הקריאייטיב של עליא גפארי>"
+              "creative_id": "<הקריאייטיב של לינוי כהן - מזכרת בתיה - B>"
             },
             "status": "PAUSED"
           }
         },
         {
-          "name": "לינוי כהן - מזכרת בתיה",
+          "name": "לירון חפץ - נתניה - B",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מכירים את אלעד · לינוי כהן - מזכרת בתיה",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · מכירים את אלעד · לירון חפץ - נתניה - B",
             "adset_id": "<מזהה האד-סט מכירים את אלעד>",
             "creative": {
-              "creative_id": "<הקריאייטיב של לינוי כהן - מזכרת בתיה>"
+              "creative_id": "<הקריאייטיב של לירון חפץ - נתניה - B>"
             },
             "status": "PAUSED"
           }
         },
         {
-          "name": "סוניה וספיר - תל מונד",
+          "name": "סוניה וספיר - תל מונד - A",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מכירים את אלעד · סוניה וספיר - תל מונד",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · מכירים את אלעד · סוניה וספיר - תל מונד - A",
             "adset_id": "<מזהה האד-סט מכירים את אלעד>",
             "creative": {
-              "creative_id": "<הקריאייטיב של סוניה וספיר - תל מונד>"
+              "creative_id": "<הקריאייטיב של סוניה וספיר - תל מונד - A>"
             },
             "status": "PAUSED"
           }
@@ -130,11 +130,11 @@
       ]
     },
     {
-      "name": "מעצבות לפי הפרופיל",
+      "name": "קהל חדש",
       "adSet": {
-        "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מעצבות לפי הפרופיל",
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · קהל חדש",
         "campaign_id": "<מזהה הקמפיין>",
-        "daily_budget": 1500,
+        "daily_budget": 5000,
         "billing_event": "IMPRESSIONS",
         "optimization_goal": "CONVERSATIONS",
         "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
@@ -150,8 +150,13 @@
           },
           "age_min": 25,
           "targeting_automation": {
-            "advantage_audience": 0
+            "advantage_audience": 1
           },
+          "custom_audiences": [
+            {
+              "id": "120254805380880745"
+            }
+          ],
           "excluded_custom_audiences": [
             {
               "id": "120240633155310745"
@@ -160,91 +165,6 @@
               "id": "120240633031420745"
             }
           ],
-          "flexible_spec": [
-            {
-              "education_majors": [
-                {
-                  "id": "112517512096835",
-                  "name": "Interior design"
-                },
-                {
-                  "id": "125263634212574",
-                  "name": "Interior Architecture & Design"
-                },
-                {
-                  "id": "111560452253272",
-                  "name": "Interior Design/Interior Architecture"
-                },
-                {
-                  "id": "102024029877593",
-                  "name": "Interior Design & Decoration"
-                },
-                {
-                  "id": "545100628965172",
-                  "name": "Interior Design Consultant"
-                },
-                {
-                  "id": "119802204737548",
-                  "name": "Interior Designer/Owner"
-                },
-                {
-                  "id": "433251226834237",
-                  "name": "Interior Design Professor"
-                },
-                {
-                  "id": "760449577384437",
-                  "name": "Interior Design Coordinator"
-                },
-                {
-                  "id": "989652454395644",
-                  "name": "Commercial Interior Designer"
-                }
-              ],
-              "work_positions": [
-                {
-                  "id": "112517512096835",
-                  "name": "Interior design"
-                },
-                {
-                  "id": "545100628965172",
-                  "name": "Interior Design Consultant"
-                },
-                {
-                  "id": "119802204737548",
-                  "name": "Interior Designer/Owner"
-                },
-                {
-                  "id": "760449577384437",
-                  "name": "Interior Design Coordinator"
-                },
-                {
-                  "id": "137409059613015",
-                  "name": "Owner/Interior Decorator"
-                },
-                {
-                  "id": "213968088644878",
-                  "name": "junior Interior designer"
-                },
-                {
-                  "id": "433251226834237",
-                  "name": "Interior Design Professor"
-                },
-                {
-                  "id": "125263634212574",
-                  "name": "Interior Architecture & Design"
-                },
-                {
-                  "id": "102024029877593",
-                  "name": "Interior Design & Decoration"
-                },
-                {
-                  "id": "989652454395644",
-                  "name": "Commercial Interior Designer"
-                }
-              ]
-            }
-          ],
-          "targeting_optimization": "none",
           "publisher_platforms": [
             "facebook",
             "instagram"
@@ -266,45 +186,45 @@
       },
       "ads": [
         {
-          "name": "לירון חפץ - נתניה",
+          "name": "עליא גפארי - A",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מעצבות לפי הפרופיל · לירון חפץ - נתניה",
-            "adset_id": "<מזהה האד-סט מעצבות לפי הפרופיל>",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · קהל חדש · עליא גפארי - A",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
             "creative": {
-              "creative_id": "<הקריאייטיב של לירון חפץ - נתניה>"
+              "creative_id": "<הקריאייטיב של עליא גפארי - A>"
             },
             "status": "PAUSED"
           }
         },
         {
-          "name": "עליא גפארי",
+          "name": "לינוי כהן - מזכרת בתיה - B",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מעצבות לפי הפרופיל · עליא גפארי",
-            "adset_id": "<מזהה האד-סט מעצבות לפי הפרופיל>",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · קהל חדש · לינוי כהן - מזכרת בתיה - B",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
             "creative": {
-              "creative_id": "<הקריאייטיב של עליא גפארי>"
+              "creative_id": "<הקריאייטיב של לינוי כהן - מזכרת בתיה - B>"
             },
             "status": "PAUSED"
           }
         },
         {
-          "name": "לינוי כהן - מזכרת בתיה",
+          "name": "לירון חפץ - נתניה - B",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מעצבות לפי הפרופיל · לינוי כהן - מזכרת בתיה",
-            "adset_id": "<מזהה האד-סט מעצבות לפי הפרופיל>",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · קהל חדש · לירון חפץ - נתניה - B",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
             "creative": {
-              "creative_id": "<הקריאייטיב של לינוי כהן - מזכרת בתיה>"
+              "creative_id": "<הקריאייטיב של לירון חפץ - נתניה - B>"
             },
             "status": "PAUSED"
           }
         },
         {
-          "name": "סוניה וספיר - תל מונד",
+          "name": "סוניה וספיר - תל מונד - A",
           "ad": {
-            "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · מעצבות לפי הפרופיל · סוניה וספיר - תל מונד",
-            "adset_id": "<מזהה האד-סט מעצבות לפי הפרופיל>",
+            "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · קהל חדש · סוניה וספיר - תל מונד - A",
+            "adset_id": "<מזהה האד-סט קהל חדש>",
             "creative": {
-              "creative_id": "<הקריאייטיב של סוניה וספיר - תל מונד>"
+              "creative_id": "<הקריאייטיב של סוניה וספיר - תל מונד - A>"
             },
             "status": "PAUSED"
           }
@@ -314,152 +234,59 @@
   ],
   "ads": [
     {
-      "name": "לירון חפץ - נתניה",
+      "name": "עליא גפארי - A",
       "images": [
-        "creatives/liron-1-4x5.jpg",
-        "creatives/liron-2-4x5.jpg",
-        "creatives/liron-3-4x5.jpg",
-        "creatives/liron-4-4x5.jpg",
-        "creatives/liron-5-4x5.jpg"
-      ],
-      "creative": {
-        "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · לירון חפץ - נתניה · Creative",
-        "object_story_spec": {
-          "page_id": "2129327774004845",
-          "instagram_user_id": "17841408216480135",
-          "link_data": {
-            "link": "https://api.whatsapp.com/send",
-            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nאתם מוצאים את עצמכם גוללים בטלפון מול לקוח ומחפשים תמונה שצילמתם בעצמכם, כדי להראות לו את צבע הפרקט, את המטבח או את חדר הילדים עם הארונות שעיצבתם?\n\nמול הלקוח הבא, הפרויקט האחרון שסיימתם כבר יכול לחכות לכם בטלפון, מצולם ומוכן.\nספרו לי איזה פרויקט יש לכם, ונחשוב יחד מה שווה לצלם בו.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nשלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של לירון בנתניה, רך ושקט, עם ארון אלון מעוגל שלא יכולתי להפסיק לצלם - עבודה מקסימה של @liron_hefetz_interiordesign",
-            "call_to_action": {
-              "type": "WHATSAPP_MESSAGE",
-              "value": {
-                "app_destination": "WHATSAPP"
-              }
-            },
-            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי זה אלעד, נעים להכיר 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
-            "child_attachments": [
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/liron-1-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/liron-2-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/liron-3-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/liron-4-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/liron-5-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              }
-            ],
-            "multi_share_optimized": false,
-            "multi_share_end_card": false
-          }
-        },
-        "degrees_of_freedom_spec": {
-          "creative_features_spec": {
-            "adapt_to_placement": {
-              "enroll_status": "OPT_OUT"
-            },
-            "image_animation": {
-              "enroll_status": "OPT_OUT"
-            },
-            "image_background_gen": {
-              "enroll_status": "OPT_OUT"
-            },
-            "image_templates": {
-              "enroll_status": "OPT_OUT"
-            },
-            "image_touchups": {
-              "enroll_status": "OPT_OUT"
-            },
-            "inline_comment": {
-              "enroll_status": "OPT_OUT"
-            },
-            "multi_photo_to_video": {
-              "enroll_status": "OPT_OUT"
-            },
-            "text_optimizations": {
-              "enroll_status": "OPT_OUT"
-            },
-            "description_automation": {
-              "enroll_status": "OPT_OUT"
-            }
-          }
-        }
-      }
-    },
-    {
-      "name": "עליא גפארי",
-      "images": [
+        "creatives/alia-v2-A1-4x5.jpg",
+        "creatives/alia-v2-6-4x5.jpg",
         "creatives/alia-1-4x5.jpg",
-        "creatives/alia-2-4x5.jpg",
-        "creatives/alia-3-4x5.jpg",
-        "creatives/alia-4-4x5.jpg",
-        "creatives/alia-5-4x5.jpg"
+        "creatives/alia-v2-B1-4x5.jpg",
+        "creatives/alia-v2-7-4x5.jpg"
       ],
       "creative": {
-        "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · עליא גפארי · Creative",
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · עליא גפארי - A · Creative",
         "object_story_spec": {
           "page_id": "2129327774004845",
           "instagram_user_id": "17841408216480135",
           "link_data": {
             "link": "https://api.whatsapp.com/send",
-            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nאתם מוצאים את עצמכם גוללים בטלפון מול לקוח ומחפשים תמונה שצילמתם בעצמכם, כדי להראות לו את צבע הפרקט, את המטבח או את חדר הילדים עם הארונות שעיצבתם?\n\nמול הלקוח הבא, הפרויקט האחרון שסיימתם כבר יכול לחכות לכם בטלפון, מצולם ומוכן.\nספרו לי איזה פרויקט יש לכם, ונחשוב יחד מה שווה לצלם בו.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nשלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של עליא, עם מטבח אגוז וטרוורטין שנהניתי לצלם מכל זווית - עבודה מדהימה של @alia.gafari",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של עליא, עם מטבח אגוז וטרוורטין שנהניתי לצלם מכל זווית - עבודה מדהימה של @alia.gafari",
             "call_to_action": {
               "type": "WHATSAPP_MESSAGE",
               "value": {
                 "app_destination": "WHATSAPP"
               }
             },
-            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי זה אלעד, נעים להכיר 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
             "child_attachments": [
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/alia-v2-A1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/alia-v2-6-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
               {
                 "link": "https://api.whatsapp.com/send",
                 "image_hash": "<התמונה creatives/alia-1-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -469,8 +296,9 @@
               },
               {
                 "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/alia-2-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "image_hash": "<התמונה creatives/alia-v2-B1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -480,30 +308,9 @@
               },
               {
                 "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/alia-3-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/alia-4-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/alia-5-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "image_hash": "<התמונה creatives/alia-v2-7-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -550,34 +357,59 @@
       }
     },
     {
-      "name": "לינוי כהן - מזכרת בתיה",
+      "name": "לינוי כהן - מזכרת בתיה - B",
       "images": [
+        "creatives/linoy-v2-B1-4x5.jpg",
+        "creatives/linoy-v2-A1-4x5.jpg",
         "creatives/linoy-1-4x5.jpg",
-        "creatives/linoy-2-4x5.jpg",
-        "creatives/linoy-3-4x5.jpg",
-        "creatives/linoy-4-4x5.jpg",
+        "creatives/linoy-v2-6-4x5.jpg",
         "creatives/linoy-5-4x5.jpg"
       ],
       "creative": {
-        "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · לינוי כהן - מזכרת בתיה · Creative",
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · לינוי כהן - מזכרת בתיה - B · Creative",
         "object_story_spec": {
           "page_id": "2129327774004845",
           "instagram_user_id": "17841408216480135",
           "link_data": {
             "link": "https://api.whatsapp.com/send",
-            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nאתם מוצאים את עצמכם גוללים בטלפון מול לקוח ומחפשים תמונה שצילמתם בעצמכם, כדי להראות לו את צבע הפרקט, את המטבח או את חדר הילדים עם הארונות שעיצבתם?\n\nמול הלקוח הבא, הפרויקט האחרון שסיימתם כבר יכול לחכות לכם בטלפון, מצולם ומוכן.\nספרו לי איזה פרויקט יש לכם, ונחשוב יחד מה שווה לצלם בו.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nשלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של לינוי במזכרת בתיה, לבן ושקט, עם קיר ויטרינות אגוז מואר שמחמם את כל החלל - עבודה נהדרת של @linoycohen_design",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של לינוי במזכרת בתיה, לבן ושקט, עם קיר ויטרינות אגוז מואר שמחמם את כל החלל - עבודה נהדרת של @linoycohen_design",
             "call_to_action": {
               "type": "WHATSAPP_MESSAGE",
               "value": {
                 "app_destination": "WHATSAPP"
               }
             },
-            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי זה אלעד, נעים להכיר 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
             "child_attachments": [
               {
                 "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/linoy-v2-B1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/linoy-v2-A1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
                 "image_hash": "<התמונה creatives/linoy-1-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -587,30 +419,9 @@
               },
               {
                 "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/linoy-2-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/linoy-3-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
-                "call_to_action": {
-                  "type": "WHATSAPP_MESSAGE",
-                  "value": {
-                    "app_destination": "WHATSAPP"
-                  }
-                }
-              },
-              {
-                "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/linoy-4-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "image_hash": "<התמונה creatives/linoy-v2-6-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -621,7 +432,8 @@
               {
                 "link": "https://api.whatsapp.com/send",
                 "image_hash": "<התמונה creatives/linoy-5-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -668,34 +480,35 @@
       }
     },
     {
-      "name": "סוניה וספיר - תל מונד",
+      "name": "לירון חפץ - נתניה - B",
       "images": [
-        "creatives/sonia-1-4x5.jpg",
-        "creatives/sonia-2-4x5.jpg",
-        "creatives/sonia-3-4x5.jpg",
-        "creatives/sonia-4-4x5.jpg",
-        "creatives/sonia-5-4x5.jpg"
+        "creatives/liron-B1-4x5.jpg",
+        "creatives/liron-2-4x5.jpg",
+        "creatives/liron-v2-6-4x5.jpg",
+        "creatives/liron-v2-7-4x5.jpg",
+        "creatives/liron-5-4x5.jpg"
       ],
       "creative": {
-        "name": "מעצבות - קהל מקצועי סגור - וואטסאפ - 10/2026 · סוניה וספיר - תל מונד · Creative",
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · לירון חפץ - נתניה - B · Creative",
         "object_story_spec": {
           "page_id": "2129327774004845",
           "instagram_user_id": "17841408216480135",
           "link_data": {
             "link": "https://api.whatsapp.com/send",
-            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nאתם מוצאים את עצמכם גוללים בטלפון מול לקוח ומחפשים תמונה שצילמתם בעצמכם, כדי להראות לו את צבע הפרקט, את המטבח או את חדר הילדים עם הארונות שעיצבתם?\n\nמול הלקוח הבא, הפרויקט האחרון שסיימתם כבר יכול לחכות לכם בטלפון, מצולם ומוכן.\nספרו לי איזה פרויקט יש לכם, ונחשוב יחד מה שווה לצלם בו.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nשלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של סוניה וספיר בתל מונד, לבן ועץ עם כיסאות ורודים וארון ירוק שעושים שמח - עבודה מהממת של @local.studiodesign",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של לירון בנתניה, רך ושקט, עם ארון אלון מעוגל שלא יכולתי להפסיק לצלם - עבודה מקסימה של @liron_hefetz_interiordesign",
             "call_to_action": {
               "type": "WHATSAPP_MESSAGE",
               "value": {
                 "app_destination": "WHATSAPP"
               }
             },
-            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי זה אלעד, נעים להכיר 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
             "child_attachments": [
               {
                 "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/sonia-1-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "image_hash": "<התמונה creatives/liron-B1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -705,8 +518,132 @@
               },
               {
                 "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/sonia-2-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "image_hash": "<התמונה creatives/liron-2-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-v2-6-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-v2-7-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/liron-5-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              }
+            ],
+            "multi_share_optimized": false,
+            "multi_share_end_card": false
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "סוניה וספיר - תל מונד - A",
+      "images": [
+        "creatives/sonia-A1-4x5.jpg",
+        "creatives/sonia-1-4x5.jpg",
+        "creatives/sonia-3-4x5.jpg",
+        "creatives/sonia-4-4x5.jpg",
+        "creatives/sonia-v3-5-4x5.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ · סוניה וספיר - תל מונד - A · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135",
+          "link_data": {
+            "link": "https://api.whatsapp.com/send",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nמצלמים איתי פרויקט בסטילס ומקבלים 3 רילסים ערוכים במתנה. 6 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימתם\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nוכשתגללו בטלפון מול הלקוח הבא, הפרויקט כבר יחכה לכם שם, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננתם.\nנשארו עוד 6 ימי צילום אחרונים בנובמבר. שלחו לי הודעה בוואטסאפ, ואני חוזר אליכם.\n\nבתמונות: הפרויקט של סוניה וספיר בתל מונד, לבן ועץ עם כיסאות ורודים שעושים שמח - עבודה מהממת של @local.studiodesign",
+            "call_to_action": {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            },
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "child_attachments": [
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/sonia-A1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/sonia-1-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -717,7 +654,8 @@
               {
                 "link": "https://api.whatsapp.com/send",
                 "image_hash": "<התמונה creatives/sonia-3-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -728,7 +666,8 @@
               {
                 "link": "https://api.whatsapp.com/send",
                 "image_hash": "<התמונה creatives/sonia-4-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
@@ -738,8 +677,9 @@
               },
               {
                 "link": "https://api.whatsapp.com/send",
-                "image_hash": "<התמונה creatives/sonia-5-4x5.jpg>",
-                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "image_hash": "<התמונה creatives/sonia-v3-5-4x5.jpg>",
+                "name": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+                "description": "יש לי 6 תאריכים פנויים בנובמבר",
                 "call_to_action": {
                   "type": "WHATSAPP_MESSAGE",
                   "value": {
