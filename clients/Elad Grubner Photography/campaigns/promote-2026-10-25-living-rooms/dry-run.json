@@ -1,14 +1,25 @@
 {
-  "images": [],
+  "images": [
+    "creatives/warm-shiran-1-4x5.jpg",
+    "creatives/warm-shiran-2-4x5.jpg",
+    "creatives/warm-shiran-3-4x5.jpg",
+    "creatives/warm-maymuna-1-4x5.jpg",
+    "creatives/warm-maymuna-2-4x5.jpg",
+    "creatives/warm-maymuna-3-4x5.jpg",
+    "creatives/warm-liz-1-4x5.jpg",
+    "creatives/warm-liz-2-4x5.jpg",
+    "creatives/warm-irit-1-4x5.jpg",
+    "creatives/warm-irit-2-4x5.jpg"
+  ],
   "campaign": {
-    "name": "קידום - סלונים 15.10 - מכירים את אלעד",
+    "name": "קידום - סלונים, ארבע מעצבות - מכירים את אלעד",
     "objective": "OUTCOME_ENGAGEMENT",
     "special_ad_categories": [],
     "is_adset_budget_sharing_enabled": false,
     "status": "PAUSED"
   },
   "adSet": {
-    "name": "קידום - סלונים 15.10 - מכירים את אלעד · Ad Set",
+    "name": "קידום - סלונים, ארבע מעצבות - מכירים את אלעד · Ad Set",
     "campaign_id": "<מזהה הקמפיין>",
     "daily_budget": 1500,
     "billing_event": "IMPRESSIONS",
@@ -40,7 +51,11 @@
         "custom_audience": 0
       },
       "publisher_platforms": [
+        "facebook",
         "instagram"
+      ],
+      "facebook_positions": [
+        "feed"
       ],
       "instagram_positions": [
         "stream"
@@ -54,26 +69,187 @@
   },
   "ads": [
     {
-      "name": "סלונים 15.10",
-      "images": [],
+      "name": "ארבעה סלונים, ארבע מעצבות",
+      "images": [
+        "creatives/warm-shiran-1-4x5.jpg",
+        "creatives/warm-shiran-2-4x5.jpg",
+        "creatives/warm-shiran-3-4x5.jpg",
+        "creatives/warm-maymuna-1-4x5.jpg",
+        "creatives/warm-maymuna-2-4x5.jpg",
+        "creatives/warm-maymuna-3-4x5.jpg",
+        "creatives/warm-liz-1-4x5.jpg",
+        "creatives/warm-liz-2-4x5.jpg",
+        "creatives/warm-irit-1-4x5.jpg",
+        "creatives/warm-irit-2-4x5.jpg"
+      ],
       "creative": {
-        "name": "קידום - סלונים 15.10 - מכירים את אלעד · סלונים 15.10 · Creative",
-        "object_id": "2129327774004845",
-        "instagram_user_id": "17841408216480135",
-        "source_instagram_media_id": "18039493251482139",
-        "call_to_action": {
-          "type": "WHATSAPP_MESSAGE",
-          "value": {
-            "app_destination": "WHATSAPP",
-            "link": "https://api.whatsapp.com/send"
+        "name": "קידום - סלונים, ארבע מעצבות - מכירים את אלעד · ארבעה סלונים, ארבע מעצבות · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135",
+          "link_data": {
+            "link": "https://api.whatsapp.com/send",
+            "message": "מעצבות ומעצבי פנים? אדריכלים ואדריכליות?\nאותו חדר, ארבע מעצבות, ארבע תשובות שונות לגמרי!\n\nארבעה סלונים שנהניתי לצלם, עבודות מהממות של שירן פורת, מיימונה טאהא, ליז לוז ואירית פרייהייטר.\nביום הצילום אני מסדר, מזיז ומדייק עד שבכל תמונה רואים את השפה שלכם.\n\nספרו לי בוואטסאפ על הפרויקט שסיימתם, ונחשוב יחד מה שווה לצלם בו.",
+            "call_to_action": {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            },
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה. סיימתי פרויקט ואשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}",
+            "child_attachments": [
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-shiran-1-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-shiran-2-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-shiran-3-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-maymuna-1-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-maymuna-2-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-maymuna-3-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-liz-1-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-liz-2-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-irit-1-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              },
+              {
+                "link": "https://api.whatsapp.com/send",
+                "image_hash": "<התמונה creatives/warm-irit-2-4x5.jpg>",
+                "name": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות",
+                "call_to_action": {
+                  "type": "WHATSAPP_MESSAGE",
+                  "value": {
+                    "app_destination": "WHATSAPP"
+                  }
+                }
+              }
+            ],
+            "multi_share_optimized": false,
+            "multi_share_end_card": false
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
           }
         }
       },
       "ad": {
-        "name": "קידום - סלונים 15.10 - מכירים את אלעד · סלונים 15.10",
+        "name": "קידום - סלונים, ארבע מעצבות - מכירים את אלעד · ארבעה סלונים, ארבע מעצבות",
         "adset_id": "<מזהה האד-סט>",
         "creative": {
-          "creative_id": "<הקריאייטיב של סלונים 15.10>"
+          "creative_id": "<הקריאייטיב של ארבעה סלונים, ארבע מעצבות>"
         },
         "status": "PAUSED"
       }

@@ -1,8 +1,8 @@
 {
-  "_הסבר": "קידום פוסט שכבר עלה. הפוסט רץ כמו שהוא (הטקסט והתמונות שלו), והלייקים והתגובות נשארים עליו. רץ גם בפייסבוק וגם באינסטגרם לפי placements. את existing_post מעתיקים מהפלט של node tools/meta-posts.js. platform: facebook (מזהה <PAGE_ID>_<POST_ID>) או instagram (מזהה המדיה).",
+  "_הסבר": "קידום פוסט שכבר עלה. הפוסט רץ כמו שהוא (הטקסט והתמונות שלו), והלייקים והתגובות נשארים עליו. placements = רק הרשת של הפוסט (פוסט פייסבוק → facebook feed, פוסט אינסטגרם → instagram stream), כדי שהפוסט ייראה כמו שהוא וההוכחה החברתית שלו תישאר. קידום בשתי הרשתות = שתי תוכניות. קרוסלת אינסטגרם - עד 10 תמונות (פייסבוק - אין מגבלה, נבדק 25.10). את existing_post מעתיקים מהפלט של node tools/meta-posts.js. platform: facebook (מזהה <PAGE_ID>_<POST_ID>) או instagram (מזהה המדיה).",
   "name": "קידום - מטבח בחוץ - 10/2026",
   "destination": "whatsapp",
-  "daily_budget_ils": 25,
+  "daily_budget_ils": 10,
   "audience": {
     "countries": ["IL"],
     "age_min": 25,
@@ -10,8 +10,7 @@
     "custom_audiences": [{ "id": "1202xxxxxxxxxxxxx", "name": "עוקבים ומי שהגיב באינסטגרם - 365 יום" }]
   },
   "placements": {
-    "facebook": ["feed", "story", "facebook_reels"],
-    "instagram": ["stream", "story", "reels"]
+    "facebook": ["feed"]
   },
   "ads": [
     {
