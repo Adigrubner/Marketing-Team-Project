@@ -78,16 +78,20 @@ const daily = dates.map((date) => {
 });
 
 // --- לפי פרויקט ---
+// מ-22.10 אותה מודעה רצה בכמה קבוצות מודעות (שם המודעה כולל את שם הקבוצה), ולכן מסכמים את כל המודעות של הפרויקט.
 const ads = Object.entries(adsMap).map(([key, word]) => {
-  const m = (report.ads || []).find((a) => String(a.ad || '').includes(word)) || {};
+  const matches = (report.ads || []).filter((a) => String(a.ad || '').includes(word));
   const list = log.filter((r) => r.ad === key);
-  const spend = Number(m.spend_ils) || 0;
+  const spend = matches.reduce((s, a) => s + (Number(a.spend_ils) || 0), 0);
   const relevant = list.filter(isRel).length;
-  const statusAd = (report.status?.ads || []).find((a) => String(a.name || '').includes(word));
+  // שם לתצוגה: החלק שאחרי "·" האחרון, בלי " - A"/" - B" (למשל "לירון חפץ - נתניה").
+  const named = matches[0] || (report.status?.ads || []).find((a) => String(a.name || '').includes(word));
+  const label = named ? String(named.ad || named.name).split('·').pop().trim().replace(/\s-\s[AB]$/, '') : word;
   return {
-    ad: statusAd?.name || m.ad || word,
+    ad: label,
+    groups: matches.length,
     spend_ils: round(spend),
-    meta_conversations: Number(m.conversations) || 0,
+    meta_conversations: matches.reduce((s, a) => s + (Number(a.conversations) || 0), 0),
     log_conversations: list.length,
     private_conversations: list.filter(isPrivate).length,
     relevant,

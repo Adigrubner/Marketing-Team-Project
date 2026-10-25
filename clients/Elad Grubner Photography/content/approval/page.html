@@ -373,7 +373,7 @@ footer { color: var(--muted); font-size: 13px; }
     var all = visiblePosts();
     var notice = document.getElementById("notice");
 
-    // Group by week. Open on the first week that still needs a decision, and stay there once chosen.
+    // Group by week. Always open on the newest week, and stay on whatever tab is chosen after that.
     var weeks = [], byWeek = {};
     all.forEach(function (p) {
       var k = weekOf(p);
@@ -381,9 +381,7 @@ footer { color: var(--muted); font-size: 13px; }
       byWeek[k].push(p);
     });
     if (!selectedWeek || !byWeek[selectedWeek]) {
-      selectedWeek = weeks.filter(function (k) {
-        return byWeek[k].some(function (p) { var s = stateOf(p); return s === "pending" || s === "changes"; });
-      })[0] || (byWeek[weekOf({ date: dayKey(0) })] ? weekOf({ date: dayKey(0) }) : weeks[weeks.length - 1]) || null;
+      selectedWeek = weeks[weeks.length - 1] || null;
     }
     var tabs = document.getElementById("tabs");
     tabs.textContent = "";

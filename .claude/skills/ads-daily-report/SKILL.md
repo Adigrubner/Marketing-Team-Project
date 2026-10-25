@@ -22,7 +22,7 @@ description: עדכון דף הדוח היומי של הממומן לאלעד - 
 
 ## השלבים (כל בוקר שיש בו הוצאה)
 
-1. **Meta:** `node tools/meta-report.js "clients/Elad Grubner Photography/campaigns/designers-portfolio-whatsapp-v2" --json > <tmp>/report.json`. Timeout של 300000.
+1. **Meta:** `node tools/meta-report.js "clients/Elad Grubner Photography/campaigns/designers-pro-audience-feed" --json > <tmp>/report.json`. Timeout של 300000.
 2. **היומן:** `ArtifactData` עם:
    - `action: "list"`.
    - `url`: https://claude.ai/artifact/LXEZtPRDHAATRusyXS6XJp.
@@ -36,7 +36,7 @@ description: עדכון דף הדוח היומי של הממומן לאלעד - 
    - **`warnings`:** רק סימני אזהרה שנדלקו, עם המספרים. אין סימן? רשימה ריקה.
 4. **בנייה:**
    ```
-   node .claude/skills/ads-daily-report/build.js <tmp>/report.json <tmp>/log <tmp>/summary.json "clients/Elad Grubner Photography/campaigns/designers-portfolio-whatsapp-v2" <tmp>/out
+   node .claude/skills/ads-daily-report/build.js <tmp>/report.json <tmp>/log <tmp>/summary.json "clients/Elad Grubner Photography/campaigns/designers-pro-audience-feed" <tmp>/out
    ```
    הפקודה בונה את `daily.json`, `ads.json` ו-`status.json`. את המפה בין היומן למודעות היא קוראת מ-`analytics/ads-map.json`.
 5. **העלאה:** כל קובץ בקריאה נפרדת: `Artifact`, `url` = הדף, `asset: true`, `file_path` = הקובץ. מכל תשובה שומרים את ה-`url` (`/_blob/...`).

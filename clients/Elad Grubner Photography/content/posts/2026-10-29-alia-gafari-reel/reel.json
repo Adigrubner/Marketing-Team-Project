@@ -1,0 +1,26 @@
+{
+  "style": "motion",
+  "fade": 0.5,
+  "_note": "19 portrait-ish frames, ~54s. Landscape frames (Interior/18, Designer/177, Designer/197) use x + zoom only - a pan ignores x and would reveal the Tom Ford book (18). No blur - Adi 22.10: never blur anything. Cover image: Designer/163 (see selection.md).",
+  "frames": [
+    { "id": "1s2fRUQxXTYI5Y0UkIJh4LvNjyu0613bm", "label": "Designer/163 - Alia opens the pivot door under the glass drops (opening)", "keep": "center", "motion": "zin" },
+    { "id": "1W0LHmuE9vfc2HoMngSV36NLPdULFWwr2", "label": "Interior/51 - entry: glass drop ceiling, fluted travertine, fiddle fig", "keep": "center", "motion": "panL" },
+    { "id": "1gXtpXauKdKiLJKaxlpAQuZg1eDqgbRgx", "label": "Designer/155 - Alia walks the corridor past the console (motion blur)", "keep": "center", "motion": "zin" },
+    { "id": "1WU_qHZaHtaEuIof2Hig6IDusn_G2q1LP", "label": "Designer/154 - arranging burgundy branches by the plaster relief", "keep": "right", "motion": "zin" },
+    { "id": "1poJwxiMlGO9QscyVUyWKs8gTx59IN2r-", "label": "Interior/18 - living: double curtain, wave armchairs (crop left, no book)", "x": 0, "keep": "left", "motion": "zin" },
+    { "id": "1riN3HegX8Gn10W5EtPXpPad91izRAJrp", "label": "Interior/37 - grey corner, copper relief", "keep": "center", "motion": "panR" },
+    { "id": "1P47n2-ix6ivWBKEMoeYhPiOv6iybJBzG", "label": "Designer/177 - Alia lights a candle in the grey corner", "x": 860, "keep": "center", "motion": "zin" },
+    { "id": "1vS6lQOrgivqdTUjweY6zEfUViEv9Rb3s", "label": "Interior/27 - dining, black-white painting on walnut (only dining frame)", "keep": "center", "motion": "zin" },
+    { "id": "1c7aCKBf-3lV-4p91qnTB4KX4UUT4OUng", "label": "Interior/47 - kitchen: walnut wall, travertine niche and island", "keep": "center", "motion": "panL" },
+    { "id": "1d-crChn_3eyBlaJbxTw-pDwBwaGg1lPY", "label": "Designer/197 - Alia smiling behind the island", "x": 292, "keep": "center", "motion": "zin" },
+    { "id": "1_sBDMr6C9RrJy-FJx4NKEXjBSY21TWDQ", "label": "Details/129 - island edge, camel stools, walnut", "keep": "center", "motion": "zin" },
+    { "id": "1GcFUCAT4pJ6bR4Et9HnyWfQF7TwRshNX", "label": "Interior/09 - guest WC: lit trough sink in grey-white marble", "keep": "center", "motion": "zin" },
+    { "id": "1D4dk2vngbXKk48YCU8FFWvXMMh-qR8qo", "label": "Interior/05 - TV room: walnut wall, green marble base", "keep": "center", "motion": "panR" },
+    { "id": "1agX4myAcpU15nN_kkb68g-NffPg81LiX", "label": "Interior/71 - master bedroom, marble cube nightstand", "keep": "center", "motion": "zin" },
+    { "id": "1XrCOG_g9AnXolxzp5SL6dRODwyq7HpPX", "label": "Interior/76 - dressing room: lit glass cabinets, vanity", "keep": "center", "motion": "panR" },
+    { "id": "1BeyS1k5btXwLLfL1VUrX2rW8YQifU0FS", "label": "Interior/79 - master bath: long stone sink, walnut shelves", "keep": "center", "motion": "zin" },
+    { "id": "1w4qd4cs_8pVZBebbPeHd-HSb2pnfnB5W", "label": "Interior/61 - green bathroom: emerald marble sink block", "keep": "center", "motion": "zin" },
+    { "id": "1aWNUCR26FmrRYYIku_TA_T9fJYwfhrBj", "label": "Details/131 - emerald marble close-up", "keep": "center", "motion": "zin" },
+    { "id": "1mjryfI-ncN2c6JIJNWOQE9nzx2qp8iuK", "label": "Designer/168 - Alia at the fluted travertine wall (closing)", "keep": "center", "motion": "zout" }
+  ]
+}

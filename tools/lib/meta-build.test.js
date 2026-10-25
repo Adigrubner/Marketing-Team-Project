@@ -387,3 +387,94 @@ test('תיאור לכרטיסים: טקסט אחד לכולם, רשימה לכל
   const bad2 = plan(); bad2.ads[0].description = 5;
   assert.ok(v(bad2).some((e) => e.includes('description')));
 });
+
+// --- קידום פוסט קיים (existing_post) ---
+import { buildExistingPostCreative, isExistingPostAd, judgeAccountBudget, totalCapOf } from './meta-build.js';
+
+const promotePlan = () => ({
+  name: 'קידום',
+  destination: 'whatsapp',
+  daily_budget_ils: 25,
+  audience: { countries: ['IL'], age_min: 25, advantage_audience: false },
+  ads: [
+    { name: 'פייסבוק', existing_post: { platform: 'facebook', id: '111_999', url: 'https://www.facebook.com/x/posts/999' } },
+    { name: 'אינסטגרם', existing_post: { platform: 'instagram', id: '17890000000000001', url: 'https://www.instagram.com/p/ABC/' } },
+  ],
+});
+
+test('קידום פוסט: תוכנית תקינה עוברת, גם בלי הודעת וואטסאפ', () => {
+  assert.deepEqual(validatePlan(promotePlan(), { safety, fileExists: exists, today }), []);
+  assert.deepEqual(validateEnvForPlan(promotePlan(), env), []);
+});
+
+test('קידום פוסט: מזהה לא תקין, פלטפורמה לא מוכרת ושדות של מודעה חדשה - נחסמים', () => {
+  const p = promotePlan();
+  p.ads[0].existing_post.id = '999';
+  p.ads[1].existing_post.platform = 'tiktok';
+  p.ads.push({ name: 'מעורב', existing_post: { platform: 'facebook', id: '111_5' }, text: 'טקסט', images: ['a.jpg'] });
+  const errors = validatePlan(p, { safety, fileExists: exists, today });
+  assert.ok(errors.some((e) => e.includes('<מזהה הדף>_<מזהה הפוסט>')));
+  assert.ok(errors.some((e) => e.includes('"facebook" או "instagram"')));
+  assert.ok(errors.some((e) => e.includes('רץ כמו שהוא')));
+});
+
+test('קידום פוסט: פוסט של דף אחר נחסם', () => {
+  const p = promotePlan();
+  p.ads[0].existing_post.id = '555_999';
+  assert.ok(validateEnvForPlan(p, env).some((e) => e.includes('לא שייך לדף')));
+});
+
+test('קידום פוסט: הקריאייטיב מצביע על הפוסט עצמו', () => {
+  const p = promotePlan();
+  assert.deepEqual(buildExistingPostCreative(p, p.ads[0], { env }), { name: 'קידום · פייסבוק · Creative', object_story_id: '111_999' });
+  const ig = buildExistingPostCreative(p, p.ads[1], { env });
+  assert.equal(ig.source_instagram_media_id, '17890000000000001');
+  assert.equal(ig.instagram_user_id, '222');
+  assert.equal(ig.object_id, '111');
+  assert.equal(ig.call_to_action.type, 'WHATSAPP_MESSAGE');
+});
+
+test('קידום פוסט: אין תמונות להעלות, והכל PAUSED', () => {
+  const built = buildAll(promotePlan(), { env, safety, ids: fakeIds });
+  assert.deepEqual(built.images, []);
+  assert.equal(built.ads.length, 2);
+  assertPaused(built.campaign, 'c'); assertPaused(built.adSet, 's');
+  built.ads.forEach((a) => assertPaused(a.ad, a.name));
+  assert.ok(isExistingPostAd(promotePlan().ads[0]));
+});
+
+test('תוכנית שמערבבת מודעה חדשה וקידום פוסט: רק התמונות של המודעה החדשה עולות', () => {
+  const p = plan();
+  p.ads.push({ name: 'קידום', existing_post: { platform: 'facebook', id: '111_7' } });
+  assert.deepEqual(validatePlan(p, { safety, fileExists: exists, today }), []);
+  const built = buildAll(p, { env, safety, ids: fakeIds });
+  assert.equal(built.images.length, 10);
+  assert.equal(built.ads[2].creative.object_story_id, '111_7');
+});
+
+test('תקרה על הסך הכולל: מה שרץ + התוכנית', () => {
+  const running = [
+    { level: 'adset', name: 'v2', daily_budget: '5000' },
+    { level: 'campaign', name: 'קידום ידני', lifetime_budget: '10000' },
+    { level: 'adset', name: 'בלי תקציב (CBO)' },
+  ];
+  const j = judgeAccountBudget(running, 25, safety);
+  assert.equal(j.runningIls, 50);
+  assert.equal(j.totalIls, 75);
+  assert.equal(j.over, false);
+  assert.equal(j.warnings.length, 1);
+  assert.equal(judgeAccountBudget(running, 60, safety).over, true);
+  assert.equal(totalCapOf({ maxDailyBudgetIls: 100, maxTotalDailyBudgetIls: 70 }), 70);
+  assert.equal(judgeAccountBudget(running, 25, { maxDailyBudgetIls: 100, maxTotalDailyBudgetIls: 70 }).over, true);
+});
+
+test('תקרה על הסך הכולל: קידום שתאריך הסיום שלו עבר לא נספר', () => {
+  const running = [
+    { level: 'adset', name: 'v2', daily_budget: '5000' },
+    { level: 'campaign', name: 'קידום מיוני', lifetime_budget: '9600', stop_time: '2026-06-22T10:00:00+0300' },
+    { level: 'adset', name: 'נגמר', daily_budget: '9000', stop_time: '2026-06-22T10:00:00+0300' },
+  ];
+  const j = judgeAccountBudget(running, 25, safety, new Date('2026-10-22T10:00:00Z'));
+  assert.equal(j.runningIls, 50);
+  assert.equal(j.warnings.length, 0);
+});

@@ -11,6 +11,10 @@
 //   7. אחרי יצירה נשמר upload-log.json, ואם הוא קיים - הכלי מסרב לרוץ שוב (בלי קמפיינים כפולים).
 //   8. קהלים מותאמים / פירוט טירגוט: לפני יצירה הכלי בודק מול Meta (קריאה בלבד) שכל קהל קיים בחשבון,
 //      מוכן לשימוש, ושההגדרות מתקבלות. אם לא - עוצר לפני שנוצר משהו.
+//   9. תקרה על הסך הכולל: לפני יצירה הכלי מושך מ-Meta (קריאה בלבד) את כל מה שרץ עכשיו בחשבון -
+//      כולל מה שנוצר ידנית או בכפתור "קידום" - ומוסיף את התוכנית. מעל התקרה - עוצר.
+//      התקרה: maxTotalDailyBudgetIls ב-safety.json, ואם אין - maxDailyBudgetIls.
+//  10. קידום פוסט קיים (existing_post): רק פוסט של הדף/החשבון של הלקוח, ש-Meta מאפשרת לקדם. נבדק לפני יצירה.
 //
 // שימוש:
 //   node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין>            ← dry-run: מה ייווצר (בלי אינטרנט)
@@ -24,12 +28,13 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
 import { loadEnv, readSafety, ROOT, ok, bad, warn, info, title } from './lib/env.js';
-import { requireMetaEnv, graphGet, graphPost, uploadAdImage, adAccountPath } from './lib/meta.js';
+import { requireMetaEnv, graphGet, graphGetAsPage, graphPost, uploadAdImage, adAccountPath } from './lib/meta.js';
 import {
   validatePlan, validateEnvForPlan, buildAll, assertPaused, assertBudget, isMultiAdPlan, hasAdSets,
   placementsOf, audienceOf, audienceSpecOf, adSetsOf, totalDailyBudgetIls, endTimeOf,
   usesAdvancedAudience, describeAdvancedAudience, planWarnings, needsAudiencePreflight,
   customAudienceRefsOf, judgeCustomAudience, sizeRangeText, detailedItemsOf, cardDescriptionsOf,
+  isExistingPostAd, EXISTING_POST_PLATFORMS, judgeAccountBudget,
 } from './lib/meta-build.js';
 
 const args = process.argv.slice(2);
@@ -97,8 +102,8 @@ if (isMultiAdPlan(plan)) {
   info(`מטרה:          שיחות בוואטסאפ (OUTCOME_ENGAGEMENT)`);
   info(`איפה:          ${Object.entries(pl).map(([k, v]) => `${k}: ${v.join(', ')}`).join(' · ')}`);
   info(`סיום:          ${plan.end_date ? `${plan.end_date} (${endTimeOf(plan.end_date)})` : 'בלי תאריך סיום - רץ עד שמכבים ידנית'}`);
-  info(`הודעה מוכנה:   "${plan.whatsapp.autofill_message}"`);
-  if (plan.whatsapp.greeting) info(`הודעת ברכה:    "${plan.whatsapp.greeting}"`);
+  if (plan.whatsapp?.autofill_message) info(`הודעה מוכנה:   "${plan.whatsapp.autofill_message}"`);
+  if (plan.whatsapp?.greeting) info(`הודעת ברכה:    "${plan.whatsapp.greeting}"`);
   info(`בשם:           דף ${process.env.META_PAGE_ID ? '✅' : '(עוד לא ב-.env)'} · אינסטגרם ${process.env.META_INSTAGRAM_USER_ID ? '✅' : '(עוד לא ב-.env)'}`);
   info(
     hasAdSets(plan)
@@ -106,6 +111,12 @@ if (isMultiAdPlan(plan)) {
       : `מודעות:        ${plan.ads.length}`
   );
   plan.ads.forEach((ad, i) => {
+    if (isExistingPostAd(ad)) {
+      const p = ad.existing_post;
+      info(`  ${i + 1}. ${ad.name} · קידום פוסט קיים מ${EXISTING_POST_PLATFORMS[p.platform]} (רץ כמו שהוא - טקסט ותמונות של הפוסט)`);
+      info(`     הפוסט: ${p.url || p.id}`);
+      return;
+    }
     info(`  ${i + 1}. ${ad.name} · ${ad.images.length === 1 ? 'תמונה אחת' : `קרוסלה של ${ad.images.length}`}: ${ad.images.map((p) => basename(p)).join(', ')}`);
     info(`     כותרת: ${ad.headline || plan.headline}`);
     const desc = cardDescriptionsOf(ad, ad.images.length);
@@ -178,6 +189,18 @@ try {
     }
   }
 
+  // 🛑 בלם: הסך היומי של כל מה שרץ בחשבון + התוכנית הזו, מול התקרה (קריאה בלבד)
+  const budgetOver = await runAccountBudgetCheck();
+  if (confirm && budgetOver) {
+    die('עם התוכנית הזו הסך היומי בחשבון יעבור את התקרה - עוצרים לפני שנוצר משהו. מקטינים את התקציב בתוכנית, או מחכים שמשהו אחר ייכבה.');
+  }
+
+  // 🛑 בלם: כל פוסט שמקדמים - קיים, של הלקוח, ו-Meta מאפשרת לקדם אותו (קריאה בלבד)
+  const postFailures = await runExistingPostCheck();
+  if (confirm && postFailures) {
+    die(`בדיקת הפוסטים מול Meta מצאה ${postFailures} בעיות - עוצרים לפני שנוצר משהו. מריצים --check לפרטים.`);
+  }
+
   // 1. תמונות → hashes (ספרייה בלבד, לא מודעות)
   const hashes = {};
   for (const p of preview.images) {
@@ -187,7 +210,7 @@ try {
   const hashOf = (p) => hashes[p];
 
   if (check) {
-    await runCheck(hashOf, audienceFailures);
+    await runCheck(hashOf, audienceFailures + postFailures + (budgetOver ? 1 : 0));
   } else {
     await runCreate(hashOf);
   }
@@ -198,6 +221,62 @@ try {
   }
   console.log('טיפ: הדביקו את השגיאה הזו לקלוד ובקשו עזרה, או הריצו npm run doctor.');
   process.exit(1);
+}
+
+// --- הסך היומי בחשבון - קריאה בלבד ---
+// כל קמפיין ואד-סט שרצים עכשיו (ACTIVE), כולל מה שנוצר ידנית, + התוכנית הזו כאילו כבר הופעלה.
+// מחזיר true אם הסך עובר את התקרה.
+async function runAccountBudgetCheck() {
+  title('הסך היומי בחשבון - בדיקה מול Meta (קריאה בלבד)');
+  const active = { effective_status: JSON.stringify(['ACTIVE']), fields: 'name,daily_budget,lifetime_budget,stop_time', limit: 200 };
+  const [campaigns, adsets] = await Promise.all([
+    graphGet(adAccountPath('campaigns'), active),
+    graphGet(adAccountPath('adsets'), { ...active, fields: 'name,daily_budget,lifetime_budget,end_time' }),
+  ]);
+  // באד-סט תאריך הסיום נקרא end_time, בקמפיין stop_time
+  adsets.data = (adsets.data || []).map(({ end_time, ...s }) => ({ ...s, ...(end_time ? { stop_time: end_time } : {}) }));
+  const running = [
+    ...(campaigns.data || []).map((c) => ({ ...c, level: 'campaign' })),
+    ...(adsets.data || []).map((s) => ({ ...s, level: 'adset' })),
+  ];
+  const j = judgeAccountBudget(running, totalDailyBudgetIls(plan), safety);
+  j.lines.forEach((l) => info(`  רץ עכשיו - ${l}`));
+  if (!j.lines.length) info('  אין עכשיו שום דבר שרץ עם תקציב יומי');
+  j.warnings.forEach(warn);
+  const msg = `רץ עכשיו ${j.runningIls}₪ ליום + התוכנית ${totalDailyBudgetIls(plan)}₪ = ${j.totalIls}₪ ליום (תקרה לסך הכולל: ${j.capIls}₪)`;
+  (j.over ? bad : ok)(msg);
+  return j.over;
+}
+
+// --- פוסטים קיימים שמקדמים - קריאה בלבד ---
+// מחזיר את מספר הבעיות החוסמות.
+async function runExistingPostCheck() {
+  const ads = plan.ads?.filter(isExistingPostAd) || [];
+  if (!ads.length) return 0;
+  title('פוסטים לקידום - בדיקה מול Meta (קריאה בלבד)');
+  let failed = 0;
+  for (const ad of ads) {
+    const p = ad.existing_post;
+    try {
+      if (p.platform === 'facebook') {
+        const m = await graphGetAsPage(p.id, { fields: 'permalink_url,created_time,is_eligible_for_promotion' });
+        if (m.is_eligible_for_promotion === false) { failed++; bad(`"${ad.name}" - Meta לא מאפשרת לקדם את הפוסט הזה (${m.permalink_url})`); }
+        else ok(`"${ad.name}" - הפוסט בפייסבוק קיים ומותר לקידום · ${m.created_time?.slice(0, 10)} · ${m.permalink_url}`);
+      } else {
+        const m = await graphGet(p.id, { fields: 'permalink,timestamp,owner{id}' });
+        if (m.owner?.id && String(m.owner.id) !== String(process.env.META_INSTAGRAM_USER_ID)) {
+          failed++; bad(`"${ad.name}" - הפוסט באינסטגרם לא שייך לחשבון של הלקוח`);
+        } else ok(`"${ad.name}" - הפוסט באינסטגרם קיים · ${m.timestamp?.slice(0, 10)} · ${m.permalink}`);
+      }
+    } catch (e) {
+      failed++;
+      bad(`"${ad.name}" - לא הצלחתי לקרוא את הפוסט: ${e.message}`);
+      if (p.platform === 'instagram' && e.code === 10) {
+        info('   לחיבור חסרה ההרשאה instagram_basic. מוסיפים אותה בטוקן (Meta for Developers) ושומרים את הטוקן החדש ב-.env.');
+      }
+    }
+  }
+  return failed;
 }
 
 // --- בדיקת הקהלים מול Meta - קריאה בלבד (GET), לא נוצר ולא משתנה כלום ---

@@ -1,0 +1,26 @@
+{
+  "_הסבר": "קידום פוסט שכבר עלה. הפוסט רץ כמו שהוא (הטקסט והתמונות שלו), והלייקים והתגובות נשארים עליו. רץ גם בפייסבוק וגם באינסטגרם לפי placements. את existing_post מעתיקים מהפלט של node tools/meta-posts.js. platform: facebook (מזהה <PAGE_ID>_<POST_ID>) או instagram (מזהה המדיה).",
+  "name": "קידום - מטבח בחוץ - 10/2026",
+  "destination": "whatsapp",
+  "daily_budget_ils": 25,
+  "audience": {
+    "countries": ["IL"],
+    "age_min": 25,
+    "advantage_audience": false,
+    "custom_audiences": [{ "id": "1202xxxxxxxxxxxxx", "name": "עוקבים ומי שהגיב באינסטגרם - 365 יום" }]
+  },
+  "placements": {
+    "facebook": ["feed", "story", "facebook_reels"],
+    "instagram": ["stream", "story", "reels"]
+  },
+  "ads": [
+    {
+      "name": "מטבח בחוץ",
+      "existing_post": {
+        "platform": "facebook",
+        "id": "<PAGE_ID>_<POST_ID>",
+        "url": "https://www.facebook.com/..."
+      }
+    }
+  ]
+}
