@@ -63,6 +63,8 @@ const daily = dates.map((date) => {
   return {
     date,
     spend_ils: round(spend),
+    impressions: Number(m.impressions) || 0,
+    link_clicks: Number(m.link_clicks) || 0,
     meta_conversations: Number(m.conversations) || 0,
     log_conversations: dayLog.length,
     private_conversations: dayLog.filter(isPrivate).length,
@@ -91,6 +93,7 @@ const ads = Object.entries(adsMap).map(([key, word]) => {
     ad: label,
     groups: matches.length,
     spend_ils: round(spend),
+    link_clicks: matches.reduce((s, a) => s + (Number(a.link_clicks) || 0), 0),
     meta_conversations: matches.reduce((s, a) => s + (Number(a.conversations) || 0), 0),
     log_conversations: list.length,
     private_conversations: list.filter(isPrivate).length,
@@ -130,15 +133,35 @@ const firstSpend = report.first_spend_date;
 const dayN = firstSpend
   ? Math.floor((Date.parse(report.fetched_at.slice(0, 10)) - Date.parse(firstSpend)) / 86400000) + 1
   : 0;
+// כרטיס המשפך (עדי, 26.10): הגיעו להצעת מחיר = עכשיו בהצעה, נסגרו, או שהייתה הצעה בהיסטוריה.
+const reachedQuote = (r) => r.status === 'quote' || r.status === 'won' || (r.history || []).some((h) => h.status === 'quote');
+// הקבוצה עם הקהל הכי קטן לפי Meta היא הקהל החם ("מכירים את אלעד"). אין גודל קהל = אין שדות warm_.
+const warm = (report.adsets || []).filter((a) => a.audience_size)
+  .sort((a, b) => a.audience_size.upper - b.audience_size.upper)[0];
+const num = (v) => (v == null ? null : Number(v));
 const status = [{
   updated: report.fetched_at,
   day: dayN,
   campaign_status: report.status?.effective_status || '',
   spend_ils: round(totalSpend),
+  impressions: Number(t.impressions) || 0,
+  reach: Number(t.reach) || 0,
+  link_clicks: num(t.link_clicks),
+  cpm_ils: num(t.cpm_ils),
+  cost_per_link_click_ils: num(t.cost_per_link_click_ils),
+  link_to_conversation_pct: num(t.link_to_conversation_pct),
   meta_conversations: Number(t.conversations) || 0,
   log_conversations: log.length,
   private_conversations: log.filter(isPrivate).length,
   relevant: totalRel,
+  quotes: log.filter(reachedQuote).length,
+  // "לא ענתה" (מ-26.10) - נפרד מ"לא רלוונטי"
+  no_reply: log.filter((r) => r.status === 'no_reply').length,
+  warm_adset: warm ? warm.adset : null,
+  warm_reach: warm ? warm.reach : null,
+  warm_reach_pct_low: warm?.reach_pct_of_audience?.low ?? null,
+  warm_reach_pct_high: warm?.reach_pct_of_audience?.high ?? null,
+  warm_frequency_7d: warm ? warm.frequency_7d : null,
   open: log.filter((r) => r.status === 'open' || r.status === 'quote').length,
   // כמה ימים בממוצע מהפנייה ועד הסגירה (רק מה שנסגר)
   avg_days_to_close: won.length

@@ -1,0 +1,480 @@
+<title>שדרוג אנליסט הממומן</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* פריסה: עמודת קריאה אחת, עם "סולם המשפך" כחוט שעובר מהפתיחה ועד ההדגמה */
+:root {
+  --bg: #F4F6F5;
+  --surface: #FFFFFF;
+  --ink: #17201D;
+  --ink-2: #44514C;
+  --muted: #6B7873;
+  --line: #D9E1DD;
+  --accent: #0B7A57;
+  --accent-ink: #0A6449;
+  --accent-soft: #E2F0EA;
+  --bar: #0B7A57;
+  --warn: #8F5600;
+  --warn-soft: #FBF0DC;
+  --bad: #A2342B;
+  --bad-soft: #F8E5E2;
+  --font-display: "Frank Ruhl Libre", "David Libre", "Times New Roman", serif;
+  --font-body: "Assistant", "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: 2.35rem;
+  direction: rtl;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1513; --surface: #161F1C; --ink: #E3EBE7; --ink-2: #B5C2BC; --muted: #8D9B95;
+    --line: #2A3631; --accent: #5CCB9F; --accent-ink: #7AD8B2; --accent-soft: #17322A; --bar: #34A47B;
+    --warn: #E9AE57; --warn-soft: #33270F; --bad: #F09186; --bad-soft: #3A1D1A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1513; --surface: #161F1C; --ink: #E3EBE7; --ink-2: #B5C2BC; --muted: #8D9B95;
+  --line: #2A3631; --accent: #5CCB9F; --accent-ink: #7AD8B2; --accent-soft: #17322A; --bar: #34A47B;
+  --warn: #E9AE57; --warn-soft: #33270F; --bad: #F09186; --bad-soft: #3A1D1A;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.65; }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 40px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.25; text-wrap: balance; margin: 0; color: var(--ink); }
+h1 { font-size: var(--step-3); font-weight: 700; }
+h2 { font-size: var(--step-2); font-weight: 700; }
+h3 { font-size: var(--step-1); font-weight: 500; }
+p { margin: 0; max-width: 66ch; }
+ul, ol { margin: 0; padding-inline-start: 1.3em; display: grid; gap: 6px; }
+a { color: var(--accent-ink); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+code { font-family: var(--font-mono); font-size: 0.86em; background: var(--accent-soft); color: var(--ink); padding: 1px 5px; border-radius: 4px; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+.num { font-variant-numeric: tabular-nums; }
+section { display: grid; gap: 18px; min-width: 0; }
+.eyebrow { font-size: var(--step--1); color: var(--muted); letter-spacing: 0.02em; }
+.lead { font-size: var(--step-1); color: var(--ink-2); max-width: 60ch; }
+.sec-head { display: grid; gap: 6px; }
+.sec-head p { color: var(--ink-2); }
+
+/* ניווט */
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.toc a { text-decoration: none; font-size: var(--step--1); padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-2); background: var(--surface); }
+nav.toc a:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+/* סולם המשפך */
+.ladder { display: grid; gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 0; }
+.ladder .step { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 10px 20px; align-items: baseline; position: relative; }
+.ladder .step + .step { border-top: 1px dashed var(--line); }
+.ladder .name { font-weight: 600; }
+.ladder .val { font-family: var(--font-display); font-size: var(--step-1); font-weight: 700; font-variant-numeric: tabular-nums; }
+.ladder .note { grid-column: 1 / -1; font-size: var(--step--1); color: var(--muted); }
+.ladder .step.missing { background: var(--warn-soft); }
+.ladder .step.missing .val { color: var(--warn); }
+.ladder .step.hole .val { color: var(--bad); }
+.tag { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 0 8px; border-radius: 999px; margin-inline-start: 6px; vertical-align: 2px; }
+.tag.new { background: var(--accent-soft); color: var(--accent-ink); }
+.tag.miss { background: var(--warn-soft); color: var(--warn); border: 1px solid currentColor; }
+.tag.hole { background: var(--bad-soft); color: var(--bad); }
+
+/* טבלאות */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
+th, td { text-align: start; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font-weight: 700; color: var(--ink-2); background: var(--bg); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wide { min-width: 640px; }
+.src { color: var(--muted); }
+
+/* ממצאים */
+.findings { display: grid; gap: 14px; }
+.finding { display: grid; gap: 6px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.finding h3 { font-family: var(--font-body); font-weight: 700; font-size: var(--step-0); }
+.finding .so { color: var(--accent-ink); font-weight: 600; }
+.finding .src { font-size: var(--step--1); }
+
+/* הודעה לדוגמה */
+.message { background: var(--surface); border: 1px solid var(--line); border-inline-start: 4px solid var(--accent); border-radius: 6px; padding: 16px 20px; display: grid; gap: 8px; }
+.message p { max-width: none; }
+.message b { font-weight: 700; }
+
+/* כרטיסי קבצים */
+.files { display: grid; gap: 14px; }
+.file { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: grid; gap: 10px; min-width: 0; }
+.file header { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; justify-content: space-between; }
+.file header h3 { font-family: var(--font-body); font-weight: 700; font-size: var(--step-0); }
+.pill { font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--accent-soft); color: var(--accent-ink); }
+.pill.lock { background: var(--warn-soft); color: var(--warn); border: 1px solid currentColor; }
+.file.locked { border-style: dashed; }
+
+/* תרשים הסיכויים */
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; gap: 12px; }
+.chart .q { font-weight: 600; }
+.bars { display: grid; gap: 10px; }
+.bar-row { display: grid; grid-template-columns: 7.5em minmax(0, 1fr) 4.5em; gap: 12px; align-items: center; }
+.bar-row .lbl { color: var(--ink-2); font-size: var(--step--1); }
+.bar-track { height: 14px; border-bottom: 1px solid var(--line); position: relative; }
+.bar-fill { height: 14px; background: var(--bar); border-radius: 4px 0 0 4px; min-width: 2px; }
+.bar-row .v { font-variant-numeric: tabular-nums; font-weight: 700; font-size: var(--step--1); }
+.chart .foot { font-size: var(--step--1); color: var(--muted); }
+
+/* אישורים */
+.asks { display: grid; gap: 12px; counter-reset: ask; }
+.ask { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; display: grid; gap: 4px; }
+.ask b { font-weight: 700; }
+.callout { background: var(--accent-soft); border-radius: 10px; padding: 14px 18px; display: grid; gap: 6px; }
+.callout.warn { background: var(--warn-soft); }
+footer { color: var(--muted); font-size: var(--step--1); display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 18px; }
+
+@media (max-width: 560px) {
+  :root { --step-3: 1.85rem; --step-2: 1.4rem; }
+  .bar-row { grid-template-columns: 6em minmax(0, 1fr) 4em; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bar-fill { transition: width .4s ease; }
+}
+</style>
+
+<div class="wrap" lang="he" dir="rtl">
+
+<header style="display:grid; gap:14px;">
+  <span class="eyebrow">הצעה לעדי · 26.10.2026 · הקמפיין של אלעד למעצבות ("... - פיד")</span>
+  <h1>האנליסט יבדוק את כל הדרך, מהחשיפה ועד הסגירה</h1>
+  <p class="lead">היום האנליסט סופר בעיקר כסף ושיחות. Meta נותנת הרבה יותר: כמה אנשים מהקהל החם כבר ראו, כמה באמת לחצו על כפתור הוואטסאפ, כמה עולות אלף חשיפות, ואיזה כרטיס בקרוסלה מושך. ההצעה: לבדוק כל בוקר את כל השלבים, ולצרף לכל מסקנה "כמה בטוח" במספרים.</p>
+  <nav class="toc" aria-label="תוכן">
+    <a href="#missing">מה חסר היום</a>
+    <a href="#learned">מה למדנו</a>
+    <a href="#benchmarks">מספרי השוואה</a>
+    <a href="#reports">הדוחות החדשים</a>
+    <a href="#files">מה משתנה</a>
+    <a href="#demo">ההדגמה על הבוקר</a>
+    <a href="#asks">מה צריך ממך</a>
+  </nav>
+</header>
+
+<section aria-labelledby="ladder-title">
+  <div class="sec-head">
+    <h2 id="ladder-title">המשפך של הבוקר, יום 5</h2>
+    <p>כל שלב הוא מקום שבו אנשים נושרים. האנליסט של היום רואה בעיקר את ההתחלה (כסף) ואת הסוף (שיחות). הצהוב הוא מה ש-Meta יכולה לתת והכלי עוד לא מושך. האדום הוא המקום שבו נשבר היום.</p>
+  </div>
+  <div class="ladder">
+    <div class="step"><span class="name">הוצאה</span><span class="val">283.83₪</span><span class="note">בימים המלאים (23-25.10): 73.5₪ ליום בממוצע, 98% מהתקציב.</span></div>
+    <div class="step"><span class="name">חשיפות <span class="tag new">חדש: מחיר לאלף</span></span><span class="val">3,758</span><span class="note">75.5₪ לאלף חשיפות. בערך פי 2.7 מהחציון בישראל.</span></div>
+    <div class="step"><span class="name">אנשים שונים שראו</span><span class="val">2,234</span><span class="note">בממוצע כל אחד ראה 1.68 פעמים. בקבוצה החמה: לכל היותר 23% מהקהל.</span></div>
+    <div class="step"><span class="name">קליקים, מכל סוג</span><span class="val">108</span><span class="note">2.87% מהחשיפות. כולל לייק, תגובה, כניסה לפרופיל ופתיחת תמונה.</span></div>
+    <div class="step missing"><span class="name">קליקים על כפתור הוואטסאפ <span class="tag miss">חסר בכלי</span></span><span class="val">?</span><span class="note">Meta סופרת אותם (<code>inline_link_clicks</code>). בלי זה לא יודעים אם הנשירה בכפתור או בוואטסאפ.</span></div>
+    <div class="step"><span class="name">שיחות שנפתחו (Meta)</span><span class="val">2</span><span class="note">1.9% מכל הקליקים. 141.92₪ לשיחה.</span></div>
+    <div class="step"><span class="name">ביומן · רלוונטיות</span><span class="val">2 · 1</span><span class="note">לינוי (מעצבת, "מכירים את אלעד"). סוניה וספיר לא ענתה להודעה של אלעד.</span></div>
+    <div class="step hole"><span class="name">הצעות מחיר · סגירות <span class="tag hole">נשבר כאן</span></span><span class="val">0 · 0</span><span class="note">לינוי: "לא נסגר" באותו יום. לפי אלעד, היא מחפשת סגנון צילום שהוא לא עושה, והפסיקה לענות.</span></div>
+  </div>
+</section>
+
+<section id="missing" aria-labelledby="missing-title">
+  <div class="sec-head">
+    <h2 id="missing-title">מה האנליסט בודק היום, ומה חסר</h2>
+    <p>חמש שכבות. אנשי מקצוע עוברים על כולן לפי הסדר, כי בעיה בשכבה מוקדמת נראית כמו בעיה בשכבה מאוחרת.</p>
+  </div>
+  <div class="table-scroll">
+    <table class="wide">
+      <thead><tr><th>שכבה</th><th>בודק היום</th><th>חסר</th><th>למה זה משנה</th></tr></thead>
+      <tbody>
+        <tr><td><b>תפוצה</b><br>מי ראה, כמה, ובכמה</td><td>הוצאה מצטברת וליום, תדירות כללית, הוצאה לפי מודעה</td><td>חשיפות, אנשים וקליקים לפי יום (יוצאים 0) · כמה אנשים שונים ראו בכל קבוצה · כמה מהקהל החם כבר ראה · מחיר לאלף חשיפות</td><td>בלי זה לא יודעים אם עלות גבוהה באה ממודעה חלשה או מחשיפה יקרה, ולא יודעים אם הקהל החם נשחק.</td></tr>
+        <tr><td><b>תשומת לב</b><br>מי עצר ולחץ</td><td>"כל הקליקים" ואחוז הלוחצים</td><td>קליקים על הכפתור · עלות לקליק · איזה כרטיס בקרוסלה מושך · דירוגי האיכות של Meta</td><td>"כל הקליקים" כולל גם לייקים ופתיחת תמונה. לכן 108 קליקים ← 2 שיחות לא אומר כלום על הכפתור.</td></tr>
+        <tr><td><b>המרה</b><br>מהכפתור ועד הכסף</td><td>שיחות לפי Meta, היומן, רלוונטיות, סגירות, הכנסות</td><td>המעבר מקליק על הכפתור לשיחה · השדה החדש "למה" ביומן (האנליסט עוד לא קורא אותו) · הפרדה בין "לא ענתה" ל"לא רלוונטית" · כמה מהר אלעד ענה</td><td>כאן נמצא החור שראינו היום: רלוונטית אחת ← 0 הצעות, ושתי הפונות הפסיקו לענות.</td></tr>
+        <tr><td><b>פילוחים</b></td><td>רשת, מיקום, גיל</td><td>מכשיר (טלפון מול מחשב, ובוואטסאפ זה משנה) · מגדר · מחיר לאלף לפי גיל · קריאה נכונה של הפילוח</td><td>Meta מוציאה כסף איפה שהשיחה הבאה הכי זולה, לא איפה שהממוצע הכי זול. הורדה של גיל או רשת לפי ממוצע לרוב מייקרת.</td></tr>
+        <tr><td><b>החלטות</b></td><td>נקודות הבדיקה, 🔎 סימן ראשון / ✅ דפוס</td><td>"כמה בטוח" במספרים · מה היה צפוי מול מה קרה בכל פילוח · סולם שינויים לפי מחיר</td><td>עם שיחה רלוונטית אחת אי אפשר לדעת הרבה. אבל כבר אפשר לדעת מה לא סביר, ובדיוק זה חסר היום.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="learned" aria-labelledby="learned-title">
+  <div class="sec-head">
+    <h2 id="learned-title">מה למדנו מהמחקר</h2>
+    <p>שש חוקרות עברו על Meta, על אנשי מקצוע מוכרים, על חברות פרסום ועל תיעוד ה-API. לכל ממצא כתוב מאיפה הוא, ומה הוא משנה אצלנו.</p>
+  </div>
+  <div class="findings">
+    <article class="finding">
+      <h3>1. "כל הקליקים" זה לא קליק על הכפתור</h3>
+      <p>Meta סופרת ב"כל הקליקים" גם לייקים, תגובות, שיתופים, כניסה לפרופיל ופתיחת תמונה במסך מלא. קליק על כפתור הוואטסאפ נספר ב"קליקים על קישור" (<code>link clicks</code>).</p>
+      <p class="so">אצלנו: האנליסט ימדוד את המעבר מקליק על הכפתור לשיחה, ולא מכל הקליקים. אם החלקה בין כרטיסים בקרוסלה נספרת כקליק, אף מקור לא אומר. נבדוק בהרצה הראשונה.</p>
+      <p class="src">מקור: מרכז העזרה של Meta, דרך Jon Loomer (מומחה מוכר).</p>
+    </article>
+    <article class="finding">
+      <h3>2. "כמה אנשים ראו" לא מחברים</h3>
+      <p>Meta מורידה כפילויות במספר האנשים שראו (<code>reach</code>). לחבר את המספרים של כמה מודעות זו אחת הטעויות הנפוצות. אותה מעצבת שראתה 3 מודעות נספרת 3 פעמים.</p>
+      <p class="so">אצלנו: צריך את המספר לכל קבוצה ישירות מ-Meta. היום אפשר רק לומר שבקבוצה החמה ראו בין 214 ל-705 איש.</p>
+      <p class="src">מקור: Jon Loomer. Meta מגדירה את המספר כהערכה.</p>
+    </article>
+    <article class="finding">
+      <h3>3. אין תדירות "טובה" או "רעה"</h3>
+      <p>בודקים תדירות של 7 ימים לכל קבוצה, ושואלים מה קרה לאחוז הלוחצים ולעלות כשהיא עלתה. Meta עצמה מסמנת מודעה ב"Creative fatigue" כשהעלות לתוצאה שלה גבוהה פי 2 ממודעות קודמות, וסופרת לשם כך את כל החשיפות של אותה תמונה בכל הקמפיינים של הדף.</p>
+      <p class="so">אצלנו: כלל "תדירות מעל 4" בקבוצה החמה נשאר כנקודת בדיקה. לצידו בודקים אם התוצאות נחלשות, ומבדילים בין שחיקת קהל (אין אנשים חדשים) לשחיקת מודעה (יש אנשים חדשים, אבל פחות לוחצים).</p>
+      <p class="src">מקור: Jon Loomer (ספטמבר 2025), Atria (יוני 2026). מחקר של Meta משנת 2020 על מודעות מיתוג: התוצאות נחלשות אחרי 5-6 חשיפות. אין מחקר כזה על שיחות.</p>
+    </article>
+    <article class="finding">
+      <h3>4. קוראים פילוח לפי מה שהיה צפוי, לא לפי ממוצע</h3>
+      <p>Meta מוציאה כסף איפה שהתוצאה הבאה הכי זולה. לכן גיל או רשת עם עלות ממוצעת גבוהה הם לא בהכרח בזבוז, והורדה שלהם יכולה לייקר את כל הקמפיין. מורידים רק כשהולך לשם הרבה כסף בלי שום תוצאה אמיתית.</p>
+      <p class="so">אצלנו: בכל פילוח האנליסט יכתוב כמה שיחות היו צפויות לפי החלק שלו בכסף, כמה היו בפועל, ומה הסיכוי שזה מזל.</p>
+      <p class="src">מקור: Meta, דרך Jon Loomer (מאי 2025).</p>
+    </article>
+    <article class="finding">
+      <h3>5. מספרים קטנים: שופטים בטווחים</h3>
+      <p>הכלל המקובל "פי 3 מהיעד בלי אף תוצאה" אומר שיש 5% סיכוי לעצור משהו שבעצם עובד. "פי 2" אומר 13.5%. ובדיקה יומית של "מי מנצח" מגדילה את הסיכוי לאזעקת שווא מ-5% ל-26%.</p>
+      <p class="so">אצלנו: זה לא אומר לחכות. ההחלטה שלך מ-26.10 נשארת: כשהנתונים מצביעים על דיוק, מציעים אותו. החשבון רק עוזר להבדיל בין "הנתונים מצביעים" לבין מזל.</p>
+      <p class="src">מקור: חשבון סטטיסטי (Evan Miller לבדיקה היומית). כללי "פי 2 / פי 3" באים מחברות פרסום, והחוקרת בדקה את החשבון שלהם.</p>
+    </article>
+    <article class="finding">
+      <h3>6. מתחילים מהשינוי הזול</h3>
+      <p>Meta מתחילה ללמוד מחדש כשמשנים קהל, משנים או מוסיפים מודעה, משנים יעד, או משהים קבוצה ל-7 ימים ומעלה. בשינוי תקציב זה "תלוי בגודל". אין מספר רשמי, וה-20% שכולם מצטטים הוא כלל אצבע. השהיה של מודעה אחת לא מופיעה ברשימה.</p>
+      <p class="so">אצלנו, סולם מהזול ליקר: (1) דברים מחוץ ל-Meta, כמו מהירות תגובה ושאלה מסננת בצ'אט ← (2) השהיית מודעה אחת ← (3) העברה קטנה של תקציב בין הקבוצות ← (4) הוספה או שינוי של מודעה ← (5) שינוי קהל ← (6) יעד חדש. כל הצעה תגיד איפה היא בסולם.</p>
+      <p class="src">מקור: הרשימה של Meta, דרך Jon Loomer ו-Bach.ai (אוקטובר 2026). הסולם עצמו הוא סיכום של החוקרת, ואין מומחה אחד שמדרג ככה.</p>
+    </article>
+    <article class="finding">
+      <h3>7. מהירות התגובה משנה</h3>
+      <p>מחקר על 1.25 מיליון לידים: מי שחזרו אליו בתוך שעה, הסיכוי להפוך אותו לליד אמיתי היה גבוה פי 7 מאשר שעה אחר כך, ופי 60 ויותר מאשר אחרי יום.</p>
+      <p class="so">אצלנו: המחקר על לידים מאתרים, לא על וואטסאפ. ובכל זאת, זה השינוי הכי זול שיש. כדאי לדעת כמה מהר אלעד עונה.</p>
+      <p class="src">מקור: Harvard Business Review, 2011 (42 חברות).</p>
+    </article>
+  </div>
+</section>
+
+<section id="benchmarks" aria-labelledby="bench-title">
+  <div class="sec-head">
+    <h2 id="bench-title">מספרי השוואה</h2>
+    <p>אין אף מספר השוואה עצמאי לקמפיין וואטסאפ, לא בישראל ולא בעולם. כל המספרים כאן של חברות פרסום או סוכנויות, ולכן הם כיוון בלבד. השער שהשתמשנו בו: 3.08₪ לדולר (אוקטובר 2026, לפי אתרי השוואה).</p>
+  </div>
+  <div class="table-scroll">
+    <table class="wide">
+      <thead><tr><th>מדד</th><th>אצלנו</th><th>להשוואה</th><th>מקור</th><th>מה זה אומר</th></tr></thead>
+      <tbody>
+        <tr><td>מחיר לאלף חשיפות</td><td class="n">75.5₪<br>(כ-24.5$)</td><td>ישראל, חציון יולי 2025 - יוני 2026: 9.15$ (כ-28₪). אוקטובר 2025: 8.13$. נובמבר 2025: 15.18$.<br>סוכנויות ישראליות: 15-85₪.</td><td class="src">SuperAds (חברת פרסום) · ActiveLead, The Cyborg (בלי שיטה)</td><td>אצלנו פי 2.7 מהחציון, ויקר גם מנובמבר שעבר. קהל קטן ומטרה של שיחות מייקרים חשיפה.</td></tr>
+        <tr><td>אחוז הלוחצים (כל הקליקים)</td><td class="n">2.87%</td><td>ישראל: כ-1.75% בממוצע (סוג הקליק לא מצוין). קמפייני לידים בעולם: 2.70%.</td><td class="src">SuperAds · WordStream/LocaliQ (ספטמבר 2026)</td><td>מעל הממוצע. אבל זה לא אומר כלום על הכפתור.</td></tr>
+        <tr><td>עלות לקליק (כל סוג)</td><td class="n">2.63₪<br>(0.85$)</td><td>ישראל: כ-0.58$ בממוצע, שיא של 0.83$ בנובמבר 2025.</td><td class="src">SuperAds</td><td>בגובה השיא של נובמבר.</td></tr>
+        <tr><td>פייסבוק מול אינסטגרם</td><td class="n">3.87% מול 1.43%</td><td>פיד פייסבוק 2.30% מול פיד אינסטגרם 0.45% (עולמי, תחום הבידור, אפריל-יוני 2026).</td><td class="src">Emplifi</td><td>אותו כיוון. בפייסבוק יש יותר מקומות ללחוץ עליהם ("עוד", שם הדף, התמונה).</td></tr>
+        <tr><td>עלות לשיחה</td><td class="n">141.92₪</td><td>קמפייני לידים (כולל הודעות), בית ושיפוצים: 42.95$ (כ-132₪). כל התחומים: 27.39$ (כ-84₪).<br>סוכנויות ישראליות, ליד בשירותים מקצועיים: 40-120₪.</td><td class="src">WordStream/LocaliQ · The Cyborg, ActiveLead</td><td>בטווח של "בית ושיפוצים". ליד B2B בפייסבוק בעולם יקר עוד יותר: 145$ (Metadata.io, טפסים של חברות תוכנה, פחות דומה).</td></tr>
+        <tr><td>מקליק לשיחה</td><td class="n">1.9%<br>(מכל הקליקים)</td><td>אין מספר אמין. דוגמה של ספק: 500 קליקים ← 320 שיחות.</td><td class="src">DoubleTick (ספק וואטסאפ)</td><td>אי אפשר להשוות עד שנמשוך קליקים על הכפתור.</td></tr>
+        <tr><td>עלות לשיחה רלוונטית</td><td class="n">283.83₪</td><td>אין שום מספר השוואה. היעדים הם של אלעד: עד 40₪ מצוין · 40-100₪ ממשיכים (הצעה בתוכנית ב', עוד לא אושרה).</td><td class="src">הבריף, תוכנית ב'</td><td>ראי בהדגמה מה כבר אפשר להגיד.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn">
+    <p><b>עונתיות:</b> בישראל המחיר לאלף חשיפות עלה ב-87% מאוקטובר לנובמבר 2025 (SuperAds). אם זה יחזור, העלות לשיחה תעלה בנובמבר גם בלי שהמודעות נחלשו. האנליסט יבדוק את זה לפני שהוא מאשים את המודעה. מחר (27.10) יום הבחירות, ואין נתונים על ההשפעה שלו.</p>
+  </div>
+</section>
+
+<section id="reports" aria-labelledby="reports-title">
+  <div class="sec-head">
+    <h2 id="reports-title">איך ייראו הדוחות</h2>
+    <p>ההודעה היומית נשארת קצרה, ומקבלת שורה לכל שכבה. הדוח המלא (שני, חמישי, יום 7, יום 14, וכשנדלק סימן) מקבל את המשפך המלא.</p>
+  </div>
+  <h3>ההודעה היומית לעדי. כך היא הייתה נראית הבוקר</h3>
+  <div class="message">
+    <p><b>יום 5 · 283.83₪</b> (98% מהתקציב בימים המלאים) · שיחות: Meta 2 / ביומן 2 / רלוונטיות 1 / סגירות 0</p>
+    <p><b>תפוצה:</b> 2,234 איש ראו, 626 מהם חדשים מאתמול. בקבוצה החמה ראו לכל היותר 23% מהקהל. מחיר לאלף: 77.6₪ ב-24 השעות האחרונות, 75.5₪ מצטבר.</p>
+    <p><b>תשומת לב:</b> 37 קליקים מאתמול (2.74%). כמה מהם על הכפתור: חסר עד שהכלי יתעדכן.</p>
+    <p><b>המרה:</b> 2 שיחות ← 1 רלוונטית (לינוי) ← "לא נסגר": מחפשת סגנון צילום אחר, והפסיקה לענות.</p>
+    <p><b>כמה בטוח:</b> 40₪ לשיחה רלוונטית כבר כמעט לא אפשרי (0.7%). 100₪ עדיין פתוח (22%).</p>
+    <p><b>מה אני רואה היום:</b> אף פילוח לא מצביע על דיוק. 🔎 בשתי השיחות הפונה הפסיקה לענות. הצעה אחת, בלי מחיר ב-Meta: לבדוק עם אלעד תוך כמה זמן ענה לכל אחת.</p>
+  </div>
+  <h3>הדוח המלא</h3>
+  <ol>
+    <li><b>שורת מצב והמלצה</b>: להמשיך / לעצור / לשנות, עם "כמה בטוח".</li>
+    <li><b>המשפך בטבלה</b>: חשיפות ← אנשים ← כל הקליקים ← קליקים על הכפתור ← שיחות ← ביומן ← רלוונטיות ← הצעות ← סגירות ← הכנסות. לכל שלב: כמה עברו מהשלב הקודם, וכמה עלה.</li>
+    <li><b>תפוצה לכל קבוצה</b>: הוצאה מול תקציב, כמה אנשים שונים ראו ואיזה חלק מהקהל, כמה חדשים ביום, תדירות של 7 ימים, מחיר לאלף ומגמה.</li>
+    <li><b>תשומת לב לכל מודעה</b>: אחוז הלוחצים על הכפתור, עלות לקליק על הכפתור, קליקים לפי כרטיס, ודירוגי האיכות כשיש 500 חשיפות.</li>
+    <li><b>פילוחים</b>: רשת ומיקום, גיל ומגדר, מכשיר. בכל אחד: חלק מהכסף, שיחות צפויות מול בפועל, וסיכוי שזה מזל.</li>
+    <li><b>נקודות הבדיקה של תוכנית ב'</b>, כמו היום.</li>
+    <li><b>מה חסר</b>, כמו היום.</li>
+    <li><b>עד 3 הצעות</b>: כל אחת עם המקום שלה בסולם, המחיר (האם Meta לומדת מחדש), כמה בטוח, ומי מיישם.</li>
+  </ol>
+</section>
+
+<section id="files" aria-labelledby="files-title">
+  <div class="sec-head">
+    <h2 id="files-title">מה משתנה, קובץ אחרי קובץ</h2>
+    <p>ארבעת הראשונים נכנסים אחרי "כן" שלך. החמישי נעול, ונכנס רק אם תבקשי אותו במפורש.</p>
+  </div>
+  <div class="files">
+    <article class="file">
+      <header><h3>האנליסט · <code>.claude/agents/ads-analyst.md</code></h3><span class="pill ok">אחרי "כן"</span></header>
+      <ul>
+        <li>פרק חדש "חמש השכבות": מה מחשבים בכל שכבה, ומה נחשב סימן.</li>
+        <li>פרק חדש "כמה בטוח": הסיכוי, הטווח, ו"צפוי מול בפועל" בכל פילוח. 🔎 ו-✅ יישענו עליהם.</li>
+        <li>פרק חדש "סולם השינויים": מהזול ליקר. ממשיך את ההחלטה שלך מ-26.10, שמציעים דיוקים לפני 500₪ עם המחיר לידם.</li>
+        <li>"מה לא עושים": לא מחברים מספרי אנשים, לא מסיקים את התדירות של קבוצה מהתדירות של המודעות, לא שופטים כפתור לפי "כל הקליקים", לא מורידים גיל או רשת לפי עלות ממוצעת.</li>
+        <li>קורא את השדה החדש "למה" ביומן (<code>reason</code>), ומסכם את הסיבות: מה חוזר, ובאיזה שלב במשפך.</li>
+        <li>תיקון הגדרה: <code>first_replies</code> סופר שיחות של אנשים חדשים. הוא לא אומר שאלעד ענה, וגם לא שהשיחה התקדמה (סוניה וספיר נספרה, ולא ענתה).</li>
+        <li>מבנה חדש לדוח המלא ולהודעה לעדי, כמו למעלה.</li>
+      </ul>
+    </article>
+    <article class="file">
+      <header><h3>משימת הבוקר · <code>elad-ads-daily-check</code></h3><span class="pill ok">אחרי "כן"</span></header>
+      <ul>
+        <li>שומרים את הנתונים (<code>--save</code>) כל בוקר, לא רק בשני ובחמישי. זה קובץ קטן, ובזכותו אפשר לחשב "מה קרה אתמול" גם בחשיפות, באנשים ובקליקים, עוד לפני שהכלי מתעדכן.</li>
+        <li>הצעדים לפי חמש השכבות, וההודעה לעדי בפורמט החדש.</li>
+      </ul>
+    </article>
+    <article class="file">
+      <header><h3>משימת הערב · <code>elad-ads-evening-alert</code></h3><span class="pill ok">אחרי "כן"</span></header>
+      <ul>
+        <li>סימן חדש אחד: אנשים חוסמים את אלעד בוואטסאפ (<code>messaging_block</code>). נכנס לפעולה רק אחרי שהכלי יתעדכן.</li>
+      </ul>
+    </article>
+    <article class="file">
+      <header><h3>דף הדוח של אלעד · הסקיל <code>ads-daily-report</code></h3><span class="pill ok">אחרי "כן"</span></header>
+      <ul>
+        <li><code>build.js</code> מוסיף לנתוני הדף מחיר לאלף, קליקים על הכפתור, ואיזה חלק מהקהל החם ראה.</li>
+        <li>כרטיס "המשפך" בדף עצמו (חשיפות ← קליקים על הכפתור ← שיחות ← רלוונטיות ← סגירות): רק אם תאשרי גם שינוי בדף.</li>
+      </ul>
+    </article>
+    <article class="file locked">
+      <header><h3>כלי הדוחות · <code>tools/meta-report.js</code> ו-<code>tools/lib/meta-report-build.js</code></h3><span class="pill lock">נעול: רק בבקשה מפורשת שלך</span></header>
+      <ul>
+        <li>בבקשה "לפי יום" מוסיפים חשיפות, אנשים, קליקים וקליקים על הכפתור. אותה בקשה, בלי בקשה נוספת. זה מתקן את האפסים.</li>
+        <li>בכל הבקשות: קליקים על הכפתור (<code>inline_link_clicks</code>). מחשבים מחיר לאלף ועלות לקליק על הכפתור.</li>
+        <li>כל סוגי פעולות הוואטסאפ ש-Meta שולחת (<code>onsite_conversion.messaging_*</code>), לא רק שניים. כולל חסימות.</li>
+        <li>בקשה חדשה לפי קבוצת מודעות: כמה אנשים שונים ראו בכל קבוצה, ותדירות.</li>
+        <li>לפי מודעה: שלושת דירוגי האיכות של Meta. הם מופיעים רק מ-500 חשיפות.</li>
+        <li>בקשה חדשה לכרטיסי הקרוסלה: קליקים על הכפתור לפי כרטיס. Meta לא נותנת שיחות לפי כרטיס.</li>
+        <li>בקשה חדשה לפי מכשיר, והגיל הופך ל"גיל ומגדר".</li>
+        <li>גודל הקהל החם מ-Meta, בקריאה בלבד, אם ההרשאה הקיימת מספיקה.</li>
+        <li>7 בקשות הופכות ל-10 או 11. רחוק מאוד מהמגבלות של Meta. הכל עדיין קריאה בלבד.</li>
+        <li>בדיקה (<code>meta-report-build.test.js</code>) לכל שינוי.</li>
+        <li>בהרצה הראשונה בודקים 3 דברים שהמחקר לא הצליח לאשר: שלחיצה על כפתור הוואטסאפ נספרת כקליק על קישור, מה חוזר לכרטיסי הקרוסלה, ושהפילוח לפי מכשיר עובד.</li>
+      </ul>
+    </article>
+  </div>
+  <div class="callout">
+    <p><b>בלי שינוי בכלי</b> הדוח של מחר כבר עובד בשיטה החדשה: מחיר לאלף, עלות לקליק, חישוב לפי קבוצה, טווח לקהל החם, "מה קרה אתמול" מתמונות המצב, "כמה בטוח" ו"צפוי מול בפועל". <b>מה שיחסר:</b> קליקים על הכפתור, מספר אנשים מדויק לכל קבוצה, כרטיסים, מכשיר ומגדר.</p>
+  </div>
+</section>
+
+<section id="demo" aria-labelledby="demo-title">
+  <div class="sec-head">
+    <h2 id="demo-title">ההדגמה: הניתוח החדש על נתוני הבוקר</h2>
+    <p>אותם נתונים שהאנליסט ראה הבוקר (<code>analytics/data/2026-10-26.json</code>, ולהשוואה <code>2026-10-25.json</code>), ואותו יומן. מה שמסומן <span class="tag new">חדש</span> לא היה בדוח של הבוקר.</p>
+  </div>
+
+  <h3>תפוצה</h3>
+  <div class="table-scroll">
+    <table class="wide">
+      <thead><tr><th></th><th>מכירים את אלעד</th><th>קהל חדש</th><th>סה"כ</th></tr></thead>
+      <tbody>
+        <tr><td>הוצאה</td><td class="n">99.04₪ (35%)</td><td class="n">184.79₪ (65%)</td><td class="n">283.83₪</td></tr>
+        <tr><td>תקציב יומי</td><td class="n">25₪</td><td class="n">50₪</td><td class="n">75₪</td></tr>
+        <tr><td>חשיפות</td><td class="n">1,299</td><td class="n">2,459</td><td class="n">3,758</td></tr>
+        <tr><td>מחיר לאלף <span class="tag new">חדש</span></td><td class="n">76.24₪</td><td class="n">75.15₪</td><td class="n">75.53₪</td></tr>
+        <tr><td>אנשים שונים <span class="tag new">חדש</span></td><td class="n">214-705</td><td class="n">726-2,061</td><td class="n">2,234</td></tr>
+        <tr><td>חלק מהקהל שראה <span class="tag new">חדש</span></td><td class="n">6%-23%<br>(מתוך כ-3,000-3,500)</td><td class="n">-</td><td class="n">-</td></tr>
+        <tr><td>תדירות <span class="tag new">חדש</span></td><td class="n">1.84-6.07</td><td class="n">1.19-3.39</td><td class="n">1.68</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li><span class="tag new">חדש</span> <b>מחיר לאלף 75.5₪, בערך פי 2.7 מהחציון בישראל.</b> הוא כמעט זהה בשתי הקבוצות, אז הקהל החם הקטן הוא לא הסיבה. מה שבולט הוא הגיל: 25-34 עולים 55.7₪ לאלף, 35-44 63.8₪, 45-54 87.2₪, 55-64 109.3₪, ו-65+ 91.3₪.</li>
+    <li><span class="tag new">חדש</span> <b>הקהל החם עוד רחוק מלהיגמר.</b> לכל היותר 705 איש מתוך כ-3,000-3,500 ראו מודעה, כלומר עד 23%, וכנראה פחות, כי אותם אנשים ראו כמה מודעות.</li>
+    <li><span class="tag new">חדש</span> <b>אבל את התדירות שם אי אפשר לבדוק כרגע.</b> הדוח של הבוקר כתב "1.67-1.93, רחוק מ-4" לפי התדירות של כל מודעה. מעצבת שראתה את כל 4 המודעות נספרת בכל אחת מהן פעם אחת. התדירות האמיתית בקבוצה נמצאת בין 1.84 ל-6.07, כלומר אולי כבר מעל הסף של 4 בתוכנית ב'. רק בקשה לפי קבוצה בכלי תסגור את זה.</li>
+    <li><span class="tag new">חדש</span> <b>הקהל החם רואה גם את קידום "ארבעה סלונים".</b> הקבוצות שלך לא מתחרות זו בזו על אותה מעצבת (Meta). אבל החשיפות של הקידום לא נספרות בתדירות של הקמפיין, אז מעצבת עלולה לראות את אלעד יותר ממה שהדוח מראה.</li>
+    <li><span class="tag new">חדש</span> <b>24 השעות האחרונות</b> (מתמונת המצב של אתמול בבוקר): 104.57₪, 1,348 חשיפות, 626 אנשים חדשים, 37 קליקים, מחיר לאלף 77.6₪.</li>
+    <li><b>קצב:</b> בימים המלאים 73.5₪ ליום, 98% מהתקציב. התנודות (42₪ עד 99₪) בתוך מה ש-Meta מרשה, עד 75% מעל התקציב ביום. אין בעיית תפוצה.</li>
+  </ul>
+
+  <h3>תשומת לב</h3>
+  <ul>
+    <li><b>108 קליקים מכל סוג (2.87%), 2.63₪ לקליק.</b> מעל הממוצע בישראל.</li>
+    <li><span class="tag new">חדש</span> <b>פייסבוק מול אינסטגרם:</b> 3.87% ו-1.91₪ לקליק, מול 1.43% ו-5.42₪. הפער אמיתי ולא מזל. אבל בכל רשת הייתה שיחה אחת, ואותו פער קיים גם בעולם, כי בפייסבוק יש יותר מקומות ללחוץ. לכן זה לא אומר שאינסטגרם גרוע.</li>
+    <li><span class="tag new">חדש</span> <b>הקליקים לא ניבאו את השיחה.</b> סוניה וספיר עם אחוז הלוחצים הגבוה בשתי הקבוצות (4.03%, 3.75%). לינוי בקבוצה החמה עם הנמוך (1.59%), ודווקא ממנה הגיעה השיחה הרלוונטית. ההבדל בין 4.03% ל-1.59% עוד על הגבול, אחרי כ-390 חשיפות לכל אחת.</li>
+    <li><b>חסר:</b> קליקים על הכפתור, כרטיסים, ודירוגי איכות. רק שתי מודעות עברו 500 חשיפות.</li>
+  </ul>
+
+  <h3>המרה</h3>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>שלב</th><th>מספר</th><th>מהשלב הקודם</th><th>עלות</th></tr></thead>
+      <tbody>
+        <tr><td>חשיפות</td><td class="n">3,758</td><td class="n">-</td><td class="n">75.53₪ לאלף</td></tr>
+        <tr><td>כל הקליקים</td><td class="n">108</td><td class="n">2.87%</td><td class="n">2.63₪</td></tr>
+        <tr><td>קליקים על הכפתור</td><td class="n">?</td><td class="n">?</td><td class="n">?</td></tr>
+        <tr><td>שיחות (Meta)</td><td class="n">2</td><td class="n">1.9% מכל הקליקים</td><td class="n">141.92₪</td></tr>
+        <tr><td>ביומן</td><td class="n">2</td><td class="n">100%</td><td class="n">141.92₪</td></tr>
+        <tr><td>רלוונטיות</td><td class="n">1</td><td class="n">50%</td><td class="n">283.83₪</td></tr>
+        <tr><td>הצעות מחיר</td><td class="n">0</td><td class="n">0%</td><td class="n">-</td></tr>
+        <tr><td>סגירות</td><td class="n">0</td><td class="n">-</td><td class="n">-</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li><span class="tag new">חדש</span> <b>השלב שנשבר היום: רלוונטית ← הצעת מחיר.</b> לינוי (מעצבת, דירה ומשרד בבת ים) סומנה "לא נסגר" באותו יום. לפי אלעד, היא מחפשת סגנון צילום שהוא לא עושה, והפסיקה לענות. 🔎 מקרה אחד. אם "סגנון אחר" יחזור, השאלה תהיה אם המודעה מבטיחה משהו שאלעד לא מציע. זה כיוון ל-<code>ads-copywriter</code>, לא שינוי עכשיו.</li>
+    <li><span class="tag new">חדש</span> <b>בשתי השיחות הפונה הפסיקה לענות.</b> סוניה וספיר לא ענתה בכלל, ולכן סומנה "לא רלוונטי". אבל "לא ענתה" ו"לא רלוונטית" הם שני שלבים שונים במשפך, ולכל אחד תיקון אחר. ייתכן שהיא מעצבת. ככה מעצבת שלא ענתה נעלמת מהספירה של 500₪.</li>
+    <li><span class="tag new">חדש</span> <b><code>first_replies</code> לא אומר שהשיחה התקדמה.</b> Meta ספרה את סוניה וספיר כ"איש חדש" כי היא שלחה את ההודעה המוכנה. אחר כך היא לא ענתה לאלעד.</li>
+    <li><b>108 ← 2:</b> עוד לא יודעים אם הנשירה בכפתור (מעטים לוחצים עליו) או בוואטסאפ (לוחצים ולא שולחים). בדוגמאות של ספקים רוב מי שלוחץ על הכפתור כן שולח. רק קליקים על הכפתור יענו על זה.</li>
+  </ul>
+
+  <h3>פילוחים: מה היה צפוי מול מה קרה <span class="tag new">חדש</span></h3>
+  <div class="table-scroll">
+    <table class="wide">
+      <thead><tr><th>פילוח</th><th>חלק מהכסף</th><th>שיחות צפויות לפי החלק</th><th>בפועל</th><th>סיכוי שזה מזל</th><th>מסקנה</th></tr></thead>
+      <tbody>
+        <tr><td>גיל 55 ומעלה</td><td class="n">70.11₪ (24.7%)</td><td class="n">0.49</td><td class="n">0</td><td class="n">61%</td><td>לא סימן. שווה לעקוב: מחיר לאלף 91-109₪</td></tr>
+        <tr><td>לירון ב"קהל חדש"</td><td class="n">71.10₪ (25.1%)</td><td class="n">0.50</td><td class="n">0</td><td class="n">61%</td><td>לא סימן</td></tr>
+        <tr><td>אינסטגרם</td><td class="n">119.26₪ (42.0%)</td><td class="n">0.84</td><td class="n">1</td><td class="n">-</td><td>לא סימן. שיחה בכל רשת</td></tr>
+        <tr><td>"קהל חדש", שיחות רלוונטיות</td><td class="n">184.79₪ (65.1%)</td><td class="n">4.6 אם העלות 40₪<br>1.8 אם העלות 100₪</td><td class="n">0</td><td class="n">1% · 16%</td><td>כמעט בטוח לא ב-40₪. עוד לא רואים שהוא גרוע מ-100₪</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>"שיחות צפויות" מחושב לפי הקצב של כל הקמפיין: 2 שיחות ב-283.83₪. אם פילוח לקח רבע מהכסף, היה צפוי שיביא חצי שיחה. כשצפויה חצי שיחה, אפס שיחות יוצא במזל ב-61% מהפעמים. לכן היום אין פילוח שמצביע על דיוק. זה לא "מחכים ל-500₪". זה החשבון.</p>
+
+  <h3>מה כבר אפשר להגיד על היעד <span class="tag new">חדש</span></h3>
+  <figure class="chart" style="margin:0;">
+    <figcaption class="q">אם העלות האמיתית לשיחה רלוונטית הייתה...<br>מה הסיכוי לראות רק שיחה רלוונטית אחת (או אפס) ב-283.83₪?</figcaption>
+    <div class="bars" role="list">
+      <div class="bar-row" role="listitem" title="40₪: צפויות 7.1 שיחות רלוונטיות. הסיכוי לאחת או פחות: 0.7%"><span class="lbl">40₪ (היעד)</span><div class="bar-track"><div class="bar-fill" style="width:1.5%"></div></div><span class="v">0.7%</span></div>
+      <div class="bar-row" role="listitem" title="60₪: צפויות 4.7. הסיכוי לאחת או פחות: 5.1%"><span class="lbl">60₪</span><div class="bar-track"><div class="bar-fill" style="width:10.2%"></div></div><span class="v">5.1%</span></div>
+      <div class="bar-row" role="listitem" title="100₪: צפויות 2.8. הסיכוי לאחת או פחות: 22.5%"><span class="lbl">100₪</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="v">22.5%</span></div>
+      <div class="bar-row" role="listitem" title="150₪: צפויות 1.9. הסיכוי לאחת או פחות: 43.6%"><span class="lbl">150₪</span><div class="bar-track"><div class="bar-fill" style="width:87.2%"></div></div><span class="v">43.6%</span></div>
+    </div>
+    <p class="foot">הסקאלה: 0% עד 50%. ההנחות: קצב קבוע, וכל שיחה רלוונטית נרשמת ביומן (כולל פרטי). אם Meta תלמד ותשתפר, העתיד יכול להיות טוב מהעבר.</p>
+  </figure>
+  <ul>
+    <li><b>40₪ כמעט לא אפשרי כבר עכשיו.</b> אילו הקמפיין באמת היה עולה 40₪ לשיחה רלוונטית, היו צפויות כ-7 עד עכשיו. גם 60₪ על הגבול (5%). 100₪ עדיין פתוח.</li>
+    <li><b>הטווח לעלות האמיתית:</b> 51₪ עד כ-11,200₪ לשיחה רלוונטית (95%). כלומר, עוד לא יודעים כמה זה עולה. יודעים רק מה לא סביר.</li>
+    <li><b>מה הכלל של 500₪ בודק:</b> אם העלות האמיתית היא 100₪, יש 96% סיכוי לראות 2 ומעלה עד 500₪. אם היא 250₪, עדיין 59%. כלומר הכלל בודק "האם זה חי", לא "האם זה ביעד".</li>
+  </ul>
+
+  <h3>ההצעות של היום, בשיטה החדשה</h3>
+  <ol>
+    <li><b>לבדוק עם אלעד תוך כמה זמן ענה לכל אחת מהשתיים.</b> <b>למה:</b> בשתי השיחות הפונה הפסיקה לענות, ומחקר על 1.25 מיליון לידים מראה שתגובה בתוך שעה מגדילה פי 7 את הסיכוי להתקדם. 🔎 על שתי שיחות בלבד. <b>בסולם:</b> שלב 1, בלי מחיר ב-Meta. <b>מי:</b> אלעד, ועדי שואלת. <b>מה יגיד שזה עבד:</b> אם התשובה הייתה איטית, השיחות הבאות נענות בתוך שעה.</li>
+    <li><b>ביומן של אלעד: סטטוס נפרד "לא ענתה", במקום "לא רלוונטי".</b> <b>למה:</b> סוניה וספיר אולי מעצבת, ואז היא נעלמת מהספירה של 500₪. <b>בסולם:</b> מחוץ ל-Meta. <b>מי:</b> שינוי בדף היומן, ולכן רק אם תרצי. <b>מה יגיד שזה עבד:</b> הדוח מפריד "לא ענו" מ"לא רלוונטיים".</li>
+    <li><b>שאלה אלייך, לא שינוי:</b> לפי איזה יעד האנליסט מסמן פילוח חלש? לפי 40₪ (הבריף), "קהל חדש" כבר מסומן: 184.79₪ בלי שיחה רלוונטית, 1% סיכוי אם הוא באמת ב-40₪. לפי 100₪ (הסף של יום 14 בתוכנית ב', שעוד לא אושר), עוד לא. בקצב של 50₪ ליום, הוא יגיע לסף "פי 3" (300₪) בעוד 2-3 ימים.</li>
+    <li><b>אין הצעה לשינוי בגיל, ברשת או במודעה.</b> אף פילוח לא עובר את "צפוי מול בפועל". שווה לעקוב אחרי גיל 55 ומעלה: רבע מהכסף, במחיר לאלף של 91-109₪.</li>
+  </ol>
+</section>
+
+<section id="asks" aria-labelledby="asks-title">
+  <div class="sec-head">
+    <h2 id="asks-title">מה צריך ממך</h2>
+    <p>חמש החלטות נפרדות. אפשר לאשר חלק.</p>
+  </div>
+  <div class="asks">
+    <div class="ask"><b>א. האנליסט, משימת הבוקר, משימת הערב וסקיל הדוח</b><span>השיטה החדשה. הדוח של מחר בבוקר כבר יעבוד לפיה.</span></div>
+    <div class="ask"><b>ב. כלי הדוחות (<code>tools/</code>)</b><span>נעול, ולכן צריך בקשה מפורשת שלך. נותן קליקים על הכפתור, אנשים לכל קבוצה, כרטיסים, מכשיר ומגדר. כולל בדיקות.</span></div>
+    <div class="ask"><b>ג. כרטיס "המשפך" בדף של אלעד</b><span>שינוי בדף עצמו (<code>index.html</code>). בלי זה, רק הנתונים מאחורי הדף מתעדכנים.</span></div>
+    <div class="ask"><b>ד. היעד לסימון פילוח חלש: 40₪ או 100₪?</b><span>משפיע על מתי "קהל חדש" יסומן.</span></div>
+    <div class="ask"><b>ה. ההצעות של היום</b><span>לבדוק עם אלעד תוך כמה זמן ענה, וסטטוס "לא ענתה" ביומן. שתיהן בלי שינוי בקמפיין.</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>המחקר המלא: <code>clients/Elad Grubner Photography/campaigns/reports/ניתוח ביצועי קמפיין וואטסאפ.md</code>. ההערות של החוקרות: <code>campaigns/research_notes/ניתוח ביצועי קמפיין וואטסאפ/</code>.</p>
+  <p>הנתונים: Meta דרך <code>tools/meta-report.js</code> (קריאה בלבד), והיומן של אלעד (קריאה בלבד). שום דבר בקמפיין לא שונה.</p>
+</footer>
+
+</div>

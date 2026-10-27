@@ -8,7 +8,8 @@
 //   --json                                                           ← פלט JSON (בשביל האנליסט)
 //   --save                                                           ← שומר את הנתונים ב-<קמפיין>/analytics/data/<תאריך>.json
 //
-// הדוח המלא שולח 7 בקשות, עם הפסקה ביניהן. Meta מגבילה בקשות (code 17 ודומיו):
+// הדוח המלא שולח 11 בקשות, ועוד אחת לגודל הקהל של כל קבוצה (מ-upload-log.json), עם הפסקה ביניהן.
+// Meta מגבילה בקשות (code 17 ודומיו):
 // הכלי מחכה ומנסה שוב (30 שניות ואז 90), ואם זה לא עובר - מציג מה שהספיק ומה חסר.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -41,6 +42,7 @@ if ((since && !dateRe.test(since)) || (until && !dateRe.test(until))) {
 // --- איזה קמפיין? ---
 let campaignId = value('--campaign');
 let campaignDir;
+let adsetIds = [];
 if (dirArg) {
   campaignDir = resolve(ROOT, dirArg);
   const logPath = join(campaignDir, 'upload-log.json');
@@ -51,6 +53,7 @@ if (dirArg) {
   const log = JSON.parse(readFileSync(logPath, 'utf8'));
   campaignId = (log.created || []).find((c) => c.type === 'campaign')?.id;
   if (!campaignId) { bad('לא מצאתי מזהה קמפיין ב-upload-log.json.'); process.exit(1); }
+  adsetIds = (log.created || []).filter((c) => c.type === 'adset').map((c) => c.id);
 }
 if (save && !campaignDir) { bad('--save עובד רק עם נתיב של תיקיית קמפיין.'); process.exit(1); }
 
@@ -68,7 +71,7 @@ try {
 async function campaignReport() {
   const range = timeParams({ since, until, days });
   const rangeText = range.date_preset ? 'כל חיי הקמפיין' : Object.values(JSON.parse(range.time_range)).join(' עד ');
-  const requests = buildReportRequests(campaignId, range);
+  const requests = buildReportRequests(campaignId, range, { adsetIds });
   const { raw, failed } = await runRequests(requests, {
     get: graphGet,
     sleep,
