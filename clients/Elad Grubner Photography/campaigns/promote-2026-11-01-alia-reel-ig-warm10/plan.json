@@ -1,0 +1,30 @@
+{
+  "_הסבר": "קידום תומך - חשיפה לקהל החם ב-10₪ ליום. ההחלטה של עדי (1.11, \"זה הרבה מדיי לקהל שמכיר לדעתי. אכבה אותו ותיצור 2 חדשים\"), במקום הקידום של 20₪ ב-promote-2026-11-01-alia-reel-ig (את הישן עדי מכבה בעצמה, והתיקייה נשארת היסטוריה). אותו plan.json כמו בתיקייה הישנה, עם שני שינויים בלבד: daily_budget_ils 10 (במקום 20) ושם חדש. עדי לא משנה תקציבים ב-Ads Manager, לכן התקציב נקבע כאן ביצירה. חשיפה לקהל החם (goal: reach), עד 2 חשיפות לאדם ב-7 ימים, בלי כפתור ובלי וואטסאפ. הפוסט: הרילס של עליא גפארי באינסטגרם (29.10), המזהה אומת ב-meta-posts.js --find. מיקומים: פיד וריל של אינסטגרם בלבד (הרשת של הפוסט). הקהל: כמו 'מכירים את אלעד' ב-designers-pro-audience-feed/plan.json, בלי הרחבה. בלי תאריך סיום - עדי עוצרת ידנית. רץ לצד קידום המעורבות לקהל חדש (promote-2026-11-01-alia-reel-ig-engagement), שמחריג את הקהל הזה.",
+  "name": "קידום תומך - הרילס של עליא גפארי - קהל חם 10₪ - 11/2026",
+  "goal": "reach",
+  "daily_budget_ils": 10,
+  "frequency_cap": { "impressions": 2, "days": 7 },
+  "audience": {
+    "countries": ["IL"],
+    "age_min": 25,
+    "advantage_audience": false,
+    "custom_audiences": [
+      { "id": "120240633155310745", "name": "IG Engagement 365 Days" },
+      { "id": "120240633031420745", "name": "Designers Phone List - Jan 2026" }
+    ],
+    "custom_audience_expansion": false
+  },
+  "placements": {
+    "instagram": ["stream", "reels"]
+  },
+  "ads": [
+    {
+      "name": "הרילס של עליא גפארי",
+      "existing_post": {
+        "platform": "instagram",
+        "id": "18076032782744329",
+        "url": "https://www.instagram.com/reel/DfFZxLPgCPb/"
+      }
+    }
+  ]
+}

@@ -99,6 +99,10 @@ h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(28px, 6vw
 .frame img { height: 220px; width: auto; max-width: none; display: block; border-radius: 4px; background: var(--frame); }
 .frame figcaption { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
 .strip-empty { margin: 16px 20px; padding: 28px; border-radius: 6px; background: var(--frame); color: var(--muted); text-align: center; font-size: 14px; }
+/* A reel is judged as the finished video, so it plays first; its frames follow as a strip. */
+.reel { padding: 16px 20px 0; display: grid; justify-items: start; gap: 6px; }
+.reel video { height: 480px; max-height: 70vh; width: auto; max-width: 100%; aspect-ratio: 9 / 16; border-radius: 8px; background: #000; display: block; }
+.strip-label { padding: 12px 20px 0; }
 
 .caption-wrap { padding: 0 20px; display: grid; gap: 8px; min-width: 0; }
 .label { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
@@ -282,6 +286,13 @@ footer { color: var(--muted); font-size: 13px; }
           ]);
         }))
       : el("div", { class: "strip-empty", text: "התמונות יופיעו כאן" });
+    var reel = p.video
+      ? el("div", { class: "reel" }, [
+          el("span", { class: "label", text: "הרילס כמו שיעלה" }),
+          el("video", { src: p.video, poster: p.poster || "", controls: "", playsinline: "", preload: "metadata", "aria-label": "הרילס" })
+        ])
+      : null;
+    var stripLabel = p.video && images.length ? el("span", { class: "label strip-label", text: "הפריימים, לפי הסדר" }) : null;
 
     var facts = el("dl", { class: "facts" });
     function fact(k, v, ltr) {
@@ -350,6 +361,8 @@ footer { color: var(--muted); font-size: 13px; }
       ]),
       p.title ? el("h2", { class: "post-title", dir: "auto", text: p.title }) : null,
       el("div", { class: "meta" }, [p.kind ? el("span", { text: p.kind }) : null, p.format ? el("span", { text: p.format }) : null]),
+      reel,
+      stripLabel,
       strip,
       p.text ? el("div", { class: "caption-wrap" }, [
         el("span", { class: "label", text: "הטקסט" }),

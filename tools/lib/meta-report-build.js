@@ -11,12 +11,29 @@ export const FIRST_REPLY_ACTION = 'onsite_conversion.messaging_first_reply';
 export const BLOCK_ACTION = 'onsite_conversion.messaging_block';
 const LEAD_ACTIONS = ['lead', 'onsite_web_lead'];
 
+// מעורבות בפוסט - בשביל קידום חשיפה / מעורבות של פוסט קיים (מ-1.11.2026). השמות כמו ש-Meta מחזירה אותם
+// ב-actions (נקרא מהחשבון של אלעד, קריאה בלבד, 1.11.2026):
+//   post_interaction_net - לייקים + תגובות + שמירות + שיתופים, פחות ביטולים. זה המדד לשפוט לפיו.
+//   post_engagement - "מעורבות בפוסט" של Meta: כולל גם קליקים וצפיות בווידאו, ולכן גבוה בהרבה. על זה POST_ENGAGEMENT עושה אופטימיזציה.
+//   כניסות לפרופיל ועוקבים: לא ב-actions, אלא בשדות נפרדים (IG_FIELDS למטה).
+export const POST_ACTIONS = {
+  interactions: 'post_interaction_net',
+  post_engagement: 'post_engagement',
+  likes: 'post_reaction',
+  comments: 'comment',
+  saves: 'onsite_conversion.post_save',
+  shares: 'post',
+};
+
 // קבוצות הגיל של Meta קבועות: 18-24, 25-34, 35-44... אין קבוצה של 25-29.
 // לכן "כמה הולך על 25-29" נבדק דרך 25-34 - הקבוצה היחידה שמכילה אותם.
 export const YOUNG_AGE_BUCKET = '25-34';
 
 // inline_link_clicks = קליקים על קישור, כולל כפתור הוואטסאפ. "clicks" הם כל הקליקים (לייק, פרופיל, תמונה...).
 const BASE_FIELDS = 'spend,impressions,reach,frequency,clicks,inline_link_clicks,ctr,actions';
+// עוקבים חדשים באינסטגרם וכניסות לפרופיל אחרי המודעה - שדות נפרדים, לא ב-actions (נבדק מול Meta, 1.11.2026).
+// רק בסה"כ, לפי יום ולפי מודעה: לא שולחים אותם עם פילוחים, כדי לא להסתכן בבקשה שנדחית.
+const IG_FIELDS = 'instagram_profile_follow,instagram_profile_visits';
 // דירוגי האיכות של Meta - מופיעים רק ממודעה עם כ-500 חשיפות ומעלה.
 const RANKING_FIELDS = 'quality_ranking,engagement_rate_ranking,conversion_rate_ranking';
 
@@ -46,18 +63,18 @@ export function buildReportRequests(campaignId, range, { adsetIds = [], today = 
   const insights = `${campaignId}/insights`;
   return [
     { key: 'status', label: 'מצב הקמפיין והמודעות', path: String(campaignId),
-      params: { fields: 'name,effective_status,ads.limit(50){name,effective_status}' } },
+      params: { fields: 'name,objective,effective_status,ads.limit(50){name,effective_status}' } },
     { key: 'total', label: 'סה"כ', path: insights,
-      params: { level: 'campaign', fields: BASE_FIELDS, ...range } },
+      params: { level: 'campaign', fields: `${BASE_FIELDS},${IG_FIELDS}`, ...range } },
     { key: 'daily', label: 'לפי יום', path: insights,
-      params: { level: 'campaign', fields: BASE_FIELDS, time_increment: 1, limit: 100, ...range } },
+      params: { level: 'campaign', fields: `${BASE_FIELDS},${IG_FIELDS}`, time_increment: 1, limit: 100, ...range } },
     // reach ותדירות של קבוצה מגיעים רק מ-Meta: אסור לחבר את המספרים של המודעות (אותו אדם נספר בכל מודעה).
     { key: 'adsets', label: 'לפי קבוצה', path: insights,
       params: { level: 'adset', fields: `adset_id,adset_name,${BASE_FIELDS}`, limit: 50, ...range } },
     { key: 'adsets_7d', label: 'לפי קבוצה, 7 ימים', path: insights,
       params: { level: 'adset', fields: 'adset_id,adset_name,spend,impressions,reach,frequency', limit: 50, ...last7Range(range, today) } },
     { key: 'ads', label: 'לפי מודעה', path: insights,
-      params: { level: 'ad', fields: `ad_id,ad_name,adset_id,adset_name,${BASE_FIELDS},${RANKING_FIELDS}`, limit: 100, ...range } },
+      params: { level: 'ad', fields: `ad_id,ad_name,adset_id,adset_name,${BASE_FIELDS},${IG_FIELDS},${RANKING_FIELDS}`, limit: 100, ...range } },
     // Meta נותנת לכל כרטיס בקרוסלה רק קליקים על קישור. שיחות לפי כרטיס - אין.
     { key: 'cards', label: 'לפי כרטיס בקרוסלה', path: insights,
       params: { level: 'ad', fields: 'ad_id,ad_name,adset_name,actions', action_breakdowns: 'action_carousel_card_id', limit: 100, ...range } },
@@ -129,6 +146,13 @@ export function normalizeRow(d = {}) {
     cost_per_conversation_ils: ratio(spend, conversations),
     leads: actionValue(d.actions, LEAD_ACTIONS),
     messaging: messagingActions(d.actions),
+    // מעורבות בפוסט (קידום חשיפה / מעורבות) - ומחיר לאלף אנשים שונים שראו (לא לאלף חשיפות)
+    ...Object.fromEntries(Object.entries(POST_ACTIONS).map(([k, type]) => [k, actionValue(d.actions, type)])),
+    cost_per_interaction_ils: ratio(spend, actionValue(d.actions, POST_ACTIONS.interactions)),
+    cost_per_1000_reached_ils: ratio(spend, num(d.reach), 1000),
+    follows: num(d.instagram_profile_follow),
+    profile_visits: num(d.instagram_profile_visits),
+    cost_per_follow_ils: ratio(spend, num(d.instagram_profile_follow)),
   };
 }
 
@@ -201,6 +225,7 @@ export function summarizeReport(raw = {}) {
   const status = raw.status
     ? {
       name: raw.status.name,
+      objective: raw.status.objective || null,
       effective_status: raw.status.effective_status,
       ads: (raw.status.ads?.data || []).map((a) => ({ id: a.id, name: shortAdName(a.name), effective_status: a.effective_status })),
     }
@@ -309,6 +334,11 @@ const STATUS_NAMES = {
   ARCHIVED: 'בארכיון', DELETED: 'נמחק',
 };
 export const statusName = (s) => STATUS_NAMES[s] || s || 'לא ידוע';
+// המטרה של הקמפיין. OUTCOME_ENGAGEMENT הוא גם שיחות בוואטסאפ וגם מעורבות בפוסט - מה בדיוק, רואים בתוכנית.
+const OBJECTIVE_NAMES = {
+  OUTCOME_AWARENESS: 'מטרה: חשיפה', OUTCOME_ENGAGEMENT: 'מטרה: מעורבות (שיחות או מעורבות בפוסט)',
+  OUTCOME_LEADS: 'מטרה: לידים', OUTCOME_TRAFFIC: 'מטרה: תנועה', LINK_CLICKS: 'מטרה: קליקים (ישן)',
+};
 
 const DEVICE_NAMES = { mobile_app: 'טלפון (אפליקציה)', mobile_web: 'טלפון (דפדפן)', desktop: 'מחשב' };
 const GENDER_NAMES = { female: 'נשים', male: 'גברים', unknown: 'לא ידוע' };
@@ -329,7 +359,8 @@ function rowLine(name, r) {
 export function formatReport(rep, { range = '' } = {}) {
   const out = [];
   if (rep.status) {
-    out.push(`📣 ${rep.status.name} · ${statusName(rep.status.effective_status)}`);
+    out.push(`📣 ${rep.status.name} · ${statusName(rep.status.effective_status)}` +
+      (OBJECTIVE_NAMES[rep.status.objective] ? ` · ${OBJECTIVE_NAMES[rep.status.objective]}` : ''));
     for (const a of rep.status.ads) out.push(`   מודעה: ${a.name} · ${statusName(a.effective_status)}`);
   }
   if (range) out.push(`   טווח: ${range}`);
@@ -344,6 +375,13 @@ export function formatReport(rep, { range = '' } = {}) {
     out.push(`   שיחות וואטסאפ (ספירת Meta): ${t.conversations} · עלות לשיחה: ${ils(t.cost_per_conversation_ils)}` +
       ` · מקליק על הכפתור לשיחה: ${t.link_to_conversation_pct ?? '-'}% · אנשי קשר חדשים: ${t.first_replies}` +
       (t.blocks ? ` · ⚠️ חסמו: ${t.blocks}` : ''));
+    // קידום חשיפה / מעורבות: מה שקרה על הפוסט עצמו, ומחיר לאלף אנשים שונים
+    if (t.post_engagement > 0 || t.interactions > 0 || t.follows > 0 || t.profile_visits > 0) {
+      out.push(`   על הפוסט: ${t.interactions} אינטראקציות (לייקים ${t.likes} · תגובות ${t.comments} · שמירות ${t.saves} · שיתופים ${t.shares})` +
+        ` · ${ils(t.cost_per_interaction_ils)} לאינטראקציה · מחיר לאלף אנשים: ${ils(t.cost_per_1000_reached_ils)}` +
+        ` · "מעורבות בפוסט" של Meta (כולל קליקים וצפיות): ${t.post_engagement}`);
+      out.push(`   באינסטגרם: עוקבים חדשים ${t.follows} (${ils(t.cost_per_follow_ils)} לעוקב) · כניסות לפרופיל ${t.profile_visits}`);
+    }
     if (t.spend_ils === 0) out.push('   (אין הוצאה - הקמפיין מושהה או עוד לא התחיל. זה תקין.)');
   }
   const section = (title, list, nameOf) => {

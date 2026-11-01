@@ -136,7 +136,7 @@ textarea { resize: vertical; min-height: 4.5em; line-height: 1.45; }
   </form>
 
   <section class="card" aria-labelledby="h-byad">
-    <h2 id="h-byad">לפי פרויקט</h2>
+    <h2 id="h-byad">לפי מודעה</h2>
     <div class="tablebox"><table class="byad"><thead><tr><th>מודעה</th><th class="n">שיחות</th><th class="n">רלוונטיות</th><th class="n">נסגרו</th><th class="n">הכנסות</th></tr></thead><tbody id="byad"></tbody></table></div>
   </section>
 
@@ -148,16 +148,36 @@ textarea { resize: vertical; min-height: 4.5em; line-height: 1.45; }
 </div>
 
 <script>
-// הקמפיין הנוכחי והמודעות שלו. קמפיין חדש = מוסיפים כאן שורה.
-// מ-22.10.2026: "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד". השיחות של הקמפיין הקודם נשארות במאגר תחת designers-portfolio-whatsapp-v2.
-const CAMPAIGN = 'designers-pro-audience-feed';
-const ADS = [
-  { key: 'liron', name: 'לירון חפץ - נתניה' },
-  { key: 'alia', name: 'עליא גפארי' },
-  { key: 'linoy', name: 'לינוי כהן - מזכרת בתיה' },
-  { key: 'sonia', name: 'סוניה וספיר - תל מונד' },
-  { key: 'unknown', name: 'לא בטוח' },
+// הקמפיינים והמודעות שלהם. קמפיין חדש = מוסיפים אותו בראש הרשימה: הדף מציג רק אותו, ושיחה חדשה נרשמת אליו.
+// בלי בחירת קמפיין בדף (עדי, 1.11: "יש כרגע רק קמפיין אחד"). השיחות של קמפיינים קודמים נשארות במאגר תחת המפתח שלהם,
+// והישנים ברשימה רק כדי שהשמות של המודעות שלהם יהיו ידועים. הקמפיין הראשון (עד 22.10): designers-portfolio-whatsapp-v2.
+// 1.11.2026: הקמפיין של 22.10 הושהה (עדי), ונוסף "designers-text-all-placements". שם כל המודעות מסוניה וספיר,
+// ובצ'אט רואים רק אם זה צילום אחד או קולאז' (בסטורי מודעות 1 ו-2 נראות אותו דבר), ולכן שתי בחירות. הפירוט לפי מודעה מגיע מ-Meta.
+const CAMPAIGNS = [
+  {
+    key: 'designers-text-all-placements', name: 'הקמפיין החדש · נובמבר',
+    hint: 'בהודעה המוכנה של הקמפיין החדש כתוב "ראיתי את המודעה עם 3 הרילסים במתנה". כל המודעות שלו מהפרויקט של סוניה וספיר.',
+    ads: [
+      { key: 'single', name: 'צילום אחד - המטבח' },
+      { key: 'collage', name: "קולאז' של 4 צילומים" },
+      { key: 'unknown', name: 'לא בטוח' },
+    ],
+  },
+  {
+    key: 'designers-pro-audience-feed', name: 'הקמפיין הקודם · 22.10 עד 1.11',
+    hint: 'בהודעה המוכנה של הקמפיין הקודם כתוב "ראיתי את המודעה עם הרילסים במתנה", בלי המספר 3.',
+    ads: [
+      { key: 'liron', name: 'לירון חפץ - נתניה' },
+      { key: 'alia', name: 'עליא גפארי' },
+      { key: 'linoy', name: 'לינוי כהן - מזכרת בתיה' },
+      { key: 'sonia', name: 'סוניה וספיר - תל מונד' },
+      { key: 'unknown', name: 'לא בטוח' },
+    ],
+  },
 ];
+const campOf = (k) => CAMPAIGNS.find((c) => c.key === k) || CAMPAIGNS[0];
+const adsOf = (k) => campOf(k).ads;
+let view = CAMPAIGNS[0].key;
 // מי פנה. relevant = נספר כשיחה רלוונטית. noDeal = פנייה שמלכתחילה לא תהפוך ליום צילום (בלי "איפה זה עומד").
 const WHO = [
   { key: 'designer', name: 'מעצב/ת פנים', relevant: true },
@@ -216,7 +236,7 @@ function chips(container, list, getValue, setValue) {
   }));
 }
 function drawForm() {
-  chips($('f-ad'), ADS, () => form.ad, (v) => { form.ad = v; });
+  chips($('f-ad'), adsOf(view), () => form.ad, (v) => { form.ad = v; });
   chips($('f-via'), VIA, () => form.via, (v) => { form.via = v; });
   chips($('f-who'), WHO, () => form.who, (v) => { form.who = v; drawFormVisibility(); });
   chips($('f-status'), STATUS, () => form.status, (v) => { form.status = v; drawFormVisibility(); });
@@ -253,7 +273,7 @@ function timeline(r) {
 }
 
 function render() {
-  const mine = rows.filter((r) => r.campaign === CAMPAIGN);
+  const mine = rows.filter((r) => r.campaign === view);
   const won = mine.filter((r) => r.status === 'won');
   $('s-all').textContent = mine.length;
   const priv = mine.filter(isPrivate).length;
@@ -262,7 +282,7 @@ function render() {
   $('s-won').textContent = won.length;
   $('s-rev').textContent = ils(won.reduce((s, r) => s + (Number(r.amount_ils) || 0), 0));
 
-  $('byad').replaceChildren(...ADS.map((ad) => {
+  $('byad').replaceChildren(...adsOf(view).map((ad) => {
     const list = mine.filter((r) => r.ad === ad.key);
     const w = list.filter((r) => r.status === 'won');
     const tr = document.createElement('tr');
@@ -298,7 +318,7 @@ function entry(r) {
   const head = document.createElement('button'); head.type = 'button'; head.className = 'head';
   head.setAttribute('aria-expanded', String(openId === r.id));
   const t = document.createElement('div'); t.className = 'e-title';
-  t.textContent = `${byKey(ADS, r.ad).name}`;
+  t.textContent = `${byKey(adsOf(r.campaign), r.ad).name}`;
   const m = document.createElement('div'); m.className = 'e-meta';
   const who = document.createElement('span');
   who.textContent = whoName(r) + (r.who === 'other' && r.who_other ? `: ${r.who_other}` : '')
@@ -435,7 +455,7 @@ function editor(r) {
     if (noDeal(v)) st.status = 'none';
     else if (st.status === 'none') st.status = 'open';
   });
-  wrap.append(histBox, statusBox, rBox, amtBox, upd, mk('מאיזו מודעה', ADS, 'ad'), mk('איך פנו', VIA, 'via'), whoBox, otherBox, nb, acts);
+  wrap.append(histBox, statusBox, rBox, amtBox, upd, mk('מאיזו מודעה', adsOf(r.campaign), 'ad'), mk('איך פנו', VIA, 'via'), whoBox, otherBox, nb, acts);
   return wrap;
 }
 
@@ -460,7 +480,7 @@ $('add').addEventListener('submit', async (ev) => {
   $('f-submit').disabled = true; msg.textContent = 'שומר...';
   try {
     await db.collection('conversations').add({
-      campaign: CAMPAIGN, date, ad: form.ad, via: form.via, who: form.who,
+      campaign: view, date, ad: form.ad, via: form.via, who: form.who,
       who_other: form.who === 'other' ? $('f-other').value.trim() : '',
       status, amount_ils: amount, note: $('f-note').value.trim(), reason,
       history: [first], closed_at: status === 'won' || status === 'lost' ? date : null,

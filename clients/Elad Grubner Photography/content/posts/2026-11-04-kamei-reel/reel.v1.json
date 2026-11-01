@@ -1,0 +1,26 @@
+{
+  "style": "motion",
+  "fade": 0.5,
+  "_note": "Kamei reel, recipe 2026-11-01-1 (reel 1 of 2). 19 frames, ~44.6s (2.0 + 17x2.8 + 4.0 - 18x0.5). EXCEPTION approved by Adi 1.11: 4 landscape Designer frames (65, 64, 63, 68) cropped to 9:16 with x and zoom only - a pan ignores x and would sweep in the TOM FORD book on the coffee table (x 1042-1102 in 64/65). No blur (Adi 22.10). Designer/54 x=0 keeps the phone and email of the letterhead out of the crop. Cover: Designer/69 (cover.jpg in this folder).",
+  "frames": [
+    { "id": "1tGVZoKS2UBCR1pRQHXtDad2rQ8YES2oP", "label": "Designer/44 - Kamei on the stool in the laundry closet with the sheepskin duster (opening)", "keep": "center", "motion": "zin" },
+    { "id": "19orXgXOTVHarJQLt0Vs84lC0VtGSZMTO", "label": "Designer/43 - pull back: the laundry closet is inside the bathroom, Kamei reaching to the shelf", "keep": "right", "motion": "zout" },
+    { "id": "1Bx0ti3M8c9R0E6d-Gs5UjggRUggiQWsc", "label": "Interior/01 - entry: walnut wardrobe, engravings, teak bench, view to the shelves", "keep": "right", "motion": "zin" },
+    { "id": "1vbY4XrcIDxZj-SdMmG_xZTJGg78ChpqH", "label": "Designer/65 - Kamei walks through the living room (motion blur) - LANDSCAPE, x crop, book out", "x": 380, "keep": "center", "motion": "zin" },
+    { "id": "1ORdJRcsjhtr5MlYsIU7ACKvZEwDku0tV", "label": "Details/86 - teak coffee table, black-white vase, black woven chairs", "keep": "center", "motion": "zin" },
+    { "id": "1d5QGQaEz9TAfRtyIr0_yS8MlzexXD0fv", "label": "Designer/64 - Kamei arranging the floating oak shelves - LANDSCAPE, x crop, book out", "x": 420, "keep": "center", "motion": "zin" },
+    { "id": "10v3vEzvoUD21_zQLVFwNEvjUlzeQNQg4", "label": "Interior/17 - linen curtains at the balcony door, boucle chair (REPEAT 25.10)", "keep": "center", "motion": "zin" },
+    { "id": "1eXGzoa2Yeva2T_HMavVrrwRxKvxU-B9V", "label": "Exterior/71 - the balcony lengthwise: deck, striped armchairs, fiddle figs, fan", "keep": "center", "motion": "zin" },
+    { "id": "1zSVu4MmBPW5hukHPi0XfsWPk2XcFdc75", "label": "Designer/63 - Kamei at the open kitchen shelf, breakfast nook (ONLY kitchen frame) - LANDSCAPE, x crop", "x": 380, "keep": "center", "motion": "zin" },
+    { "id": "1aYIRCMzmDbJNWI62l5-YwCaHT1nhdTnh", "label": "Details/84 - dining table under the portrait gallery wall, two bouquets", "keep": "center", "motion": "panR" },
+    { "id": "11-TlEwkIeAOPfT_iiHSYUFPFmTFTt3Oz", "label": "Designer/68 - Kamei places the green vase on the dining table - LANDSCAPE, x crop", "x": 640, "keep": "center", "motion": "zin" },
+    { "id": "15dgGOObDVCxfEkZnQrd6mWkLXqwHPX8X", "label": "Designer/69 - Kamei leans on the table among the portraits, looks at camera (cover)", "keep": "right", "motion": "zin" },
+    { "id": "158CGrlElYYYlkhN7p94TN0RCDNUKsBPv", "label": "Interior/31 - work nook in the passage: warm pendant, cane walnut wardrobe", "keep": "right", "motion": "panR" },
+    { "id": "1NMOdZ4cZYz_dZN4szu0Qn01ee_F8CCC-", "label": "Designer/49 - Kamei writing at the desk under the warm light", "keep": "center", "motion": "zin" },
+    { "id": "155uzC8S6S-owPA-Z8gUWsMxcpegk-W1M", "label": "Designer/54 - her hands stamping a brass seal on the Kamei letterhead (phone/email cropped out)", "x": 0, "keep": "left", "motion": "zin" },
+    { "id": "1YLmlWutPtFHIhDBOJKgY77IIEWDIQaz1", "label": "Interior/29 - second bedroom: sheer wall, navy cushion, bulb-mirror vanity (TV cropped out)", "keep": "left", "motion": "zin" },
+    { "id": "1spumb4817LysLq8G39V-SrABMyqULuuP", "label": "Interior/21 - the bathroom: vintage oak vanity, subway tiles, black frames", "keep": "right", "motion": "zin" },
+    { "id": "13Mj8mAvSMe3I90vHJriSMvBn4wnh1cjh", "label": "Interior/36 - master bedroom: sheers, big plant, navy bedspread (REPEAT 25.10)", "keep": "center", "motion": "zin" },
+    { "id": "1gOQAPBu29djAPFmjyAAxo8d4iO23t6Gr", "label": "Designer/61 - Kamei smiling in the gilded mirror on the oak dresser (closing)", "keep": "center", "motion": "zout" }
+  ]
+}

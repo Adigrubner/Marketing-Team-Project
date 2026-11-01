@@ -1,0 +1,902 @@
+{
+  "images": [
+    "creatives/final/feed/ad1-single-text.jpg",
+    "creatives/final/story/story-single.jpg",
+    "creatives/final/feed/ad2-single-clean.jpg",
+    "creatives/final/feed/ad3-collage-text.jpg",
+    "creatives/final/story/story-collage.jpg",
+    "creatives/final/feed/ad4-collage-clean.jpg"
+  ],
+  "campaign": {
+    "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל",
+    "objective": "OUTCOME_ENGAGEMENT",
+    "special_ad_categories": [],
+    "is_adset_budget_sharing_enabled": false,
+    "status": "PAUSED"
+  },
+  "adSet": {
+    "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · Ad Set",
+    "campaign_id": "<מזהה הקמפיין>",
+    "daily_budget": 5000,
+    "billing_event": "IMPRESSIONS",
+    "optimization_goal": "CONVERSATIONS",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "destination_type": "WHATSAPP",
+    "promoted_object": {
+      "page_id": "2129327774004845"
+    },
+    "targeting": {
+      "geo_locations": {
+        "countries": [
+          "IL"
+        ]
+      },
+      "age_min": 25,
+      "targeting_automation": {
+        "advantage_audience": 1
+      },
+      "custom_audiences": [
+        {
+          "id": "120254805380880745"
+        }
+      ],
+      "publisher_platforms": [
+        "facebook",
+        "instagram"
+      ],
+      "facebook_positions": [
+        "feed",
+        "story",
+        "facebook_reels"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "status": "PAUSED"
+  },
+  "ads": [
+    {
+      "name": "סוניה וספיר - בודדת - טקסט",
+      "images": [
+        "creatives/final/feed/ad1-single-text.jpg",
+        "creatives/final/story/story-single.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - בודדת - טקסט · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135"
+        },
+        "asset_feed_spec": {
+          "images": [
+            {
+              "hash": "<התמונה creatives/final/feed/ad1-single-text.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                }
+              ]
+            },
+            {
+              "hash": "<התמונה creatives/final/story/story-single.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "bodies": [
+            {
+              "text": "מעצב/ת פנים? צילום הפרויקט שלך בסטילס, ו-3 רילסים ערוכים במתנה. 5 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימת\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nובפגישה הבאה עם לקוח, הפרויקט כבר יחכה לך בטלפון, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננת.\nנשארו עוד 5 ימי צילום אחרונים בנובמבר. אשמח להודעה שלך בוואטסאפ, ונדבר 👇🏻",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "titles": [
+            {
+              "text": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "descriptions": [
+            {
+              "text": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות"
+            }
+          ],
+          "link_urls": [
+            {
+              "website_url": "https://api.whatsapp.com/send",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "call_to_action_types": [
+            "WHATSAPP_MESSAGE"
+          ],
+          "call_to_actions": [
+            {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            }
+          ],
+          "ad_formats": [
+            "SINGLE_IMAGE"
+          ],
+          "asset_customization_rules": [
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "story",
+                  "facebook_reels"
+                ],
+                "instagram_positions": [
+                  "story",
+                  "reels"
+                ]
+              },
+              "image_label": {
+                "name": "placement_story"
+              },
+              "body_label": {
+                "name": "placement_story"
+              },
+              "title_label": {
+                "name": "placement_story"
+              },
+              "link_url_label": {
+                "name": "placement_story"
+              },
+              "priority": 1
+            },
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "feed"
+                ],
+                "instagram_positions": [
+                  "stream"
+                ]
+              },
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 2
+            },
+            {
+              "customization_spec": {},
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 3
+            }
+          ],
+          "optimization_type": "PLACEMENT",
+          "additional_data": {
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם 3 הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}"
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      },
+      "ad": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - בודדת - טקסט",
+        "adset_id": "<מזהה האד-סט>",
+        "creative": {
+          "creative_id": "<הקריאייטיב של סוניה וספיר - בודדת - טקסט>"
+        },
+        "status": "PAUSED"
+      }
+    },
+    {
+      "name": "סוניה וספיר - בודדת - נקייה",
+      "images": [
+        "creatives/final/feed/ad2-single-clean.jpg",
+        "creatives/final/story/story-single.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - בודדת - נקייה · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135"
+        },
+        "asset_feed_spec": {
+          "images": [
+            {
+              "hash": "<התמונה creatives/final/feed/ad2-single-clean.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                }
+              ]
+            },
+            {
+              "hash": "<התמונה creatives/final/story/story-single.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "bodies": [
+            {
+              "text": "מעצב/ת פנים? צילום הפרויקט שלך בסטילס, ו-3 רילסים ערוכים במתנה. 5 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימת\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nובפגישה הבאה עם לקוח, הפרויקט כבר יחכה לך בטלפון, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננת.\nנשארו עוד 5 ימי צילום אחרונים בנובמבר. אשמח להודעה שלך בוואטסאפ, ונדבר 👇🏻",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "titles": [
+            {
+              "text": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "descriptions": [
+            {
+              "text": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות"
+            }
+          ],
+          "link_urls": [
+            {
+              "website_url": "https://api.whatsapp.com/send",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "call_to_action_types": [
+            "WHATSAPP_MESSAGE"
+          ],
+          "call_to_actions": [
+            {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            }
+          ],
+          "ad_formats": [
+            "SINGLE_IMAGE"
+          ],
+          "asset_customization_rules": [
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "story",
+                  "facebook_reels"
+                ],
+                "instagram_positions": [
+                  "story",
+                  "reels"
+                ]
+              },
+              "image_label": {
+                "name": "placement_story"
+              },
+              "body_label": {
+                "name": "placement_story"
+              },
+              "title_label": {
+                "name": "placement_story"
+              },
+              "link_url_label": {
+                "name": "placement_story"
+              },
+              "priority": 1
+            },
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "feed"
+                ],
+                "instagram_positions": [
+                  "stream"
+                ]
+              },
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 2
+            },
+            {
+              "customization_spec": {},
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 3
+            }
+          ],
+          "optimization_type": "PLACEMENT",
+          "additional_data": {
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם 3 הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}"
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      },
+      "ad": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - בודדת - נקייה",
+        "adset_id": "<מזהה האד-סט>",
+        "creative": {
+          "creative_id": "<הקריאייטיב של סוניה וספיר - בודדת - נקייה>"
+        },
+        "status": "PAUSED"
+      }
+    },
+    {
+      "name": "סוניה וספיר - קולאז' - טקסט",
+      "images": [
+        "creatives/final/feed/ad3-collage-text.jpg",
+        "creatives/final/story/story-collage.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - קולאז' - טקסט · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135"
+        },
+        "asset_feed_spec": {
+          "images": [
+            {
+              "hash": "<התמונה creatives/final/feed/ad3-collage-text.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                }
+              ]
+            },
+            {
+              "hash": "<התמונה creatives/final/story/story-collage.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "bodies": [
+            {
+              "text": "מעצב/ת פנים? צילום הפרויקט שלך בסטילס, ו-3 רילסים ערוכים במתנה. 5 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימת\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nובפגישה הבאה עם לקוח, הפרויקט כבר יחכה לך בטלפון, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננת.\nנשארו עוד 5 ימי צילום אחרונים בנובמבר. אשמח להודעה שלך בוואטסאפ, ונדבר 👇🏻",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "titles": [
+            {
+              "text": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "descriptions": [
+            {
+              "text": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות"
+            }
+          ],
+          "link_urls": [
+            {
+              "website_url": "https://api.whatsapp.com/send",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "call_to_action_types": [
+            "WHATSAPP_MESSAGE"
+          ],
+          "call_to_actions": [
+            {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            }
+          ],
+          "ad_formats": [
+            "SINGLE_IMAGE"
+          ],
+          "asset_customization_rules": [
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "story",
+                  "facebook_reels"
+                ],
+                "instagram_positions": [
+                  "story",
+                  "reels"
+                ]
+              },
+              "image_label": {
+                "name": "placement_story"
+              },
+              "body_label": {
+                "name": "placement_story"
+              },
+              "title_label": {
+                "name": "placement_story"
+              },
+              "link_url_label": {
+                "name": "placement_story"
+              },
+              "priority": 1
+            },
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "feed"
+                ],
+                "instagram_positions": [
+                  "stream"
+                ]
+              },
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 2
+            },
+            {
+              "customization_spec": {},
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 3
+            }
+          ],
+          "optimization_type": "PLACEMENT",
+          "additional_data": {
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם 3 הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}"
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      },
+      "ad": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - קולאז' - טקסט",
+        "adset_id": "<מזהה האד-סט>",
+        "creative": {
+          "creative_id": "<הקריאייטיב של סוניה וספיר - קולאז' - טקסט>"
+        },
+        "status": "PAUSED"
+      }
+    },
+    {
+      "name": "סוניה וספיר - קולאז' - נקי",
+      "images": [
+        "creatives/final/feed/ad4-collage-clean.jpg",
+        "creatives/final/story/story-collage.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - קולאז' - נקי · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135"
+        },
+        "asset_feed_spec": {
+          "images": [
+            {
+              "hash": "<התמונה creatives/final/feed/ad4-collage-clean.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                }
+              ]
+            },
+            {
+              "hash": "<התמונה creatives/final/story/story-collage.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "bodies": [
+            {
+              "text": "מעצב/ת פנים? צילום הפרויקט שלך בסטילס, ו-3 רילסים ערוכים במתנה. 5 תאריכים פנויים בנובמבר.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימת\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nובפגישה הבאה עם לקוח, הפרויקט כבר יחכה לך בטלפון, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננת.\nנשארו עוד 5 ימי צילום אחרונים בנובמבר. אשמח להודעה שלך בוואטסאפ, ונדבר 👇🏻",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "titles": [
+            {
+              "text": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "descriptions": [
+            {
+              "text": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות"
+            }
+          ],
+          "link_urls": [
+            {
+              "website_url": "https://api.whatsapp.com/send",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "call_to_action_types": [
+            "WHATSAPP_MESSAGE"
+          ],
+          "call_to_actions": [
+            {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            }
+          ],
+          "ad_formats": [
+            "SINGLE_IMAGE"
+          ],
+          "asset_customization_rules": [
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "story",
+                  "facebook_reels"
+                ],
+                "instagram_positions": [
+                  "story",
+                  "reels"
+                ]
+              },
+              "image_label": {
+                "name": "placement_story"
+              },
+              "body_label": {
+                "name": "placement_story"
+              },
+              "title_label": {
+                "name": "placement_story"
+              },
+              "link_url_label": {
+                "name": "placement_story"
+              },
+              "priority": 1
+            },
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "feed"
+                ],
+                "instagram_positions": [
+                  "stream"
+                ]
+              },
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 2
+            },
+            {
+              "customization_spec": {},
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 3
+            }
+          ],
+          "optimization_type": "PLACEMENT",
+          "additional_data": {
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם 3 הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}"
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      },
+      "ad": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · סוניה וספיר - קולאז' - נקי",
+        "adset_id": "<מזהה האד-סט>",
+        "creative": {
+          "creative_id": "<הקריאייטיב של סוניה וספיר - קולאז' - נקי>"
+        },
+        "status": "PAUSED"
+      }
+    }
+  ]
+}

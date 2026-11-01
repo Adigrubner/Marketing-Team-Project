@@ -1,0 +1,82 @@
+{
+  "images": [],
+  "campaign": {
+    "name": "קידום תומך - הרילס של עליא גפארי - קהל חם 10₪ - 11/2026",
+    "objective": "OUTCOME_AWARENESS",
+    "special_ad_categories": [],
+    "is_adset_budget_sharing_enabled": false,
+    "status": "PAUSED"
+  },
+  "adSet": {
+    "name": "קידום תומך - הרילס של עליא גפארי - קהל חם 10₪ - 11/2026 · Ad Set",
+    "campaign_id": "<מזהה הקמפיין>",
+    "daily_budget": 1000,
+    "billing_event": "IMPRESSIONS",
+    "optimization_goal": "REACH",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "promoted_object": {
+      "page_id": "2129327774004845"
+    },
+    "frequency_control_specs": [
+      {
+        "event": "IMPRESSIONS",
+        "interval_days": 7,
+        "max_frequency": 2
+      }
+    ],
+    "targeting": {
+      "geo_locations": {
+        "countries": [
+          "IL"
+        ]
+      },
+      "age_min": 25,
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "custom_audiences": [
+        {
+          "id": "120240633155310745"
+        },
+        {
+          "id": "120240633031420745"
+        }
+      ],
+      "targeting_relaxation_types": {
+        "custom_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "status": "PAUSED"
+  },
+  "ads": [
+    {
+      "name": "הרילס של עליא גפארי",
+      "images": [],
+      "creative": {
+        "name": "קידום תומך - הרילס של עליא גפארי - קהל חם 10₪ - 11/2026 · הרילס של עליא גפארי · Creative",
+        "object_id": "2129327774004845",
+        "instagram_user_id": "17841408216480135",
+        "source_instagram_media_id": "18076032782744329"
+      },
+      "ad": {
+        "name": "קידום תומך - הרילס של עליא גפארי - קהל חם 10₪ - 11/2026 · הרילס של עליא גפארי",
+        "adset_id": "<מזהה האד-סט>",
+        "creative": {
+          "creative_id": "<הקריאייטיב של הרילס של עליא גפארי>"
+        },
+        "status": "PAUSED"
+      }
+    }
+  ]
+}

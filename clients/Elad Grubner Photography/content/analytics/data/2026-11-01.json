@@ -129,47 +129,420 @@
   },
   "referencesSummary": "שבוע שקט מאוד אצל הרפרנסים - רק מירב ו-Daniel העלו. מירב: פוסט בית בקיבוץ עם פסנתר (10 לייקים) ורילס הטיפים \"5 דברים לפני הצילום\" שהגיע הפעם ל-24 לייקים ו-16 תגובות - אבל התגובות הן על תוכנית מנטורינג לצלמים, כלומר קהל של צלמים ולא של מעצבות. Daniel: רילס טיפ צילום (15). שאר השישה לא העלו.",
   "references": [
-    { "name": "שי אפשטיין", "handle": "shai.epstein.photography", "source": "metricool", "followers": 13812, "postsThisWeek": 0, "highlight": "לא העלה השבוע.", "bestUrl": "" },
-    { "name": "אורן עמוס", "handle": "oren.amos.photography", "source": "metricool", "followers": 7495, "postsThisWeek": 0, "highlight": "לא העלה השבוע.", "bestUrl": "" },
-    { "name": "מאור מויאל", "handle": "moyalmaor", "source": "metricool", "followers": 7180, "postsThisWeek": 0, "highlight": "לא העלה השבוע.", "bestUrl": "" },
-    { "name": "אלנה מרגולין", "handle": "alenafoto", "source": "metricool", "followers": 6560, "postsThisWeek": 0, "highlight": "לא העלתה השבוע.", "bestUrl": "" },
-    { "name": "מירב פלברג", "handle": "merav.felberg.photographer", "source": "metricool", "followers": 6315, "postsThisWeek": 5, "highlight": "פוסט אחד (בית בקיבוץ, תקרת עץ ופסנתר + קרדיט, 28.10 בערב) - 10 לייקים, 4 תגובות. ו-4 רילסים ב-25.10: \"5 דברים לפני הצילום\" + מנטורינג - 24 לייקים ו-16 תגובות (קהל של צלמים); \"אינסטגרם היקר\" - 2 לייקים; שניים בלי טקסט - 3 ו-5.", "bestUrl": "https://www.instagram.com/reel/De6QtFvoI1p/" },
-    { "name": "אורית ארנון", "handle": "orit.arnon.photographer", "source": "metricool", "followers": 4623, "postsThisWeek": 0, "highlight": "לא העלתה השבוע.", "bestUrl": "" },
-    { "name": "קרין רוונה", "handle": "karinravenna_photography", "source": "metricool", "followers": 3650, "postsThisWeek": 0, "highlight": "לא העלתה השבוע.", "bestUrl": "" },
-    { "name": "Daniel Tzairi", "handle": "danieltz_interior_photography", "source": "metricool", "followers": 3052, "postsThisWeek": 1, "highlight": "רילס טיפ צילום וידאו (\"שוטים סטטיים\", 26.10 בערב) - 15 לייקים, בלי תגובות.", "bestUrl": "https://www.instagram.com/reel/De94rBiR3x_/" }
+    {
+      "name": "שי אפשטיין",
+      "handle": "shai.epstein.photography",
+      "source": "metricool",
+      "followers": 13812,
+      "postsThisWeek": 0,
+      "highlight": "לא העלה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "אורן עמוס",
+      "handle": "oren.amos.photography",
+      "source": "metricool",
+      "followers": 7495,
+      "postsThisWeek": 0,
+      "highlight": "לא העלה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "מאור מויאל",
+      "handle": "moyalmaor",
+      "source": "metricool",
+      "followers": 7180,
+      "postsThisWeek": 0,
+      "highlight": "לא העלה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "אלנה מרגולין",
+      "handle": "alenafoto",
+      "source": "metricool",
+      "followers": 6560,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "מירב פלברג",
+      "handle": "merav.felberg.photographer",
+      "source": "metricool",
+      "followers": 6315,
+      "postsThisWeek": 5,
+      "highlight": "פוסט אחד (בית בקיבוץ, תקרת עץ ופסנתר + קרדיט, 28.10 בערב) - 10 לייקים, 4 תגובות. ו-4 רילסים ב-25.10: \"5 דברים לפני הצילום\" + מנטורינג - 24 לייקים ו-16 תגובות (קהל של צלמים); \"אינסטגרם היקר\" - 2 לייקים; שניים בלי טקסט - 3 ו-5.",
+      "bestUrl": "https://www.instagram.com/reel/De6QtFvoI1p/"
+    },
+    {
+      "name": "אורית ארנון",
+      "handle": "orit.arnon.photographer",
+      "source": "metricool",
+      "followers": 4623,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "קרין רוונה",
+      "handle": "karinravenna_photography",
+      "source": "metricool",
+      "followers": 3650,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "Daniel Tzairi",
+      "handle": "danieltz_interior_photography",
+      "source": "metricool",
+      "followers": 3052,
+      "postsThisWeek": 1,
+      "highlight": "רילס טיפ צילום וידאו (\"שוטים סטטיים\", 26.10 בערב) - 15 לייקים, בלי תגובות.",
+      "bestUrl": "https://www.instagram.com/reel/De94rBiR3x_/"
+    }
   ],
   "designers": [
-    { "name": "מיכל שילוני", "handle": "shiloni_arc", "post": "25.10 · וילונות", "url": "https://www.instagram.com/p/De59lSnFcpE/", "collab": null, "commented": null, "storyShare": null, "comments": 1, "otherComments": null, "commentsVsAvg": -74, "savesShares": 0, "rating": "❔", "note": "פוסט משותף (3 מעצבות). Collab ותגובות לא נבדקו - הדפדפן לא היה זמין בהרצה." },
-    { "name": "לירון חפץ", "handle": "liron_hefetz_interiordesign", "post": "25.10 · וילונות", "url": "https://www.instagram.com/p/De59lSnFcpE/", "collab": null, "commented": null, "storyShare": null, "comments": 1, "otherComments": null, "commentsVsAvg": -74, "savesShares": 0, "rating": "❔", "note": "הופעה ראשונה. פוסט משותף. לא נבדק בדפדפן." },
-    { "name": "קאמיי", "handle": "kamei_interiordesign", "post": "25.10 · וילונות", "url": "https://www.instagram.com/p/De59lSnFcpE/", "collab": null, "commented": null, "storyShare": null, "comments": 1, "otherComments": null, "commentsVsAvg": -74, "savesShares": 0, "rating": "❔", "note": "פעם שנייה (🔥 מ-21.10). הפעם תגובה אחת בכל הפוסט. לא נבדק בדפדפן." },
-    { "name": "קרן טויטו", "handle": "keren.twito.arch", "post": "27.10 · פרויקט מלא", "url": "https://www.instagram.com/p/DfAB7UKjufV/", "collab": null, "commented": false, "storyShare": null, "comments": 0, "otherComments": 0, "commentsVsAvg": -100, "savesShares": 0, "rating": "😶", "note": "0 תגובות בפוסט (לפי מטריקול) - כלומר גם היא לא הגיבה. Collab לא נבדק. 🔎" },
-    { "name": "מור לויה", "handle": "loyamor", "post": "28.10 · חדרי ילדים", "url": "https://www.instagram.com/p/DfDCP-JGzP3/", "collab": null, "commented": false, "storyShare": null, "comments": 0, "otherComments": 0, "commentsVsAvg": -100, "savesShares": 0, "rating": "😶", "note": "פעם שנייה (אמבטיות 18.10 - אישרה Collab, לא הגיבה). 0 תגובות בכל הפוסט." },
-    { "name": "אריאל מרוז", "handle": "ariel.maroz.interiordesign", "post": "28.10 · חדרי ילדים", "url": "https://www.instagram.com/p/DfDCP-JGzP3/", "collab": null, "commented": false, "storyShare": null, "comments": 0, "otherComments": 0, "commentsVsAvg": -100, "savesShares": 0, "rating": "😶", "note": "הופעה ראשונה. 0 תגובות בפוסט. 🔎" },
-    { "name": "גל ויסכה", "handle": "gy.interior.design", "post": "28.10 · חדרי ילדים", "url": "https://www.instagram.com/p/DfDCP-JGzP3/", "collab": null, "commented": false, "storyShare": null, "comments": 0, "otherComments": 0, "commentsVsAvg": -100, "savesShares": 0, "rating": "😶", "note": "הופעה ראשונה. 0 תגובות בפוסט. 🔎" },
-    { "name": "לינוי כהן", "handle": "linoycohen_design", "post": "28.10 · חדרי ילדים", "url": "https://www.instagram.com/p/DfDCP-JGzP3/", "collab": null, "commented": false, "storyShare": null, "comments": 0, "otherComments": 0, "commentsVsAvg": -100, "savesShares": 0, "rating": "😶", "note": "הופעה ראשונה. 0 תגובות בפוסט. 🔎" },
-    { "name": "עליא גפארי", "handle": "alia.gafari", "post": "29.10 · רילס", "url": "https://www.instagram.com/reel/DfFZxLPgCPb/", "collab": null, "commented": null, "storyShare": null, "comments": 4, "otherComments": null, "commentsVsAvg": 5, "savesShares": 10, "rating": "🔥", "note": "הרילס הכי חזק של אלעד - עליא בתוך הפריים לאורך כל הסרטון. 7 שיתופים, 3 שמירות. מי הגיב ואם ה-Collab אושר - לא נבדק בדפדפן. 🔎" },
-    { "name": "שירן פורת", "handle": "shiran_porat_interiordesign", "post": "30.10 · ספרייה", "url": "https://www.instagram.com/p/DfHe6sGFQeK/", "collab": null, "commented": null, "storyShare": null, "comments": 2, "otherComments": null, "commentsVsAvg": -47, "savesShares": 2, "rating": "🙂", "note": "פעם שנייה. שירן ביקשה תיקון בתמונה - כלומר עוקבת אחרי הפוסט. עלה מחדש ב-13:30. צעיר - יומיים." },
-    { "name": "נטלי קונטנטה", "handle": "nataly_contente", "post": "31.10 · מטבח ירוק (מוצ\"ש)", "url": "https://www.instagram.com/p/DfKwyHLGsDK/", "collab": null, "commented": null, "storyShare": null, "comments": 2, "otherComments": null, "commentsVsAvg": null, "savesShares": 0, "rating": "❔", "note": "צעיר - 9 שעות. משלימים ב-8.11." },
-    { "name": "ענת זיו (עדכון)", "handle": "anat__ziv", "post": "23.10 · פינת אוכל (שישי)", "url": "https://www.instagram.com/p/De03hkkFeyF/", "collab": true, "commented": false, "storyShare": null, "comments": 1, "otherComments": 1, "commentsVsAvg": -74, "savesShares": 0, "rating": "😶", "note": "סופי: 199 חשיפות (‎-43% מול 347), תגובה אחת. 🔎" },
-    { "name": "יערה גולן (עדכון)", "handle": "yaara.golan.1", "post": "24.10 · פרויקט מלא (מוצ\"ש)", "url": "https://www.instagram.com/p/De4n98iEbcx/", "collab": true, "commented": null, "storyShare": null, "comments": 4, "otherComments": null, "commentsVsAvg": 5, "savesShares": 4, "rating": "🙂", "note": "סופי: 603 חשיפות (‎+74%) - הקרוסלה הכי חזקה מאז הסלונים. 3 שמירות ושיתוף. אם יערה הגיבה - לא נבדק." }
+    {
+      "name": "מיכל שילוני",
+      "handle": "shiloni_arc",
+      "post": "25.10 · וילונות",
+      "url": "https://www.instagram.com/p/De59lSnFcpE/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 1,
+      "otherComments": 1,
+      "commentsVsAvg": -74,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "בלי Collab - בראש הפוסט רק אלעד. אף אחת משלוש המעצבות לא הגיבה; התגובה היחידה - של מישהי אחרת. (נבדק בדפדפן 1.11 ~11:30)"
+    },
+    {
+      "name": "לירון חפץ",
+      "handle": "liron_hefetz_interiordesign",
+      "post": "25.10 · וילונות",
+      "url": "https://www.instagram.com/p/De59lSnFcpE/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 1,
+      "otherComments": 1,
+      "commentsVsAvg": -74,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "הופעה ראשונה. בלי Collab ובלי תגובה שלה. 🔎"
+    },
+    {
+      "name": "קאמיי",
+      "handle": "kamei_interiordesign",
+      "post": "25.10 · וילונות",
+      "url": "https://www.instagram.com/p/De59lSnFcpE/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 1,
+      "otherComments": 1,
+      "commentsVsAvg": -74,
+      "savesShares": 0,
+      "rating": "🙂",
+      "note": "פעם שנייה. הפעם בלי Collab ובלי תגובה (ב-21.10 - שניהם ✅, ו-Collab משלה 24.10). 🔎"
+    },
+    {
+      "name": "קרן טויטו",
+      "handle": "keren.twito.arch",
+      "post": "27.10 · פרויקט מלא",
+      "url": "https://www.instagram.com/p/DfAB7UKjufV/",
+      "collab": true,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "Collab אושר. 0 תגובות - גם היא לא הגיבה. 🔎"
+    },
+    {
+      "name": "מור לויה",
+      "handle": "loyamor",
+      "post": "28.10 · חדרי ילדים",
+      "url": "https://www.instagram.com/p/DfDCP-JGzP3/",
+      "collab": true,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "Collab אושר (היחידה מהארבע). באינסטגרם לא הגיבה, אבל **הגיבה בפייסבוק האישי של אלעד** (לפני 3 ימים, ואלעד ענה)."
+    },
+    {
+      "name": "אריאל מרוז",
+      "handle": "ariel.maroz.interiordesign",
+      "post": "28.10 · חדרי ילדים",
+      "url": "https://www.instagram.com/p/DfDCP-JGzP3/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "הופעה ראשונה. בלי Collab (בראש הפוסט רק מור), 0 תגובות. 🔎"
+    },
+    {
+      "name": "גל ויסכה",
+      "handle": "gy.interior.design",
+      "post": "28.10 · חדרי ילדים",
+      "url": "https://www.instagram.com/p/DfDCP-JGzP3/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "הופעה ראשונה. בלי Collab, 0 תגובות. 🔎"
+    },
+    {
+      "name": "לינוי כהן",
+      "handle": "linoycohen_design",
+      "post": "28.10 · חדרי ילדים",
+      "url": "https://www.instagram.com/p/DfDCP-JGzP3/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "הופעה ראשונה. בלי Collab, 0 תגובות. 🔎"
+    },
+    {
+      "name": "עליא גפארי",
+      "handle": "alia.gafari",
+      "post": "29.10 · רילס",
+      "url": "https://www.instagram.com/reel/DfFZxLPgCPb/",
+      "collab": true,
+      "commented": false,
+      "storyShare": null,
+      "comments": 4,
+      "otherComments": 4,
+      "commentsVsAvg": 5,
+      "savesShares": 10,
+      "rating": "🔥",
+      "note": "Collab אושר. עליא עצמה לא הגיבה - 4 התגובות של אחרים, 3 מהן בערבית (כנראה מהקהל שלה, דרך ה-Collab). הרילס הכי חזק של אלעד, עליא בפריים לאורך כל הסרטון. 🔎"
+    },
+    {
+      "name": "שירן פורת",
+      "handle": "shiran_porat_interiordesign",
+      "post": "30.10 · ספרייה",
+      "url": "https://www.instagram.com/p/DfHe6sGFQeK/",
+      "collab": true,
+      "commented": true,
+      "storyShare": null,
+      "comments": 2,
+      "otherComments": 2,
+      "commentsVsAvg": -47,
+      "savesShares": 2,
+      "rating": "🔥",
+      "note": "Collab אושר. שתי התגובות של אנשים מהקהל שלה (פונות אליה: \"את פשוט אומנית\"), ושירן ענתה להן ~יום אחרי העלייה. התיוג הביא שיחה."
+    },
+    {
+      "name": "נטלי קונטנטה",
+      "handle": "nataly_contente",
+      "post": "31.10 · מטבח ירוק (מוצ\"ש)",
+      "url": "https://www.instagram.com/p/DfKwyHLGsDK/",
+      "collab": true,
+      "commented": true,
+      "storyShare": null,
+      "comments": 2,
+      "otherComments": 0,
+      "commentsVsAvg": null,
+      "savesShares": 0,
+      "rating": "🙂",
+      "note": "Collab אושר, הגיבה תוך שעה מהעלייה (\"כייף לעבוד איתו\"), וגם בפייסבוק האישי של אלעד. 2 התגובות = שלה + התשובה של אלעד. צעיר - משלימים ב-8.11."
+    },
+    {
+      "name": "ענת זיו (עדכון)",
+      "handle": "anat__ziv",
+      "post": "23.10 · פינת אוכל (שישי)",
+      "url": "https://www.instagram.com/p/De03hkkFeyF/",
+      "collab": true,
+      "commented": false,
+      "storyShare": null,
+      "comments": 1,
+      "otherComments": 1,
+      "commentsVsAvg": -74,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "סופי: 199 חשיפות (‎-43% מול 347), תגובה אחת. 🔎"
+    },
+    {
+      "name": "יערה גולן (עדכון)",
+      "handle": "yaara.golan.1",
+      "post": "24.10 · פרויקט מלא (מוצ\"ש)",
+      "url": "https://www.instagram.com/p/De4n98iEbcx/",
+      "collab": true,
+      "commented": null,
+      "storyShare": null,
+      "comments": 4,
+      "otherComments": null,
+      "commentsVsAvg": 5,
+      "savesShares": 4,
+      "rating": "🙂",
+      "note": "סופי: 603 חשיפות (‎+74%) - הקרוסלה הכי חזקה מאז הסלונים. 3 שמירות ושיתוף. אם יערה הגיבה - לא נבדק."
+    }
   ],
   "facebook": {
     "avgReach": 95,
     "summary": "הדף העסקי ירד חזק: מאז 25.10 (כשהפוסטים בפייסבוק התחילו לעלות כפוסט נפרד, עם שמות במקום @) - 58, 41, 26, 26 ו-23 אנשים, ממוצע 35 מול 95 בחודש שלפני. אף פוסט לא עבר את הממוצע, ואין מועמד לקידום בפייסבוק. שבוע אחד - עוד לא ברור אם זה השינוי או מקרה.",
     "posts": [
-      { "date": "2026-10-25", "time": "07:30", "format": "אלבום", "title": "וילונות", "url": "https://facebook.com/2159408711605560/posts/2179031119643319", "reach": 58, "reactions": 2, "comments": 0, "shares": 0, "clicks": 2, "vsAvg": -39, "igReach": 204, "young": false, "note": "הכי חזק בדף השבוע" },
-      { "date": "2026-10-27", "time": "16:04", "format": "אלבום", "title": "קרן טויטו", "url": "https://facebook.com/2159408711605560/posts/2181639246049173", "reach": 41, "reactions": 2, "comments": 0, "shares": 0, "clicks": 0, "vsAvg": -57, "igReach": 290, "young": false, "note": "" },
-      { "date": "2026-10-28", "time": "20:04", "format": "אלבום", "title": "חדרי ילדים", "url": "https://facebook.com/2159408711605560/posts/2183071275905970", "reach": 26, "reactions": 0, "comments": 0, "shares": 0, "clicks": 3, "vsAvg": -73, "igReach": 174, "young": false, "note": "" },
-      { "date": "2026-10-29", "time": "18:10", "format": "רילס", "title": "עליא - רילס", "url": null, "reach": null, "reactions": null, "comments": null, "shares": null, "clicks": null, "vsAvg": null, "igReach": 1742, "young": true, "note": "מטריקול לא מחזיר רילס בפייסבוק." },
-      { "date": "2026-10-30", "time": "13:32", "format": "אלבום", "title": "שירן - ספרייה", "url": "https://facebook.com/2159408711605560/posts/2185206402359124", "reach": 26, "reactions": 0, "comments": 0, "shares": 0, "clicks": 3, "vsAvg": -73, "igReach": 188, "young": true, "note": "עלה מחדש אחרי מחיקת הפוסט של 9:00" },
-      { "date": "2026-10-31", "time": "20:05", "format": "אלבום", "title": "נטלי (מוצ\"ש)", "url": "https://facebook.com/2159408711605560/posts/2186909862188778", "reach": 23, "reactions": 1, "comments": 0, "shares": 0, "clicks": 3, "vsAvg": null, "igReach": 122, "young": true, "note": "בן 9 שעות" }
+      {
+        "date": "2026-10-25",
+        "time": "07:30",
+        "format": "אלבום",
+        "title": "וילונות",
+        "url": "https://facebook.com/2159408711605560/posts/2179031119643319",
+        "reach": 58,
+        "reactions": 2,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 2,
+        "vsAvg": -39,
+        "igReach": 204,
+        "young": false,
+        "note": "הכי חזק בדף השבוע"
+      },
+      {
+        "date": "2026-10-27",
+        "time": "16:04",
+        "format": "אלבום",
+        "title": "קרן טויטו",
+        "url": "https://facebook.com/2159408711605560/posts/2181639246049173",
+        "reach": 41,
+        "reactions": 2,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 0,
+        "vsAvg": -57,
+        "igReach": 290,
+        "young": false,
+        "note": ""
+      },
+      {
+        "date": "2026-10-28",
+        "time": "20:04",
+        "format": "אלבום",
+        "title": "חדרי ילדים",
+        "url": "https://facebook.com/2159408711605560/posts/2183071275905970",
+        "reach": 26,
+        "reactions": 0,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 3,
+        "vsAvg": -73,
+        "igReach": 174,
+        "young": false,
+        "note": ""
+      },
+      {
+        "date": "2026-10-29",
+        "time": "18:10",
+        "format": "רילס",
+        "title": "עליא - רילס",
+        "url": null,
+        "reach": null,
+        "reactions": null,
+        "comments": null,
+        "shares": null,
+        "clicks": null,
+        "vsAvg": null,
+        "igReach": 1742,
+        "young": true,
+        "note": "מטריקול לא מחזיר רילס בפייסבוק."
+      },
+      {
+        "date": "2026-10-30",
+        "time": "13:32",
+        "format": "אלבום",
+        "title": "שירן - ספרייה",
+        "url": "https://facebook.com/2159408711605560/posts/2185206402359124",
+        "reach": 26,
+        "reactions": 0,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 3,
+        "vsAvg": -73,
+        "igReach": 188,
+        "young": true,
+        "note": "עלה מחדש אחרי מחיקת הפוסט של 9:00"
+      },
+      {
+        "date": "2026-10-31",
+        "time": "20:05",
+        "format": "אלבום",
+        "title": "נטלי (מוצ\"ש)",
+        "url": "https://facebook.com/2159408711605560/posts/2186909862188778",
+        "reach": 23,
+        "reactions": 1,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 3,
+        "vsAvg": null,
+        "igReach": 122,
+        "young": true,
+        "note": "בן 9 שעות"
+      }
     ]
   },
   "facebookPersonal": {
-    "summary": "לא נבדק השבוע - הדפדפן לא היה זמין בהרצה האוטומטית.",
-    "avgReactions": null,
-    "avgComments": null,
-    "posts": []
+    "summary": "אלעד שיתף 3 מ-6 הפוסטים של השבוע בפרופיל האישי (חדרי ילדים, שירן, נטלי) - וכל אחד מהם עבד שם הרבה יותר מבדף העסקי: 23 ריאקשנים מול ריאקשן אחד בדף. נטלי ומור הגיבו שם בעצמן. וילונות, קרן והרילס של עליא - לא שותפו בפרופיל. השבוע בממוצע 7.7 ריאקשנים ו-1.7 תגובות, מול 10 ו-3 בפוסט הקודם (ענת זיו - הפוסט היחיד שלפני). ✅ 4 פוסטים מ-4: בפייסבוק, הפרופיל האישי הוא המקום שעובד.",
+    "avgReactions": 10,
+    "avgComments": 3,
+    "posts": [
+      {
+        "date": "2026-10-28",
+        "time": null,
+        "type": "פוסט של אלעד",
+        "title": "חדרי ילדים (4 מעצבות)",
+        "url": null,
+        "reactions": 5,
+        "comments": 1,
+        "shares": 1,
+        "designersCommented": "מור לויה",
+        "note": "בדף העסקי: 26 אנשים, 0 ריאקשנים. מור הגיבה ואלעד ענה"
+      },
+      {
+        "date": "2026-10-30",
+        "time": null,
+        "type": "פוסט של אלעד",
+        "title": "שירן פורת - ספרייה",
+        "url": null,
+        "reactions": 8,
+        "comments": 0,
+        "shares": 1,
+        "designersCommented": null,
+        "note": "בדף העסקי: 26 אנשים, 0 ריאקשנים"
+      },
+      {
+        "date": "2026-10-31",
+        "time": null,
+        "type": "פוסט של אלעד",
+        "title": "נטלי קונטנטה - מטבח ירוק",
+        "url": null,
+        "reactions": 10,
+        "comments": 4,
+        "shares": 1,
+        "designersCommented": "נטלי קונטנטה",
+        "note": "בדף העסקי: 23 אנשים, ריאקשן 1. צעיר (~15 שעות)"
+      }
+    ]
   },
   "extra": {
     "title": "\"כמה מעצבות\" - ההחלטה של 1.11, ניסיון השעות ומוצ\"ש",
@@ -180,14 +553,36 @@
     "followerReach": 1132,
     "nonFollowerReach": 4024,
     "peakDay": "2026-10-30 (1,567 לא-עוקבים, יום אחרי הרילס של עליא)",
-    "stories": { "count": 2, "avgReach": 15, "top": "29.10 14:52 - 30 (יום הרילס)" },
-    "cities": ["תל אביב 6.3%", "פתח תקווה 3.9%", "ראשון לציון 3.6%", "חולון 2.9%", "מודיעין / רמת גן 2.6%"]
+    "stories": {
+      "count": 2,
+      "avgReach": 15,
+      "top": "29.10 14:52 - 30 (יום הרילס)"
+    },
+    "cities": [
+      "תל אביב 6.3%",
+      "פתח תקווה 3.9%",
+      "ראשון לציון 3.6%",
+      "חולון 2.9%",
+      "מודיעין / רמת גן 2.6%"
+    ]
   },
   "promote": {
     "summary": "ממתין לאסטרטג",
     "candidates": [
-      { "title": "יערה גולן - כמעט כל קיר הוא בעצם דלת (אינסטגרם · 10 תמונות)", "url": "https://www.instagram.com/p/De4n98iEbcx/", "date": "2026-10-24", "why": "603 חשיפות (‎+74% מול 347), 3 שמירות, שיתוף, 4 תגובות, Collab אושר. עבד יותר באינסטגרם (בפייסבוק 87, מתחת לממוצע הדף). 10 תמונות - אפשר לקדם כמו שהוא.", "decision": "ממתין לאסטרטג" },
-      { "title": "רעות זילברברג - את הבטון השאירו גלוי (אינסטגרם · 12 תמונות)", "url": "https://www.instagram.com/p/DezDC8ClY0d/", "date": "2026-10-22", "why": "481 חשיפות (‎+39%), 10 תגובות (7 של אחרים), Collab אושר ורעות ענתה. 12 תמונות - באינסטגרם אי אפשר לקדם כמו שהוא. בפייסבוק 104 (‎+9%) ו-20 קליקים.", "decision": "ממתין לאסטרטג" }
+      {
+        "title": "יערה גולן - כמעט כל קיר הוא בעצם דלת (אינסטגרם · 10 תמונות)",
+        "url": "https://www.instagram.com/p/De4n98iEbcx/",
+        "date": "2026-10-24",
+        "why": "603 חשיפות (‎+74% מול 347), 3 שמירות, שיתוף, 4 תגובות, Collab אושר. עבד יותר באינסטגרם (בפייסבוק 87, מתחת לממוצע הדף). 10 תמונות - אפשר לקדם כמו שהוא.",
+        "decision": "ממתין לאסטרטג"
+      },
+      {
+        "title": "רעות זילברברג - את הבטון השאירו גלוי (אינסטגרם · 12 תמונות)",
+        "url": "https://www.instagram.com/p/DezDC8ClY0d/",
+        "date": "2026-10-22",
+        "why": "481 חשיפות (‎+39%), 10 תגובות (7 של אחרים), Collab אושר ורעות ענתה. 12 תמונות - באינסטגרם אי אפשר לקדם כמו שהוא. בפייסבוק 104 (‎+9%) ו-20 קליקים.",
+        "decision": "ממתין לאסטרטג"
+      }
     ]
   },
   "suggestions": [
@@ -203,13 +598,69 @@
     }
   ],
   "history": [
-    { "weekStart": "2026-09-06", "posts": 3, "avgReach": 190, "avgSavesShares": 0.33, "avgComments": 2, "followers": null },
-    { "weekStart": "2026-09-13", "posts": 7, "avgReach": 229, "avgSavesShares": 0.29, "avgComments": 0.57, "followers": null },
-    { "weekStart": "2026-09-20", "posts": 7, "avgReach": 159, "avgSavesShares": 0.14, "avgComments": 1, "followers": null },
-    { "weekStart": "2026-09-27", "posts": 1, "avgReach": 181, "avgSavesShares": 0, "avgComments": 2, "followers": null },
-    { "weekStart": "2026-10-04", "posts": 3, "avgReach": 218, "avgSavesShares": 0.33, "avgComments": 3, "followers": 2793 },
-    { "weekStart": "2026-10-11", "posts": 5, "avgReach": 555, "avgSavesShares": 3.8, "avgComments": 6.2, "followers": 2799 },
-    { "weekStart": "2026-10-18", "posts": 7, "avgReach": 305, "avgSavesShares": 1.14, "avgComments": 3.86, "followers": 2804 },
-    { "weekStart": "2026-10-25", "posts": 6, "avgReach": 453, "avgSavesShares": 2, "avgComments": 1.5, "followers": 2623 }
+    {
+      "weekStart": "2026-09-06",
+      "posts": 3,
+      "avgReach": 190,
+      "avgSavesShares": 0.33,
+      "avgComments": 2,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-13",
+      "posts": 7,
+      "avgReach": 229,
+      "avgSavesShares": 0.29,
+      "avgComments": 0.57,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-20",
+      "posts": 7,
+      "avgReach": 159,
+      "avgSavesShares": 0.14,
+      "avgComments": 1,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-27",
+      "posts": 1,
+      "avgReach": 181,
+      "avgSavesShares": 0,
+      "avgComments": 2,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-10-04",
+      "posts": 3,
+      "avgReach": 218,
+      "avgSavesShares": 0.33,
+      "avgComments": 3,
+      "followers": 2793
+    },
+    {
+      "weekStart": "2026-10-11",
+      "posts": 5,
+      "avgReach": 555,
+      "avgSavesShares": 3.8,
+      "avgComments": 6.2,
+      "followers": 2799
+    },
+    {
+      "weekStart": "2026-10-18",
+      "posts": 7,
+      "avgReach": 305,
+      "avgSavesShares": 1.14,
+      "avgComments": 3.86,
+      "followers": 2804
+    },
+    {
+      "weekStart": "2026-10-25",
+      "posts": 6,
+      "avgReach": 453,
+      "avgSavesShares": 2,
+      "avgComments": 1.5,
+      "followers": 2623
+    }
   ]
 }

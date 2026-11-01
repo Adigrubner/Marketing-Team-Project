@@ -8,6 +8,8 @@
 //     או מדינה שלא ב-safety.json - נעצרים בבדיקת התוכנית.
 //   - קידום פוסט קיים: רק פוסט של הדף של הלקוח. והסך היומי של כל מה שרץ בחשבון + התוכנית
 //     נבדק מול התקרה (judgeAccountBudget) לפני יצירה.
+//   - קידום חשיפה / מעורבות (goal: "reach" / "engagement", מ-1.11.2026): רק existing_post, בלי וואטסאפ.
+//     אותם בלמים בדיוק (PAUSED, תקרה לכל קבוצה ולסך הכולל, רק פייסבוק ואינסטגרם).
 
 export const WHATSAPP_LINK = 'https://api.whatsapp.com/send';
 
@@ -88,6 +90,43 @@ export const hasAdSets = (plan) => Array.isArray(plan?.ad_sets);
 // את המזהים מוצאים עם node tools/meta-posts.js (קריאה בלבד).
 export const EXISTING_POST_PLATFORMS = { facebook: 'פייסבוק', instagram: 'אינסטגרם' };
 export const isExistingPostAd = (ad) => Boolean(ad && ad.existing_post !== undefined);
+
+// --- המטרה של התוכנית (goal) - מ-1.11.2026 (עדי: "כן, לשדרג" ו"כן, גם מעורבות") ---
+// בלי goal: שיחות בוואטסאפ, בדיוק כמו קודם (destination: "whatsapp").
+// goal: "reach" / "engagement": קידום של פוסט שכבר עלה בלבד (existing_post בכל המודעות),
+//   בלי וואטסאפ, בלי הודעה מוכנה ובלי כפתור. הפוסט רץ כמו שהוא, והלייקים והתגובות נשארים עליו.
+// השילובים לפי התיעוד של Marketing API (Ad Set, טבלת ההגבלות של ODAX, נבדק 1.11.2026):
+//   חשיפה - OUTCOME_AWARENESS עם REACH. מעורבות - OUTCOME_ENGAGEMENT, "On Post" (ON_POST) עם POST_ENGAGEMENT.
+// ⚠️ את האד-סט Meta בודקת רק ביצירה (--check לא יכול), ולכן שני הסוגים יאומתו בפעם הראשונה ב---confirm.
+export const PROMOTE_GOALS = {
+  reach: {
+    he: 'קידום חשיפה של פוסט קיים',
+    why: 'להראות את הפוסט לכמה שיותר אנשים שונים מהקהל, כמה פעמים בשבוע, בזול',
+    meta: 'חשיפה - OUTCOME_AWARENESS · אופטימיזציה REACH (כמה שיותר אנשים שונים) · חיוב לפי חשיפות',
+    objective: 'OUTCOME_AWARENESS',
+    optimization_goal: 'REACH',
+  },
+  engagement: {
+    he: 'קידום מעורבות של פוסט קיים',
+    why: 'Meta מחפשת את מי שסביר שתעשה לייק, תגובה, שמירה או שיתוף על הפוסט. מי שעושה את זה נכנסת לקהל החם',
+    meta: 'מעורבות - OUTCOME_ENGAGEMENT · אופטימיזציה POST_ENGAGEMENT (מעורבות בפוסט) · יעד ON_POST · חיוב לפי חשיפות',
+    objective: 'OUTCOME_ENGAGEMENT',
+    optimization_goal: 'POST_ENGAGEMENT',
+    destination_type: 'ON_POST',
+  },
+};
+export const goalOf = (plan) => plan?.goal ?? 'whatsapp';
+// ההגדרות של המטרה, או null (גם ל-goal כמו "toString", שלא ייתפס כמטרה בטעות)
+export const promoteGoalOf = (plan) =>
+  typeof plan?.goal === 'string' && Object.hasOwn(PROMOTE_GOALS, plan.goal) ? PROMOTE_GOALS[plan.goal] : null;
+export const isPromoteGoalPlan = (plan) => Boolean(promoteGoalOf(plan));
+
+// הגבלת תדירות - רק בחשיפה. לפי Meta: frequency_control_specs נכתב רק כשהאופטימיזציה היא REACH (או THRUPLAY),
+// והחשיפות והימים בין 1 ל-90 (התיעוד של Ad Set, נבדק 1.11.2026). ברירת המחדל: עד 2 חשיפות לאדם בכל 7 ימים.
+//   בתוכנית (רשות): "frequency_cap": { "impressions": 2, "days": 7 }
+export const DEFAULT_FREQUENCY_CAP = { impressions: 2, days: 7 };
+export const frequencyCapOf = (plan) =>
+  goalOf(plan) === 'reach' ? { ...DEFAULT_FREQUENCY_CAP, ...(plan.frequency_cap || {}) } : null;
 
 // התמונות שמודעה אחת מעלה: קידום פוסט - אף אחת; תמונה לכל מיקום - פיד ואז סטורי; אחרת - images כמו שהן.
 export function adImagesOf(ad) {
@@ -281,6 +320,9 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
 
   if (!isMultiAdPlan(plan)) {
     if (hasAdSets(plan)) errors.push('ad_sets נתמך רק בתוכנית עם רשימת מודעות (ads), לא בפורמט הישן');
+    if (plan.goal !== undefined || plan.frequency_cap !== undefined) {
+      errors.push('goal ו-frequency_cap נתמכים רק בתוכנית עם רשימת מודעות (ads), לא בפורמט הישן');
+    }
     // הפורמט הישן - הבדיקות כמו שהיו
     need(typeof plan.link_url === 'string' && /^https?:\/\//.test(plan.link_url), 'חסר link_url תקין (לאן המודעה מפנה)');
     need(Array.isArray(plan.primary_texts) && plan.primary_texts.length > 0, 'חסרים primary_texts (טקסטים ראשיים)');
@@ -291,14 +333,28 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
   }
 
   // --- הפורמט החדש ---
-  need(plan.destination === 'whatsapp', 'destination חייב להיות "whatsapp" (כרגע זה היעד היחיד שהכלי בונה בפורמט הזה)');
-  need(!plan.objective || plan.objective === 'OUTCOME_ENGAGEMENT', 'למודעת וואטסאפ המטרה היא OUTCOME_ENGAGEMENT');
-  // ההודעה המוכנה והברכה נבנות רק במודעה חדשה (תמונות + טקסט). קידום פוסט קיים רץ כמו שהוא.
-  const hasNewAds = Array.isArray(plan.ads) && plan.ads.some((ad) => !isExistingPostAd(ad));
-  if (hasNewAds) {
-    need(isNonEmptyString(plan.whatsapp?.autofill_message), 'חסרה whatsapp.autofill_message (ההודעה המוכנה שנשלחת בוואטסאפ)');
-    // Meta דוחה הודעה מוכנה בלי הודעת ברכה (נבדק 19.10.2026 - בלעדיה מתקבל 'unknown error').
-    need(isNonEmptyString(plan.whatsapp?.greeting), 'חסרה whatsapp.greeting (הודעת הברכה שמופיעה בוואטסאפ לפני ההודעה המוכנה - Meta מחייבת אותה)');
+  const goal = goalOf(plan);
+  const promote = promoteGoalOf(plan);
+  if (goal !== 'whatsapp' && !promote) {
+    errors.push(`goal "${plan.goal}" לא מוכר. מותר: "reach" (קידום חשיפה של פוסט קיים), "engagement" (קידום מעורבות של פוסט קיים), או בלי goal (שיחות בוואטסאפ)`);
+  } else if (promote) {
+    errors.push(...validatePromoteGoal(plan, promote));
+  } else {
+    need(
+      plan.destination === 'whatsapp',
+      'destination חייב להיות "whatsapp" (שיחות בוואטסאפ). לקידום פוסט קיים בלי וואטסאפ: goal "reach" (חשיפה) או "engagement" (מעורבות)'
+    );
+    need(!plan.objective || plan.objective === 'OUTCOME_ENGAGEMENT', 'למודעת וואטסאפ המטרה היא OUTCOME_ENGAGEMENT');
+    if (plan.frequency_cap !== undefined) {
+      errors.push('frequency_cap (הגבלת תדירות) אפשרי רק בקידום חשיפה (goal: "reach"). Meta לא מקבלת אותו באופטימיזציה לשיחות');
+    }
+    // ההודעה המוכנה והברכה נבנות רק במודעה חדשה (תמונות + טקסט). קידום פוסט קיים רץ כמו שהוא.
+    const hasNewAds = Array.isArray(plan.ads) && plan.ads.some((ad) => !isExistingPostAd(ad));
+    if (hasNewAds) {
+      need(isNonEmptyString(plan.whatsapp?.autofill_message), 'חסרה whatsapp.autofill_message (ההודעה המוכנה שנשלחת בוואטסאפ)');
+      // Meta דוחה הודעה מוכנה בלי הודעת ברכה (נבדק 19.10.2026 - בלעדיה מתקבל 'unknown error').
+      need(isNonEmptyString(plan.whatsapp?.greeting), 'חסרה whatsapp.greeting (הודעת הברכה שמופיעה בוואטסאפ לפני ההודעה המוכנה - Meta מחייבת אותה)');
+    }
   }
 
   // 🛑 בלם: רק פייסבוק ואינסטגרם, ורק מיקומים מהרשימה
@@ -338,6 +394,14 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
       errors.push(...validateExistingPost(ad, label));
       return;
     }
+    // 🛑 קידום חשיפה / מעורבות: רק פוסט שכבר עלה. מודעה חדשה (תמונות + טקסט) - רק בקמפיין וואטסאפ.
+    if (promote) {
+      errors.push(
+        `${label}: ב${promote.he} מקדמים רק פוסט שכבר עלה (existing_post), בלי תמונות חדשות ובלי טקסט. ` +
+        'מודעה חדשה עם תמונות - רק בקמפיין שיחות בוואטסאפ (בלי goal)'
+      );
+      return;
+    }
     need(isNonEmptyString(ad?.text), `${label}: חסר text (הטקסט הראשי של המודעה)`);
     need(isNonEmptyString(ad?.headline || plan.headline), `${label}: חסרה כותרת (headline במודעה או בתוכנית)`);
     const imgs = ad?.images;
@@ -366,6 +430,46 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
     }
   });
 
+  return errors;
+}
+
+// קידום חשיפה / מעורבות (goal): בלי וואטסאפ, בלי כותרת, המטרה תואמת, והגבלת תדירות תקינה (רק בחשיפה).
+function validatePromoteGoal(plan, promote) {
+  const errors = [];
+  if (plan.destination !== undefined && plan.destination !== 'none') {
+    errors.push(
+      plan.destination === 'whatsapp'
+        ? `ב${promote.he} אין וואטסאפ. מורידים את destination (או כותבים "none"). לשיחות בוואטסאפ - בלי goal`
+        : `destination "${plan.destination}" לא מתאים ל${promote.he}. מורידים אותו (או כותבים "none")`
+    );
+  }
+  if (plan.whatsapp !== undefined) {
+    errors.push(`ב${promote.he} אין וואטסאפ: אין כפתור, אין הודעה מוכנה ואין ברכה. מורידים את whatsapp מהתוכנית`);
+  }
+  if (plan.headline !== undefined) {
+    errors.push(`ב${promote.he} הפוסט רץ כמו שהוא, בלי כותרת משלנו. מורידים את headline מהתוכנית`);
+  }
+  if (plan.objective !== undefined && plan.objective !== promote.objective) {
+    errors.push(`ב${promote.he} המטרה ב-Meta היא ${promote.objective}. מורידים את objective (הכלי קובע אותה לפי goal)`);
+  }
+  const fc = plan.frequency_cap;
+  if (fc !== undefined) {
+    if (plan.goal !== 'reach') {
+      errors.push('frequency_cap (הגבלת תדירות) אפשרי רק בקידום חשיפה (goal: "reach"). Meta מקבלת אותו רק באופטימיזציה לחשיפה (REACH)');
+    } else if (!fc || typeof fc !== 'object' || Array.isArray(fc)) {
+      errors.push('frequency_cap צריך להיות אובייקט, למשל { "impressions": 2, "days": 7 } (עד 2 חשיפות לאדם בכל 7 ימים)');
+    } else {
+      for (const k of Object.keys(fc)) {
+        if (!(k in DEFAULT_FREQUENCY_CAP)) errors.push(`frequency_cap.${k} לא מוכר. מותר רק impressions (כמה חשיפות לאדם) ו-days (בכמה ימים)`);
+      }
+      for (const [k, he] of [['impressions', 'כמה חשיפות לאדם'], ['days', 'בכמה ימים']]) {
+        const n = fc[k];
+        if (n !== undefined && !(Number.isInteger(n) && n >= 1 && n <= 90)) {
+          errors.push(`frequency_cap.${k} (${he}) צריך להיות מספר שלם בין 1 ל-90 - זה הטווח ש-Meta מקבלת`);
+        }
+      }
+    }
+  }
   return errors;
 }
 
@@ -541,10 +645,26 @@ function validateAdSets(plan, safety) {
 // ו---confirm בודק לפני שנוצר משהו.
 export function planWarnings(plan, safety) {
   const warnings = [];
+  if (isPromoteGoalPlan(plan) && isMultiAdPlan(plan)) {
+    // ההחלטה של עדי (25.10.2026): כל קידום רץ רק ברשת של הפוסט. לא חוסם - רק מזכיר.
+    const networks = Object.keys(placementsOf(plan));
+    for (const ad of plan.ads.filter(isExistingPostAd)) {
+      const own = ad.existing_post?.platform;
+      const other = networks.filter((n) => n !== own);
+      if (EXISTING_POST_PLATFORMS[own] && other.length) {
+        warnings.push(
+          `מודעה "${ad.name}": הפוסט מ${EXISTING_POST_PLATFORMS[own]}, והמיקומים כוללים גם ${other.map((n) => EXISTING_POST_PLATFORMS[n] || n).join(', ')}` +
+          `${plan.placements ? '' : ' (אין placements בתוכנית, וברירת המחדל היא פיד, סטורי וריל בשתי הרשתות)'}. ` +
+          `לפי ההחלטה של עדי (25.10) כל קידום רץ רק ברשת של הפוסט - למשל placements: { "${own}": ["${own === 'instagram' ? 'stream' : 'feed'}"] }`
+        );
+      }
+    }
+  }
   for (const s of adSetsOf(plan)) {
     const a = audienceSpecOf(s.audience, safety);
     const where = s.label ? `קבוצה "${s.label}"` : 'הקהל';
-    if (a.detailed && !a.advantage_audience && a.detailed_expansion === false) {
+    // נבדק רק באופטימיזציה לשיחות. בחשיפה ובמעורבות --check בודק את זה מול Meta (הערכת הגודל).
+    if (goalOf(plan) === 'whatsapp' && a.detailed && !a.advantage_audience && a.detailed_expansion === false) {
       warnings.push(
         `${where}: ביקשנו בלי הרחבה של פירוט הטירגוט, אבל לפי Meta (נבדק 21.10.2026) באופטימיזציה לשיחות אי אפשר לכבות אותה - ` +
         `"The targeting_optimization field has been removed... Advantage detailed targeting will be applied" (subcode ${DETAILED_EXPANSION_FORCED_SUBCODE}). ` +
@@ -634,7 +754,7 @@ export function judgeAccountBudget(running, planTotalIls, safety, now = new Date
 export function buildCampaign(plan) {
   return {
     name: plan.name,
-    objective: isMultiAdPlan(plan) ? 'OUTCOME_ENGAGEMENT' : plan.objective || 'OUTCOME_LEADS',
+    objective: isMultiAdPlan(plan) ? promoteGoalOf(plan)?.objective || 'OUTCOME_ENGAGEMENT' : plan.objective || 'OUTCOME_LEADS',
     special_ad_categories: plan.special_ad_categories || [],
     // התקציב יושב באד-סט, וכל אד-סט שומר על התקציב שלו (בלי העברה בין אד-סטים).
     is_adset_budget_sharing_enabled: false,
@@ -647,6 +767,7 @@ export function buildCampaign(plan) {
 //   custom_audiences / excluded_custom_audiences - [{ id }]
 //   flexible_spec - [{ education_majors: [{id,name}], work_positions: [{id,name}] }]  ("או" בתוך הקבוצה)
 //   targeting_relaxation_types.custom_audience - 0 = בלי הרחבה של קהלים מותאמים (Advantage custom audience)
+//   targeting_relaxation_types.lookalike - 0 = בלי הרחבה של קהל דומה. בלי השדה Meta משאירה אותה דלוקה (נמצא 1.11.2026)
 //   targeting_optimization: 'none' - בלי הרחבה של פירוט הטירגוט. ⚠️ Meta דוחה אותו באופטימיזציה לשיחות (ראו planWarnings)
 export function buildTargeting(audience) {
   const ids = (list) => list.map((x) => ({ id: String(x.id) }));
@@ -667,7 +788,7 @@ export function buildTargeting(audience) {
     ...(audience.excluded_custom_audiences ? { excluded_custom_audiences: ids(audience.excluded_custom_audiences) } : {}),
     ...(detailed ? { flexible_spec: [detailed] } : {}),
     ...(audience.custom_audiences && manual
-      ? { targeting_relaxation_types: { custom_audience: audience.custom_audience_expansion ? 1 : 0 } }
+      ? { targeting_relaxation_types: { lookalike: audience.custom_audience_expansion ? 1 : 0, custom_audience: audience.custom_audience_expansion ? 1 : 0 } }
       : {}),
     ...(detailed && manual && audience.detailed_expansion === false ? { targeting_optimization: 'none' } : {}),
   };
@@ -698,6 +819,35 @@ export function buildAdSet(plan, { campaignId, env, safety, adSet = adSetsOf(pla
   }
 
   const placements = placementsOf(plan);
+  const placedTargeting = {
+    ...targeting,
+    publisher_platforms: Object.keys(placements),
+    ...(placements.facebook ? { facebook_positions: placements.facebook } : {}),
+    ...(placements.instagram ? { instagram_positions: placements.instagram } : {}),
+    device_platforms: ['mobile', 'desktop'],
+  };
+
+  // קידום חשיפה / מעורבות של פוסט קיים: בלי וואטסאפ. חשיפה - עם הגבלת תדירות.
+  const promote = promoteGoalOf(plan);
+  if (promote) {
+    const fc = frequencyCapOf(plan);
+    return {
+      name: adSet.name,
+      campaign_id: campaignId,
+      daily_budget: Math.round(adSet.daily_budget_ils * 100),
+      billing_event: 'IMPRESSIONS',
+      optimization_goal: promote.optimization_goal,
+      bid_strategy: 'LOWEST_COST_WITHOUT_CAP',
+      ...(promote.destination_type ? { destination_type: promote.destination_type } : {}),
+      // הפוסט רץ בשם הדף והחשבון של הלקוח
+      promoted_object: { page_id: env.META_PAGE_ID },
+      ...(fc ? { frequency_control_specs: [{ event: 'IMPRESSIONS', interval_days: fc.days, max_frequency: fc.impressions }] } : {}),
+      targeting: placedTargeting,
+      ...(plan.end_date ? { end_time: endTimeOf(plan.end_date) } : {}),
+      status: 'PAUSED',
+    };
+  }
+
   return {
     name: adSet.name,
     campaign_id: campaignId,
@@ -710,13 +860,7 @@ export function buildAdSet(plan, { campaignId, env, safety, adSet = adSetsOf(pla
       page_id: env.META_PAGE_ID,
       ...(env.META_WHATSAPP_NUMBER ? { whatsapp_phone_number: env.META_WHATSAPP_NUMBER } : {}),
     },
-    targeting: {
-      ...targeting,
-      publisher_platforms: Object.keys(placements),
-      ...(placements.facebook ? { facebook_positions: placements.facebook } : {}),
-      ...(placements.instagram ? { instagram_positions: placements.instagram } : {}),
-      device_platforms: ['mobile', 'desktop'],
-    },
+    targeting: placedTargeting,
     ...(plan.end_date ? { end_time: endTimeOf(plan.end_date) } : {}),
     status: 'PAUSED',
   };
@@ -863,16 +1007,22 @@ export function buildPlacementCreative(plan, ad, { feedHash, storyHash, env }) {
 // קידום פוסט קיים: הקריאייטיב מצביע על הפוסט עצמו, ולכן הלייקים והתגובות של המודעה נצברים עליו.
 //   פייסבוק: object_story_id = "<PAGE_ID>_<POST_ID>"
 //   אינסטגרם: source_instagram_media_id + החשבון והדף שבשמם הוא רץ, עם כפתור וואטסאפ
+//   קידום חשיפה / מעורבות (goal): בלי כפתור בכלל - הפוסט נראה כמו בפרופיל, עם "ממומן". אין לאן לשלוח,
+//     והכפתור לא עוזר למטרה (חשיפה / לייקים ושמירות). Meta לא מחייבת כפתור (התיעוד: call_to_action הוא רשות).
 // בשני המקרים הקידום יכול לרוץ גם בפייסבוק וגם באינסטגרם (לפי placements).
 export function buildExistingPostCreative(plan, ad, { env }) {
   const p = ad.existing_post;
   const name = `${plan.name} · ${ad.name} · Creative`;
   if (p.platform === 'facebook') return { name, object_story_id: p.id };
-  return {
+  const base = {
     name,
     object_id: env.META_PAGE_ID,
     instagram_user_id: env.META_INSTAGRAM_USER_ID,
     source_instagram_media_id: p.id,
+  };
+  if (isPromoteGoalPlan(plan)) return base;
+  return {
+    ...base,
     // Meta מחייבת link בכפתור (נבדק 22.10.2026: subcode 2061015 בלעדיו) - אותו קישור כמו במודעה חדשה
     call_to_action: { type: 'WHATSAPP_MESSAGE', value: { app_destination: 'WHATSAPP', link: WHATSAPP_LINK } },
   };
