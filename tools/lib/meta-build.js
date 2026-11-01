@@ -23,6 +23,28 @@ export const DEFAULT_PLACEMENTS = {
   instagram: ['stream', 'story', 'reels'],
 };
 
+// --- תמונה לכל מיקום (placement_images במודעה) - מ-29.10.2026 ---
+//   { "name": "...", "text": "...", "placement_images": { "feed": "creatives/x-4x5.jpg", "story": "creatives/x-9x16.jpg" } }
+// סטורי וריל (בשתי הרשתות) מקבלים את תמונת story. כל מיקום אחר בתוכנית (פיד, פרופיל, חיפוש...) - את תמונת feed.
+// נבנה ב-asset_feed_spec עם asset_customization_rules (Placement Asset Customization), באותו מבנה
+// ש-Ads Manager עצמו בונה למודעת וואטסאפ עם תמונה לכל מיקום (נקרא מהחשבון של אלעד, קריאה בלבד, 29.10.2026).
+export const VERTICAL_POSITIONS = { facebook: ['story', 'facebook_reels'], instagram: ['story', 'reels'] };
+export const PLACEMENT_IMAGE_KEYS = { feed: 'פיד', story: 'סטורי וריל' };
+const PLACEMENT_IMAGE_SIZE = { feed: 'תמונה 4:5', story: 'תמונה 9:16' };
+// השמות של התוויות (adlabels) שמחברות כל תמונה לכלל שלה. Meta שומרת אותן ברמת החשבון ומשתמשת בהן שוב.
+export const PLACEMENT_LABELS = { feed: 'placement_feed', story: 'placement_story' };
+export const POSITION_NAMES = {
+  facebook: {
+    feed: 'פיד פייסבוק', story: 'סטורי פייסבוק', facebook_reels: 'ריל פייסבוק', profile_feed: 'פרופיל פייסבוק',
+    marketplace: 'מרקטפלייס', video_feeds: 'פיד וידאו פייסבוק', search: 'חיפוש פייסבוק',
+  },
+  instagram: {
+    stream: 'פיד אינסטגרם', story: 'סטורי אינסטגרם', reels: 'ריל אינסטגרם', profile_feed: 'פרופיל אינסטגרם', ig_search: 'חיפוש אינסטגרם',
+  },
+};
+export const positionName = (platform, pos) => POSITION_NAMES[platform]?.[pos] || `${platform}.${pos}`;
+export const hasPlacementImages = (ad) => Boolean(ad && ad.placement_images !== undefined);
+
 // השיפורים האוטומטיים של Meta שמכבים: התמונות של הלקוח נשארות כמו שנחתכו -
 // בלי שינוי בהירות, בלי מוזיקה או אנימציה, בלי טקסט שנוסף ובלי סידור מחדש.
 export const CREATIVE_FEATURES_OPT_OUT = [
@@ -66,10 +88,46 @@ export const hasAdSets = (plan) => Array.isArray(plan?.ad_sets);
 // את המזהים מוצאים עם node tools/meta-posts.js (קריאה בלבד).
 export const EXISTING_POST_PLATFORMS = { facebook: 'פייסבוק', instagram: 'אינסטגרם' };
 export const isExistingPostAd = (ad) => Boolean(ad && ad.existing_post !== undefined);
-const imagesOfAds = (plan) => [...new Set(plan.ads.filter((ad) => !isExistingPostAd(ad)).flatMap((ad) => ad.images))];
+
+// התמונות שמודעה אחת מעלה: קידום פוסט - אף אחת; תמונה לכל מיקום - פיד ואז סטורי; אחרת - images כמו שהן.
+export function adImagesOf(ad) {
+  if (isExistingPostAd(ad)) return [];
+  if (hasPlacementImages(ad)) return [...new Set([ad.placement_images.feed, ad.placement_images.story])];
+  return [...ad.images];
+}
+const imagesOfAds = (plan) => [...new Set(plan.ads.flatMap(adImagesOf))];
 
 export function placementsOf(plan) {
   return plan.placements || DEFAULT_PLACEMENTS;
+}
+
+// המיקומים של התוכנית, מחולקים לשתי קבוצות: story (סטורי וריל) ו-feed (כל השאר).
+// מחזיר { feed: { facebook: [...], instagram: [...] }, story: { ... } } - רק רשתות שיש להן מיקום בקבוצה.
+export function placementGroupsOf(plan) {
+  const groups = { feed: {}, story: {} };
+  for (const [platform, positions] of Object.entries(placementsOf(plan))) {
+    if (!Array.isArray(positions)) continue;
+    const vertical = VERTICAL_POSITIONS[platform] || [];
+    const story = positions.filter((p) => vertical.includes(p));
+    const feed = positions.filter((p) => !vertical.includes(p));
+    if (story.length) groups.story[platform] = story;
+    if (feed.length) groups.feed[platform] = feed;
+  }
+  return groups;
+}
+
+const groupWhere = (group) =>
+  Object.entries(group).flatMap(([platform, positions]) => positions.map((p) => positionName(platform, p))).join(', ');
+
+// לתצוגה ב-dry-run: איזו תמונה הולכת לאיזה מיקום. [{ key, title, file, where }]
+export function placementImagesOf(plan, ad) {
+  const groups = placementGroupsOf(plan);
+  return ['feed', 'story'].map((key) => ({
+    key,
+    title: PLACEMENT_IMAGE_KEYS[key],
+    file: ad.placement_images[key],
+    where: groupWhere(groups[key]),
+  }));
 }
 
 // הקהל של קבוצת מודעות אחת, עם ברירות המחדל.
@@ -283,7 +341,9 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
     need(isNonEmptyString(ad?.text), `${label}: חסר text (הטקסט הראשי של המודעה)`);
     need(isNonEmptyString(ad?.headline || plan.headline), `${label}: חסרה כותרת (headline במודעה או בתוכנית)`);
     const imgs = ad?.images;
-    if (!Array.isArray(imgs) || imgs.length === 0) {
+    if (hasPlacementImages(ad)) {
+      errors.push(...validatePlacementImages(plan, ad, label, fileExists));
+    } else if (!Array.isArray(imgs) || imgs.length === 0) {
       errors.push(`${label}: חסרות images`);
     } else {
       if (imgs.length > 10) errors.push(`${label}: בקרוסלה מותר עד 10 תמונות (יש ${imgs.length})`);
@@ -292,7 +352,10 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
     // תיאור (רשות): מחרוזת אחת לכל הכרטיסים, או רשימה - אחת לכל תמונה, באותו סדר
     if (ad?.description !== undefined) {
       const d = ad.description;
-      if (Array.isArray(d)) {
+      if (hasPlacementImages(ad)) {
+        // תמונה לכל מיקום: Meta מקבלת תיאור אחד בלבד (אי אפשר להתאים אותו למיקום)
+        if (typeof d !== 'string') errors.push(`${label}: במודעה עם placement_images התיאור (description) הוא טקסט אחד, לא רשימה`);
+      } else if (Array.isArray(d)) {
         if (!d.every((x) => typeof x === 'string')) errors.push(`${label}: description - כל פריט ברשימה צריך להיות טקסט`);
         if (Array.isArray(imgs) && d.length !== imgs.length) {
           errors.push(`${label}: ב-description יש ${d.length} תיאורים ו-${imgs.length} תמונות - צריך אחד לכל תמונה (או טקסט אחד לכולן)`);
@@ -321,9 +384,49 @@ function validateExistingPost(ad, label) {
   if (p.url !== undefined && !(typeof p.url === 'string' && /^https:\/\//.test(p.url))) {
     errors.push(`${label}: existing_post.url צריך להיות קישור (https://...)`);
   }
-  const extra = ['images', 'text', 'headline', 'description'].filter((k) => ad[k] !== undefined);
+  const extra = ['images', 'text', 'headline', 'description', 'placement_images'].filter((k) => ad[k] !== undefined);
   if (extra.length) {
     errors.push(`${label}: בקידום פוסט קיים הפוסט רץ כמו שהוא, בלי ${extra.join(', ')}. מורידים אותם מהמודעה (או בונים מודעה חדשה בלי existing_post)`);
+  }
+  return errors;
+}
+
+// תמונה לכל מיקום: שתי תמונות (feed ו-story), ולכל אחת יש מיקום בתוכנית. אסור שמיקום יישאר בלי תמונה מתאימה.
+function validatePlacementImages(plan, ad, label, fileExists) {
+  const pi = ad.placement_images;
+  if (!pi || typeof pi !== 'object' || Array.isArray(pi)) {
+    return [`${label}: placement_images צריך להיות אובייקט { "feed": "<${PLACEMENT_IMAGE_SIZE.feed}>", "story": "<${PLACEMENT_IMAGE_SIZE.story}>" }`];
+  }
+  const errors = [];
+  if (ad.images !== undefined) {
+    errors.push(`${label}: יש גם images וגם placement_images. בוחרים אחד: images (אותה תמונה או קרוסלה בכל המיקומים) או placement_images (תמונה לפיד ותמונה לסטורי ולריל)`);
+  }
+  for (const k of Object.keys(pi)) {
+    if (!PLACEMENT_IMAGE_KEYS[k]) errors.push(`${label}: placement_images.${k} לא מוכר. מותר רק feed (פיד) ו-story (סטורי וריל)`);
+  }
+  const groups = placementGroupsOf(plan);
+  for (const key of Object.keys(PLACEMENT_IMAGE_KEYS)) {
+    const used = Object.keys(groups[key]).length > 0;
+    const p = pi[key];
+    if (p === undefined) {
+      errors.push(
+        used
+          ? `${label}: במיקומים יש ${groupWhere(groups[key])}, ואין להם תמונה - חסר placement_images.${key} (${PLACEMENT_IMAGE_SIZE[key]})`
+          : `${label}: placement_images צריך שתי תמונות, feed ו-story. לתמונה אחת בכל המיקומים משתמשים ב-images`
+      );
+      continue;
+    }
+    if (!isNonEmptyString(p)) { errors.push(`${label}: placement_images.${key} צריך להיות נתיב לתמונה מתוך תיקיית הקמפיין`); continue; }
+    if (!fileExists(p)) errors.push(`${label}: תמונה לא נמצאה: ${p}`);
+    if (!used) {
+      errors.push(
+        `${label}: placement_images.${key} לא תופיע באף מיקום - אין ב-placements ${key === 'story' ? 'סטורי או ריל' : 'פיד (או מיקום אחר שהוא לא סטורי או ריל)'}. ` +
+        'מוסיפים את המיקום, או משתמשים ב-images'
+      );
+    }
+  }
+  if (isNonEmptyString(pi.feed) && pi.feed === pi.story) {
+    errors.push(`${label}: אותה תמונה לפיד ולסטורי. במקרה כזה משתמשים ב-images`);
   }
   return errors;
 }
@@ -695,6 +798,68 @@ export function buildCreative(plan, ad, { hashes, env }) {
   };
 }
 
+// הכללים של "תמונה לכל מיקום", נגזרים מ-placements של התוכנית:
+//   1. סטורי וריל (מה שיש מהם בתוכנית) ← תמונת story
+//   2. כל שאר המיקומים בתוכנית (פיד וכו') ← תמונת feed
+//   3. ברירת מחדל (customization_spec ריק): מיקום שלא ברשימות ← תמונת feed. האד-סט מוגבל למיקומים של התוכנית,
+//      אז זו רק רשת ביטחון - כך גם Ads Manager בונה (הכלל האחרון שלו ריק).
+// כל כלל מחבר את התמונה שלו, ואת הטקסט, הכותרת והקישור (שזהים בשני המקרים) - כמו ב-Ads Manager.
+export function placementRulesOf(plan) {
+  const groups = placementGroupsOf(plan);
+  const specOf = (g) => ({
+    publisher_platforms: Object.keys(g),
+    ...(g.facebook ? { facebook_positions: g.facebook } : {}),
+    ...(g.instagram ? { instagram_positions: g.instagram } : {}),
+  });
+  const labels = (key) => ({
+    image_label: { name: PLACEMENT_LABELS[key] },
+    body_label: { name: PLACEMENT_LABELS[key] },
+    title_label: { name: PLACEMENT_LABELS[key] },
+    link_url_label: { name: PLACEMENT_LABELS[key] },
+  });
+  return [
+    { customization_spec: specOf(groups.story), ...labels('story'), priority: 1 },
+    { customization_spec: specOf(groups.feed), ...labels('feed'), priority: 2 },
+    { customization_spec: {}, ...labels('feed'), priority: 3 },
+  ];
+}
+
+// מודעת וואטסאפ עם תמונה לכל מיקום (placement_images). אותו תוכן כמו buildCreative עם תמונה אחת:
+// הטקסט הראשי (bodies), הכותרת (titles), התיאור (descriptions), הקישור לוואטסאפ (link_urls),
+// הכפתור לוואטסאפ (call_to_actions, עם app_destination: WHATSAPP), וההודעה המוכנה והברכה (additional_data.page_welcome_message).
+// המבנה: התיעוד של Meta (Placement Asset Customization; AdAssetFeedAdditionalData.page_welcome_message)
+// + קריאה של מודעת וואטסאפ עם תמונה לכל מיקום שנבנתה ב-Ads Manager בחשבון של אלעד (ינואר 2026).
+export function buildPlacementCreative(plan, ad, { feedHash, storyHash, env }) {
+  const headline = ad.headline || plan.headline;
+  const description = typeof ad.description === 'string' ? ad.description.trim() : '';
+  const both = () => [{ name: PLACEMENT_LABELS.feed }, { name: PLACEMENT_LABELS.story }];
+  const dof = optOutSpec(plan);
+  return {
+    name: `${plan.name} · ${ad.name} · Creative`,
+    object_story_spec: {
+      page_id: env.META_PAGE_ID,
+      ...(env.META_INSTAGRAM_USER_ID ? { instagram_user_id: env.META_INSTAGRAM_USER_ID } : {}),
+    },
+    asset_feed_spec: {
+      images: [
+        { hash: feedHash, adlabels: [{ name: PLACEMENT_LABELS.feed }] },
+        { hash: storyHash, adlabels: [{ name: PLACEMENT_LABELS.story }] },
+      ],
+      bodies: [{ text: ad.text, adlabels: both() }],
+      titles: [{ text: headline, adlabels: both() }],
+      ...(description ? { descriptions: [{ text: description }] } : {}),
+      link_urls: [{ website_url: WHATSAPP_LINK, adlabels: both() }],
+      call_to_action_types: ['WHATSAPP_MESSAGE'],
+      call_to_actions: [{ type: 'WHATSAPP_MESSAGE', value: { app_destination: 'WHATSAPP' } }],
+      ad_formats: ['SINGLE_IMAGE'],
+      asset_customization_rules: placementRulesOf(plan),
+      optimization_type: 'PLACEMENT',
+      additional_data: { page_welcome_message: JSON.stringify(buildWelcomeMessage(plan)) },
+    },
+    ...(dof ? { degrees_of_freedom_spec: dof } : {}),
+  };
+}
+
 // קידום פוסט קיים: הקריאייטיב מצביע על הפוסט עצמו, ולכן הלייקים והתגובות של המודעה נצברים עליו.
 //   פייסבוק: object_story_id = "<PAGE_ID>_<POST_ID>"
 //   אינסטגרם: source_instagram_media_id + החשבון והדף שבשמם הוא רץ, עם כפתור וואטסאפ
@@ -713,10 +878,14 @@ export function buildExistingPostCreative(plan, ad, { env }) {
   };
 }
 
-const creativeOf = (plan, ad, { ids, env }) =>
-  isExistingPostAd(ad)
-    ? buildExistingPostCreative(plan, ad, { env })
-    : buildCreative(plan, ad, { hashes: ad.images.map((p) => ids.hashOf(p)), env });
+const creativeOf = (plan, ad, { ids, env }) => {
+  if (isExistingPostAd(ad)) return buildExistingPostCreative(plan, ad, { env });
+  if (hasPlacementImages(ad)) {
+    const { feed, story } = ad.placement_images;
+    return buildPlacementCreative(plan, ad, { feedHash: ids.hashOf(feed), storyHash: ids.hashOf(story), env });
+  }
+  return buildCreative(plan, ad, { hashes: ad.images.map((p) => ids.hashOf(p)), env });
+};
 
 // הפורמט הישן: קריאייטיב אחד, כמו שהיה
 export function buildLegacyCreative(plan, { hashes, env }) {
@@ -788,7 +957,7 @@ export function buildAll(plan, { env, safety, ids }) {
       })),
       ads: plan.ads.map((ad) => ({
         name: ad.name,
-        images: isExistingPostAd(ad) ? [] : [...ad.images],
+        images: adImagesOf(ad),
         creative: creativeOf(plan, ad, { ids, env }),
       })),
     };
@@ -818,7 +987,7 @@ export function buildAll(plan, { env, safety, ids }) {
     adSet,
     ads: plan.ads.map((ad) => ({
       name: ad.name,
-      images: isExistingPostAd(ad) ? [] : [...ad.images],
+      images: adImagesOf(ad),
       creative: creativeOf(plan, ad, { ids, env }),
       ad: buildAd(plan, ad, { adSetId: ids.adSetId, creativeId: ids.creativeIdOf(ad.name) }),
     })),

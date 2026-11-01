@@ -16,6 +16,10 @@
 //      התקרה: maxTotalDailyBudgetIls ב-safety.json, ואם אין - maxDailyBudgetIls.
 //  10. קידום פוסט קיים (existing_post): רק פוסט של הדף/החשבון של הלקוח, ש-Meta מאפשרת לקדם. נבדק לפני יצירה.
 //
+// תמונה לכל מיקום (מ-29.10.2026): במודעה placement_images: { "feed": "<4:5>", "story": "<9:16>" } במקום images.
+//   סטורי וריל מקבלים את story, כל שאר המיקומים בתוכנית את feed. הכללים נגזרים מ-placements, ומיקום בלי תמונה = שגיאה
+//   כבר ב-dry-run. כל הבלמים למעלה זהים. דוגמה: clients/_template/campaigns/plan.whatsapp.placement-images.example.json
+//
 // שימוש:
 //   node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין>            ← dry-run: מה ייווצר (בלי אינטרנט)
 //   node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין> --check    ← Meta בודקת בלי ליצור (התמונות עולות לספרייה בלבד)
@@ -34,7 +38,7 @@ import {
   placementsOf, audienceOf, audienceSpecOf, adSetsOf, totalDailyBudgetIls, endTimeOf,
   usesAdvancedAudience, describeAdvancedAudience, planWarnings, needsAudiencePreflight,
   customAudienceRefsOf, judgeCustomAudience, sizeRangeText, detailedItemsOf, cardDescriptionsOf,
-  isExistingPostAd, EXISTING_POST_PLATFORMS, judgeAccountBudget,
+  isExistingPostAd, EXISTING_POST_PLATFORMS, judgeAccountBudget, hasPlacementImages, placementImagesOf,
 } from './lib/meta-build.js';
 
 const args = process.argv.slice(2);
@@ -117,9 +121,15 @@ if (isMultiAdPlan(plan)) {
       info(`     הפוסט: ${p.url || p.id}`);
       return;
     }
-    info(`  ${i + 1}. ${ad.name} · ${ad.images.length === 1 ? 'תמונה אחת' : `קרוסלה של ${ad.images.length}`}: ${ad.images.map((p) => basename(p)).join(', ')}`);
+    if (hasPlacementImages(ad)) {
+      // תמונה לכל מיקום: איזו תמונה הולכת לאיזה מיקום
+      info(`  ${i + 1}. ${ad.name} · תמונה לכל מיקום:`);
+      placementImagesOf(plan, ad).forEach((x) => info(`     ${x.title} (${x.where}): ${x.file}`));
+    } else {
+      info(`  ${i + 1}. ${ad.name} · ${ad.images.length === 1 ? 'תמונה אחת' : `קרוסלה של ${ad.images.length}`}: ${ad.images.map((p) => basename(p)).join(', ')}`);
+    }
     info(`     כותרת: ${ad.headline || plan.headline}`);
-    const desc = cardDescriptionsOf(ad, ad.images.length);
+    const desc = cardDescriptionsOf(ad, hasPlacementImages(ad) ? 1 : ad.images.length);
     if (desc.some(Boolean)) info(`     תיאור: ${[...new Set(desc)].map((d) => d || '(ריק)').join(' | ')} (בפייסבוק בלבד)`);
     const lines = ad.text.split('\n').filter((l) => l.trim());
     info(`     טקסט:  ${short(lines[0])}`);

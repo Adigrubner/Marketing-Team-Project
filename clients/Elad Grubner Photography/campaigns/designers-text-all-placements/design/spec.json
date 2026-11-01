@@ -1,0 +1,151 @@
+{
+  "_note": "עיצוב גרסה 3 (29.10), אחרי שעדי פסלה את גרסה 2 ('נראה כמו שנות ה-80'). שלושה כיוונים, כל אחד בבודדת ובקולאז'. הרצה: node .claude/skills/ad-creative-design/render.mjs \"<הנתיב לקובץ הזה>\"",
+  "title": "3 כיווני עיצוב · סוניה וספיר · Heebo",
+  "subtitle": "כל כיוון בתמונה בודדת ובקולאז'. למעלה הקובץ (סטורי וריל), למטה מה שיראו בפיד",
+  "out": "../creatives/v3",
+  "ads": [
+    {
+      "id": "editorial-single",
+      "label": "1 · מגזין · בודדת",
+      "layout": "editorial",
+      "headerBottom": 660,
+      "images": [
+        {
+          "src": "../creatives/source/single-14.jpg",
+          "pos": "50% 38%"
+        }
+      ],
+      "text": {
+        "eyebrow": "אלעד גרובנר · צילום עיצוב פנים ואדריכלות",
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    },
+    {
+      "id": "editorial-collage",
+      "label": "1 · מגזין · קולאז'",
+      "layout": "editorial",
+      "headerBottom": 660,
+      "images": [
+        {
+          "src": "../creatives/source/cell-1-14.jpg",
+          "pos": "50% 85%"
+        },
+        {
+          "src": "../creatives/source/cell-2-06.jpg",
+          "pos": "50% 45%"
+        },
+        {
+          "src": "../creatives/source/cell-3-04.jpg",
+          "pos": "50% 30%"
+        },
+        {
+          "src": "../creatives/source/cell-4-05.jpg",
+          "pos": "50% 55%"
+        }
+      ],
+      "text": {
+        "eyebrow": "אלעד גרובנר · צילום עיצוב פנים ואדריכלות",
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    },
+    {
+      "id": "card-single",
+      "label": "2 · כרטיס צף · בודדת",
+      "layout": "card",
+      "images": [
+        {
+          "src": "../creatives/source/single-14.jpg",
+          "pos": "50% 50%"
+        }
+      ],
+      "text": {
+        "eyebrow": "אלעד גרובנר · צילום עיצוב פנים ואדריכלות",
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    },
+    {
+      "id": "card-collage",
+      "label": "2 · כרטיס צף · קולאז'",
+      "layout": "card",
+      "images": [
+        {
+          "src": "../creatives/source/cell-1-14.jpg",
+          "pos": "50% 75%"
+        },
+        {
+          "src": "../creatives/source/cell-2-06.jpg",
+          "pos": "50% 35%"
+        },
+        {
+          "src": "../creatives/source/cell-3-04.jpg",
+          "pos": "50% 60%"
+        },
+        {
+          "src": "../creatives/source/cell-4-05.jpg",
+          "pos": "50% 60%"
+        }
+      ],
+      "text": {
+        "eyebrow": "אלעד גרובנר · צילום עיצוב פנים ואדריכלות",
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      },
+      "cardTop": 790
+    },
+    {
+      "id": "night-single",
+      "label": "3 · לילה · בודדת",
+      "layout": "night",
+      "headerBottom": 660,
+      "images": [
+        {
+          "src": "../creatives/source/single-14.jpg",
+          "pos": "50% 38%"
+        }
+      ],
+      "text": {
+        "eyebrow": "אלעד גרובנר · צילום עיצוב פנים ואדריכלות",
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    },
+    {
+      "id": "night-collage",
+      "label": "3 · לילה · קולאז'",
+      "layout": "night",
+      "headerBottom": 660,
+      "images": [
+        {
+          "src": "../creatives/source/cell-1-14.jpg",
+          "pos": "50% 85%"
+        },
+        {
+          "src": "../creatives/source/cell-2-06.jpg",
+          "pos": "50% 45%"
+        },
+        {
+          "src": "../creatives/source/cell-3-04.jpg",
+          "pos": "50% 30%"
+        },
+        {
+          "src": "../creatives/source/cell-4-05.jpg",
+          "pos": "50% 55%"
+        }
+      ],
+      "text": {
+        "eyebrow": "אלעד גרובנר · צילום עיצוב פנים ואדריכלות",
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "_note": "גרסאות הסטורי והריל, לגובה המלא של המסך (29.10). עדי: בסטורי תמיד יש טקסט, ולסטורי יש קובץ משלו (אחרי שדרוג meta-upload.js). הטקסט מתחת לשם החשבון בסטורי, והתמונה או הקולאז' ממלאים עד למטה. מודעות 1 ו-2 משתמשות ב-story-single, ומודעות 3 ו-4 ב-story-collage.",
+  "title": "גרסאות הסטורי והריל · כיוון מגזין",
+  "subtitle": "קובץ לסטורי ולריל בלבד (בפיד יש קובץ 4:5 נפרד). למטה: מה שהיה נחתך בפיד - כאן לא רלוונטי",
+  "out": "../creatives/final/story",
+  "ads": [
+    {
+      "id": "story-single", "label": "סטורי · בודדת (מודעות 1, 2)", "layout": "editorial", "format": "story", "headerBottom": 570,
+      "images": [{ "src": "../creatives/source/single-14.jpg", "pos": "50% 45%" }],
+      "text": { "headline": "מעצבות ומעצבי פנים?", "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה", "highlight": "3 רילסים במתנה" }
+    },
+    {
+      "id": "story-collage", "label": "סטורי · קולאז' (מודעות 3, 4)", "layout": "editorial", "format": "story", "headerBottom": 570,
+      "images": [
+        { "src": "../creatives/source/cell-1-14.jpg", "pos": "50% 70%" },
+        { "src": "../creatives/source/cell-2-06.jpg", "pos": "50% 40%" },
+        { "src": "../creatives/source/cell-3-04.jpg", "pos": "50% 45%" },
+        { "src": "../creatives/source/cell-4-05.jpg", "pos": "50% 55%" }
+      ],
+      "text": { "headline": "מעצבות ומעצבי פנים?", "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה", "highlight": "3 רילסים במתנה" }
+    }
+  ]
+}
