@@ -5,8 +5,8 @@
   "out": "../creatives/final",
   "ads": [
     {
-      "id": "ad1-single-text", "label": "1 · בודדת + טקסט", "layout": "editorial", "headerBottom": 620,
-      "images": [{ "src": "../creatives/source/single-14.jpg", "pos": "50% 36%" }],
+      "id": "ad1-single-text", "label": "1 · בודדת + טקסט", "layout": "editorial", "format": "feed", "headerBottom": 620,
+      "images": [{ "src": "../creatives/source/single-14.jpg", "pos": "50% 45%" }],
       "text": { "headline": "מעצבות ומעצבי פנים?", "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה", "highlight": "3 רילסים במתנה" }
     },
     {

@@ -1,0 +1,30 @@
+{
+  "_הסבר": "קידום חשיפה של פוסט שכבר עלה (מ-1.11.2026). המטרה: שהקהל החם יראה את הפוסט 2-3 פעמים בשבוע, בזול, והלייקים והתגובות יישארו על הפוסט עצמו. goal: reach = ב-Meta OUTCOME_AWARENESS, אופטימיזציה REACH (כמה שיותר אנשים שונים), חיוב לפי חשיפות. בלי וואטסאפ, בלי הודעה מוכנה ובלי כפתור - לכן אין כאן destination, whatsapp או headline (הכלי עוצר אם הם מופיעים). רק existing_post - מודעה עם תמונות חדשות נעצרת. frequency_cap (רשות, רק בחשיפה): עד כמה חשיפות לאדם ובכמה ימים, 1-90. בלי השדה - 2 חשיפות ב-7 ימים. placements = רק הרשת של הפוסט (ההחלטה של עדי, 25.10): פוסט אינסטגרם → instagram stream, פוסט פייסבוק → facebook feed. את existing_post מעתיקים מהפלט של node tools/meta-posts.js. הקהל כאן: קהלים מותאמים בלי הרחבה (הקהל החם).",
+  "name": "קידום חשיפה - מטבח בחוץ - 11/2026",
+  "goal": "reach",
+  "daily_budget_ils": 12,
+  "frequency_cap": { "impressions": 2, "days": 7 },
+  "audience": {
+    "countries": ["IL"],
+    "age_min": 25,
+    "advantage_audience": false,
+    "custom_audiences": [
+      { "id": "1202xxxxxxxxxxxxx", "name": "עוקבים ומי שהגיב באינסטגרם - 365 יום" },
+      { "id": "1202xxxxxxxxxxxxx", "name": "רשימת הטלפונים של הלקוחות" }
+    ],
+    "custom_audience_expansion": false
+  },
+  "placements": {
+    "instagram": ["stream"]
+  },
+  "ads": [
+    {
+      "name": "מטבח בחוץ",
+      "existing_post": {
+        "platform": "instagram",
+        "id": "<מזהה המדיה באינסטגרם>",
+        "url": "https://www.instagram.com/p/..."
+      }
+    }
+  ]
+}

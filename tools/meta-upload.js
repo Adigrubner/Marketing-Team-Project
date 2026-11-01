@@ -20,6 +20,11 @@
 //   סטורי וריל מקבלים את story, כל שאר המיקומים בתוכנית את feed. הכללים נגזרים מ-placements, ומיקום בלי תמונה = שגיאה
 //   כבר ב-dry-run. כל הבלמים למעלה זהים. דוגמה: clients/_template/campaigns/plan.whatsapp.placement-images.example.json
 //
+// קידום חשיפה / מעורבות של פוסט קיים (מ-1.11.2026): goal: "reach" (OUTCOME_AWARENESS, REACH, עם הגבלת תדירות -
+//   ברירת מחדל 2 חשיפות לאדם ב-7 ימים) או goal: "engagement" (OUTCOME_ENGAGEMENT, POST_ENGAGEMENT). רק existing_post,
+//   בלי וואטסאפ ובלי כפתור. כל הבלמים למעלה זהים. דוגמאות: clients/_template/campaigns/plan.promote.reach.example.json
+//   ו-plan.promote.engagement.example.json
+//
 // שימוש:
 //   node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין>            ← dry-run: מה ייווצר (בלי אינטרנט)
 //   node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין> --check    ← Meta בודקת בלי ליצור (התמונות עולות לספרייה בלבד)
@@ -39,6 +44,7 @@ import {
   usesAdvancedAudience, describeAdvancedAudience, planWarnings, needsAudiencePreflight,
   customAudienceRefsOf, judgeCustomAudience, sizeRangeText, detailedItemsOf, cardDescriptionsOf,
   isExistingPostAd, EXISTING_POST_PLATFORMS, judgeAccountBudget, hasPlacementImages, placementImagesOf,
+  promoteGoalOf, isPromoteGoalPlan, frequencyCapOf,
 } from './lib/meta-build.js';
 
 const args = process.argv.slice(2);
@@ -103,7 +109,22 @@ if (hasAdSets(plan)) {
 }
 if (isMultiAdPlan(plan)) {
   const pl = placementsOf(plan);
-  info(`מטרה:          שיחות בוואטסאפ (OUTCOME_ENGAGEMENT)`);
+  const promote = promoteGoalOf(plan);
+  if (promote) {
+    // קידום חשיפה / מעורבות של פוסט קיים: מה זה, ומה המטרה - במילים פשוטות
+    info(`סוג:           ${promote.he} - ${promote.why}`);
+    info(`מטרה ב-Meta:   ${promote.meta}`);
+    const fc = frequencyCapOf(plan);
+    info(fc
+      ? `הגבלת תדירות:  עד ${fc.impressions} חשיפות לאדם בכל ${fc.days} ימים${plan.frequency_cap ? '' : ' (ברירת המחדל)'}`
+      : 'הגבלת תדירות:  אין - Meta מאפשרת אותה רק בקידום חשיפה');
+    info('כפתור:         בלי כפתור, בלי וואטסאפ ובלי הודעה מוכנה - הפוסט רץ כמו שהוא');
+    if (plan.goal === 'engagement') {
+      info('שימו לב:       ב"מעורבות בפוסט" Meta סופרת גם קליקים על הפוסט, לא רק לייקים, תגובות, שמירות ושיתופים. בדוח בודקים את האינטראקציות');
+    }
+  } else {
+    info(`מטרה:          שיחות בוואטסאפ (OUTCOME_ENGAGEMENT)`);
+  }
   info(`איפה:          ${Object.entries(pl).map(([k, v]) => `${k}: ${v.join(', ')}`).join(' · ')}`);
   info(`סיום:          ${plan.end_date ? `${plan.end_date} (${endTimeOf(plan.end_date)})` : 'בלי תאריך סיום - רץ עד שמכבים ידנית'}`);
   if (plan.whatsapp?.autofill_message) info(`הודעה מוכנה:   "${plan.whatsapp.autofill_message}"`);
@@ -117,7 +138,7 @@ if (isMultiAdPlan(plan)) {
   plan.ads.forEach((ad, i) => {
     if (isExistingPostAd(ad)) {
       const p = ad.existing_post;
-      info(`  ${i + 1}. ${ad.name} · קידום פוסט קיים מ${EXISTING_POST_PLATFORMS[p.platform]} (רץ כמו שהוא - טקסט ותמונות של הפוסט)`);
+      info(`  ${i + 1}. ${ad.name} · קידום פוסט קיים מ${EXISTING_POST_PLATFORMS[p.platform]} (רץ כמו שהוא - טקסט ותמונות של הפוסט${isPromoteGoalPlan(plan) ? ', בלי כפתור' : ''})`);
       info(`     הפוסט: ${p.url || p.id}`);
       return;
     }
@@ -387,7 +408,11 @@ async function runCheck(hashOf, audienceFailures = 0) {
 
   warn(
     'האד-סט והמודעות לא נבדקו: Meta צריכה קמפיין קיים כדי לבדוק אותם. הם ייבדקו ביצירה עצמה.' +
-    (needsAudiencePreflight(plan, safety) ? ' (הקהלים וההגדרות שלהם כן נבדקו למעלה, דרך הערכת הגודל.)' : '')
+    (needsAudiencePreflight(plan, safety) ? ' (הקהלים וההגדרות שלהם כן נבדקו למעלה, דרך הערכת הגודל.)' : '') +
+    (isPromoteGoalPlan(plan)
+      ? ` ב${promoteGoalOf(plan).he} זה כולל את האופטימיזציה (${promoteGoalOf(plan).optimization_goal})` +
+        `${frequencyCapOf(plan) ? ' ואת הגבלת התדירות' : ''} - עוד לא אומתו ביצירה אמיתית, אז ב---confirm הראשון עוקבים אחרי הפלט.`
+      : '')
   );
   title(failed ? `נמצאו ${failed} בעיות - לא ממשיכים ל---confirm` : 'הבדיקה עברה - שום דבר לא נוצר');
   if (!failed) console.log('אם הכל נראה טוב, מריצים שוב עם --confirm');

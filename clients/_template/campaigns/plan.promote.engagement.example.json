@@ -1,0 +1,28 @@
+{
+  "_הסבר": "קידום מעורבות של פוסט שכבר עלה (מ-1.11.2026), לקהל חדש. המטרה: Meta מחפשת את מי שסביר שתעשה לייק, תגובה, שמירה או שיתוף על הפוסט, ומי שעושה את זה נכנסת לקהל החם (עוקבים ומי שהגיב באינסטגרם). goal: engagement = ב-Meta OUTCOME_ENGAGEMENT, אופטימיזציה POST_ENGAGEMENT (מעורבות בפוסט), יעד ON_POST, חיוב לפי חשיפות. שימו לב: Meta סופרת ב'מעורבות בפוסט' גם קליקים על הפוסט, ולכן בדוח בודקים את האינטראקציות (לייקים, תגובות, שמירות, שיתופים). בלי וואטסאפ, בלי הודעה מוכנה ובלי כפתור. אין הגבלת תדירות - Meta מאפשרת אותה רק בחשיפה (frequency_cap כאן = שגיאה). רק existing_post. placements = רק הרשת של הפוסט (ההחלטה של עדי, 25.10). הקהל כאן: קהל דומה בלי הרחבה. אפשר במקומו קהל אוטומטי של Meta (advantage_audience: true, בלי custom_audiences), או שתי קבוצות ב-ad_sets.",
+  "name": "קידום מעורבות - מטבח בחוץ - קהל חדש - 11/2026",
+  "goal": "engagement",
+  "daily_budget_ils": 10,
+  "audience": {
+    "countries": ["IL"],
+    "age_min": 25,
+    "advantage_audience": false,
+    "custom_audiences": [
+      { "id": "1202xxxxxxxxxxxxx", "name": "קהל דומה 1% - עוקבים ומי שהגיב" }
+    ],
+    "custom_audience_expansion": false
+  },
+  "placements": {
+    "instagram": ["stream"]
+  },
+  "ads": [
+    {
+      "name": "מטבח בחוץ",
+      "existing_post": {
+        "platform": "instagram",
+        "id": "<מזהה המדיה באינסטגרם>",
+        "url": "https://www.instagram.com/p/..."
+      }
+    }
+  ]
+}

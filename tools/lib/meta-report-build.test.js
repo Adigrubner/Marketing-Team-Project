@@ -300,3 +300,58 @@ test('שגיאה רגילה: לא מנסה שוב, ממשיך לבקשה הבא�
   assert.equal(failed.length, 1);
   assert.ok(raw.b);
 });
+
+// --- קידום חשיפה / מעורבות של פוסט קיים - 1.11.2026 ---
+// הפעולות כמו ש-Meta החזירה אותן בחשבון של אלעד (קידום אינסטגרם, קריאה בלבד, 1.11.2026)
+const postRow = () => row(50.68, 0, {
+  reach: '2771',
+  instagram_profile_follow: '2', instagram_profile_visits: '11',
+  actions: [
+    { action_type: 'link_click', value: '145' }, { action_type: 'post_reaction', value: '4' },
+    { action_type: 'onsite_conversion.post_unlike', value: '1' }, { action_type: 'post_engagement', value: '175' },
+    { action_type: 'post_interaction_gross', value: '8' }, { action_type: 'post_interaction_net', value: '7' },
+    { action_type: 'post', value: '1' }, { action_type: 'onsite_conversion.post_save', value: '3' },
+    { action_type: 'video_view', value: '22' },
+  ],
+});
+
+test('מעורבות בפוסט: אינטראקציות, לייקים, תגובות, שמירות, שיתופים, ומחיר לאלף אנשים', () => {
+  const r = normalizeRow(postRow());
+  assert.equal(r.interactions, 7, 'נטו - אחרי ביטול לייק');
+  assert.equal(r.post_engagement, 175, 'של Meta - כולל קליקים');
+  assert.equal(r.likes, 4);
+  assert.equal(r.comments, 0);
+  assert.equal(r.saves, 3);
+  assert.equal(r.shares, 1);
+  assert.equal(r.cost_per_interaction_ils, 7.24);
+  assert.equal(r.cost_per_1000_reached_ils, 18.29);
+  assert.equal(r.follows, 2, 'עוקבים - שדה נפרד, לא ב-actions');
+  assert.equal(r.profile_visits, 11);
+  assert.equal(r.cost_per_follow_ils, 25.34);
+  // בלי מעורבות ובלי אנשים: null, לא 0
+  const z = normalizeRow({ spend: '0' });
+  assert.equal(z.interactions, 0);
+  assert.equal(z.cost_per_interaction_ils, null);
+  assert.equal(z.cost_per_1000_reached_ils, null);
+  assert.equal(z.follows, 0);
+  assert.equal(z.cost_per_follow_ils, null);
+});
+
+test('הדפסה: המטרה של הקמפיין, ושורת "על הפוסט" רק כשיש מעורבות', () => {
+  const by = Object.fromEntries(buildReportRequests('123', { date_preset: 'maximum' }, { today }).map((r) => [r.key, r.params]));
+  assert.match(by.status.fields, /objective/);
+  const rep = summarizeReport({ status: { name: 'קידום חשיפה', objective: 'OUTCOME_AWARENESS', effective_status: 'ACTIVE' }, total: { data: [postRow()] } });
+  assert.equal(rep.status.objective, 'OUTCOME_AWARENESS');
+  const text = formatReport(rep).join('\n');
+  assert.match(text, /מטרה: חשיפה/);
+  assert.match(text, /על הפוסט: 7 אינטראקציות \(לייקים 4 · תגובות 0 · שמירות 3 · שיתופים 1\)/);
+  assert.match(text, /מחיר לאלף אנשים: 18\.29₪/);
+  assert.match(text, /כולל קליקים וצפיות\): 175/);
+  assert.match(text, /עוקבים חדשים 2 \(25\.34₪ לעוקב\) · כניסות לפרופיל 11/);
+  assert.match(by.total.fields, /instagram_profile_follow,instagram_profile_visits/);
+  assert.match(by.ads.fields, /instagram_profile_follow/);
+  assert.doesNotMatch(by.platform.fields, /instagram_profile/, 'לא עם פילוחים');
+  assert.match(text, /אנשים: 2771 · תדירות/);
+  const plain = formatReport(summarizeReport({ total: { data: [row(10, 1)] } })).join('\n');
+  assert.doesNotMatch(plain, /על הפוסט/);
+});

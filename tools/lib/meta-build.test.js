@@ -268,7 +268,7 @@ test('טירגוט: קהלים מותאמים, החרגות, flexible_spec ("א�
   const [s1, s2] = adSetsOf(multiPlan());
   const t1 = buildTargeting(audienceSpecOf(s1.audience, safety));
   assert.deepEqual(t1.custom_audiences, [{ id: IG.id }, { id: PHONES.id }]);
-  assert.deepEqual(t1.targeting_relaxation_types, { custom_audience: 0 });
+  assert.deepEqual(t1.targeting_relaxation_types, { lookalike: 0, custom_audience: 0 });
   assert.equal(t1.targeting_automation.advantage_audience, 0);
   assert.equal('flexible_spec' in t1, false);
   assert.equal('targeting_optimization' in t1, false);
@@ -288,7 +288,7 @@ test('הרחבה: ברירת המחדל כמו הקהל האוטומטי; הרח
   assert.equal(a.custom_audience_expansion, false);
   assert.equal(a.detailed_expansion, false);
   const t = buildTargeting(audienceSpecOf({ advantage_audience: false, custom_audiences: [IG], custom_audience_expansion: true, detailed: DETAILED, detailed_expansion: true }, safety));
-  assert.deepEqual(t.targeting_relaxation_types, { custom_audience: 1 });
+  assert.deepEqual(t.targeting_relaxation_types, { lookalike: 1, custom_audience: 1 });
   assert.equal('targeting_optimization' in t, false, 'הרחבה דלוקה - לא שולחים את השדה ש-Meta הסירה');
   const adv = buildTargeting(audienceSpecOf({ advantage_audience: true, custom_audiences: [IG] }, safety));
   assert.equal('targeting_relaxation_types' in adv, false, 'עם קהל אוטומטי Meta מחליטה לבד');
@@ -653,4 +653,200 @@ test('תוכנית בלי placement_images לא השתנתה: אותו קריא�
   ]);
   const bad = plan(); delete bad.ads[0].images;
   assert.deepEqual(v(bad), ['מודעה 1 (לירון): חסרות images']);
+});
+
+// --- קידום חשיפה / מעורבות של פוסט קיים (goal) - 1.11.2026 ---
+import {
+  PROMOTE_GOALS, goalOf, promoteGoalOf, isPromoteGoalPlan, frequencyCapOf, DEFAULT_FREQUENCY_CAP, buildCampaign,
+} from './meta-build.js';
+
+const IG_POST = { platform: 'instagram', id: '17890000000000001', url: 'https://www.instagram.com/p/ABC/' };
+const goalPlan = (goal) => ({
+  name: `קידום ${goal}`,
+  goal,
+  daily_budget_ils: 12,
+  audience: { countries: ['IL'], age_min: 25, advantage_audience: false, custom_audiences: [IG, PHONES], custom_audience_expansion: false },
+  placements: { instagram: ['stream'] },
+  ads: [{ name: 'פוסט', existing_post: { ...IG_POST } }],
+});
+
+test('קידום חשיפה ומעורבות: תוכנית תקינה עוברת, בלי וואטסאפ ובלי destination', () => {
+  for (const g of ['reach', 'engagement']) {
+    assert.deepEqual(v(goalPlan(g)), [], g);
+    assert.deepEqual(validateEnvForPlan(goalPlan(g), env), [], g);
+    assert.deepEqual(planWarnings(goalPlan(g), safety), [], g);
+    assert.equal(goalOf(goalPlan(g)), g);
+    assert.ok(isPromoteGoalPlan(goalPlan(g)));
+  }
+  // destination: "none" מותר, כמו בלי destination
+  const p = goalPlan('reach'); p.destination = 'none';
+  assert.deepEqual(v(p), []);
+  assert.equal(goalOf(plan()), 'whatsapp');
+  assert.equal(isPromoteGoalPlan(plan()), false);
+});
+
+test('קידום חשיפה: OUTCOME_AWARENESS, REACH, חיוב לפי חשיפות, הגבלת תדירות 2 ב-7 ימים, הכל PAUSED', () => {
+  const all = buildAll(goalPlan('reach'), { env, safety, ids: fakeIds });
+  assert.equal(all.campaign.objective, 'OUTCOME_AWARENESS');
+  assert.equal(all.campaign.is_adset_budget_sharing_enabled, false);
+  const s = all.adSet;
+  assert.equal(s.optimization_goal, 'REACH');
+  assert.equal(s.billing_event, 'IMPRESSIONS');
+  assert.equal(s.bid_strategy, 'LOWEST_COST_WITHOUT_CAP');
+  assert.equal(s.daily_budget, 1200);
+  assert.equal('destination_type' in s, false, 'בחשיפה אין יעד');
+  assert.deepEqual(s.promoted_object, { page_id: '111' });
+  assert.deepEqual(s.frequency_control_specs, [{ event: 'IMPRESSIONS', interval_days: 7, max_frequency: 2 }]);
+  assert.deepEqual(DEFAULT_FREQUENCY_CAP, { impressions: 2, days: 7 });
+  assert.deepEqual(s.targeting.publisher_platforms, ['instagram']);
+  assert.deepEqual(s.targeting.instagram_positions, ['stream']);
+  assert.equal('facebook_positions' in s.targeting, false);
+  assert.deepEqual(s.targeting.custom_audiences, [{ id: IG.id }, { id: PHONES.id }]);
+  assert.deepEqual(s.targeting.targeting_relaxation_types, { lookalike: 0, custom_audience: 0 });
+  assert.equal('end_time' in s, false);
+  assertPaused(all.campaign, 'קמפיין'); assertPaused(s, 'אד-סט'); assertBudget(s, safety, 'אד-סט');
+  for (const a of all.ads) assertPaused(a.ad, 'מודעה');
+  assert.deepEqual(all.images, [], 'אין תמונות להעלות');
+});
+
+test('קידום מעורבות: OUTCOME_ENGAGEMENT, POST_ENGAGEMENT על הפוסט (ON_POST), בלי הגבלת תדירות ובלי וואטסאפ', () => {
+  const all = buildAll(goalPlan('engagement'), { env: { ...env, META_WHATSAPP_NUMBER: '972500000000' }, safety, ids: fakeIds });
+  assert.equal(all.campaign.objective, 'OUTCOME_ENGAGEMENT');
+  const s = all.adSet;
+  assert.equal(s.optimization_goal, 'POST_ENGAGEMENT');
+  assert.equal(s.destination_type, 'ON_POST');
+  assert.equal(s.billing_event, 'IMPRESSIONS');
+  assert.deepEqual(s.promoted_object, { page_id: '111' }, 'בלי מספר הוואטסאפ');
+  assert.equal('frequency_control_specs' in s, false);
+  assert.equal(frequencyCapOf(goalPlan('engagement')), null);
+  assertPaused(all.campaign, 'קמפיין'); assertPaused(s, 'אד-סט');
+  for (const a of all.ads) assertPaused(a.ad, 'מודעה');
+});
+
+test('קידום חשיפה / מעורבות: הקריאייטיב של פוסט אינסטגרם - בלי כפתור; פוסט פייסבוק - הפוסט עצמו', () => {
+  for (const g of ['reach', 'engagement']) {
+    const p = goalPlan(g);
+    assert.deepEqual(buildExistingPostCreative(p, p.ads[0], { env }), {
+      name: `קידום ${g} · פוסט · Creative`, object_id: '111', instagram_user_id: '222', source_instagram_media_id: IG_POST.id,
+    });
+    const f = goalPlan(g); f.placements = { facebook: ['feed'] };
+    f.ads[0].existing_post = { platform: 'facebook', id: '111_999' };
+    assert.deepEqual(buildExistingPostCreative(f, f.ads[0], { env }), { name: `קידום ${g} · פוסט · Creative`, object_story_id: '111_999' });
+  }
+  // קידום וואטסאפ של פוסט אינסטגרם לא השתנה: עם כפתור וואטסאפ
+  const w = promotePlan();
+  assert.deepEqual(Object.keys(buildExistingPostCreative(w, w.ads[1], { env })),
+    ['name', 'object_id', 'instagram_user_id', 'source_instagram_media_id', 'call_to_action']);
+});
+
+test('הגבלת תדירות: אפשר לשנות בתוכנית, גם רק חלק ממנה', () => {
+  const p = goalPlan('reach'); p.frequency_cap = { impressions: 3, days: 7 };
+  assert.deepEqual(v(p), []);
+  assert.deepEqual(buildAdSet(p, { campaignId: 'C1', env, safety }).frequency_control_specs,
+    [{ event: 'IMPRESSIONS', interval_days: 7, max_frequency: 3 }]);
+  const q = goalPlan('reach'); q.frequency_cap = { days: 14 };
+  assert.deepEqual(frequencyCapOf(q), { impressions: 2, days: 14 });
+});
+
+test('🛑 הגבלת תדירות לא תקינה, או לא בחשיפה - נעצרת בעברית', () => {
+  for (const [fc, what] of [[{ impressions: 0 }, 'impressions'], [{ days: 91 }, 'days'], [{ impressions: 1.5 }, 'impressions'], [{ impressions: '2' }, 'impressions']]) {
+    const p = goalPlan('reach'); p.frequency_cap = fc;
+    assert.ok(v(p).some((e) => e.includes(`frequency_cap.${what}`) && e.includes('בין 1 ל-90')), JSON.stringify(fc));
+  }
+  const k = goalPlan('reach'); k.frequency_cap = { impressions: 2, weeks: 1 };
+  assert.ok(v(k).some((e) => e.includes('frequency_cap.weeks') && e.includes('לא מוכר')));
+  const arr = goalPlan('reach'); arr.frequency_cap = [2, 7];
+  assert.ok(v(arr).some((e) => e.includes('frequency_cap צריך להיות אובייקט')));
+  const eng = goalPlan('engagement'); eng.frequency_cap = { impressions: 2, days: 7 };
+  assert.ok(v(eng).some((e) => e.includes('frequency_cap') && e.includes('רק בקידום חשיפה')));
+  const wa = plan(); wa.frequency_cap = { impressions: 2, days: 7 };
+  assert.ok(v(wa).some((e) => e.includes('frequency_cap') && e.includes('רק בקידום חשיפה')));
+});
+
+test('🛑 חשיפה / מעורבות עם תמונות חדשות - נעצרת: רק פוסט שכבר עלה', () => {
+  for (const g of ['reach', 'engagement']) {
+    const p = goalPlan(g);
+    p.ads.push({ name: 'חדשה', text: 'טקסט', images: ['creatives/a.jpg'] });
+    p.ads.push({ name: 'מיקומים', text: 'טקסט', placement_images: { feed: FEED, story: STORY } });
+    const errors = v(p);
+    assert.ok(errors.some((e) => e.includes('מודעה 2 (חדשה)') && e.includes(PROMOTE_GOALS[g].he) && e.includes('existing_post')), g);
+    assert.ok(errors.some((e) => e.includes('מודעה 3 (מיקומים)') && e.includes('existing_post')), g);
+    assert.equal(errors.length, 2, 'רק השגיאה של "רק פוסט קיים" לכל מודעה, בלי שגיאות טקסט/כותרת');
+    // גם תמונות בתוך מודעת הקידום עצמה - נעצרות כמו קודם
+    const q = goalPlan(g); q.ads[0].images = ['creatives/a.jpg'];
+    assert.ok(v(q).some((e) => e.includes('רץ כמו שהוא') && e.includes('images')), g);
+  }
+});
+
+test('🛑 חשיפה / מעורבות עם וואטסאפ - נעצרת בעברית', () => {
+  for (const g of ['reach', 'engagement']) {
+    const p = goalPlan(g); p.destination = 'whatsapp';
+    assert.ok(v(p).some((e) => e.includes('אין וואטסאפ') && e.includes('destination')), g);
+    const q = goalPlan(g); q.whatsapp = { autofill_message: 'היי', greeting: 'שלום' };
+    assert.ok(v(q).some((e) => e.includes('אין וואטסאפ') && e.includes('whatsapp')), g);
+    const h = goalPlan(g); h.headline = 'כותרת';
+    assert.ok(v(h).some((e) => e.includes('headline')), g);
+    const o = goalPlan(g); o.objective = 'OUTCOME_LEADS';
+    assert.ok(v(o).some((e) => e.includes(PROMOTE_GOALS[g].objective)), g);
+    const d = goalPlan(g); d.destination = 'website';
+    assert.ok(v(d).some((e) => e.includes('destination "website"')), g);
+  }
+});
+
+test('🛑 goal לא מוכר, או goal בפורמט הישן - נעצר', () => {
+  for (const goal of ['awareness', 'toString', 'constructor', 5]) {
+    const p = goalPlan('reach'); p.goal = goal;
+    assert.ok(v(p).some((e) => e.includes('לא מוכר') && e.includes('"reach"')), String(goal));
+    assert.equal(promoteGoalOf(p), null, String(goal));
+    assert.equal(buildCampaign(p).objective, 'OUTCOME_ENGAGEMENT', 'goal לא מוכר לא הופך למטרה אחרת בשקט');
+  }
+  const legacy = { name: 'ישן', link_url: 'https://example.com', primary_texts: ['t'], headlines: ['h'], images: ['a.png'], daily_budget_ils: 10, goal: 'reach' };
+  assert.ok(v(legacy).some((e) => e.includes('goal') && e.includes('בפורמט הישן')));
+});
+
+test('🛑 חשיפה / מעורבות: התקרה נאכפת כמו תמיד - לכל קבוצה ולסכום', () => {
+  const p = goalPlan('reach'); p.daily_budget_ils = 101;
+  assert.ok(v(p).some((e) => e.includes('חורג מתקרת')));
+  const m = goalPlan('engagement');
+  delete m.daily_budget_ils; delete m.audience;
+  m.ad_sets = [
+    { name: 'דומה 1%', daily_budget_ils: 60, audience: { countries: ['IL'], age_min: 25, advantage_audience: false, custom_audiences: [{ id: '120254805380880745', name: 'Lookalike 1%' }] } },
+    { name: 'אוטומטי', daily_budget_ils: 50, audience: { countries: ['IL'], age_min: 25, advantage_audience: true } },
+  ];
+  assert.ok(v(m).some((e) => e.includes('סך התקציב') && e.includes('110')));
+  m.ad_sets[0].daily_budget_ils = 10; m.ad_sets[1].daily_budget_ils = 5;
+  assert.deepEqual(v(m), []);
+  const built = buildAll(m, { env, safety, ids: { ...fakeIds, adSetIdOf: (n) => `S:${n}` } });
+  for (const g of built.ad_sets) {
+    assert.equal(g.adSet.optimization_goal, 'POST_ENGAGEMENT');
+    assertPaused(g.adSet, 'אד-סט'); assertBudget(g.adSet, safety, 'אד-סט');
+    for (const a of g.ads) assertPaused(a.ad, 'מודעה');
+  }
+  const r = goalPlan('reach'); delete r.daily_budget_ils; delete r.audience;
+  r.ad_sets = [{ name: 'חם', daily_budget_ils: 12, audience: goalPlan('reach').audience }];
+  assert.deepEqual(buildAll(r, { env, safety, ids: { ...fakeIds, adSetIdOf: () => 'S' } }).ad_sets[0].adSet.frequency_control_specs,
+    [{ event: 'IMPRESSIONS', interval_days: 7, max_frequency: 2 }]);
+});
+
+test('⚠️ חשיפה / מעורבות: פוסט מרשת אחת שרץ גם ברשת השנייה - אזהרה (ההחלטה של עדי, 25.10)', () => {
+  const p = goalPlan('reach'); p.placements = { instagram: ['stream'], facebook: ['feed'] };
+  const w = planWarnings(p, safety);
+  assert.equal(w.length, 1);
+  assert.ok(w[0].includes('הפוסט מאינסטגרם') && w[0].includes('פייסבוק') && w[0].includes('"instagram": ["stream"]'));
+  const d = goalPlan('engagement'); delete d.placements;
+  assert.ok(planWarnings(d, safety)[0].includes('ברירת המחדל'));
+  // קידום וואטסאפ - בלי האזהרה החדשה (כמו קודם)
+  assert.deepEqual(planWarnings(promotePlan(), safety), []);
+});
+
+test('תוכנית וואטסאפ לא השתנתה: אותם שדות באד-סט, באותו סדר', () => {
+  const s = buildAdSet(plan(), { campaignId: 'C1', env: { ...env, META_WHATSAPP_NUMBER: '972500000000' }, safety });
+  assert.deepEqual(Object.keys(s), [
+    'name', 'campaign_id', 'daily_budget', 'billing_event', 'optimization_goal', 'bid_strategy',
+    'destination_type', 'promoted_object', 'targeting', 'status',
+  ]);
+  assert.deepEqual(s.promoted_object, { page_id: '111', whatsapp_phone_number: '972500000000' });
+  assert.equal(buildCampaign(plan()).objective, 'OUTCOME_ENGAGEMENT');
+  assert.equal(buildCampaign(promotePlan()).objective, 'OUTCOME_ENGAGEMENT');
+  assert.ok(v({ ...plan(), destination: undefined }).some((e) => e.includes('destination חייב להיות "whatsapp"')));
 });

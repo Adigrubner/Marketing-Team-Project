@@ -101,6 +101,9 @@ const signature = (ad, color, top) => ad.text.signature ? `
 // בקובץ לסטורי בלבד (format: "story") - מתחת לשם החשבון של הסטורי (מ-269), והתמונה ממלאת עד למטה.
 const STORY_TOP = 269;
 const isStory = (ad) => ad.format === 'story';
+// בקובץ לפיד בלבד (format: "feed") התמונה נגמרת איפה שהפיד נגמר (1635), גם בתמונה בודדת.
+// בקובץ משותף היא ממשיכה עד למטה בשביל הסטורי, והפיד חותך לה את התחתית: רואים יותר תקרה (אלעד, 1.11, מודעה 1).
+const isFeed = (ad) => ad.format === 'feed';
 const headerText = (ad, hb, block) => {
   const top = isStory(ad) ? STORY_TOP : FEED.top;
   return `
@@ -118,7 +121,7 @@ const LAYOUTS = {
   editorial(ad) {
     const hb = ad.headerBottom || 640;
     const isCollage = ad.images.length > 1;
-    const photoBox = isCollage && !isStory(ad)
+    const photoBox = (isCollage && !isStory(ad)) || isFeed(ad)
       ? { left: 0, top: hb, width: W, height: FEED.bottom - hb }
       : { left: 0, top: hb, width: W, height: H - hb };
     return `
@@ -141,7 +144,7 @@ const LAYOUTS = {
   night(ad) {
     const hb = ad.headerBottom || 640;
     const isCollage = ad.images.length > 1;
-    const photoBox = isCollage && !isStory(ad)
+    const photoBox = (isCollage && !isStory(ad)) || isFeed(ad)
       ? { left: 0, top: hb, width: W, height: FEED.bottom - hb }
       : { left: 0, top: hb, width: W, height: H - hb };
     return `

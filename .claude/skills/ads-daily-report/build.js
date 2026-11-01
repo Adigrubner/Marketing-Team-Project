@@ -5,8 +5,11 @@
 // שימוש:
 //   node .claude/skills/ads-daily-report/build.js <report.json> <log-dir> <summary.json> <campaign-dir> <out-dir>
 // הפלט: daily.json, ads.json, status.json ב-<out-dir>. בלי רשת, בלי טוקנים.
+// מ-1.11.2026 גם variants.json (כל מודעה ב-Meta לבד) ו-placements.json (פיד / סטורי / ריל),
+// לכרטיסים "4 המודעות" ו"לפי מיקום" בדף (datasets/variants, datasets/placements). מעלים את כל החמישה.
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, mkdirSync } from 'node:fs';
 import { join, basename } from 'node:path';
+import { positionName } from '../../../tools/lib/meta-report-build.js';
 
 const [reportPath, logDir, summaryPath, campaignDir, outDir] = process.argv.slice(2);
 if (!outDir) {
@@ -18,8 +21,13 @@ const readJson = (p) => JSON.parse(readFileSync(p, 'utf8').replace(/^﻿/, ''));
 const report = readJson(reportPath);
 const summary = existsSync(summaryPath) ? readJson(summaryPath) : {};
 const campaignKey = basename(campaignDir.replace(/[\\/]+$/, ''));
-// מפתח המודעה ביומן → מילה שמופיעה בשם המודעה ב-Meta (analytics/ads-map.json בתיקיית הקמפיין)
-const adsMap = readJson(join(campaignDir, 'analytics', 'ads-map.json'));
+// מפתח המודעה ביומן → מילה שמופיעה בשם המודעה ב-Meta (analytics/ads-map.json בתיקיית הקמפיין).
+// הערך הוא מחרוזת (המילה), או מ-1.11 {match, label}: label הוא השם בדף. מפתח שמתחיל ב-"_" הוא הערה.
+// מפתח אחד יכול להתאים לכמה מודעות ב-Meta (למשל "single" = בודדת עם טקסט + בודדת נקייה), והן מסוכמות.
+const adsMap = Object.entries(readJson(join(campaignDir, 'analytics', 'ads-map.json')))
+  .filter(([key]) => !key.startsWith('_'))
+  .map(([key, v]) => (typeof v === 'string' ? { key, match: v, label: null } : { key, match: String(v.match), label: v.label || null }));
+const logKeyOf = (adName) => (adsMap.find((m) => String(adName || '').includes(m.match)) || {}).key || null;
 
 // --- יומן השיחות ---
 function walk(dir) {
@@ -33,7 +41,8 @@ const log = walk(logDir)
   .map((p) => { const j = readJson(p); return j && typeof j.data === 'object' && j.data ? j.data : j; })
   .filter((r) => r && r.campaign === campaignKey);
 const RELEVANT = new Set(['designer', 'architect']);
-const isRel = (r) => RELEVANT.has(r.who);
+// "לא ענתה" (no_reply) לא נספרת כשיחה רלוונטית, גם כשסומנה מעצבת (ads-analyst.md, עדי 26.10). תוקן 1.11.
+const isRel = (r) => RELEVANT.has(r.who) && r.status !== 'no_reply';
 // via: 'private' = ראתה את המודעה ופנתה בפרטי (מ-21.10). Meta לא סופרת אותה, ולכן בהשוואה ל-Meta מורידים אותה.
 // בלי השדה = דרך הכפתור במודעה.
 const isPrivate = (r) => r.via === 'private';
@@ -81,14 +90,14 @@ const daily = dates.map((date) => {
 
 // --- לפי פרויקט ---
 // מ-22.10 אותה מודעה רצה בכמה קבוצות מודעות (שם המודעה כולל את שם הקבוצה), ולכן מסכמים את כל המודעות של הפרויקט.
-const ads = Object.entries(adsMap).map(([key, word]) => {
+const ads = adsMap.map(({ key, match: word, label: mapLabel }) => {
   const matches = (report.ads || []).filter((a) => String(a.ad || '').includes(word));
   const list = log.filter((r) => r.ad === key);
   const spend = matches.reduce((s, a) => s + (Number(a.spend_ils) || 0), 0);
   const relevant = list.filter(isRel).length;
   // שם לתצוגה: החלק שאחרי "·" האחרון, בלי " - A"/" - B" (למשל "לירון חפץ - נתניה").
   const named = matches[0] || (report.status?.ads || []).find((a) => String(a.name || '').includes(word));
-  const label = named ? String(named.ad || named.name).split('·').pop().trim().replace(/\s-\s[AB]$/, '') : word;
+  const label = mapLabel || (named ? String(named.ad || named.name).split('·').pop().trim().replace(/\s-\s[AB]$/, '') : word);
   return {
     ad: label,
     groups: matches.length,
@@ -136,8 +145,12 @@ const dayN = firstSpend
 // כרטיס המשפך (עדי, 26.10): הגיעו להצעת מחיר = עכשיו בהצעה, נסגרו, או שהייתה הצעה בהיסטוריה.
 const reachedQuote = (r) => r.status === 'quote' || r.status === 'won' || (r.history || []).some((h) => h.status === 'quote');
 // הקבוצה עם הקהל הכי קטן לפי Meta היא הקהל החם ("מכירים את אלעד"). אין גודל קהל = אין שדות warm_.
-const warm = (report.adsets || []).filter((a) => a.audience_size)
-  .sort((a, b) => a.audience_size.upper - b.audience_size.upper)[0];
+// מ-1.11: רק כשיש יותר מקבוצה אחת. בקמפיין של קבוצה אחת (designers-text-all-placements, קהל רחב)
+// אין קהל חם נפרד, ולכן warm_ ריקים והדף מסתיר את השורה - אחרת הקהל הרחב היה מוצג כ"קהל חם".
+const warm = (report.adsets || []).length > 1
+  ? (report.adsets || []).filter((a) => a.audience_size)
+    .sort((a, b) => a.audience_size.upper - b.audience_size.upper)[0]
+  : undefined;
 const num = (v) => (v == null ? null : Number(v));
 const status = [{
   updated: report.fetched_at,
@@ -179,9 +192,59 @@ const status = [{
   ...compare,
 }];
 
+// --- כל מודעה ב-Meta לבד (מ-1.11) ---
+// ביומן אלעד בוחר רק "צילום אחד" או "קולאז'", ולכן שיחות רלוונטיות אין כאן - רק מה ש-Meta יודעת.
+// log_key אומר לאיזו שורה ב-ads.json המודעה שייכת. לא מחברים reach בין מודעות.
+const pct = (part, whole) => (whole > 0 ? Math.round((part / whole) * 1000) / 10 : null);
+const adsSpend = (report.ads || []).reduce((s, a) => s + (Number(a.spend_ils) || 0), 0);
+const adStatus = new Map((report.status?.ads || []).map((a) => [a.id, a.effective_status]));
+const variants = (report.ads || []).map((a) => ({
+  ad_id: a.ad_id,
+  ad: a.ad,
+  adset: a.adset || null,
+  log_key: logKeyOf(a.ad),
+  status: adStatus.get(a.ad_id) || null,
+  spend_ils: round(Number(a.spend_ils) || 0),
+  spend_pct: pct(Number(a.spend_ils) || 0, adsSpend),
+  impressions: Number(a.impressions) || 0,
+  cpm_ils: num(a.cpm_ils),
+  link_clicks: Number(a.link_clicks) || 0,
+  link_ctr_pct: num(a.link_ctr_pct),
+  meta_conversations: Number(a.conversations) || 0,
+  link_to_conversation_pct: num(a.link_to_conversation_pct),
+}));
+
+// --- לפי מיקום: פיד / סטורי / ריל, פייסבוק ואינסטגרם יחד (מ-1.11) ---
+// מ-Meta בלבד: היומן לא יודע מאיזה מיקום הגיעה פנייה. reach לא מחברים, ולכן אין כאן אנשים.
+const posGroups = new Map();
+for (const p of report.positions || []) {
+  const name = positionName(p.position);
+  const g = posGroups.get(name) || { placement: name, spend_ils: 0, impressions: 0, link_clicks: 0, meta_conversations: 0, platforms: new Set() };
+  g.spend_ils += Number(p.spend_ils) || 0;
+  g.impressions += Number(p.impressions) || 0;
+  g.link_clicks += Number(p.link_clicks) || 0;
+  g.meta_conversations += Number(p.conversations) || 0;
+  if (p.platform) g.platforms.add(p.platform);
+  posGroups.set(name, g);
+}
+const posSpend = [...posGroups.values()].reduce((s, g) => s + g.spend_ils, 0);
+const placements = [...posGroups.values()].map((g) => ({
+  placement: g.placement,
+  platforms: [...g.platforms].sort().join(', '),
+  spend_ils: round(g.spend_ils),
+  spend_pct: pct(g.spend_ils, posSpend),
+  impressions: g.impressions,
+  cpm_ils: g.impressions > 0 ? round((g.spend_ils / g.impressions) * 1000) : null,
+  link_clicks: g.link_clicks,
+  link_ctr_pct: g.impressions > 0 ? round((g.link_clicks / g.impressions) * 100) : null,
+  meta_conversations: g.meta_conversations,
+  link_to_conversation_pct: g.link_clicks > 0 ? round((g.meta_conversations / g.link_clicks) * 100) : null,
+})).sort((a, b) => b.spend_ils - a.spend_ils);
+
 mkdirSync(outDir, { recursive: true });
-for (const [name, rows] of Object.entries({ daily, ads, status })) {
+for (const [name, rows] of Object.entries({ daily, ads, status, variants, placements })) {
   writeFileSync(join(outDir, `${name}.json`), JSON.stringify(rows, null, 2));
 }
-console.log(`✅ נבנו daily.json (${daily.length} ימים), ads.json (${ads.length} פרויקטים), status.json ב-${outDir}`);
+console.log(`✅ נבנו daily.json (${daily.length} ימים), ads.json (${ads.length} שורות), status.json ב-${outDir}`);
+console.log(`   ועוד variants.json (${variants.length} מודעות) ו-placements.json (${placements.length} מיקומים) - מעלים את כל החמישה`);
 console.log(`   יום ${dayN} · הוצאה ${round(totalSpend)}₪ · ${totalRel} שיחות רלוונטיות · ${won.length} סגירות · ${revenue}₪`);
