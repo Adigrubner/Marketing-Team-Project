@@ -478,3 +478,179 @@ test('תקרה על הסך הכולל: קידום שתאריך הסיום שלו
   assert.equal(j.runningIls, 50);
   assert.equal(j.warnings.length, 0);
 });
+
+// --- תמונה לכל מיקום (placement_images) - 29.10.2026 ---
+import {
+  buildPlacementCreative, placementRulesOf, placementGroupsOf, placementImagesOf, hasPlacementImages,
+  adImagesOf, PLACEMENT_LABELS,
+} from './meta-build.js';
+
+const FEED = 'creatives/final/feed/ad2-single-clean.jpg';
+const STORY = 'creatives/final/story/story-single.jpg';
+const placementPlan = () => {
+  const p = plan();
+  p.ads = [
+    { name: 'בודדת - טקסט', text: 'טקסט ראשי', placement_images: { feed: 'creatives/final/feed/ad1-single-text.jpg', story: STORY }, description: 'אלעד גרובנר - צלם' },
+    { name: 'בודדת - נקייה', text: 'טקסט ראשי', placement_images: { feed: FEED, story: STORY } },
+  ];
+  return p;
+};
+
+test('תמונה לכל מיקום: תוכנית תקינה עוברת, ושתי מודעות עם אותה תמונת סטורי מעלות אותה פעם אחת', () => {
+  assert.deepEqual(v(placementPlan()), []);
+  const all = buildAll(placementPlan(), { env, safety, ids: fakeIds });
+  assert.deepEqual(all.images, ['creatives/final/feed/ad1-single-text.jpg', STORY, FEED]);
+  assert.deepEqual(all.ads[1].images, [FEED, STORY]);
+  assert.deepEqual(adImagesOf(placementPlan().ads[1]), [FEED, STORY]);
+  assert.ok(hasPlacementImages(placementPlan().ads[0]));
+  assert.equal(hasPlacementImages(plan().ads[0]), false);
+});
+
+test('תמונה לכל מיקום: הכללים נגזרים מהמיקומים - סטורי וריל לתמונת story, השאר לתמונת feed, וברירת מחדל ל-feed', () => {
+  const rules = placementRulesOf(placementPlan());
+  assert.equal(rules.length, 3);
+  assert.deepEqual(rules.map((r) => r.priority), [1, 2, 3]);
+  assert.deepEqual(rules[0].customization_spec, {
+    publisher_platforms: ['facebook', 'instagram'],
+    facebook_positions: ['story', 'facebook_reels'],
+    instagram_positions: ['story', 'reels'],
+  });
+  assert.deepEqual(rules[1].customization_spec, {
+    publisher_platforms: ['facebook', 'instagram'],
+    facebook_positions: ['feed'],
+    instagram_positions: ['stream'],
+  });
+  assert.deepEqual(rules[2].customization_spec, {});
+  for (const [r, key] of [[rules[0], 'story'], [rules[1], 'feed'], [rules[2], 'feed']]) {
+    for (const l of ['image_label', 'body_label', 'title_label', 'link_url_label']) assert.deepEqual(r[l], { name: PLACEMENT_LABELS[key] });
+  }
+  // רק המיקומים שבתוכנית, ופרופיל הולך עם הפיד
+  const p = placementPlan(); p.placements = { facebook: ['feed', 'profile_feed', 'story'], instagram: ['stream', 'reels'] };
+  assert.deepEqual(placementGroupsOf(p), {
+    feed: { facebook: ['feed', 'profile_feed'], instagram: ['stream'] },
+    story: { facebook: ['story'], instagram: ['reels'] },
+  });
+  assert.deepEqual(placementRulesOf(p)[0].customization_spec, { publisher_platforms: ['facebook', 'instagram'], facebook_positions: ['story'], instagram_positions: ['reels'] });
+  // סטורי רק באינסטגרם - בכלל של הסטורי אין פייסבוק בכלל
+  const q = placementPlan(); q.placements = { facebook: ['feed'], instagram: ['stream', 'story'] };
+  assert.deepEqual(placementRulesOf(q)[0].customization_spec, { publisher_platforms: ['instagram'], instagram_positions: ['story'] });
+});
+
+test('תמונה לכל מיקום: הקריאייטיב - שתי תמונות עם תוויות, וכל מה שיש במודעת וואטסאפ רגילה', () => {
+  const p = placementPlan();
+  const c = buildPlacementCreative(p, p.ads[0], { feedHash: 'hF', storyHash: 'hS', env });
+  assert.equal(c.name, 'בדיקה · בודדת - טקסט · Creative');
+  assert.deepEqual(c.object_story_spec, { page_id: '111', instagram_user_id: '222' }, 'בלי link_data - הכל ב-asset_feed_spec');
+  const a = c.asset_feed_spec;
+  assert.deepEqual(a.images, [
+    { hash: 'hF', adlabels: [{ name: PLACEMENT_LABELS.feed }] },
+    { hash: 'hS', adlabels: [{ name: PLACEMENT_LABELS.story }] },
+  ]);
+  const both = [{ name: PLACEMENT_LABELS.feed }, { name: PLACEMENT_LABELS.story }];
+  assert.deepEqual(a.bodies, [{ text: 'טקסט ראשי', adlabels: both }]);
+  assert.deepEqual(a.titles, [{ text: p.headline, adlabels: both }]);
+  assert.deepEqual(a.descriptions, [{ text: 'אלעד גרובנר - צלם' }]);
+  // הכפתור לוואטסאפ והקישור - כמו במודעה רגילה
+  assert.deepEqual(a.link_urls, [{ website_url: WHATSAPP_LINK, adlabels: both }]);
+  assert.deepEqual(a.call_to_action_types, ['WHATSAPP_MESSAGE']);
+  assert.deepEqual(a.call_to_actions, [{ type: 'WHATSAPP_MESSAGE', value: { app_destination: 'WHATSAPP' } }]);
+  assert.deepEqual(a.ad_formats, ['SINGLE_IMAGE']);
+  assert.equal(a.optimization_type, 'PLACEMENT');
+  assert.deepEqual(a.asset_customization_rules, placementRulesOf(p));
+  // ההודעה המוכנה והברכה - בדיוק אותו JSON כמו ב-link_data של מודעה רגילה
+  assert.equal(a.additional_data.page_welcome_message, JSON.stringify(buildWelcomeMessage(p)));
+  const wm = JSON.parse(a.additional_data.page_welcome_message);
+  assert.equal(wm.text_format.message.autofill_message.content, p.whatsapp.autofill_message);
+  assert.equal(wm.text_format.message.text, p.whatsapp.greeting);
+  // בלי שיפורים אוטומטיים - כמו במודעה רגילה
+  for (const f of CREATIVE_FEATURES_OPT_OUT) assert.equal(c.degrees_of_freedom_spec.creative_features_spec[f].enroll_status, 'OPT_OUT');
+  // בלי תיאור - לא נשלח descriptions
+  assert.equal('descriptions' in buildPlacementCreative(p, p.ads[1], { feedHash: 'a', storyHash: 'b', env }).asset_feed_spec, false);
+});
+
+test('תמונה לכל מיקום: buildAll - כל מודעה מקבלת את ה-hash הנכון לכל מיקום, והכל PAUSED', () => {
+  const all = buildAll(placementPlan(), { env, safety, ids: fakeIds });
+  const imgsOf = all.ads[1].creative.asset_feed_spec.images;
+  assert.equal(imgsOf.find((x) => x.adlabels[0].name === PLACEMENT_LABELS.feed).hash, `hash:${FEED}`);
+  assert.equal(imgsOf.find((x) => x.adlabels[0].name === PLACEMENT_LABELS.story).hash, `hash:${STORY}`);
+  assertPaused(all.campaign, 'קמפיין');
+  assertPaused(all.adSet, 'אד-סט');
+  for (const a of all.ads) assertPaused(a.ad, 'מודעה');
+  assert.equal(all.ads[0].ad.creative.creative_id, 'CR:בודדת - טקסט');
+});
+
+test('תמונה לכל מיקום: תוכנית שמערבבת מודעה רגילה ומודעה עם תמונה לכל מיקום', () => {
+  const p = plan();
+  p.ads.push({ name: 'מיקומים', text: 'ט', placement_images: { feed: FEED, story: STORY } });
+  assert.deepEqual(v(p), []);
+  const all = buildAll(p, { env, safety, ids: fakeIds });
+  assert.equal(all.images.length, 12);
+  assert.ok(all.ads[0].creative.object_story_spec.link_data, 'המודעה הרגילה לא השתנתה');
+  assert.equal('asset_feed_spec' in all.ads[0].creative, false);
+  assert.ok(all.ads[2].creative.asset_feed_spec);
+});
+
+test('🛑 תמונה לכל מיקום: מיקום בלי תמונה מתאימה - נעצר כבר בבדיקת התוכנית', () => {
+  // יש סטורי וריל במיקומים, ואין תמונת story
+  const a = placementPlan(); delete a.ads[0].placement_images.story;
+  assert.ok(v(a).some((e) => e.includes('חסר placement_images.story') && e.includes('סטורי פייסבוק') && e.includes('ריל אינסטגרם')));
+  // יש פיד במיקומים, ואין תמונת feed
+  const b = placementPlan(); delete b.ads[1].placement_images.feed;
+  assert.ok(v(b).some((e) => e.includes('חסר placement_images.feed') && e.includes('פיד פייסבוק') && e.includes('פיד אינסטגרם')));
+  // תמונת story בלי שום סטורי או ריל במיקומים - לא תופיע
+  const c = placementPlan(); c.placements = { facebook: ['feed'], instagram: ['stream'] };
+  assert.ok(v(c).some((e) => e.includes('placement_images.story') && e.includes('לא תופיע')));
+  // תמונת feed בלי שום פיד במיקומים - לא תופיע
+  const d = placementPlan(); d.placements = { facebook: ['story'], instagram: ['reels'] };
+  assert.ok(v(d).some((e) => e.includes('placement_images.feed') && e.includes('לא תופיע')));
+  // תמונה אחת בלבד, כשלשנייה אין מיקום - שתי תמונות, או images
+  const e1 = placementPlan(); e1.placements = { facebook: ['feed'] }; delete e1.ads[0].placement_images.story;
+  assert.ok(v(e1).some((e) => e.includes('צריך שתי תמונות')));
+});
+
+test('תמונה לכל מיקום: שדות לא תקינים - נעצרים', () => {
+  const p = placementPlan();
+  p.ads[0].images = ['a.jpg'];
+  p.ads[1].placement_images = { feed: FEED, story: STORY, reels: 'x.jpg' };
+  const errors = validatePlan(p, { safety, fileExists: (f) => f !== STORY, today });
+  assert.ok(errors.some((e) => e.includes('גם images וגם placement_images')));
+  assert.ok(errors.some((e) => e.includes('placement_images.reels') && e.includes('לא מוכר')));
+  assert.ok(errors.some((e) => e.includes(`תמונה לא נמצאה: ${STORY}`)));
+  const q = placementPlan();
+  q.ads[0].placement_images = { feed: FEED, story: FEED };
+  q.ads[1].placement_images = ['a.jpg', 'b.jpg'];
+  const eq = v(q);
+  assert.ok(eq.some((e) => e.includes('אותה תמונה לפיד ולסטורי')));
+  assert.ok(eq.some((e) => e.includes('צריך להיות אובייקט')));
+  const r = placementPlan(); r.ads[0].description = ['א', 'ב'];
+  assert.ok(v(r).some((e) => e.includes('טקסט אחד, לא רשימה')));
+  const s = placementPlan(); s.ads[0].placement_images.feed = '';
+  assert.ok(v(s).some((e) => e.includes('placement_images.feed') && e.includes('נתיב')));
+  // בקידום פוסט קיים אין תמונות משלנו
+  const t = promotePlan(); t.ads[0].placement_images = { feed: FEED, story: STORY };
+  assert.ok(v(t).some((e) => e.includes('רץ כמו שהוא') && e.includes('placement_images')));
+});
+
+test('תמונה לכל מיקום: התצוגה ב-dry-run - איזו תמונה לאיזה מיקום, בעברית', () => {
+  const p = placementPlan();
+  assert.deepEqual(placementImagesOf(p, p.ads[1]), [
+    { key: 'feed', title: 'פיד', file: FEED, where: 'פיד פייסבוק, פיד אינסטגרם' },
+    { key: 'story', title: 'סטורי וריל', file: STORY, where: 'סטורי פייסבוק, ריל פייסבוק, סטורי אינסטגרם, ריל אינסטגרם' },
+  ]);
+});
+
+test('תוכנית בלי placement_images לא השתנתה: אותו קריאייטיב, אותן תמונות, אותן שגיאות', () => {
+  const p = plan();
+  const all = buildAll(p, { env, safety, ids: fakeIds });
+  for (const [i, a] of all.ads.entries()) {
+    assert.deepEqual(a.creative, buildCreative(p, p.ads[i], { hashes: p.ads[i].images.map(fakeIds.hashOf), env }));
+    assert.equal('asset_feed_spec' in a.creative, false);
+    assert.deepEqual(a.images, p.ads[i].images);
+  }
+  assert.deepEqual(all.images, [...imgs('liron'), ...imgs('alia')]);
+  assert.deepEqual(Object.keys(all.ads[0].creative.object_story_spec.link_data), [
+    'link', 'message', 'call_to_action', 'page_welcome_message', 'child_attachments', 'multi_share_optimized', 'multi_share_end_card',
+  ]);
+  const bad = plan(); delete bad.ads[0].images;
+  assert.deepEqual(v(bad), ['מודעה 1 (לירון): חסרות images']);
+});

@@ -1,0 +1,27 @@
+{
+  "_הסבר": "דוגמה למודעת וואטסאפ עם תמונה לכל מיקום (מ-29.10.2026). במקום images, במודעה יש placement_images: תמונת feed (4:5) לכל מיקום שהוא לא סטורי או ריל, ותמונת story (9:16) לסטורי ולריל, בפייסבוק ובאינסטגרם. הכלי גוזר את הכללים מ-placements, ועוצר כבר ב-dry-run אם למיקום אין תמונה מתאימה. אפשר לערבב באותה תוכנית מודעות עם images ומודעות עם placement_images. description כאן הוא טקסט אחד (לא רשימה).",
+  "name": "שם הקמפיין",
+  "destination": "whatsapp",
+  "daily_budget_ils": 50,
+  "audience": { "countries": ["IL"], "age_min": 25, "advantage_audience": true },
+  "placements": {
+    "facebook": ["feed", "story", "facebook_reels"],
+    "instagram": ["stream", "story", "reels"]
+  },
+  "headline": "הכותרת שמתחת לתמונה",
+  "whatsapp": {
+    "autofill_message": "ההודעה המוכנה שהלקוח שולח בלחיצה אחת",
+    "greeting": "הודעת הברכה שמופיעה בוואטסאפ לפני ההודעה המוכנה (חובה - Meta דוחה בלעדיה)"
+  },
+  "ads": [
+    {
+      "name": "מודעה 1",
+      "text": "הטקסט הראשי המלא של המודעה",
+      "description": "תיאור אחד (רשות, מופיע רק בפייסבוק)",
+      "placement_images": {
+        "feed": "creatives/ad1-4x5.jpg",
+        "story": "creatives/ad1-9x16.jpg"
+      }
+    }
+  ]
+}
