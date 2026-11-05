@@ -102,3 +102,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 15.10.2026 20:00 | קרוסלה נושאית "ארבעה סלונים" (12 רוחב, 3 שלה) - סלון · `Interior/16` · `Interior/06` · `Interior/31` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/Dehc8VBm6-x/) · `content/posts/2026-10-15-living-rooms-four-designers/` |
+| 3.11.2026 20:00 | קרוסלה נושאית "מטבחים" (10 רוחב, 2 שלה) - המטבח הראשי · `Interior/21` · `Interior/22` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DfSfSm-HU6e/) · `content/posts/2026-11-03-kitchens-four-designers/` |
