@@ -101,3 +101,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 18.10.2026 20:30 | קרוסלה נושאית "החדר הכי קשה לצלם" (9 אורך → 4:5, 2 שלה) - שני חדרי רחצה · `Interior/58` (פתיחה) · `Interior/52` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DepOja1lTv4/) · `content/posts/2026-10-18-bathrooms-four-designers/` |
+| 3.11.2026 20:00 | קרוסלה נושאית "מטבחים" (10 רוחב, 3 שלה) - מטבח · `Interior/33` · `Interior/18` · `Interior/65` (סגירה, עם הכלב) | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DfSfSm-HU6e/) · `content/posts/2026-11-03-kitchens-four-designers/` |

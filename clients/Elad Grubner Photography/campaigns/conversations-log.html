@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Rubik:wght@500;600&display=swap">
 <style>
-/* פריסה: עמודה אחת צרה לטלפון - סיכום למעלה, הוספה מהירה, ואז היומן. כמו פנקס עבודה של צלם בשטח. */
+/* פריסה: עמודה אחת צרה לטלפון - סיכום למעלה, ואז היומן. מ-4.11 צפייה בלבד: הנתונים מגיעים מה-CRM (עדי: "כן, רק CRM"). כמו פנקס עבודה של צלם בשטח. */
 :root {
   --bg: #f2f3f1;
   --surface: #ffffff;
@@ -55,8 +55,6 @@ h2 { font-family: var(--f-display); font-weight: 500; font-size: 1.1rem; margin:
 .field > label, .field > .lbl { font-weight: 600; font-size: .92rem; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { font: inherit; font-size: .93rem; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
-.chip.has-img { display: inline-flex; align-items: center; gap: 8px; border-radius: 12px; padding: 4px 4px 4px 12px; }
-.chip img { width: 48px; height: 60px; object-fit: cover; border-radius: 8px; display: block; flex: none; }
 .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); font-weight: 600; }
 .chip:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 input[type="date"], input[type="number"], input[type="text"], textarea { font: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); color: var(--ink); width: 100%; box-sizing: border-box; }
@@ -109,7 +107,7 @@ textarea { resize: vertical; min-height: 4.5em; line-height: 1.45; }
   <header>
     <div class="eyebrow">אלעד גרובנר · ממומן</div>
     <h1>יומן שיחות מהמודעות</h1>
-    <p class="sub">אחרי כל שיחה שהגיעה ממודעה - חצי דקה כאן. בצ'אט רואים תמונה קטנה מהמודעה, ולפיה יודעים מאיזה פרויקט היא הגיעה. שיחה שנמשכת כמה ימים לא נרשמת שוב: כשמשהו מתקדם (הצעת מחיר, סגירה, או סתם עדכון) לוחצים על השורה שלה ומעדכנים, וכל עדכון נשמר עם התאריך שלו. מעצבת שראתה את המודעה ופנתה אליך בפרטי, ולא דרך הכפתור, נרשמת גם היא, עם "ראתה את המודעה ופנתה בפרטי". בוחרים "לא נסגר" או "לא רלוונטי"? מיד מתחת נפתח שדה לכתוב למה. מישהי שלחה הודעה ואז לא ענתה לך? בוחרים "לא ענתה", ולא "לא רלוונטי": אולי היא בכל זאת מעצבת. אם לא ברור מי היא, אפשר להשאיר את "מי פנה" ריק. ב"פרטים והערות" אין הגבלה של שורה אחת: אפשר להדביק שם את כל ההודעה שהיא שלחה.</p>
+    <p class="sub">הדף הזה מתמלא לבד מה-CRM, ולא צריך לכתוב בו כלום. כל פנייה מהמודעה נרשמת ב-CRM, עם ציון שהיא הגיעה מהפרסום, וגם עדכונים, הצעות מחיר וסגירות נרשמים שם. כאן רואים כמה שיחות הגיעו מהמודעות, כמה מהן רלוונטיות וכמה נסגרו. לוחצים על שורה כדי לראות מה קרה בה עד עכשיו.</p>
   </header>
 
   <div id="notice" class="notice" hidden></div>
@@ -121,23 +119,7 @@ textarea { resize: vertical; min-height: 4.5em; line-height: 1.45; }
     <div class="stat"><b id="s-rev">0₪</b><span>הכנסות מהמודעות</span></div>
   </section>
 
-  <form id="add" class="card" autocomplete="off">
-    <h2>שיחה חדשה</h2>
-    <div class="row2">
-      <div class="field"><label for="f-date">מתי פנו</label><input id="f-date" type="date" required></div>
-    </div>
-    <div class="field"><span class="lbl" id="l-ad">מאיזו מודעה</span><span class="msg" id="l-ad-hint">בוחרים לפי התמונה: את זו שדומה למה שראית בצ'אט או בקישור למודעה.</span><div class="chips" id="f-ad" role="group" aria-labelledby="l-ad"></div></div>
-    <div class="field"><span class="lbl" id="l-via">איך פנו</span><div class="chips" id="f-via" role="group" aria-labelledby="l-via"></div></div>
-    <div class="field"><span class="lbl" id="l-who">מי פנה</span><div class="chips" id="f-who" role="group" aria-labelledby="l-who"></div></div>
-    <div class="field" id="f-other-box" hidden><label for="f-other">מה זה "אחר"?</label><input id="f-other" type="text" maxlength="80" placeholder="למשל: סטודנטית לעיצוב, משרד תדמית"></div>
-    <div class="field" id="f-status-box"><span class="lbl" id="l-status">איפה זה עומד</span><div class="chips" id="f-status" role="group" aria-labelledby="l-status"></div></div>
-    <div class="field" id="f-reason-box" hidden><label for="f-reason" id="l-reason">למה לא נסגר?</label><input id="f-reason" type="text" maxlength="160"></div>
-    <div class="field" id="f-amount-box" hidden><label for="f-amount">סכום העסקה (₪, לפני מע"מ)</label><input id="f-amount" type="number" min="0" step="50" inputmode="numeric"></div>
-    <div class="field"><label for="f-note">פרטים והערות (רשות)</label><textarea id="f-note" rows="4" maxlength="2000" placeholder="למשל: מעצבת מרעננה, וילה. אפשר להדביק כאן את כל ההודעה שהיא שלחה."></textarea></div>
-    <div class="actions"><button class="btn" id="f-submit" type="submit">הוספה ליומן</button><span class="msg" id="f-msg" role="status"></span></div>
-  </form>
-
-  <section class="card" aria-labelledby="h-byad">
+    <section class="card" aria-labelledby="h-byad">
     <h2 id="h-byad">לפי מודעה</h2>
     <div class="tablebox"><table class="byad"><thead><tr><th>מודעה</th><th class="n">שיחות</th><th class="n">רלוונטיות</th><th class="n">נסגרו</th><th class="n">הכנסות</th></tr></thead><tbody id="byad"></tbody></table></div>
   </section>
@@ -155,14 +137,14 @@ textarea { resize: vertical; min-height: 4.5em; line-height: 1.45; }
 // והישנים ברשימה רק כדי שהשמות של המודעות שלהם יהיו ידועים. הקמפיין הראשון (עד 22.10): designers-portfolio-whatsapp-v2.
 // 1.11.2026: הקמפיין של 22.10 הושהה (עדי), ונוסף "designers-text-all-placements". שם כל המודעות מסוניה וספיר,
 // ובצ'אט רואים רק אם זה צילום אחד או קולאז' (בסטורי מודעות 1 ו-2 נראות אותו דבר), ולכן שתי בחירות. הפירוט לפי מודעה מגיע מ-Meta.
-// 2.11.2026: לכל בחירה תמונה קטנה של המודעה (img). אלעד בחר "לא בטוח" כי מהשם לא זיהה את המודעה, והדביק קישור במקום.
+// 4.11.2026: בלי טופס. המודעה נקבעת בחיבור ל-CRM, לפי Meta (שלב 3a בבדיקה היומית).
 const CAMPAIGNS = [
   {
     key: 'designers-text-all-placements', name: 'הקמפיין החדש · נובמבר',
     hint: 'בהודעה המוכנה של הקמפיין החדש כתוב "ראיתי את המודעה עם 3 הרילסים במתנה". כל המודעות שלו מהפרויקט של סוניה וספיר.',
     ads: [
-      { key: 'single', name: 'צילום אחד - המטבח', img: 'data:image/jpeg;base64,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' },
-      { key: 'collage', name: "קולאז' של 4 צילומים", img: 'data:image/jpeg;base64,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' },
+      { key: 'single', name: 'צילום אחד - המטבח' },
+      { key: 'collage', name: "קולאז' של 4 צילומים" },
       { key: 'unknown', name: 'לא בטוח' },
     ],
   },
@@ -211,11 +193,10 @@ const VIA = [
 ];
 const isPrivate = (r) => r.via === 'private';
 const byKey = (list, k) => list.find((x) => x.key === k) || (k === 'none' ? STATUS_NONE : { key: k, name: k || '-' });
-const isRelevant = (r) => byKey(WHO, r.who).relevant === true;
+// "לא ענתה" לא נספרת כרלוונטית, כמו בדוחות (עדי, 26.10).
+const isRelevant = (r) => byKey(WHO, r.who).relevant === true && r.status !== 'no_reply';
 const noDeal = (who) => byKey(WHO, who).noDeal === true;
 const isOpen = (r) => r.status === 'open' || r.status === 'quote';
-// "מי פנה" חובה, חוץ מ"לא ענתה" - שם לפעמים לא יודעים מי זו.
-const whoRequired = (status) => status !== 'no_reply';
 const whoName = (r) => (r.who ? byKey(WHO, r.who).name : 'לא ידוע');
 const daysSince = (s) => (s ? Math.floor((Date.parse(todayStr()) - Date.parse(s)) / 86400000) : 0);
 const ils = (n) => `${Math.round(Number(n) || 0).toLocaleString('he-IL')}₪`;
@@ -227,35 +208,16 @@ let db = null;
 let rows = [];
 let openId = null;
 let logFilter = 'all';
-const form = { ad: null, via: 'button', who: null, status: 'open' };
 
 function chips(container, list, getValue, setValue) {
   container.replaceChildren(...list.map((it) => {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'chip'; b.textContent = it.name;
-    if (it.img) { const im = document.createElement('img'); im.src = it.img; im.alt = ''; b.classList.add('has-img'); b.prepend(im); }
     b.setAttribute('aria-pressed', String(getValue() === it.key));
     b.addEventListener('click', () => { setValue(it.key); chips(container, list, getValue, setValue); });
     return b;
   }));
 }
-function drawForm() {
-  chips($('f-ad'), adsOf(view), () => form.ad, (v) => { form.ad = v; });
-  chips($('f-via'), VIA, () => form.via, (v) => { form.via = v; });
-  chips($('f-who'), WHO, () => form.who, (v) => { form.who = v; drawFormVisibility(); });
-  chips($('f-status'), STATUS, () => form.status, (v) => { form.status = v; drawFormVisibility(); });
-  drawFormVisibility();
-}
-function drawFormVisibility() {
-  const nd = noDeal(form.who);
-  $('f-other-box').hidden = form.who !== 'other';
-  $('f-status-box').hidden = nd;
-  $('f-amount-box').hidden = nd || form.status !== 'won';
-  const why = reasonFor(nd ? 'none' : form.status);
-  $('f-reason-box').hidden = !why;
-  if (why) { $('l-reason').textContent = why.label; $('f-reason').placeholder = why.hint; }
-}
-
 // היסטוריה של ליד: כל שינוי מצב או הערה נרשם עם תאריך, כדי לראות איך שיחה התקדמה עד הסגירה.
 function historyOf(r) {
   if (Array.isArray(r.history) && r.history.length) return r.history;
@@ -311,7 +273,7 @@ function render() {
   }
   if (!mine.length) {
     const e = document.createElement('div'); e.className = 'empty';
-    e.textContent = db ? 'עוד אין שיחות ביומן. הראשונה תופיע כאן אחרי שתוסיפו אותה בטופס למעלה.' : 'היומן לא זמין בתצוגה הזו.';
+    e.textContent = db ? 'עוד אין שיחות ביומן. הראשונה תופיע כאן אחרי שתירשם ב-CRM.' : 'היומן לא זמין בתצוגה הזו.';
     log.replaceChildren(e); return;
   }
   log.replaceChildren(...shown.map(entry));
@@ -341,172 +303,23 @@ function entry(r) {
   if (why) {
     const rs = document.createElement('div'); rs.className = 'e-reason';
     if (r.reason) { const b = document.createElement('b'); b.textContent = 'למה: '; rs.append(b, r.reason); }
-    else { rs.classList.add('missing'); rs.textContent = 'עוד לא כתוב למה. לוחצים על השורה כדי להוסיף.'; }
+    else { rs.classList.add('missing'); rs.textContent = 'עוד לא כתוב למה. כותבים את זה ב-CRM.'; }
     head.append(rs);
   }
   head.addEventListener('click', () => { openId = openId === r.id ? null : r.id; render(); });
   box.append(head);
-  if (openId === r.id) box.append(editor(r));
+  if (openId === r.id) { const w = document.createElement('div'); w.className = 'edit'; w.append(timeline(r)); box.append(w); }
   return box;
 }
 
-// בעריכה אפשר לבחור גם "לא רלוונטי" כמצב: ליד שנראה רלוונטי והתברר שלא (בוט, מעצבת לא אמיתית).
-// המצב הזה הופך גם את "מי פנה" ל"לא רלוונטי", כי לפיו סופרים שיחות רלוונטיות. מה שנרשם קודם נשמר ב-was_who.
-const EDIT_STATUS = [...STATUS, STATUS_NONE];
-
-function editor(r) {
-  const st = { status: noDeal(r.who) ? 'none' : r.status === 'none' ? 'open' : r.status, who: r.who, ad: r.ad, via: isPrivate(r) ? 'private' : 'button' };
-  const whoBefore = noDeal(r.who) ? (r.was_who ?? null) : r.who;
-  const wrap = document.createElement('div'); wrap.className = 'edit';
-  const field = (labelText, forId) => {
-    const f = document.createElement('div'); f.className = 'field';
-    const l = document.createElement(forId ? 'label' : 'span');
-    if (forId) l.htmlFor = forId; else l.className = 'lbl';
-    l.textContent = labelText; f.append(l); return f;
-  };
-  const input = (id, type, value, extra = {}) => Object.assign(document.createElement('input'), { id, type, value: value ?? '', ...extra });
-  const area = (id, value, extra = {}) => Object.assign(document.createElement('textarea'), { id, value: value ?? '', rows: 3, ...extra });
-  const refresh = () => {
-    otherBox.hidden = st.who !== 'other';
-    amtBox.hidden = st.status !== 'won';
-    const why = reasonFor(noDeal(st.who) ? 'none' : st.status);
-    rBox.hidden = !why;
-    if (why) { rLabel.textContent = why.label; ri.placeholder = why.hint; }
-  };
-  // "איפה זה עומד" ו"מי פנה" תלויים זה בזה, ולכן כל בחירה מציירת מחדש את כל הקבוצות.
-  const groups = [];
-  const redraw = () => { groups.forEach((draw) => draw()); refresh(); };
-  const mk = (label, list, key, onPick) => {
-    const f = field(label);
-    const c = document.createElement('div'); c.className = 'chips';
-    const draw = () => chips(c, list, () => st[key], (v) => { st[key] = v; onPick?.(v); redraw(); });
-    groups.push(draw); draw();
-    f.append(c); return f;
-  };
-
-  const histBox = field('מה קרה עד עכשיו');
-  histBox.append(timeline(r));
-  const statusBox = mk('איפה זה עומד עכשיו', EDIT_STATUS, 'status', (v) => {
-    if (v === 'none') st.who = 'irrelevant';
-    else if (noDeal(st.who)) st.who = whoBefore;
-  });
-  const rBox = field('למה לא נסגר?', `reason-${r.id}`);
-  const rLabel = rBox.querySelector('label');
-  const ri = input(`reason-${r.id}`, 'text', r.reason || '', { maxLength: 160 });
-  rBox.append(ri);
-  const amtBox = field('סכום העסקה (₪, לפני מע"מ)', `amt-${r.id}`);
-  const ai = input(`amt-${r.id}`, 'number', r.amount_ils, { min: '0', step: '50', inputMode: 'numeric' });
-  amtBox.append(ai);
-  const upd = document.createElement('div'); upd.className = 'row2';
-  const dBox = field('תאריך העדכון', `upd-${r.id}`);
-  const di = input(`upd-${r.id}`, 'date', todayStr());
-  dBox.append(di);
-  const uBox = field('מה התחדש? (רשות)', `unote-${r.id}`);
-  const ui = area(`unote-${r.id}`, '', { maxLength: 1000, placeholder: 'למשל: שלחתי הצעה, מחכה לתשובה' });
-  uBox.append(ui);
-  upd.append(dBox, uBox);
-  const otherBox = field('מה זה "אחר"?', `other-${r.id}`);
-  const oi = input(`other-${r.id}`, 'text', r.who_other || '', { maxLength: 80 });
-  otherBox.append(oi);
-  const nb = field('פרטים והערות', `note-${r.id}`);
-  const ni = area(`note-${r.id}`, r.note || '', { maxLength: 2000, rows: 5, placeholder: 'אפשר להדביק כאן את כל ההודעה שהיא שלחה' });
-  nb.append(ni);
-  refresh();
-
-  const acts = document.createElement('div'); acts.className = 'actions';
-  const save = document.createElement('button'); save.type = 'button'; save.className = 'btn'; save.textContent = 'שמירה';
-  const del = document.createElement('button'); del.type = 'button'; del.className = 'btn danger'; del.textContent = 'מחיקה';
-  const msg = document.createElement('span'); msg.className = 'msg'; msg.setAttribute('role', 'status');
-  save.addEventListener('click', async () => {
-    if (!st.who && whoRequired(st.status)) { msg.textContent = 'חסר: מי פנה.'; return; }
-    const status = noDeal(st.who) ? 'none' : st.status;
-    const amount = status === 'won' && ai.value !== '' ? Number(ai.value) : null;
-    const when = di.value || todayStr();
-    const changed = status !== r.status;
-    const note = ui.value.trim();
-    const why = reasonFor(status);
-    const reason = why ? ri.value.trim() : (r.reason || '');
-    const reasonChanged = !!why && reason !== (r.reason || '');
-    const history = historyOf(r).slice();
-    if (changed || note || reasonChanged || (status === 'won' && amount !== (r.amount_ils ?? null))) {
-      const h = { date: when, status: changed ? status : null };
-      if (why && reason && (changed || reasonChanged)) h.reason = reason;
-      if (note) h.note = note;
-      if (status === 'won' && amount != null) h.amount_ils = amount;
-      history.push(h);
-    }
-    let closed_at = r.closed_at ?? null;
-    if (status === 'won' || status === 'lost') { if (changed || !closed_at) closed_at = when; } else closed_at = null;
-    save.disabled = true; msg.textContent = 'שומר...';
-    try {
-      await db.doc(`conversations/${r.id}`).update({
-        status, who: st.who, who_other: st.who === 'other' ? oi.value.trim() : '', ad: st.ad, via: st.via, note: ni.value.trim(), amount_ils: amount, reason,
-        was_who: noDeal(st.who) ? whoBefore : null,
-        history, closed_at, updated_at: new Date().toISOString(),
-      });
-      openId = null; render();
-    } catch (e) { msg.textContent = saveError(e); save.disabled = false; }
-  });
-  let armed = false;
-  del.addEventListener('click', async () => {
-    if (!armed) { armed = true; del.textContent = 'בטוח? ללחוץ שוב כדי למחוק'; return; }
-    del.disabled = true;
-    try { await db.doc(`conversations/${r.id}`).delete(); openId = null; }
-    catch (e) { msg.textContent = saveError(e); del.disabled = false; }
-  });
-  acts.append(save, del, msg);
-  const whoBox = mk('מי פנה', WHO, 'who', (v) => {
-    if (noDeal(v)) st.status = 'none';
-    else if (st.status === 'none') st.status = 'open';
-  });
-  wrap.append(histBox, statusBox, rBox, amtBox, upd, mk('מאיזו מודעה', adsOf(r.campaign), 'ad'), mk('איך פנו', VIA, 'via'), whoBox, otherBox, nb, acts);
-  return wrap;
-}
-
-function saveError(e) {
-  if (e?.code === 'invalid_argument') return 'אין הרשאה לשמור כאן. צריך להיות מחוברים לחשבון של העסק.';
-  if (e?.code === 'quota_exceeded') return 'היומן מלא. ספרו לקלוד כדי לפנות מקום.';
-  return 'השמירה לא הצליחה. נסו שוב בעוד רגע.';
-}
-
-$('add').addEventListener('submit', async (ev) => {
-  ev.preventDefault();
-  const msg = $('f-msg');
-  if (!db) { msg.textContent = 'היומן לא זמין בתצוגה הזו.'; return; }
-  if (!form.ad || (!form.who && whoRequired(form.status))) { msg.textContent = 'חסר: מאיזו מודעה ומי פנה.'; return; }
-  const status = noDeal(form.who) ? 'none' : form.status;
-  const amount = status === 'won' && $('f-amount').value !== '' ? Number($('f-amount').value) : null;
-  const date = $('f-date').value || todayStr();
-  const reason = reasonFor(status) ? $('f-reason').value.trim() : '';
-  const first = { date, status };
-  if (amount != null) first.amount_ils = amount;
-  if (reason) first.reason = reason;
-  $('f-submit').disabled = true; msg.textContent = 'שומר...';
-  try {
-    await db.collection('conversations').add({
-      campaign: view, date, ad: form.ad, via: form.via, who: form.who,
-      who_other: form.who === 'other' ? $('f-other').value.trim() : '',
-      status, amount_ils: amount, note: $('f-note').value.trim(), reason,
-      history: [first], closed_at: status === 'won' || status === 'lost' ? date : null,
-      created_at: new Date().toISOString(),
-    });
-    form.ad = null; form.via = 'button'; form.who = null; form.status = 'open';
-    $('f-note').value = ''; $('f-amount').value = ''; $('f-reason').value = ''; $('f-other').value = ''; $('f-date').value = todayStr();
-    drawForm(); msg.textContent = 'נוסף ✓';
-  } catch (e) { msg.textContent = saveError(e); }
-  $('f-submit').disabled = false;
-});
-
-$('f-date').value = todayStr();
-drawForm();
 render();
 
 (async () => {
   db = window.claude?.use ? await window.claude.use('db') : null;
   if (!db) {
     const n = $('notice'); n.hidden = false;
-    n.textContent = 'היומן נשמר רק בתוך claude.ai, כשמחוברים לחשבון. בתצוגה הזו אפשר לראות את הדף, אבל לא לשמור.';
-    $('f-submit').disabled = true; render(); return;
+    n.textContent = 'היומן נטען רק בתוך claude.ai, כשמחוברים לחשבון.';
+    render(); return;
   }
   db.collection('conversations').orderBy('date', 'desc').onSnapshot(
     (snap) => { rows = snap.docs.map((d) => ({ id: d.id, ...d.data() })); render(); },
