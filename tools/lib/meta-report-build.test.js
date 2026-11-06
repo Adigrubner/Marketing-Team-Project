@@ -355,3 +355,15 @@ test('הדפסה: המטרה של הקמפיין, ושורת "על הפוסט" �
   const plain = formatReport(summarizeReport({ total: { data: [row(10, 1)] } })).join('\n');
   assert.doesNotMatch(plain, /על הפוסט/);
 });
+
+test('לידים: Meta מחזירה את אותו מספר בשני שמות, ונספר פעם אחת (6.11: 10 תוויות הוצגו כ-20)', () => {
+  const both = normalizeRow(row(100, 3, {
+    actions: [{ action_type: 'lead', value: '10' }, { action_type: 'onsite_web_lead', value: '10' }],
+  }));
+  assert.equal(both.leads, 10);
+  const onlyLead = normalizeRow(row(100, 3, { actions: [{ action_type: 'lead', value: '4' }] }));
+  assert.equal(onlyLead.leads, 4);
+  const onlyWeb = normalizeRow(row(100, 3, { actions: [{ action_type: 'onsite_web_lead', value: '2' }] }));
+  assert.equal(onlyWeb.leads, 2);
+  assert.equal(normalizeRow(row(100, 3)).leads, 0);
+});
