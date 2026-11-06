@@ -9,6 +9,7 @@ export const MESSAGING_ACTION = 'onsite_conversion.messaging_conversation_starte
 export const FIRST_REPLY_ACTION = 'onsite_conversion.messaging_first_reply';
 // מישהו חסם את העסק בוואטסאפ אחרי המודעה - סימן אזהרה.
 export const BLOCK_ACTION = 'onsite_conversion.messaging_block';
+// Meta מחזירה את אותם לידים גם ב-lead וגם ב-onsite_web_lead, ולכן לוקחים את הגדול ולא מחברים (6.11: 10 תוויות הוצגו כ-20).
 const LEAD_ACTIONS = ['lead', 'onsite_web_lead'];
 
 // מעורבות בפוסט - בשביל קידום חשיפה / מעורבות של פוסט קיים (מ-1.11.2026). השמות כמו ש-Meta מחזירה אותם
@@ -144,7 +145,7 @@ export function normalizeRow(d = {}) {
     blocks: actionValue(d.actions, BLOCK_ACTION),
     link_to_conversation_pct: ratio(conversations, linkClicks, 100),
     cost_per_conversation_ils: ratio(spend, conversations),
-    leads: actionValue(d.actions, LEAD_ACTIONS),
+    leads: Math.max(...LEAD_ACTIONS.map((t) => actionValue(d.actions, t))),
     messaging: messagingActions(d.actions),
     // מעורבות בפוסט (קידום חשיפה / מעורבות) - ומחיר לאלף אנשים שונים שראו (לא לאלף חשיפות)
     ...Object.fromEntries(Object.entries(POST_ACTIONS).map(([k, type]) => [k, actionValue(d.actions, type)])),
