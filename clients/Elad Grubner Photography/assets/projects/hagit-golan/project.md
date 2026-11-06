@@ -105,3 +105,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 21.10.2026 20:00 | קרוסלה נושאית "המרפסת היא עוד חדר בבית" (9 רוחב, 2 שלה) - מטבח החוץ ופינת האוכל בחצר · `Interior/25` (פתיחה, הכלב) · `Interior/27` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס · סטורי | [אינסטגרם](https://www.instagram.com/p/Dew5wwIjdlr/) · `content/posts/2026-10-21-balconies-four-designers/` |
+| 5.11.2026 16:00 | קרוסלה (7 רוחב) - פרויקט מלא, כניסה עם קיר האלון, סלון וחדר שינה · `Interior/13` (פתיחה) · `Interior/23` · `Interior/01` · `Interior/31` · `Designer/54` · `Interior/45` · `Interior/10` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DfXNOjbFUzV/) · `content/posts/2026-11-05-hagit-golan-full/` |
