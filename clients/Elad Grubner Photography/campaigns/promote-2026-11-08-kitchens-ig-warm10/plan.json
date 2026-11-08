@@ -1,0 +1,30 @@
+{
+  "_הסבר": "קידום תומך שבועי, שבוע 2 (8.11.2026), לפי promote-2026-11-08-kitchens-ig/promote-card.md שעדי אישרה בשיחה ב-8.11 (הפוסט, שני הסוגים, 10₪ כל אחד). חשיפה לקהל החם (goal: reach), 10₪ ליום, עד 2 חשיפות לאדם ב-7 ימים, בלי כפתור ובלי וואטסאפ. בסיס: promote-2026-11-01-alia-reel-ig-warm10/plan.json - שונו רק השם, המודעה, ו-placements (פיד אינסטגרם בלבד, בלי reels - זו קרוסלה). הפוסט: קרוסלת המטבחים (3.11), 10 תמונות, Collab עם 4 מעצבות. המזהה אומת ב-meta-posts.js --find (8.11). הקהל: כמו בשבוע שעבר, בלי הרחבה. לקוחות קיימות נשארות בקהל. בלי תאריך סיום - עדי עוצרת ידנית בשישי.",
+  "name": "קידום תומך - מטבחים ארבע מעצבות - קהל חם 10₪ - 11/2026",
+  "goal": "reach",
+  "daily_budget_ils": 10,
+  "frequency_cap": { "impressions": 2, "days": 7 },
+  "audience": {
+    "countries": ["IL"],
+    "age_min": 25,
+    "advantage_audience": false,
+    "custom_audiences": [
+      { "id": "120240633155310745", "name": "IG Engagement 365 Days" },
+      { "id": "120240633031420745", "name": "Designers Phone List - Jan 2026" }
+    ],
+    "custom_audience_expansion": false
+  },
+  "placements": {
+    "instagram": ["stream"]
+  },
+  "ads": [
+    {
+      "name": "מטבחים - ארבע מעצבות",
+      "existing_post": {
+        "platform": "instagram",
+        "id": "18122102614745266",
+        "url": "https://www.instagram.com/p/DfSfSm-HU6e/"
+      }
+    }
+  ]
+}

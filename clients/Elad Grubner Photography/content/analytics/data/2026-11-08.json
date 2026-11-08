@@ -1,0 +1,220 @@
+{
+  "client": "Elad Grubner Photography",
+  "reportDate": "2026-11-08",
+  "weekStart": "2026-11-01",
+  "weekEnd": "2026-11-07",
+  "generatedAt": "8.11.2026 10:20",
+  "pageUrl": "https://claude.ai/artifact/V3MyYrJgfbnyQasLkCHKq7",
+  "headline": "שבוע ממוצע-חלש בלי כוכב גדול: פוסט המטבחים של ארבע המעצבות הגיע ל-717 (‎+58%) והיה היחיד מעל הממוצע - גם באינסטגרם וגם בדף הפייסבוק. הרילס של קאמיי החזיק צופים (40% מעל 3 שניות) אבל הגיע ל-360 בלבד. שלושה פוסטים עוד צעירים.",
+  "account": {
+    "followers": 2630,
+    "followersChange": 7
+  },
+  "baseline": {
+    "avgReach": 455,
+    "periodLabel": "30 הימים שלפני 1.11 (20 פוסטים ורילס, בלי שירן 30.10) · קרוסלות בלבד 403 · בלי הסלונים והרילס של עליא - 308"
+  },
+  "week": {
+    "posts": 6,
+    "postsNote": "6 פוסטים (ראשון 1.11 בלי פוסט). חגית (2.5 ימים), יערה (יומיים) ובלה (9 שעות) עוד צעירות",
+    "avgReach": 330,
+    "avgReachVsBaseline": -27,
+    "savesShares": 8
+  },
+  "posts": [
+    {
+      "date": "2026-11-02",
+      "time": "16:07",
+      "format": "קרוסלה (10 אורך)",
+      "title": "סוניה וספיר (Local Studio) - המדרגות בסלון",
+      "url": "https://www.instagram.com/p/DfPe8KrFQpA/",
+      "reach": 346,
+      "likes": 25,
+      "comments": 1,
+      "saves": 2,
+      "shares": 1,
+      "follows": 0,
+      "vsAvg": -24,
+      "young": false,
+      "note": "בן 5.5 ימים. 917 צפיות, 2 שמירות ושיתוף - מעל רוב השבוע. Collab אושר. 🧪 ניסיון הפתיחה בפרט פיזי (המדרגות) - בחשיפה עבר את הסף (219), בתגובות לא (1)."
+    },
+    {
+      "date": "2026-11-03",
+      "time": "20:07",
+      "format": "קרוסלה (10 רוחב)",
+      "title": "מטבחים - ארבע מעצבות",
+      "url": "https://www.instagram.com/p/DfSfSm-HU6e/",
+      "reach": 717,
+      "likes": 23,
+      "comments": 2,
+      "saves": 3,
+      "shares": 1,
+      "follows": 0,
+      "vsAvg": 58,
+      "young": false,
+      "note": "הכוכב. בן 4.4 ימים, 2,210 צפיות. 4 מעצבות בהופעה שנייה (אירית, מיימונה, לימור, שאגא), Collab עם 2 מהן. הפוסט \"כמה מעצבות\" היחיד השבוע - ואחרי הסלונים, השני שעבד."
+    },
+    {
+      "date": "2026-11-04",
+      "time": "18:06",
+      "format": "רילס (17 פריימים, ~40 שנ׳, \"תנועה\")",
+      "title": "קאמיי - חדר הכביסה (רילס)",
+      "url": "https://www.instagram.com/reel/DfU2GrQjv5q/",
+      "reach": 360,
+      "likes": 17,
+      "comments": 4,
+      "saves": 1,
+      "shares": 1,
+      "follows": null,
+      "vsAvg": -21,
+      "young": false,
+      "note": "בן 3.5 ימים. 440 צפיות, 40.1% מעל 3 שניות (עליא 37.9%), זמן צפייה 7 שניות (עליא 10.7). 🧪 רילס 1 מ-2 במתכון החדש: השימור עבר (35%+), החשיפה כנראה לא תגיע ל-500 - הקצב ירד ל-33-47 ביום. בראש הרילס רק אלעד - לא נראה Collab."
+    },
+    {
+      "date": "2026-11-05",
+      "time": "16:06",
+      "format": "קרוסלה (7 רוחב)",
+      "title": "חגית גולן - הדלת שנעלמת בקיר הנגרות",
+      "url": "https://www.instagram.com/p/DfXNOjbFUzV/",
+      "reach": 140,
+      "likes": 12,
+      "comments": 2,
+      "saves": 0,
+      "shares": null,
+      "follows": 0,
+      "vsAvg": null,
+      "young": true,
+      "note": "בן 2.5 ימים - עוד צובר. 368 צפיות. Collab אושר. הוזז מ-7:30 ל-16:00. 🧪 ניסיון הפתיחה בפרט פיזי - פוסט שני."
+    },
+    {
+      "date": "2026-11-06",
+      "time": "09:03",
+      "format": "קרוסלה קצרה (4 אורך)",
+      "title": "יערה גולן - פינת האיפור (שישי)",
+      "url": "https://www.instagram.com/p/DfZBlshFXqx/",
+      "reach": 300,
+      "likes": 13,
+      "comments": 3,
+      "saves": 0,
+      "shares": null,
+      "follows": 0,
+      "vsAvg": null,
+      "young": true,
+      "note": "בת יומיים - פתיחה טובה: 889 צפיות, 300 חשיפות - יותר מכל שישי בבוקר קודם באותו גיל (לימור, ענת זיו). Collab אושר. 3 תגובות של אחרות."
+    },
+    {
+      "date": "2026-11-07",
+      "time": "20:06",
+      "format": "קרוסלה (12 רוחב)",
+      "title": "בלה חננייב - מהסלון ועד הגג (מוצ\"ש)",
+      "url": "https://www.instagram.com/p/DfcyYCBDc66/",
+      "reach": 114,
+      "likes": 6,
+      "comments": 2,
+      "saves": 0,
+      "shares": null,
+      "follows": 0,
+      "vsAvg": null,
+      "young": true,
+      "note": "תמונת מצב אחרי ~9 שעות בלבד - בלי מסקנות. 305 צפיות. באותו שלב: יערה 213, נטלי 122, טלי 91, שרה 68 - כלומר באמצע. Collab אושר ובלה הגיבה תוך כשעתיים. ניתוח מלא ב-15.11."
+    }
+  ],
+  "star": {
+    "title": "מטבחים - ארבע מעצבות (3.11, 20:00)",
+    "why": "717 חשיפות אחרי 4.4 ימים (‎+58% מול 455, ‎+78% מול ממוצע הקרוסלות), 2,210 צפיות, 3 שמירות ושיתוף. וגם בדף הפייסבוק - 118 אנשים ו-20 קליקים, הפוסט הראשון מאז 25.10 שעובר את ממוצע הדף. ארבע המעצבות כבר הופיעו אצל אלעד (בסלונים, באמבטיות ובחדר העבודה), ושתיים אישרו Collab. ושני הפוסטים \"כמה מעצבות\" שעבדו - סלונים ומטבחים - הם בדיוק החדרים המרכזיים של הבית."
+  },
+  "weak": {
+    "title": "הרילס של קאמיי (4.11)",
+    "why": "360 חשיפות אחרי 3.5 ימים (‎-21%), חמישית מהרילס של עליא. הצופים נשארו (40% מעל 3 שניות - יותר מעליא), אז הפתיחה עבדה; מה שחסר זה ההפצה. ההבדל הבולט: בראש הרילס של עליא היה Collab, ובשל קאמיי לא נראה Collab - כלומר הוא לא הגיע לקהל שלה. רילס אחד מתוך שניים בניסיון - עוד אין מסקנה."
+  },
+  "referencesSummary": "שבוע שקט שוב - שלושה צלמים העלו, כולם נבדקו במטריקול. אלנה: פוסט אישי ממיקונוס (152 אינטראקציות) מול רילס פרויקט (44) - שוב האישי מנצח פי 3. Daniel: פוסט בית חורפי עם קרדיט (15) ורילס קצר \"Don't blink\" (20). מירב: רילס \"הטעות הכי גדולה של מעצבות לפני יום צילום\" עם הזמנה לפנות - 2 לייקים. שי, אורן, מאור, אורית וקרין לא העלו.",
+  "references": [
+    { "name": "שי אפשטיין", "handle": "shai.epstein.photography", "source": "metricool", "followers": 13809, "postsThisWeek": 0, "highlight": "לא העלה השבוע.", "bestUrl": "" },
+    { "name": "אורן עמוס", "handle": "oren.amos.photography", "source": "metricool", "followers": 7499, "postsThisWeek": 0, "highlight": "לא העלה השבוע.", "bestUrl": "" },
+    { "name": "מאור מויאל", "handle": "moyalmaor", "source": "metricool", "followers": 7180, "postsThisWeek": 0, "highlight": "לא העלה השבוע.", "bestUrl": "" },
+    { "name": "אלנה מרגולין", "handle": "alenafoto", "source": "metricool", "followers": 6566, "postsThisWeek": 2, "highlight": "פוסט אישי ממיקונוס (1.11 בבוקר, \"A very productive week of doing absolutely nothing\") - 137 לייקים, 15 תגובות. מול רילס פרויקט עם קרדיט לאדריכלים (6.11 בבוקר) - 44. שוב: האישי פי 3.", "bestUrl": "https://www.instagram.com/p/DfMJVgbCDpb/" },
+    { "name": "מירב פלברג", "handle": "merav.felberg.photographer", "source": "metricool", "followers": 6329, "postsThisWeek": 1, "highlight": "רילס \"הטעות הכי גדולה של מעצבות לפני יום צילום\" + \"שלחי לי הודעה\" (2.11) - 2 לייקים. פונה ישר למעצבות, ולא עובד.", "bestUrl": "https://www.instagram.com/reel/DfPm7noo5Yt/" },
+    { "name": "אורית ארנון", "handle": "orit.arnon.photographer", "source": "metricool", "followers": 4620, "postsThisWeek": 0, "highlight": "לא העלתה השבוע.", "bestUrl": "" },
+    { "name": "קרין רוונה", "handle": "karinravenna_photography", "source": "metricool", "followers": 3656, "postsThisWeek": 0, "highlight": "לא העלתה השבוע.", "bestUrl": "" },
+    { "name": "Daniel Tzairi", "handle": "danieltz_interior_photography", "source": "metricool", "followers": 3058, "postsThisWeek": 2, "highlight": "רילס קצר \"Don't blink\" + קרדיט למעצבת (5.11 בערב) - 20 אינטראקציות. פוסט \"Winter makes me feel cozy\" + קרדיט לאדריכלית (מוצ\"ש 7.11, 19:58) - 15.", "bestUrl": "https://www.instagram.com/reel/DfXoJlaA94k/" }
+  ],
+  "designers": [
+    { "name": "סוניה וספיר (Local Studio)", "handle": "local.studiodesign", "post": "2.11 · פרויקט מלא", "url": "https://www.instagram.com/p/DfPe8KrFQpA/", "collab": true, "commented": false, "storyShare": null, "comments": 1, "otherComments": 1, "commentsVsAvg": -69, "savesShares": 3, "rating": "🙂", "note": "Collab אושר. התגובה היחידה של מישהי אחרת (\"אין עליכן\"). 2 שמירות ושיתוף. 🔎" },
+    { "name": "אירית · מיימונה · לימור · שאגא", "handle": "irit_frihiter_interiordesign · archmaymona · limor.ziv.eden · studiosaga.design", "post": "3.11 · מטבחים", "url": "https://www.instagram.com/p/DfSfSm-HU6e/", "collab": true, "commented": false, "storyShare": null, "comments": 2, "otherComments": 2, "commentsVsAvg": -38, "savesShares": 4, "rating": "🙂", "note": "Collab עם 2 מתוך 4 (\"ועוד 2\" בראש הפוסט - לא הצלחתי לראות מי). אף מעצבת לא הגיבה; התגובה של מישהי מהקהל של אחת מהן. הכוכב של השבוע." },
+    { "name": "קאמיי", "handle": "kamei_interiordesign", "post": "4.11 · רילס", "url": "https://www.instagram.com/reel/DfU2GrQjv5q/", "collab": false, "commented": null, "storyShare": null, "comments": 4, "otherComments": null, "commentsVsAvg": 25, "savesShares": 2, "rating": "🙂", "note": "בראש הרילס רק אלעד - לא נראה Collab (פעם שנייה ברצף אצל קאמיי, גם בווילונות). התגובות לא נטענו בדפדפן." },
+    { "name": "חגית גולן", "handle": "hagitgolandesignstudio", "post": "5.11 · פרויקט מלא", "url": "https://www.instagram.com/p/DfXNOjbFUzV/", "collab": true, "commented": null, "storyShare": null, "comments": 2, "otherComments": 1, "commentsVsAvg": null, "savesShares": 0, "rating": "🙂", "note": "Collab אושר. תגובה של מישהי (\"חגית מעצבת מושלמת\") ותשובה אחת - אולי של חגית, לא נפתח. צעיר." },
+    { "name": "יערה גולן", "handle": "yaara.golan.1", "post": "6.11 · פינת איפור (שישי)", "url": "https://www.instagram.com/p/DfZBlshFXqx/", "collab": true, "commented": null, "storyShare": null, "comments": 3, "otherComments": 2, "commentsVsAvg": null, "savesShares": 0, "rating": "🙂", "note": "Collab אושר (פעם שנייה). 2 תגובות של אחרות (אחת מאפרת) + תשובה. צעיר." },
+    { "name": "בלה חננייב", "handle": "bella_hananaev_interiordesign", "post": "7.11 · פרויקט מלא (מוצ\"ש)", "url": "https://www.instagram.com/p/DfcyYCBDc66/", "collab": true, "commented": true, "storyShare": null, "comments": 2, "otherComments": 0, "commentsVsAvg": null, "savesShares": 0, "rating": "🙂", "note": "Collab אושר, הגיבה כשעתיים אחרי העלייה (\"אלוף, תמונות ברמה גבוהה\") ואלעד ענה. צעיר - משלימים ב-15.11." },
+    { "name": "נטלי קונטנטה (עדכון)", "handle": "nataly_contente", "post": "31.10 · מטבח ירוק (מוצ\"ש)", "url": "https://www.instagram.com/p/DfKwyHLGsDK/", "collab": true, "commented": true, "storyShare": null, "comments": 4, "otherComments": 2, "commentsVsAvg": 5, "savesShares": 1, "rating": "🙂", "note": "סופי: 329 (‎-5% מול 347 של אז), שמירה, ו**עוקב חדש** - הראשון מפוסט מזה שבועות." }
+  ],
+  "facebook": {
+    "avgReach": 90,
+    "summary": "המטבחים שברו את הירידה: 118 אנשים ו-20 קליקים (‎+31% מול ממוצע 90) - הפוסט הראשון מאז ההפרדה ב-25.10 שעובר את ממוצע הדף, ומועמד לקידום בפייסבוק. שאר השבוע 24-54, כמו השבוע שעבר. אחרי שבועיים: מאז ההפרדה הדף בממוצע 54 לפוסט (בלי המטבחים 47), מול 90 לפני.",
+    "posts": [
+      { "date": "2026-11-02", "time": "16:06", "format": "אלבום", "title": "סוניה וספיר", "url": "https://facebook.com/2159408711605560/posts/2189092405303857", "reach": 54, "reactions": 1, "comments": 0, "shares": 0, "clicks": 6, "vsAvg": -40, "igReach": 346, "young": false, "note": "" },
+      { "date": "2026-11-03", "time": "20:07", "format": "אלבום", "title": "מטבחים - ארבע מעצבות", "url": "https://facebook.com/2159408711605560/posts/2190447348501696", "reach": 118, "reactions": 4, "comments": 2, "shares": 0, "clicks": 20, "vsAvg": 31, "igReach": 717, "young": false, "note": "הכי חזק בדף מאז 19.10" },
+      { "date": "2026-11-04", "time": "18:06", "format": "רילס", "title": "קאמיי - רילס", "url": null, "reach": null, "reactions": null, "comments": null, "shares": null, "clicks": null, "vsAvg": null, "igReach": 360, "young": false, "note": "מטריקול לא מחזיר רילס בפייסבוק." },
+      { "date": "2026-11-05", "time": "16:05", "format": "אלבום", "title": "חגית גולן", "url": "https://facebook.com/2159408711605560/posts/2192563244956773", "reach": 39, "reactions": 4, "comments": 0, "shares": 0, "clicks": 3, "vsAvg": -57, "igReach": 140, "young": true, "note": "" },
+      { "date": "2026-11-06", "time": "09:02", "format": "אלבום", "title": "יערה - פינת איפור", "url": "https://facebook.com/2159408711605560/posts/2193401018206329", "reach": 24, "reactions": 0, "comments": 2, "shares": 0, "clicks": 4, "vsAvg": -73, "igReach": 300, "young": true, "note": "" },
+      { "date": "2026-11-07", "time": "20:06", "format": "אלבום", "title": "בלה (מוצ\"ש)", "url": "https://facebook.com/2159408711605560/posts/2195253111354453", "reach": 26, "reactions": 2, "comments": 0, "shares": 0, "clicks": 1, "vsAvg": null, "igReach": 114, "young": true, "note": "בן 9 שעות" }
+    ]
+  },
+  "facebookPersonal": {
+    "summary": "נבדק חלקית - הדפדפן נתקע באמצע הגלילה. נראו שני פוסטים מהשבוע בפרופיל: בלה (2 ריאקשנים, שיתוף, אחרי כ-12 שעות) ויערה - פינת איפור (המספרים לא נטענו). ממוצע הפרופיל (1.11): 10 ריאקשנים ו-3 תגובות.",
+    "avgReactions": 10,
+    "avgComments": 3,
+    "posts": [
+      { "date": "2026-11-07", "time": null, "type": "פוסט של אלעד", "title": "בלה חננייב (מוצ\"ש)", "url": null, "reactions": 2, "comments": 0, "shares": 1, "designersCommented": null, "note": "צעיר. בדף העסקי: 26 אנשים, 2 ריאקשנים" },
+      { "date": "2026-11-06", "time": null, "type": "פוסט של אלעד", "title": "יערה - פינת איפור", "url": null, "reactions": null, "comments": null, "shares": null, "designersCommented": null, "note": "נראה בפרופיל, המספרים לא נטענו" }
+    ]
+  },
+  "extra": {
+    "title": "מוצ\"ש אחרי 5 שבתות, ניסיון השעות והקהל",
+    "text": "מוצ\"ש (5 שבתות): שרה 188, טלי 244, יערה 707, נטלי 329 (סופיים) - ממוצע 367, כמו הממוצע הכללי. ✅ מוצ\"ש לא חלש. בלה 114 אחרי 9 שעות - באמצע. ניסיון השעות (אחרי 7 ימים): 16:00 - רעות 513, קרן 349 (שניים, ממוצע 431) · 20:00 - ילדים 247 · 7:30 - וילונות 235 · 18:00 - מריאנה 154 · 12:30 - עוד אין. רחוק מ-4 לכל שעה. הקהל: 88% מהאנשים שאלעד הגיע אליהם השבוע הם לא עוקבים (9,666 מתוך 10,996, סכום יומי) - אבל 7,927 מהם הגיעו ממודעות. בשישי-שבת המודעות כמעט נעצרו (66 ו-8 איש) והחשיפה של כל החשבון ירדה מ-1,775-2,328 ביום ל-338. העוקבים: 2,630 (‎+7). סטוריז: 18 השבוע (שבוע שעבר 2), ממוצע 47."
+  },
+  "audience": {
+    "nonFollowerPct": 88,
+    "followerReach": 1330,
+    "nonFollowerReach": 9666,
+    "peakDay": "2026-11-02 (2,110 לא-עוקבים - בעיקר מהמודעות, 1,948 איש ממודעות באותו יום)",
+    "stories": {
+      "count": 18,
+      "avgReach": 47,
+      "top": "4.11 בבוקר - 173 (יום הרילס של קאמיי)"
+    },
+    "cities": null,
+    "byFormat": {
+      "AD": { "views": 8268, "reach": 7927 },
+      "REEL": { "views": 983, "reach": 677 },
+      "CAROUSEL_CONTAINER": { "views": 7507, "reach": 2237 },
+      "POST": { "views": 112, "reach": 17 },
+      "STORY": { "views": 1196, "reach": 515 }
+    }
+  },
+  "promote": {
+    "summary": "הקידום התומך של השבוע: המטבחים במקום הרילס של עליא - שני קידומים של 10₪ (חשיפה לקהל החם + מעורבות לקהל חדש ודומה), פיד אינסטגרם, ראשון-שישי. ממתין לאישור של עדי. בפייסבוק - לא השבוע.",
+    "candidates": [
+      { "title": "קידום תומך · מטבחים - ארבע מעצבות (אינסטגרם · 10 תמונות)", "url": "https://www.instagram.com/p/DfSfSm-HU6e/", "date": "2026-11-03", "why": "הפוסט הכי טוב באינסטגרם השבוע: 717 (‎+58% מול 455), 3 שמירות, שיתוף, 2,210 צפיות. 10 תמונות - אפשר לקדם כמו שהוא. הטקסט מדבר למעצבות (\"פתרונות שאפשר להציע לבעלי הבית\"). מחליף את הרילס של עליא (בשבוע שלו: 3,760 איש מהקהל החם ב-42₪, כ-6.7₪ לאלף; מעורבות 0.56₪ לפעולה, 0 עוקבים - טוב, לא חריג).", "decision": "✅ האסטרטג: כדאי - חשיפה לקהל החם 10₪ + מעורבות לקהל חדש 10₪ (20₪ ליום, ראשון-שישי; עם הקמפיין 70₪). מציע הפעם מעורבות בלי \"הרחבת קהל\" של Meta. ממתין לעדי. חלופה: הרילס של קאמיי." },
+      { "title": "מטבחים - ארבע מעצבות (פייסבוק · אלבום 10)", "url": "https://facebook.com/2159408711605560/posts/2190447348501696", "date": "2026-11-03", "why": "118 אנשים מול ממוצע הדף 90 (‎+31%), 20 קליקים - הכי הרבה בדף מזה חודש. הפוסט הראשון מאז ההפרדה שעובר את הממוצע.", "decision": "❌ האסטרטג: לא השבוע - כל השיחות של הקמפיין מגיעות מפיד פייסבוק, וקידום וואטסאפ נוסף לאותן מעצבות יתחרה בו. 20 הקליקים הם כנראה פתיחת תמונות באלבום. לחזור לזה כשהקמפיין יציב." },
+      { "title": "מטבחים - ארבע מעצבות (אינסטגרם, לשיחות)", "url": "https://www.instagram.com/p/DfSfSm-HU6e/", "date": "2026-11-03", "why": "היחיד באינסטגרם מעל הממוצע השבוע.", "decision": "❌ האסטרטג: רק קידום תומך, לא לשיחות - קידום אחד ברשת בכל פעם, והסלונים (25.10) הוציאו 70.84₪ בלי שיחה." }
+    ]
+  },
+  "suggestions": [
+    {
+      "id": "2026-11-08-1",
+      "text": "\"כמה מעצבות\" (פעם בשבוע, לפי ההחלטה מ-1.11) - רק בחדרים המרכזיים של הבית: מתוך 6 פוסטים מהסוג, שני החדרים המרכזיים עבדו - סלונים 1,556 ומטבחים 717 - וארבעת החדרים ה\"צדדיים\" לא: אמבטיות 286, מרפסות 384, וילונות 235, חדרי ילדים 247. בשני הפוסטים הבאים מהסוג: חדר מרכזי שיש לכל בית (פינות אוכל, חדרי שינה ראשיים, כניסות). הצלחה = 400+ חשיפות אחרי 7 ימים בשניהם. 🔎 שני פוסטים מרכזיים מול ארבעה - לכן ניסיון.",
+      "owner": "מתכננת התוכן"
+    }
+  ],
+  "history": [
+    { "weekStart": "2026-09-06", "posts": 3, "avgReach": 190, "avgSavesShares": 0.33, "avgComments": 2, "followers": null },
+    { "weekStart": "2026-09-13", "posts": 7, "avgReach": 229, "avgSavesShares": 0.29, "avgComments": 0.57, "followers": null },
+    { "weekStart": "2026-09-20", "posts": 7, "avgReach": 159, "avgSavesShares": 0.14, "avgComments": 1, "followers": null },
+    { "weekStart": "2026-09-27", "posts": 1, "avgReach": 181, "avgSavesShares": 0, "avgComments": 2, "followers": null },
+    { "weekStart": "2026-10-04", "posts": 3, "avgReach": 218, "avgSavesShares": 0.33, "avgComments": 3, "followers": 2793 },
+    { "weekStart": "2026-10-11", "posts": 5, "avgReach": 555, "avgSavesShares": 3.8, "avgComments": 6.2, "followers": 2799 },
+    { "weekStart": "2026-10-18", "posts": 7, "avgReach": 305, "avgSavesShares": 1.14, "avgComments": 3.86, "followers": 2804 },
+    { "weekStart": "2026-10-25", "posts": 6, "avgReach": 575, "avgSavesShares": 2.83, "avgComments": 3.83, "followers": 2623 },
+    { "weekStart": "2026-11-01", "posts": 6, "avgReach": 330, "avgSavesShares": 1.33, "avgComments": 2.33, "followers": 2630 }
+  ]
+}

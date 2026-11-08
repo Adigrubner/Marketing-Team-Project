@@ -488,6 +488,13 @@ function validateExistingPost(ad, label) {
   if (p.url !== undefined && !(typeof p.url === 'string' && /^https:\/\//.test(p.url))) {
     errors.push(`${label}: existing_post.url צריך להיות קישור (https://...)`);
   }
+  if (p.cta !== undefined) {
+    const c = p.cta;
+    const okCta = c && typeof c === 'object' && !Array.isArray(c) &&
+      typeof c.type === 'string' && /^[A-Z_]+$/.test(c.type) &&
+      typeof c.link === 'string' && /^https:\/\//.test(c.link);
+    if (!okCta) errors.push(`${label}: existing_post.cta נראה כך: { "type": "LEARN_MORE", "link": "https://..." } (סוג הכפתור באותיות גדולות, וקישור מלא)`);
+  }
   const extra = ['images', 'text', 'headline', 'description', 'placement_images'].filter((k) => ad[k] !== undefined);
   if (extra.length) {
     errors.push(`${label}: בקידום פוסט קיים הפוסט רץ כמו שהוא, בלי ${extra.join(', ')}. מורידים אותם מהמודעה (או בונים מודעה חדשה בלי existing_post)`);
@@ -1007,8 +1014,9 @@ export function buildPlacementCreative(plan, ad, { feedHash, storyHash, env }) {
 // קידום פוסט קיים: הקריאייטיב מצביע על הפוסט עצמו, ולכן הלייקים והתגובות של המודעה נצברים עליו.
 //   פייסבוק: object_story_id = "<PAGE_ID>_<POST_ID>"
 //   אינסטגרם: source_instagram_media_id + החשבון והדף שבשמם הוא רץ, עם כפתור וואטסאפ
-//   קידום חשיפה / מעורבות (goal): בלי כפתור בכלל - הפוסט נראה כמו בפרופיל, עם "ממומן". אין לאן לשלוח,
-//     והכפתור לא עוזר למטרה (חשיפה / לייקים ושמירות). Meta לא מחייבת כפתור (התיעוד: call_to_action הוא רשות).
+//   קידום חשיפה / מעורבות (goal): בלי כפתור - הפוסט נראה כמו בפרופיל, עם "ממומן". אין לאן לשלוח,
+//     והכפתור לא עוזר למטרה (חשיפה / לייקים ושמירות). ברילס ובתמונה בודדת Meta לא מחייבת כפתור.
+//     חריג: קרוסלה - Meta דורשת כפתור עם קישור בהדלקה, ולכן existing_post.cta = { type, link } (8.11.2026).
 // בשני המקרים הקידום יכול לרוץ גם בפייסבוק וגם באינסטגרם (לפי placements).
 export function buildExistingPostCreative(plan, ad, { env }) {
   const p = ad.existing_post;
@@ -1020,7 +1028,11 @@ export function buildExistingPostCreative(plan, ad, { env }) {
     instagram_user_id: env.META_INSTAGRAM_USER_ID,
     source_instagram_media_id: p.id,
   };
-  if (isPromoteGoalPlan(plan)) return base;
+  if (isPromoteGoalPlan(plan)) {
+    // קרוסלה: Meta דורשת כפתור עם קישור בכל כרטיס - לא ביצירה אלא רק בהדלקה
+    // ("Image card must have CTA link", 8.11.2026). לכן בקרוסלה existing_post.cta חובה (נבדק מול Meta ב---check).
+    return p.cta ? { ...base, call_to_action: { type: p.cta.type, value: { link: p.cta.link } } } : base;
+  }
   return {
     ...base,
     // Meta מחייבת link בכפתור (נבדק 22.10.2026: subcode 2061015 בלעדיו) - אותו קישור כמו במודעה חדשה

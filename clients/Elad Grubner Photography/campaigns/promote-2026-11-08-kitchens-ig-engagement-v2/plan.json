@@ -1,0 +1,32 @@
+{
+  "_הסבר": "קידום תומך שבועי, שבוע 2 (8.11.2026), לפי promote-2026-11-08-kitchens-ig/promote-card.md שעדי אישרה בשיחה ב-8.11. מעורבות לקהל חדש (goal: engagement), 10₪ ליום. בסיס: promote-2026-11-01-alia-reel-ig-engagement/plan.json - שונו השם, המודעה, ו-placements (פיד אינסטגרם בלבד - זו קרוסלה). ההחלטה של עדי (8.11): בלי ההרחבה של הקהל הדומה - custom_audience_expansion: false, והכלי שולח מאז 1.11 גם lookalike: 0 (במקום השבוע של עליא, שרץ עם ההרחבה בכוונה). אחרי היצירה לבדוק בקריאה ש-targeting_relaxation_types.lookalike הוא 0. הקהל: הקהל הדומה 1% לרשימת המעצבות. הקהל החם מוחרג (מקבל את קידום החשיפה). המזהה אומת ב-meta-posts.js --find (8.11). בלי הגבלת תדירות (רק בחשיפה). בלי תאריך סיום - עדי עוצרת ידנית בשישי.",
+  "name": "קידום תומך - מטבחים ארבע מעצבות - מעורבות קהל חדש - 11/2026 - v2",
+  "goal": "engagement",
+  "daily_budget_ils": 10,
+  "audience": {
+    "countries": ["IL"],
+    "age_min": 25,
+    "advantage_audience": false,
+    "custom_audiences": [
+      { "id": "120254805380880745", "name": "דומה (1%) - Designers Phone List - Jan 2026" }
+    ],
+    "custom_audience_expansion": false,
+    "excluded_custom_audiences": [
+      { "id": "120240633155310745", "name": "IG Engagement 365 Days" },
+      { "id": "120240633031420745", "name": "Designers Phone List - Jan 2026" }
+    ]
+  },
+  "placements": {
+    "instagram": ["stream"]
+  },
+  "ads": [
+    {
+      "name": "מטבחים - ארבע מעצבות",
+      "existing_post": {
+        "platform": "instagram",
+        "id": "18122102614745266",
+        "url": "https://www.instagram.com/p/DfSfSm-HU6e/"
+      }
+    }
+  ]
+}
