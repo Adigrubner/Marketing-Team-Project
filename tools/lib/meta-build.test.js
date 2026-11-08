@@ -739,6 +739,25 @@ test('קידום חשיפה / מעורבות: הקריאייטיב של פוסט
     ['name', 'object_id', 'instagram_user_id', 'source_instagram_media_id', 'call_to_action']);
 });
 
+test('קידום חשיפה / מעורבות של קרוסלה: existing_post.cta מוסיף כפתור עם קישור (Meta דורשת בהדלקה, 8.11.2026)', () => {
+  for (const g of ['reach', 'engagement']) {
+    const p = goalPlan(g);
+    p.ads[0].existing_post.cta = { type: 'LEARN_MORE', link: 'https://example.com/' };
+    assert.deepEqual(v(p), []);
+    assert.deepEqual(buildExistingPostCreative(p, p.ads[0], { env }), {
+      name: `קידום ${g} · פוסט · Creative`, object_id: '111', instagram_user_id: '222', source_instagram_media_id: IG_POST.id,
+      call_to_action: { type: 'LEARN_MORE', value: { link: 'https://example.com/' } },
+    });
+  }
+});
+
+test('existing_post.cta: חייב type באותיות גדולות ו-link מלא', () => {
+  for (const bad of [{ type: 'learn more', link: 'https://x.co' }, { type: 'LEARN_MORE' }, { type: 'LEARN_MORE', link: 'x.co' }, 'LEARN_MORE']) {
+    const p = goalPlan('reach'); p.ads[0].existing_post.cta = bad;
+    assert.ok(v(p).some((e) => e.includes('existing_post.cta')), JSON.stringify(bad));
+  }
+});
+
 test('הגבלת תדירות: אפשר לשנות בתוכנית, גם רק חלק ממנה', () => {
   const p = goalPlan('reach'); p.frequency_cap = { impressions: 3, days: 7 };
   assert.deepEqual(v(p), []);

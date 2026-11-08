@@ -118,7 +118,10 @@ if (isMultiAdPlan(plan)) {
     info(fc
       ? `הגבלת תדירות:  עד ${fc.impressions} חשיפות לאדם בכל ${fc.days} ימים${plan.frequency_cap ? '' : ' (ברירת המחדל)'}`
       : 'הגבלת תדירות:  אין - Meta מאפשרת אותה רק בקידום חשיפה');
-    info('כפתור:         בלי כפתור, בלי וואטסאפ ובלי הודעה מוכנה - הפוסט רץ כמו שהוא');
+    const ctas = plan.ads.map((a) => a.existing_post?.cta).filter(Boolean);
+    info(ctas.length
+      ? `כפתור:         ${ctas[0].type} ← ${ctas[0].link} (קרוסלה - Meta דורשת), בלי וואטסאפ ובלי הודעה מוכנה`
+      : 'כפתור:         בלי כפתור, בלי וואטסאפ ובלי הודעה מוכנה - הפוסט רץ כמו שהוא');
     if (plan.goal === 'engagement') {
       info('שימו לב:       ב"מעורבות בפוסט" Meta סופרת גם קליקים על הפוסט, לא רק לייקים, תגובות, שמירות ושיתופים. בדוח בודקים את האינטראקציות');
     }
@@ -138,7 +141,7 @@ if (isMultiAdPlan(plan)) {
   plan.ads.forEach((ad, i) => {
     if (isExistingPostAd(ad)) {
       const p = ad.existing_post;
-      info(`  ${i + 1}. ${ad.name} · קידום פוסט קיים מ${EXISTING_POST_PLATFORMS[p.platform]} (רץ כמו שהוא - טקסט ותמונות של הפוסט${isPromoteGoalPlan(plan) ? ', בלי כפתור' : ''})`);
+      info(`  ${i + 1}. ${ad.name} · קידום פוסט קיים מ${EXISTING_POST_PLATFORMS[p.platform]} (רץ כמו שהוא - טקסט ותמונות של הפוסט${isPromoteGoalPlan(plan) ? (p.cta ? `, כפתור ${p.cta.type} ← ${p.cta.link}` : ', בלי כפתור') : ''})`);
       info(`     הפוסט: ${p.url || p.id}`);
       return;
     }
@@ -294,10 +297,14 @@ async function runExistingPostCheck() {
         if (m.is_eligible_for_promotion === false) { failed++; bad(`"${ad.name}" - Meta לא מאפשרת לקדם את הפוסט הזה (${m.permalink_url})`); }
         else ok(`"${ad.name}" - הפוסט בפייסבוק קיים ומותר לקידום · ${m.created_time?.slice(0, 10)} · ${m.permalink_url}`);
       } else {
-        const m = await graphGet(p.id, { fields: 'permalink,timestamp,owner{id}' });
+        const m = await graphGet(p.id, { fields: 'permalink,timestamp,owner{id},media_type' });
         if (m.owner?.id && String(m.owner.id) !== String(process.env.META_INSTAGRAM_USER_ID)) {
           failed++; bad(`"${ad.name}" - הפוסט באינסטגרם לא שייך לחשבון של הלקוח`);
-        } else ok(`"${ad.name}" - הפוסט באינסטגרם קיים · ${m.timestamp?.slice(0, 10)} · ${m.permalink}`);
+        } else if (m.media_type === 'CAROUSEL_ALBUM' && isPromoteGoalPlan(plan) && !p.cta) {
+          // נלמד ב-8.11.2026: Meta יוצרת בלי בעיה, אבל בהדלקה מסרבת - "Image card must have CTA link"
+          failed++;
+          bad(`"${ad.name}" - זו קרוסלה, ו-Meta דורשת בה כפתור עם קישור (אחרת ההדלקה נכשלת). מוסיפים ל-existing_post: "cta": { "type": "LEARN_MORE", "link": "https://..." }`);
+        } else ok(`"${ad.name}" - הפוסט באינסטגרם קיים · ${m.timestamp?.slice(0, 10)} · ${m.permalink}${p.cta ? ` · כפתור ${p.cta.type} ← ${p.cta.link}` : ''}`);
       }
     } catch (e) {
       failed++;
