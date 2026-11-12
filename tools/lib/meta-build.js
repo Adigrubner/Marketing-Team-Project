@@ -83,6 +83,76 @@ export const isMultiAdPlan = (plan) => Array.isArray(plan?.ads);
 // האם בתוכנית יש כמה קבוצות מודעות (ad_sets), לכל אחת קהל ותקציב משלה?
 export const hasAdSets = (plan) => Array.isArray(plan?.ad_sets);
 
+// הוספת מודעות לקבוצה שכבר רצה (מ-12.11.2026, לבקשת עדי): add_to_adset במקום תקציב וקהל.
+//   { "add_to_adset": { "campaign_id": "<הקמפיין הקיים>", "adset_id": "<הקבוצה הקיימת>" }, "ads": [...] }
+// לא נוצר קמפיין ולא נוצרת קבוצה, והקבוצה הקיימת לא משתנה בכלל (תקציב, קהל, תאריכים, סטטוס).
+// נוצרים רק קריאייטיבים ומודעות - PAUSED, כמו תמיד. הקבוצה נבדקת מול Meta (קריאה בלבד) לפני יצירה.
+export const isAddToAdSetPlan = (plan) => Boolean(plan && plan.add_to_adset !== undefined);
+const ADD_TO_ADSET_FORBIDDEN = {
+  daily_budget_ils: 'תקציב',
+  audience: 'קהל',
+  ad_sets: 'קבוצות מודעות',
+  end_date: 'תאריך סיום',
+  frequency_cap: 'הגבלת תדירות',
+};
+
+function validateAddToAdSet(plan) {
+  const t = plan.add_to_adset;
+  if (!t || typeof t !== 'object' || Array.isArray(t)) {
+    return ['add_to_adset צריך להיות { "campaign_id": "...", "adset_id": "..." } - המזהים של הקמפיין והקבוצה הקיימים'];
+  }
+  const errors = [];
+  if (!isIdString(t.campaign_id)) errors.push('add_to_adset.campaign_id - מזהה הקמפיין הקיים, כמחרוזת של ספרות (ב-upload-log.json של הקמפיין)');
+  if (!isIdString(t.adset_id)) errors.push('add_to_adset.adset_id - מזהה הקבוצה הקיימת, כמחרוזת של ספרות (ב-upload-log.json של הקמפיין)');
+  if (!isMultiAdPlan(plan)) errors.push('add_to_adset נתמך רק בתוכנית עם רשימת מודעות (ads)');
+  for (const [k, he] of Object.entries(ADD_TO_ADSET_FORBIDDEN)) {
+    if (plan[k] !== undefined) {
+      errors.push(`add_to_adset: אין כאן ${k} (${he}). מוסיפים מודעות לקבוצה קיימת, והיא נשארת בדיוק כמו שהיא. שינוי בקבוצה - רק ידנית ב-Ads Manager`);
+    }
+  }
+  if (goalOf(plan) !== 'whatsapp') errors.push('add_to_adset נתמך כרגע רק בקמפיין שיחות בוואטסאפ (בלי goal)');
+  if (Array.isArray(plan.ads) && plan.ads.some(isExistingPostAd)) {
+    errors.push('add_to_adset: קידום פוסט קיים (existing_post) לא נתמך כאן - רק מודעות חדשות עם תמונות וטקסט');
+  }
+  return errors;
+}
+
+// 🛑 הקבוצה הקיימת, כפי ש-Meta מחזירה אותה (קריאה בלבד), מול התוכנית.
+// meta: { name, account_id, campaign_id, effective_status, optimization_goal, destination_type, daily_budget, targeting }
+// מחזיר { problems: [...חוסמות], lines: [...מידע] }
+export function judgeExistingAdSet(meta, plan, { accountId }) {
+  const problems = [];
+  const t = plan.add_to_adset;
+  const acct = String(meta?.account_id ?? '').replace(/^act_/, '');
+  if (acct !== String(accountId ?? '').replace(/^act_/, '')) problems.push('הקבוצה לא נמצאת בחשבון המודעות של הלקוח');
+  if (String(meta?.campaign_id) !== String(t.campaign_id)) problems.push(`הקבוצה שייכת לקמפיין אחר (${meta?.campaign_id}), לא לזה שבתוכנית (${t.campaign_id})`);
+  if (meta?.destination_type !== 'WHATSAPP' || meta?.optimization_goal !== 'CONVERSATIONS') {
+    problems.push(`זו לא קבוצה של שיחות בוואטסאפ (יעד: ${meta?.destination_type || '?'}, אופטימיזציה: ${meta?.optimization_goal || '?'})`);
+  }
+  if (['DELETED', 'ARCHIVED'].includes(meta?.effective_status)) problems.push(`הקבוצה ${meta.effective_status === 'DELETED' ? 'נמחקה' : 'בארכיון'}`);
+
+  // המיקומים חייבים להיות זהים: לפיהם נבנה הכלל "איזו תמונה לאיזה מיקום" בקריאייטיב
+  const sorted = (xs) => [...(xs || [])].sort().join(',');
+  const pl = placementsOf(plan);
+  const tg = meta?.targeting || {};
+  const same =
+    sorted(tg.publisher_platforms) === sorted(Object.keys(pl)) &&
+    sorted(tg.facebook_positions) === sorted(pl.facebook) &&
+    sorted(tg.instagram_positions) === sorted(pl.instagram);
+  if (!same) {
+    const of = (fb, ig) => `facebook: ${sorted(fb) || '-'} · instagram: ${sorted(ig) || '-'}`;
+    problems.push(
+      `המיקומים בתוכנית (${of(pl.facebook, pl.instagram)}) לא זהים למיקומים של הקבוצה (${of(tg.facebook_positions, tg.instagram_positions)}). ` +
+      'מעתיקים לתוכנית את המיקומים של הקבוצה, כדי שכל תמונה תלך למיקום הנכון'
+    );
+  }
+  const lines = [
+    `"${meta?.name}" · ${meta?.effective_status}` +
+      `${Number(meta?.daily_budget) > 0 ? ` · ${Number(meta.daily_budget) / 100}₪ ליום (לא משתנה)` : ''}`,
+  ];
+  return { problems, lines };
+}
+
 // קידום פוסט שכבר עלה (existing_post במודעה): הפוסט רץ כמו שהוא - אותו טקסט, אותן תמונות,
 // והלייקים והתגובות נשארים עליו. אין כאן תמונות להעלות ואין טקסט לכתוב.
 //   { "name": "...", "existing_post": { "platform": "facebook", "id": "<PAGE_ID>_<POST_ID>", "url": "..." } }
@@ -214,6 +284,8 @@ export function detailedItemsOf(detailed) {
 // קבוצות המודעות של התוכנית, בצורה אחידה.
 // תוכנית בלי ad_sets = קבוצה אחת, בדיוק כמו קודם (אותו שם, אותו תקציב, אותו קהל).
 export function adSetsOf(plan) {
+  // מוסיפים לקבוצה קיימת: אין כאן קבוצה חדשה, אין תקציב חדש ואין קהל חדש
+  if (isAddToAdSetPlan(plan)) return [];
   if (!hasAdSets(plan)) {
     return [{
       label: null,
@@ -303,7 +375,11 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
 
   need(isNonEmptyString(plan.name), 'חסר name (שם הקמפיין)');
 
-  if (!hasAdSets(plan)) {
+  if (isAddToAdSetPlan(plan)) {
+    // בלי תקציב ובלי קהל - הקבוצה הקיימת לא משתנה
+    errors.push(...validateAddToAdSet(plan));
+    if (!isMultiAdPlan(plan)) return errors;
+  } else if (!hasAdSets(plan)) {
     need(Number.isFinite(plan.daily_budget_ils) && plan.daily_budget_ils > 0, 'חסר daily_budget_ils (תקציב יומי בשקלים)');
 
     // 🛑 בלם: תקרת תקציב
@@ -1102,6 +1178,22 @@ export function buildAd(plan, ad, { adSetId, creativeId, adSetLabel = null }) {
 // מחזיר (עם ad_sets): { images, campaign, ad_sets: [{ name, adSet, ads: [{ name, ad }] }], ads: [{ name, images, creative }] }
 //   - קריאייטיב אחד לכל מודעה, משותף לכל הקבוצות (אותו פוסט, אותן תגובות ולייקים)
 export function buildAll(plan, { env, safety, ids }) {
+  // מוסיפים לקבוצה קיימת: רק קריאייטיבים ומודעות. בלי קמפיין ובלי קבוצה.
+  // מחזיר { images, add_to_adset, ads: [{ name, images, creative, ad }] }
+  if (isAddToAdSetPlan(plan)) {
+    const adSetId = plan.add_to_adset.adset_id;
+    return {
+      images: imagesOfAds(plan),
+      add_to_adset: { ...plan.add_to_adset },
+      ads: plan.ads.map((ad) => ({
+        name: ad.name,
+        images: adImagesOf(ad),
+        creative: creativeOf(plan, ad, { ids, env }),
+        ad: buildAd(plan, ad, { adSetId, creativeId: ids.creativeIdOf(ad.name) }),
+      })),
+    };
+  }
+
   const campaign = buildCampaign(plan);
 
   if (hasAdSets(plan) && isMultiAdPlan(plan)) {
