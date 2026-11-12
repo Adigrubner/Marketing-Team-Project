@@ -25,6 +25,12 @@
 //   בלי וואטסאפ ובלי כפתור. כל הבלמים למעלה זהים. דוגמאות: clients/_template/campaigns/plan.promote.reach.example.json
 //   ו-plan.promote.engagement.example.json
 //
+// הוספת מודעות לקבוצה שכבר רצה (מ-12.11.2026): add_to_adset: { "campaign_id": "...", "adset_id": "..." } במקום תקציב וקהל.
+//   לא נוצר קמפיין ולא נוצרת קבוצה, והקבוצה הקיימת לא משתנה (תקציב, קהל, תאריכים, סטטוס). נוצרים רק קריאייטיבים ומודעות - PAUSED.
+//   לפני יצירה הכלי בודק מול Meta (קריאה בלבד): הקבוצה קיימת, בחשבון הזה, בקמפיין שבתוכנית, של וואטסאפ, ועם אותם מיקומים.
+//   התוכנית יושבת בתיקייה משלה (עם upload-log.json משלה), למשל תת-תיקייה בתוך תיקיית הקמפיין.
+//   דוגמה: clients/_template/campaigns/plan.add-to-adset.example.json
+
 // שימוש:
 //   node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין>            ← dry-run: מה ייווצר (בלי אינטרנט)
 //   node tools/meta-upload.js clients/<לקוח>/campaigns/<קמפיין> --check    ← Meta בודקת בלי ליצור (התמונות עולות לספרייה בלבד)
@@ -44,7 +50,7 @@ import {
   usesAdvancedAudience, describeAdvancedAudience, planWarnings, needsAudiencePreflight,
   customAudienceRefsOf, judgeCustomAudience, sizeRangeText, detailedItemsOf, cardDescriptionsOf,
   isExistingPostAd, EXISTING_POST_PLATFORMS, judgeAccountBudget, hasPlacementImages, placementImagesOf,
-  promoteGoalOf, isPromoteGoalPlan, frequencyCapOf,
+  promoteGoalOf, isPromoteGoalPlan, frequencyCapOf, isAddToAdSetPlan, judgeExistingAdSet,
 } from './lib/meta-build.js';
 
 const args = process.argv.slice(2);
@@ -91,8 +97,14 @@ const audienceLine = (a) =>
   `${a.countries.join(',')} · מגיל ${a.age_min}` +
   `${a.age_max ? ` עד ${a.age_max}` : ''}` +
   `${isMultiAdPlan(plan) ? (a.advantage_audience ? ' · קהל אוטומטי של Meta' : ' · בלי קהל אוטומטי') : ''}`;
+const addMode = isAddToAdSetPlan(plan);
 info(`קמפיין:        ${plan.name}`);
-if (hasAdSets(plan)) {
+if (addMode) {
+  info(`סוג:           מוסיפים מודעות לקבוצה שכבר קיימת - לא נוצר קמפיין ולא נוצרת קבוצה`);
+  info(`הקמפיין הקיים: ${plan.add_to_adset.campaign_id}`);
+  info(`הקבוצה הקיימת: ${plan.add_to_adset.adset_id}`);
+  info(`תקציב וקהל:    של הקבוצה הקיימת, בלי שום שינוי (ב---check וב---confirm נבדקים מול Meta)`);
+} else if (hasAdSets(plan)) {
   info(`תקציב יומי:    ${totalDailyBudgetIls(plan)}₪ בסך הכל (תקרה: ${safety.maxDailyBudgetIls}₪ - לכל קבוצה וגם לסכום) ✅`);
   info(`קבוצות מודעות: ${plan.ad_sets.length}`);
   adSetsOf(plan).forEach((s, i) => {
@@ -215,9 +227,16 @@ try {
   ok(`חשבון המודעות במטבע ${acct.currency}`);
 
   // 🛑 בלם: קהלים מותאמים / פירוט טירגוט - בדיקה מול Meta (קריאה בלבד) לפני שנוצר משהו
-  let audienceFailures = 0;
-  if (check || needsAudiencePreflight(plan, safety)) {
-    audienceFailures = await runAudienceCheck(preview);
+  // 🛑 בלם: מוסיפים לקבוצה קיימת - היא קיימת, בחשבון הזה, בקמפיין שבתוכנית, של וואטסאפ, ועם אותם מיקומים (קריאה בלבד)
+  const adSetFailures = addMode ? await runExistingAdSetCheck() : 0;
+  if (confirm && adSetFailures) {
+    die(`בדיקת הקבוצה הקיימת מול Meta מצאה ${adSetFailures} בעיות - עוצרים לפני שנוצר משהו. מריצים --check לפרטים.`);
+  }
+
+  let audienceFailures = adSetFailures;
+  // בהוספה לקבוצה קיימת אין קהל חדש לבדוק - הקהל של הקבוצה לא משתנה
+  if (!addMode && (check || needsAudiencePreflight(plan, safety))) {
+    audienceFailures += await runAudienceCheck(preview);
     if (confirm && audienceFailures) {
       die(`בדיקת הקהלים מול Meta מצאה ${audienceFailures} בעיות - עוצרים לפני שנוצר משהו. מריצים --check לפרטים.`);
     }
@@ -280,6 +299,25 @@ async function runAccountBudgetCheck() {
   const msg = `רץ עכשיו ${j.runningIls}₪ ליום + התוכנית ${totalDailyBudgetIls(plan)}₪ = ${j.totalIls}₪ ליום (תקרה לסך הכולל: ${j.capIls}₪)`;
   (j.over ? bad : ok)(msg);
   return j.over;
+}
+
+// --- הקבוצה הקיימת שמוסיפים אליה מודעות - קריאה בלבד ---
+// מחזיר את מספר הבעיות החוסמות.
+async function runExistingAdSetCheck() {
+  title('הקבוצה הקיימת - בדיקה מול Meta (קריאה בלבד)');
+  try {
+    const m = await graphGet(plan.add_to_adset.adset_id, {
+      fields: 'name,account_id,campaign_id,effective_status,optimization_goal,destination_type,daily_budget,targeting',
+    });
+    const j = judgeExistingAdSet(m, plan, { accountId: process.env.META_AD_ACCOUNT_ID });
+    j.lines.forEach((l) => info(`  ${l}`));
+    j.problems.forEach((p) => bad(p));
+    if (!j.problems.length) ok('הקבוצה קיימת, בחשבון הזה ובקמפיין שבתוכנית, של שיחות בוואטסאפ, ועם אותם מיקומים');
+    return j.problems.length;
+  } catch (e) {
+    bad(`לא הצלחתי לקרוא את הקבוצה ${plan.add_to_adset.adset_id}: ${e.message}`);
+    return 1;
+  }
 }
 
 // --- פוסטים קיימים שמקדמים - קריאה בלבד ---
@@ -401,10 +439,12 @@ async function runCheck(hashOf, audienceFailures = 0) {
   let failed = audienceFailures;
   title('קמפיין וקריאייטיבים - Meta בודקת בלי ליצור');
 
-  try {
-    await graphPost(adAccountPath('campaigns'), { ...built.campaign, ...validateOnly });
-    ok('קמפיין - Meta אישרה את הבקשה');
-  } catch (e) { failed++; bad(`קמפיין - ${e.message}`); }
+  if (!addMode) {
+    try {
+      await graphPost(adAccountPath('campaigns'), { ...built.campaign, ...validateOnly });
+      ok('קמפיין - Meta אישרה את הבקשה');
+    } catch (e) { failed++; bad(`קמפיין - ${e.message}`); }
+  }
 
   for (const a of built.ads) {
     try {
@@ -413,7 +453,9 @@ async function runCheck(hashOf, audienceFailures = 0) {
     } catch (e) { failed++; bad(`קריאייטיב "${a.name}" - ${e.message}`); }
   }
 
-  warn(
+  if (addMode) {
+    warn('המודעות עצמן לא נבדקו: Meta צריכה קריאייטיב קיים כדי לבדוק אותן. הן ייבדקו ביצירה עצמה (הקבוצה כבר נבדקה למעלה).');
+  } else warn(
     'האד-סט והמודעות לא נבדקו: Meta צריכה קמפיין קיים כדי לבדוק אותם. הם ייבדקו ביצירה עצמה.' +
     (needsAudiencePreflight(plan, safety) ? ' (הקהלים וההגדרות שלהם כן נבדקו למעלה, דרך הערכת הגודל.)' : '') +
     (isPromoteGoalPlan(plan)
@@ -434,6 +476,34 @@ async function runCreate(hashOf) {
     writeFileSync(logPath, JSON.stringify(log, null, 2));
   };
   const ids = { campaignId: null, adSetId: null, hashOf, creativeIdOf: () => null };
+
+  if (addMode) {
+    // מוסיפים לקבוצה קיימת: רק קריאייטיבים ומודעות. אין כאן שום קריאה שיוצרת או משנה קמפיין או קבוצה.
+    const targetAdSet = plan.add_to_adset.adset_id;
+    log.add_to_adset = { ...plan.add_to_adset };
+    writeFileSync(logPath, JSON.stringify(log, null, 2));
+    const creativeIds = {};
+    ids.creativeIdOf = (name) => creativeIds[name];
+    for (const a of buildAll(plan, { env: process.env, safety, ids }).ads) {
+      const creative = await graphPost(adAccountPath('adcreatives'), a.creative);
+      record('creative', a.name, creative.id);
+      creativeIds[a.name] = creative.id;
+
+      const adBody = buildAll(plan, { env: process.env, safety, ids }).ads.find((x) => x.name === a.name).ad;
+      assertPaused(adBody, `המודעה "${a.name}"`);
+      if (adBody.adset_id !== targetAdSet || !adBody.creative?.creative_id) {
+        throw new Error(`בלם חירום: המודעה "${a.name}" לא מכוונת לקבוצה שבתוכנית, או שחסר לה קריאייטיב - עוצרים בלי לשלוח.`);
+      }
+      const ad = await graphPost(adAccountPath('ads'), adBody);
+      record('ad', a.name, ad.id);
+      ok(`מודעה נוצרה: ${a.name} (${ad.id})`);
+    }
+    title('המודעות נוספו לקבוצה - ומושהות');
+    console.log('המודעות החדשות נוצרו במצב PAUSED. הקבוצה, התקציב והקהל לא השתנו.');
+    console.log('המזהים נשמרו ב-upload-log.json בתיקייה הזו.');
+    console.log('➡️  הצעד הבא: ב-Ads Manager לעבור על התצוגה המקדימה של כל מיקום, ולהדליק ידנית כשמרוצים.');
+    return;
+  }
 
   const campaignBody = buildAll(plan, { env: process.env, safety, ids }).campaign;
   assertPaused(campaignBody, 'הקמפיין');

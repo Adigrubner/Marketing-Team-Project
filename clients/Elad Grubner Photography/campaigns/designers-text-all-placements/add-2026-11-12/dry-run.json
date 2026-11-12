@@ -1,0 +1,432 @@
+{
+  "images": [
+    "../creatives/next-collage/inbal-karako-wide/feed/collage-clean.jpg",
+    "../creatives/next-collage/inbal-karako-wide/story-collage.jpg",
+    "../creatives/next-collage/lihi-levy-mix/feed/collage-clean.jpg",
+    "../creatives/next-collage/lihi-levy-mix/story-collage.jpg"
+  ],
+  "add_to_adset": {
+    "campaign_id": "120254957888520745",
+    "adset_id": "120254957889790745"
+  },
+  "ads": [
+    {
+      "name": "ענבל קרקו - צילום גדול + פס - נקי",
+      "images": [
+        "../creatives/next-collage/inbal-karako-wide/feed/collage-clean.jpg",
+        "../creatives/next-collage/inbal-karako-wide/story-collage.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · ענבל קרקו - צילום גדול + פס - נקי · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135"
+        },
+        "asset_feed_spec": {
+          "images": [
+            {
+              "hash": "<התמונה ../creatives/next-collage/inbal-karako-wide/feed/collage-clean.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                }
+              ]
+            },
+            {
+              "hash": "<התמונה ../creatives/next-collage/inbal-karako-wide/story-collage.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "bodies": [
+            {
+              "text": "מעצב/ת פנים? צילום הפרויקט שלך בסטילס, ו-3 רילסים ערוכים במתנה.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימת\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nובפגישה הבאה עם לקוח, הפרויקט כבר יחכה לך בטלפון, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננת.\nאפשר לשריין כבר עכשיו, גם לפרויקט שיהיה מוכן לצילום רק בעוד כמה שבועות. אשמח להודעה שלך בוואטסאפ, ונדבר 👇🏻",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "titles": [
+            {
+              "text": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "descriptions": [
+            {
+              "text": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות"
+            }
+          ],
+          "link_urls": [
+            {
+              "website_url": "https://api.whatsapp.com/send",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "call_to_action_types": [
+            "WHATSAPP_MESSAGE"
+          ],
+          "call_to_actions": [
+            {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            }
+          ],
+          "ad_formats": [
+            "SINGLE_IMAGE"
+          ],
+          "asset_customization_rules": [
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "story",
+                  "facebook_reels"
+                ],
+                "instagram_positions": [
+                  "story",
+                  "reels"
+                ]
+              },
+              "image_label": {
+                "name": "placement_story"
+              },
+              "body_label": {
+                "name": "placement_story"
+              },
+              "title_label": {
+                "name": "placement_story"
+              },
+              "link_url_label": {
+                "name": "placement_story"
+              },
+              "priority": 1
+            },
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "feed"
+                ],
+                "instagram_positions": [
+                  "stream"
+                ]
+              },
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 2
+            },
+            {
+              "customization_spec": {},
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 3
+            }
+          ],
+          "optimization_type": "PLACEMENT",
+          "additional_data": {
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם 3 הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}"
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      },
+      "ad": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · ענבל קרקו - צילום גדול + פס - נקי",
+        "adset_id": "120254957889790745",
+        "creative": {
+          "creative_id": "<הקריאייטיב של ענבל קרקו - צילום גדול + פס - נקי>"
+        },
+        "status": "PAUSED"
+      }
+    },
+    {
+      "name": "ליהי לוי - קולאז' מעורב - נקי",
+      "images": [
+        "../creatives/next-collage/lihi-levy-mix/feed/collage-clean.jpg",
+        "../creatives/next-collage/lihi-levy-mix/story-collage.jpg"
+      ],
+      "creative": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · ליהי לוי - קולאז' מעורב - נקי · Creative",
+        "object_story_spec": {
+          "page_id": "2129327774004845",
+          "instagram_user_id": "17841408216480135"
+        },
+        "asset_feed_spec": {
+          "images": [
+            {
+              "hash": "<התמונה ../creatives/next-collage/lihi-levy-mix/feed/collage-clean.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                }
+              ]
+            },
+            {
+              "hash": "<התמונה ../creatives/next-collage/lihi-levy-mix/story-collage.jpg>",
+              "adlabels": [
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "bodies": [
+            {
+              "text": "מעצב/ת פנים? צילום הפרויקט שלך בסטילס, ו-3 רילסים ערוכים במתנה.\n\nמה כלול:\n- צילום סטילס של הפרויקט שסיימת\n- עריכה לכל התמונות, לא רק לכמה נבחרות\n- 3 רילסים ערוכים של הפרויקט, במתנה\n\nובפגישה הבאה עם לקוח, הפרויקט כבר יחכה לך בטלפון, מצולם ומוכן.\n\nאני אלעד גרובנר, צלם עיצוב פנים ואדריכלות. ביום הצילום אני מסדר, מזיז ומדייק עד שכל חלל נראה בדיוק כמו שתכננת.\nאפשר לשריין כבר עכשיו, גם לפרויקט שיהיה מוכן לצילום רק בעוד כמה שבועות. אשמח להודעה שלך בוואטסאפ, ונדבר 👇🏻",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "titles": [
+            {
+              "text": "3 רילסים ערוכים במתנה, עם צילום הפרויקט",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "descriptions": [
+            {
+              "text": "אלעד גרובנר - צלם עיצוב פנים ואדריכלות"
+            }
+          ],
+          "link_urls": [
+            {
+              "website_url": "https://api.whatsapp.com/send",
+              "adlabels": [
+                {
+                  "name": "placement_feed"
+                },
+                {
+                  "name": "placement_story"
+                }
+              ]
+            }
+          ],
+          "call_to_action_types": [
+            "WHATSAPP_MESSAGE"
+          ],
+          "call_to_actions": [
+            {
+              "type": "WHATSAPP_MESSAGE",
+              "value": {
+                "app_destination": "WHATSAPP"
+              }
+            }
+          ],
+          "ad_formats": [
+            "SINGLE_IMAGE"
+          ],
+          "asset_customization_rules": [
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "story",
+                  "facebook_reels"
+                ],
+                "instagram_positions": [
+                  "story",
+                  "reels"
+                ]
+              },
+              "image_label": {
+                "name": "placement_story"
+              },
+              "body_label": {
+                "name": "placement_story"
+              },
+              "title_label": {
+                "name": "placement_story"
+              },
+              "link_url_label": {
+                "name": "placement_story"
+              },
+              "priority": 1
+            },
+            {
+              "customization_spec": {
+                "publisher_platforms": [
+                  "facebook",
+                  "instagram"
+                ],
+                "facebook_positions": [
+                  "feed"
+                ],
+                "instagram_positions": [
+                  "stream"
+                ]
+              },
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 2
+            },
+            {
+              "customization_spec": {},
+              "image_label": {
+                "name": "placement_feed"
+              },
+              "body_label": {
+                "name": "placement_feed"
+              },
+              "title_label": {
+                "name": "placement_feed"
+              },
+              "link_url_label": {
+                "name": "placement_feed"
+              },
+              "priority": 3
+            }
+          ],
+          "optimization_type": "PLACEMENT",
+          "additional_data": {
+            "page_welcome_message": "{\"type\":\"VISUAL_EDITOR\",\"version\":2,\"landing_screen_type\":\"welcome_message\",\"media_type\":\"text\",\"text_format\":{\"customer_action_type\":\"autofill_message\",\"message\":{\"autofill_message\":{\"content\":\"היי אלעד, ראיתי את המודעה עם 3 הרילסים במתנה, ויש לי פרויקט שאשמח לספר לך עליו\"},\"text\":\"היי, זה אלעד 🙂 יש לך פרויקט שצריך לצלם?\"}}}"
+          }
+        },
+        "degrees_of_freedom_spec": {
+          "creative_features_spec": {
+            "adapt_to_placement": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_animation": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_background_gen": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_templates": {
+              "enroll_status": "OPT_OUT"
+            },
+            "image_touchups": {
+              "enroll_status": "OPT_OUT"
+            },
+            "inline_comment": {
+              "enroll_status": "OPT_OUT"
+            },
+            "multi_photo_to_video": {
+              "enroll_status": "OPT_OUT"
+            },
+            "text_optimizations": {
+              "enroll_status": "OPT_OUT"
+            },
+            "description_automation": {
+              "enroll_status": "OPT_OUT"
+            }
+          }
+        }
+      },
+      "ad": {
+        "name": "מעצבות - 3 רילסים במתנה - נובמבר - וואטסאפ - פיד, סטורי וריל · ליהי לוי - קולאז' מעורב - נקי",
+        "adset_id": "120254957889790745",
+        "creative": {
+          "creative_id": "<הקריאייטיב של ליהי לוי - קולאז' מעורב - נקי>"
+        },
+        "status": "PAUSED"
+      }
+    }
+  ]
+}

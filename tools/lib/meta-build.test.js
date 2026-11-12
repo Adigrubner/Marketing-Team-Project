@@ -869,3 +869,79 @@ test('תוכנית וואטסאפ לא השתנתה: אותם שדות באד-ס
   assert.equal(buildCampaign(promotePlan()).objective, 'OUTCOME_ENGAGEMENT');
   assert.ok(v({ ...plan(), destination: undefined }).some((e) => e.includes('destination חייב להיות "whatsapp"')));
 });
+
+// --- הוספת מודעות לקבוצה קיימת (add_to_adset) - 12.11.2026 ---
+import { isAddToAdSetPlan, judgeExistingAdSet } from './meta-build.js';
+
+const PL = { facebook: ['feed', 'story', 'facebook_reels'], instagram: ['stream', 'story', 'reels'] };
+const addPlan = () => {
+  const p = placementPlan();
+  delete p.daily_budget_ils;
+  delete p.audience;
+  p.placements = PL;
+  p.add_to_adset = { campaign_id: '120254957888520745', adset_id: '120254957889790745' };
+  return p;
+};
+const adSetMeta = (over = {}) => ({
+  name: 'הקבוצה', account_id: 'act_999', campaign_id: '120254957888520745', effective_status: 'ACTIVE',
+  optimization_goal: 'CONVERSATIONS', destination_type: 'WHATSAPP', daily_budget: '5000',
+  targeting: { publisher_platforms: ['instagram', 'facebook'], facebook_positions: ['story', 'feed', 'facebook_reels'], instagram_positions: ['stream', 'story', 'reels'] },
+  ...over,
+});
+
+test('הוספה לקבוצה קיימת: תוכנית תקינה עוברת, בלי תקציב ובלי קהל', () => {
+  assert.ok(isAddToAdSetPlan(addPlan()));
+  assert.deepEqual(v(addPlan()), []);
+  assert.equal(totalDailyBudgetIls(addPlan()), 0);
+  assert.deepEqual(adSetsOf(addPlan()), []);
+  assert.equal(needsAudiencePreflight(addPlan(), safety), false);
+});
+
+test('הוספה לקבוצה קיימת: אין קמפיין ואין קבוצה בבקשות, והמודעות PAUSED ומכוונות לקבוצה שבתוכנית', () => {
+  const all = buildAll(addPlan(), { env, safety, ids: fakeIds });
+  assert.equal(all.campaign, undefined);
+  assert.equal(all.adSet, undefined);
+  assert.equal(all.ad_sets, undefined);
+  assert.equal(all.ads.length, 2);
+  for (const a of all.ads) {
+    assert.equal(a.ad.adset_id, '120254957889790745');
+    assert.equal(a.ad.status, 'PAUSED');
+    assert.ok(a.creative);
+  }
+});
+
+test('הוספה לקבוצה קיימת: אסור תקציב, קהל, קבוצות, תאריך סיום או הגבלת תדירות', () => {
+  for (const [k, val] of [['daily_budget_ils', 50], ['audience', { countries: ['IL'], age_min: 25 }], ['ad_sets', []], ['end_date', '2030-01-01'], ['frequency_cap', { impressions: 2, days: 7 }]]) {
+    const p = addPlan(); p[k] = val;
+    assert.ok(v(p).some((e) => e.includes(k)), `צריכה להיות שגיאה על ${k}`);
+  }
+});
+
+test('הוספה לקבוצה קיימת: מזהים חייבים להיות מחרוזת ספרות, ורק וואטסאפ', () => {
+  const a = addPlan(); a.add_to_adset.adset_id = 120254957889790745;
+  assert.ok(v(a).some((e) => e.includes('adset_id')));
+  const b = addPlan(); delete b.add_to_adset.campaign_id;
+  assert.ok(v(b).some((e) => e.includes('campaign_id')));
+  const c = addPlan(); c.add_to_adset = 'x';
+  assert.ok(v(c).length > 0);
+  const d = addPlan(); d.goal = 'reach';
+  assert.ok(v(d).some((e) => e.includes('add_to_adset')));
+});
+
+test('הקבוצה הקיימת מול Meta: תקינה עוברת', () => {
+  const j = judgeExistingAdSet(adSetMeta(), addPlan(), { accountId: '999' });
+  assert.deepEqual(j.problems, []);
+  assert.ok(j.lines[0].includes('50₪'));
+});
+
+test('הקבוצה הקיימת מול Meta: חשבון אחר, קמפיין אחר, לא וואטסאפ, נמחקה, או מיקומים שונים - נחסם', () => {
+  const plan = addPlan();
+  assert.equal(judgeExistingAdSet(adSetMeta({ account_id: 'act_1' }), plan, { accountId: '999' }).problems.length, 1);
+  assert.equal(judgeExistingAdSet(adSetMeta({ campaign_id: '1' }), plan, { accountId: '999' }).problems.length, 1);
+  assert.equal(judgeExistingAdSet(adSetMeta({ destination_type: 'WEBSITE' }), plan, { accountId: '999' }).problems.length, 1);
+  assert.equal(judgeExistingAdSet(adSetMeta({ effective_status: 'DELETED' }), plan, { accountId: '999' }).problems.length, 1);
+  const t = adSetMeta(); t.targeting.instagram_positions = ['stream'];
+  assert.equal(judgeExistingAdSet(t, plan, { accountId: '999' }).problems.length, 1);
+  const noTg = adSetMeta({ targeting: {} });
+  assert.equal(judgeExistingAdSet(noTg, plan, { accountId: '999' }).problems.length, 1);
+});

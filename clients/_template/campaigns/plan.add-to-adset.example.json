@@ -1,0 +1,36 @@
+{
+  "_הסבר": "דוגמה להוספת מודעות לקבוצה שכבר רצה (מ-12.11.2026). add_to_adset במקום daily_budget_ils ו-audience: המזהים של הקמפיין והקבוצה מ-upload-log.json של הקמפיין. לא נוצר קמפיין ולא נוצרת קבוצה, והקבוצה לא משתנה (תקציב, קהל, תאריכים, סטטוס). נוצרות רק מודעות, PAUSED. placements חייבים להיות זהים למיקומים של הקבוצה (נבדק מול Meta). שמים את התוכנית בתיקייה משלה - למשל תת-תיקייה בתוך תיקיית הקמפיין - והתמונות בנתיב יחסי אליה.",
+  "name": "השם של הקמפיין הקיים",
+  "destination": "whatsapp",
+  "add_to_adset": {
+    "campaign_id": "<מזהה הקמפיין>",
+    "adset_id": "<מזהה הקבוצה>"
+  },
+  "placements": {
+    "facebook": [
+      "feed",
+      "story",
+      "facebook_reels"
+    ],
+    "instagram": [
+      "stream",
+      "story",
+      "reels"
+    ]
+  },
+  "headline": "הכותרת שמתחת לתמונה",
+  "whatsapp": {
+    "autofill_message": "ההודעה המוכנה",
+    "greeting": "הודעת הברכה (חובה)"
+  },
+  "ads": [
+    {
+      "name": "מודעה חדשה",
+      "text": "הטקסט הראשי",
+      "placement_images": {
+        "feed": "../creatives/new-4x5.jpg",
+        "story": "../creatives/new-9x16.jpg"
+      }
+    }
+  ]
+}

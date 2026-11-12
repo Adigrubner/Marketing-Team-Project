@@ -1,0 +1,27 @@
+{
+  "style": "motion",
+  "fade": 0.5,
+  "_note": "Studio Saga reel, recipe 2026-11-01-1 (reel 2 of 2). v2 12.11.2026: Adi confirmed the two women in bathrobes are the designers (no names per frame). Frames with other / unconfirmed women (Designer/149, 144, 150, 162) removed; Designer/124 added; Interior/37, 50 added; bathroom blocks moved so the designers return every 4-5 frames. 20 frames, ~46.9s (2.0 + 18x2.8 + 4.0 - 19x0.5). NOT BUILT - waiting for Adi to approve the 3 LANDSCAPE crops to 9:16 (Designer/192 x 450 w 675; Interior/48 x 360 w 600; Designer/117 x 760 w 600), zoom only, no pan. Portrait fallbacks if not approved: 192 -> drop (no portrait pool/drone exists); 48 -> Details/78 (id 1PGwwEDBg1WUYSqoYHk9iL3UJDBR7k_cr); 117 -> Designer/123 as closing (id 1vyKIYbaf9XuUiVVbqiESmGqtpND-teiH). No blur (Adi 22.10). Kitchen: Interior/22, not 33/18/65 (kitchens promotion), not opening. Cover suggestion: Designer/123.",
+  "frames": [
+    { "id": "1NrS_efVFNDG3c5EVffwKWKqMlgO4rTvG", "label": "Designer/125 - the designers in bathrobes, shower caps and pink eye masks, laughing with wine by the house wall (opening)", "keep": "center", "motion": "zin" },
+    { "id": "115KY8AnlecQvhB9IJQO4IdS1P0i52oyV", "label": "Designer/192 - drone straight down: the designers on striped loungers, pool on the right - LANDSCAPE 4:3, x crop (pending Adi)", "x": 450, "keep": "center", "motion": "zout" },
+    { "id": "17aYuMv7o2aJF1b29F2vGvNXPcpOKkeVA", "label": "exterior/94 - front door: stone cladding, black door, flagstone path (no house number)", "keep": "center", "motion": "zin" },
+    { "id": "1g7ZFDgb3TJmlPlT947_lYs6KXMMbMlzd", "label": "Interior/40 - entry: walnut louver partition over the blue-grey dresser", "keep": "center", "motion": "zin" },
+    { "id": "1tRarApNlcwDqasJJ9II_U66FKWLfe4mX", "label": "Interior/03 - living room: corner sofa, ring pendant, copper wall lamps, dog on the sofa", "keep": "right", "motion": "zin" },
+    { "id": "1AGN0rqUgQXRoXszlYELyyOIpwH75LS4k", "label": "Interior/09 - the dog sitting on the sofa, walnut oval coffee table", "keep": "center", "motion": "zin" },
+    { "id": "1ydJCI9kYAN30HqqylxwPo62eR4icqDbl", "label": "Interior/53 - bathroom 1: blue-grey shaker vanity, river-stone sink, wood-wrapped mirror", "keep": "center", "motion": "zin" },
+    { "id": "1MYgKIyvdZQ2OACYrfPnJ23hFaV8paTHf", "label": "Designer/167 - the designers in robes and towels in the bathroom 1 shower, one lifts the copper hand shower", "keep": "center", "motion": "zout" },
+    { "id": "1LGloxmVwr3-XowruFDuhO_r65Q8tg1M2", "label": "Interior/22 - kitchen: navy island with brass handles, walnut niche, three pendants (not the promoted frame)", "keep": "center", "motion": "zin" },
+    { "id": "164T1Kakfv5iAurlXkjVuMgrfBj9dcSz6", "label": "Interior/25 - the walnut table set: cheese board, fruit bowl", "keep": "center", "motion": "zin" },
+    { "id": "1uXE8K4JUTyqlcC-UNYalvcHgicZ0hA7H", "label": "Interior/42 - study: walnut shelves, desk, white office chair", "keep": "center", "motion": "zin" },
+    { "id": "1ko-QwXyam9DVgM1iU3zFw3HpliJOsD-Q", "label": "Interior/61 - bathroom 2: copper vessel sink, two white pendants, round mirror", "keep": "center", "motion": "zin" },
+    { "id": "1kyI09wsr7VGGl4n37KyKoMBraZ_DqaXR", "label": "Designer/174 - bathroom 2: one designer sprays with the hand shower, the other ducks behind the wall", "keep": "center", "motion": "zin" },
+    { "id": "1c4iFQXjVFBnfJH-pzpSjQnRCOutFWHiv", "label": "Designer/178 - from above: the designers sitting on the shower bench in robes and caps, laughing", "keep": "center", "motion": "zout" },
+    { "id": "1EzS8I8sb2qoVl0FF1eA0onrZvG-9y2-X", "label": "Interior/64 - beige stairs with thin black rail, going up", "keep": "center", "motion": "zin" },
+    { "id": "1cp73ph2fQ1MroyXT2AO9tMfHF2ywI6l6", "label": "Interior/37 - white wardrobe wall with a walnut seat niche and blue cushion", "keep": "center", "motion": "zin" },
+    { "id": "1TDP9BePwPR6uEtxn0wYqZ3zL4eWvXzV5", "label": "Interior/48 - master bedroom: the bed and the sliding door to the pergola and pool - LANDSCAPE, x crop (pending Adi)", "x": 360, "keep": "center", "motion": "zin" },
+    { "id": "1I-1IHMMGRkbcP3IRHcYqTft4a5v68Nm9", "label": "Interior/50 - master: dark-glass wardrobe and floating walnut vanity with half-round mirror", "keep": "center", "motion": "zin" },
+    { "id": "1Us4TEzgvlj2Fwgv1PQSrROQjREECKFIl", "label": "Designer/124 - back outside: the designers in robes and caps toasting by the black shutter", "keep": "center", "motion": "zin" },
+    { "id": "1m9ybe4EOkvdDq7vLy3OxTrMENB4eu0m9", "label": "Designer/117 - the designers toasting on the poolside loungers, hills behind (closing) - LANDSCAPE, x crop (pending Adi)", "x": 760, "keep": "center", "motion": "zout" }
+  ]
+}
