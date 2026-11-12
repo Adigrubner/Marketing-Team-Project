@@ -1,0 +1,62 @@
+{
+  "_note": "קולאז' מוכן מראש מפרויקט אחר (עדי, 11.11: 'כן, להכין'), באותו מבנה בדיוק כמו מודעה 4 (ad4-collage-clean ב-design/final-spec.json) והסטורי (story-collage ב-design/story-spec.json). ליהי לוי, בת ים. ההבדל היחיד בסטורי: storyTop 200 ו-headerBottom 530 (במקום 269 ו-570), כדי לתקן את הפס הלבן מעל הכותרת (עדי, 2.11). הרצה מתיקיית הפרויקט הראשית: node .claude/skills/ad-creative-design/render.mjs \"<הנתיב לקובץ הזה>\". לא עלה ל-Meta.",
+  "title": "קולאז' חדש · ליהי לוי, בת ים",
+  "subtitle": "משמאל: הסטורי והריל (עם טקסט) · מימין: הקולאז' הנקי לפיד. למטה מה שיראו בפיד",
+  "out": ".",
+  "storyTop": 200,
+  "ads": [
+    {
+      "id": "story-collage",
+      "label": "סטורי וריל · קולאז' + טקסט",
+      "layout": "editorial",
+      "format": "story",
+      "headerBottom": 530,
+      "images": [
+        {
+          "src": "source/cell-1-09.jpg",
+          "pos": "50% 50%"
+        },
+        {
+          "src": "source/cell-2-26.jpg",
+          "pos": "25% 50%"
+        },
+        {
+          "src": "source/cell-3-01.jpg",
+          "pos": "40% 50%"
+        },
+        {
+          "src": "source/cell-4-18.jpg",
+          "pos": "50% 50%"
+        }
+      ],
+      "text": {
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    },
+    {
+      "id": "collage-clean",
+      "label": "פיד · קולאז' נקי",
+      "layout": "clean",
+      "images": [
+        {
+          "src": "source/cell-1-09.jpg",
+          "pos": "50% 50%"
+        },
+        {
+          "src": "source/cell-2-26.jpg",
+          "pos": "20% 50%"
+        },
+        {
+          "src": "source/cell-3-01.jpg",
+          "pos": "35% 50%"
+        },
+        {
+          "src": "source/cell-4-18.jpg",
+          "pos": "50% 50%"
+        }
+      ]
+    }
+  ]
+}

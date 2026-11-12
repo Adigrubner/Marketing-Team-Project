@@ -70,3 +70,4 @@
 |-------|--------|-----|--------|
 | 6.10.2026 | קרוסלה (6 רוחב) - סלון, וילונות השיפון | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DeJ9hZxlSo0/) · `content/posts/2026-10-05-anat-weissberg-wide/` |
 | 11.10.2026 | רילס (11 פריימים) - חדר שינה, חדר רחצה, ויטרינת חדר התחביב | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/reel/DeXJqB0DyAi/) · `content/posts/2026-10-11-anat-weissberg-reels/` |
+| 11.11.2026 7:30 | קרוסלה נושאית "פינות עבודה" (8 אורך, 2 שלה) - השולחן שנסגר ונפתח · `Interior/36` · `Interior/35` | אינסטגרם (מתויגת בטקסט, בלי Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DflvGyPFSX2/) · `content/posts/2026-11-11-home-offices-designers/` |

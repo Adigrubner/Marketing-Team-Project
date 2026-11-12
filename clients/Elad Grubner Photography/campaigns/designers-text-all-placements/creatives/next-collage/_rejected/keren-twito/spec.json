@@ -1,0 +1,39 @@
+{
+  "_note": "קולאז' 2x2 מוכן מראש (עדי, 11.11), אחרי שענבל קרקו נפסלה ('התמונות חתוכות, לא יושבות טוב'). רק צילומים לאורך, חיתוך מינימלי. הסטורי: editorial, format story, storyTop 200, headerBottom 530 (כמו גרסת ענבל). הפיד: feed/collage-clean.jpg נבנה בנפרד ב-ffmpeg (1080x1350, 2x2, רווח 8 לבן), כי פריסת clean של render.mjs חותכת מכל תא עוד 30% בפיד. הרצה מתיקיית הפרויקט הראשית: node .claude/skills/ad-creative-design/render.mjs \"<הנתיב לקובץ הזה>\". לא עלה ל-Meta.",
+  "title": "קולאז' חדש · קרן טויטו, שלוחות",
+  "subtitle": "סטורי וריל (עם טקסט). קובץ הפיד נבנה בנפרד ב-feed/collage-clean.jpg",
+  "out": ".",
+  "storyTop": 200,
+  "ads": [
+    {
+      "id": "story-collage",
+      "label": "סטורי וריל · קולאז' + טקסט",
+      "layout": "editorial",
+      "format": "story",
+      "headerBottom": 530,
+      "images": [
+        {
+          "src": "source/story-cell-1-26.jpg",
+          "pos": "50% 50%"
+        },
+        {
+          "src": "source/story-cell-2-02.jpg",
+          "pos": "50% 50%"
+        },
+        {
+          "src": "source/story-cell-3-12.jpg",
+          "pos": "50% 50%"
+        },
+        {
+          "src": "source/story-cell-4-15.jpg",
+          "pos": "50% 50%"
+        }
+      ],
+      "text": {
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    }
+  ]
+}

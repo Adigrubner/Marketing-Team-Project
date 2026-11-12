@@ -100,3 +100,4 @@
 |-------|--------|-----|--------|
 | 16.10.2026 09:00 | קרוסלה (6 אורך) - חדר עבודה (קוביית הזכוכית) | אינסטגרם · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/Dei2JH3AM0C/) · `content/posts/2026-10-16-limor-ziv-eden-office/` |
 | 3.11.2026 20:00 | קרוסלה נושאית "מטבחים" (10 רוחב, 2 שלה) - מטבח · `Interior/22` · `Interior/24` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DfSfSm-HU6e/) · `content/posts/2026-11-03-kitchens-four-designers/` |
+| 11.11.2026 7:30 | קרוסלה נושאית "פינות עבודה" (8 אורך, 1 שלה) - חדר עבודה · `Interior/07` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DflvGyPFSX2/) · `content/posts/2026-11-11-home-offices-designers/` |

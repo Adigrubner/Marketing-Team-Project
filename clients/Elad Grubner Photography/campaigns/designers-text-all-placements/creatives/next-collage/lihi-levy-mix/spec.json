@@ -1,0 +1,22 @@
+{
+  "_note": "קולאז' מעורב (עדי, 11.11: 'אין בעיה לשים גם דיטייל, או תמונה של מעצבת, בתנאי שזה חלק מ, ויש גם תמונות של חללים'). 3 תאים: למעלה צילום רוחב של החלל המרכזי ברוחב מלא, למטה מימין צילום רוחב של חלל נוסף (719x530), למטה משמאל צילום אורך (353x530, שלם) - המעצבת בתוך המטבח. רווח לבן 8. הסטורי: editorial, format story, storyTop 200, headerBottom 530, והתמונה source/story-photos.jpg (1080x1390, בדיוק בגודל אזור התמונה, כך ש-render.mjs לא חותך ממנה): הצילום הגדול 1080x852 (שורות 530-1382), השורה התחתונה 530 (שורות 1390-1920). הפיד: feed/collage-clean.jpg נבנה ב-ffmpeg: הגדול 1080x812, השורה התחתונה 530. מספרי החיתוך ב-source/crops.json. הרצה מתיקיית הפרויקט הראשית: node .claude/skills/ad-creative-design/render.mjs \"<הנתיב לקובץ הזה>\" (הכלי כותב גם feed/story-collage.jpg ו-contact-sheet.jpg, שאין בהם צורך כאן). לא עלה ל-Meta.",
+  "title": "קולאז' מעורב · ליהי לוי, בת ים",
+  "subtitle": "סטורי וריל (עם טקסט). קובץ הפיד נבנה בנפרד ב-feed/collage-clean.jpg",
+  "out": ".",
+  "storyTop": 200,
+  "ads": [
+    {
+      "id": "story-collage",
+      "label": "סטורי וריל · קולאז' מעורב + טקסט",
+      "layout": "editorial",
+      "format": "story",
+      "headerBottom": 530,
+      "images": [ { "src": "source/story-photos.jpg", "pos": "50% 50%" } ],
+      "text": {
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    }
+  ]
+}
