@@ -116,3 +116,4 @@
 |-------|--------|-----|--------|
 | 8.10.2026 | קרוסלה (6 אורך) - `House 2`, המטבח | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DePblfRmyW-/) · `content/posts/2026-10-08-mali-albaz-house2-kitchen/` |
 | 21.10.2026 20:00 | קרוסלה נושאית "המרפסת היא עוד חדר בבית" (9 רוחב, 3 שלה) - `House 2`, מרפסת הגג · `House 2/18` · `House 2/16` · `House 2/17` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/Dew5wwIjdlr/) · `content/posts/2026-10-21-balconies-four-designers/` |
+| 11.11.2026 7:30 | קרוסלה נושאית "פינות עבודה" (8 אורך, 1 שלה) - `House 3`, חדר העבודה · `House 3/26` (פתיחה, וגם התמונה בגוגל ביזנס) | אינסטגרם (מתויגת בטקסט, בלי Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DflvGyPFSX2/) · `content/posts/2026-11-11-home-offices-designers/` |

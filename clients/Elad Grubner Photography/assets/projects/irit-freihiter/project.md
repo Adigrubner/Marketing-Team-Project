@@ -130,3 +130,4 @@
 |-------|--------|-----|--------|
 | 15.10.2026 20:00 | קרוסלה נושאית "ארבעה סלונים" (12 רוחב, 3 שלה) - הסלון בגבעת שמואל · `Interior/13` · `Interior/03` · `Interior/07` (סגירה) | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/Dehc8VBm6-x/) · `content/posts/2026-10-15-living-rooms-four-designers/` |
 | 3.11.2026 20:00 | קרוסלה נושאית "מטבחים" (10 רוחב, 3 שלה) - מטבח · `Interior/43` (פתיחה) · `Interior/31` · `Details/132` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DfSfSm-HU6e/) · `content/posts/2026-11-03-kitchens-four-designers/` |
+| 11.11.2026 7:30 | קרוסלה נושאית "פינות עבודה" (8 אורך, 1 שלה) - עמדת עבודה · `Interior/68` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DflvGyPFSX2/) · `content/posts/2026-11-11-home-offices-designers/` |

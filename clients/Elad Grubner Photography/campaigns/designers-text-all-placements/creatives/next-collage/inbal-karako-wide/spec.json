@@ -1,0 +1,22 @@
+{
+  "_note": "פריסה 'צילום גדול + פס' (11.11), אחרי שאלעד ועדי פסלו את קרן וטלי ('צריך להציג חללים ולא רגל של שולחן'). למעלה צילום רוחב שלם של החלל המרכזי (3:2, בלי חיתוך), מתחת צילום רוחב שני כפס רחב, רווח לבן 8. הסטורי: editorial, format story, storyTop 200, headerBottom 530, והתמונה source/story-photos.jpg (1080x1390, בדיוק בגודל אזור התמונה, כך ש-render.mjs לא חותך ממנה). הפיד: feed/collage-clean.jpg נבנה ב-ffmpeg (מספרי החיתוך ב-source/crops.json). הרצה מתיקיית הפרויקט הראשית: node .claude/skills/ad-creative-design/render.mjs \"<הנתיב לקובץ הזה>\" (הכלי כותב גם feed/story-collage.jpg ו-contact-sheet.jpg, שאין בהם צורך כאן). לא עלה ל-Meta.",
+  "title": "חללים שלמים · ענבל קרקו, תל אביב",
+  "subtitle": "סטורי וריל (עם טקסט). קובץ הפיד נבנה בנפרד ב-feed/collage-clean.jpg",
+  "out": ".",
+  "storyTop": 200,
+  "ads": [
+    {
+      "id": "story-collage",
+      "label": "סטורי וריל · שני חללים + טקסט",
+      "layout": "editorial",
+      "format": "story",
+      "headerBottom": 530,
+      "images": [ { "src": "source/story-photos.jpg", "pos": "50% 50%" } ],
+      "text": {
+        "headline": "מעצבות ומעצבי פנים?",
+        "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה",
+        "highlight": "3 רילסים במתנה"
+      }
+    }
+  ]
+}

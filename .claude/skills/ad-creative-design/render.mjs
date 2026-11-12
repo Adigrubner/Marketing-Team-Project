@@ -101,11 +101,14 @@ const signature = (ad, color, top) => ad.text.signature ? `
 // בקובץ לסטורי בלבד (format: "story") - מתחת לשם החשבון של הסטורי (מ-269), והתמונה ממלאת עד למטה.
 const STORY_TOP = 269;
 const isStory = (ad) => ad.format === 'story';
+// storyTop (רשות, במודעה או ב-spec): מאיפה הפאנל של הסטורי מתחיל. ברירת המחדל 269, הגבול הזהיר של Meta.
+// בטלפון השם של החשבון נגמר בערך ב-200, ולכן 269 השאיר פס לבן ריק מעל הכותרת (עדי, 2.11). עם 200 הטקסט ממורכז בין סוף השם לתמונה.
+const storyTop = (ad) => ad.storyTop ?? SPEC.storyTop ?? STORY_TOP;
 // בקובץ לפיד בלבד (format: "feed") התמונה נגמרת איפה שהפיד נגמר (1635), גם בתמונה בודדת.
 // בקובץ משותף היא ממשיכה עד למטה בשביל הסטורי, והפיד חותך לה את התחתית: רואים יותר תקרה (אלעד, 1.11, מודעה 1).
 const isFeed = (ad) => ad.format === 'feed';
 const headerText = (ad, hb, block) => {
-  const top = isStory(ad) ? STORY_TOP : FEED.top;
+  const top = isStory(ad) ? storyTop(ad) : FEED.top;
   return `
   <div style="position:absolute;right:${M}px;left:${M}px;top:${top}px;height:${hb - top}px;display:flex;flex-direction:column;justify-content:center">${block}</div>`;
 };
@@ -191,7 +194,10 @@ try {
     const dom = chrome([`--window-size=${W},${H}`, '--dump-dom', url(html)]);
     const rep = JSON.parse((dom.match(/<pre id="report"[^>]*>([^<]*)<\/pre>/) || [])[1] || '{}');
     if (!rep.fontsOk) problems.push(`${ad.id}: הגופן Heebo לא נטען (צריך אינטרנט)`);
-    for (const b of rep.blocks || []) if (b.top < SAFE.top || b.bottom > SAFE.bottom) problems.push(`${ad.id}: הטקסט ב-${b.top}-${b.bottom}, מחוץ ל-${SAFE.top}-${SAFE.bottom}`);
+    // בקובץ לסטורי בלבד הטקסט צריך להיות מתחת לתחילת הפאנל (storyTop), ולא חייב להיות בתוך ה-4:5 של הפיד
+    const safeTop = isStory(ad) ? Math.min(SAFE.top, storyTop(ad)) : SAFE.top;
+    for (const b of rep.blocks || []) if (b.top < safeTop || b.bottom > SAFE.bottom) problems.push(`${ad.id}: הטקסט ב-${b.top}-${b.bottom}, מחוץ ל-${safeTop}-${SAFE.bottom}`);
+    for (const b of rep.blocks || []) console.log(`${ad.id}: הטקסט בשורות ${b.top}-${b.bottom}`);
     for (const s of rep.shrunk || []) problems.push(`${ad.id}: השורה הוקטנה כדי להיכנס - "${s}". עדיף לקצר`);
     const png = join(tmp, `${ad.id}.png`);
     chrome([`--window-size=${W},${H}`, `--screenshot=${png}`, url(html)]);
