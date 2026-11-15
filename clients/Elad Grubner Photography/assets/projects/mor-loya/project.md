@@ -81,3 +81,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 18.10.2026 20:30 | קרוסלה נושאית "החדר הכי קשה לצלם" (9 אורך → 4:5, 2 שלה) - רחצה טראצו · `Interior/41` · `Interior/25` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DepOja1lTv4/) · `content/posts/2026-10-18-bathrooms-four-designers/` |
+| 13.11.2026 9:00 | קרוסלה קצרה (5 אורך, 4:5) - פינת האוכל, השולחן הערוך · `Details/48` · `Designer/99` · `Details/50` · `Details/45` · `Details/47` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DfrDIKxlS8a/) · `content/posts/2026-11-13-mor-loya-dining/` |
