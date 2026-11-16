@@ -25,6 +25,10 @@
 //   בלי וואטסאפ ובלי כפתור. כל הבלמים למעלה זהים. דוגמאות: clients/_template/campaigns/plan.promote.reach.example.json
 //   ו-plan.promote.engagement.example.json
 //
+// קבוצה חדשה בקמפיין שכבר קיים (מ-15.11.2026): add_to_campaign: { "campaign_id": "..." }, עם תקציב וקהל (או ad_sets) כרגיל.
+//   לא נוצר קמפיין, והקמפיין לא משתנה. הקבוצה והמודעות נוצרות PAUSED, עם כל הבלמים (תקרה לקבוצה ולסך בחשבון).
+//   לפני יצירה הכלי בודק מול Meta (קריאה בלבד) את הקמפיין, וב---check גם את הקבוצה עצמה (validate_only).
+//   דוגמה: clients/_template/campaigns/plan.add-to-campaign.example.json
 // הוספת מודעות לקבוצה שכבר רצה (מ-12.11.2026): add_to_adset: { "campaign_id": "...", "adset_id": "..." } במקום תקציב וקהל.
 //   לא נוצר קמפיין ולא נוצרת קבוצה, והקבוצה הקיימת לא משתנה (תקציב, קהל, תאריכים, סטטוס). נוצרים רק קריאייטיבים ומודעות - PAUSED.
 //   לפני יצירה הכלי בודק מול Meta (קריאה בלבד): הקבוצה קיימת, בחשבון הזה, בקמפיין שבתוכנית, של וואטסאפ, ועם אותם מיקומים.
@@ -50,7 +54,7 @@ import {
   usesAdvancedAudience, describeAdvancedAudience, planWarnings, needsAudiencePreflight,
   customAudienceRefsOf, judgeCustomAudience, sizeRangeText, detailedItemsOf, cardDescriptionsOf,
   isExistingPostAd, EXISTING_POST_PLATFORMS, judgeAccountBudget, hasPlacementImages, placementImagesOf,
-  promoteGoalOf, isPromoteGoalPlan, frequencyCapOf, isAddToAdSetPlan, judgeExistingAdSet,
+  promoteGoalOf, isPromoteGoalPlan, frequencyCapOf, isAddToAdSetPlan, judgeExistingAdSet, isAddToCampaignPlan, judgeExistingCampaign,
 } from './lib/meta-build.js';
 
 const args = process.argv.slice(2);
@@ -98,7 +102,12 @@ const audienceLine = (a) =>
   `${a.age_max ? ` עד ${a.age_max}` : ''}` +
   `${isMultiAdPlan(plan) ? (a.advantage_audience ? ' · קהל אוטומטי של Meta' : ' · בלי קהל אוטומטי') : ''}`;
 const addMode = isAddToAdSetPlan(plan);
+const campaignMode = isAddToCampaignPlan(plan);
 info(`קמפיין:        ${plan.name}`);
+if (campaignMode) {
+  info(`סוג:           קבוצת מודעות חדשה בתוך קמפיין שכבר קיים - לא נוצר קמפיין, והקמפיין לא משתנה`);
+  info(`הקמפיין הקיים: ${plan.add_to_campaign.campaign_id} (נבדק מול Meta ב---check וב---confirm)`);
+}
 if (addMode) {
   info(`סוג:           מוסיפים מודעות לקבוצה שכבר קיימת - לא נוצר קמפיין ולא נוצרת קבוצה`);
   info(`הקמפיין הקיים: ${plan.add_to_adset.campaign_id}`);
@@ -233,7 +242,13 @@ try {
     die(`בדיקת הקבוצה הקיימת מול Meta מצאה ${adSetFailures} בעיות - עוצרים לפני שנוצר משהו. מריצים --check לפרטים.`);
   }
 
-  let audienceFailures = adSetFailures;
+  // 🛑 בלם: קבוצה חדשה בקמפיין קיים - הקמפיין קיים, בחשבון הזה, עם המטרה הנכונה ובלי תקציב ברמת הקמפיין (קריאה בלבד)
+  const campaignFailures = campaignMode ? await runExistingCampaignCheck() : 0;
+  if (confirm && campaignFailures) {
+    die(`בדיקת הקמפיין הקיים מול Meta מצאה ${campaignFailures} בעיות - עוצרים לפני שנוצר משהו. מריצים --check לפרטים.`);
+  }
+
+  let audienceFailures = adSetFailures + campaignFailures;
   // בהוספה לקבוצה קיימת אין קהל חדש לבדוק - הקהל של הקבוצה לא משתנה
   if (!addMode && (check || needsAudiencePreflight(plan, safety))) {
     audienceFailures += await runAudienceCheck(preview);
@@ -299,6 +314,25 @@ async function runAccountBudgetCheck() {
   const msg = `רץ עכשיו ${j.runningIls}₪ ליום + התוכנית ${totalDailyBudgetIls(plan)}₪ = ${j.totalIls}₪ ליום (תקרה לסך הכולל: ${j.capIls}₪)`;
   (j.over ? bad : ok)(msg);
   return j.over;
+}
+
+// --- הקמפיין הקיים שמוסיפים אליו קבוצה - קריאה בלבד ---
+// מחזיר את מספר הבעיות החוסמות.
+async function runExistingCampaignCheck() {
+  title('הקמפיין הקיים - בדיקה מול Meta (קריאה בלבד)');
+  try {
+    const m = await graphGet(plan.add_to_campaign.campaign_id, {
+      fields: 'name,account_id,objective,effective_status,daily_budget,lifetime_budget',
+    });
+    const j = judgeExistingCampaign(m, plan, { accountId: process.env.META_AD_ACCOUNT_ID });
+    j.lines.forEach((l) => info(`  ${l}`));
+    j.problems.forEach((p) => bad(p));
+    if (!j.problems.length) ok('הקמפיין קיים, בחשבון הזה, עם המטרה הנכונה ובלי תקציב ברמת הקמפיין');
+    return j.problems.length;
+  } catch (e) {
+    bad(`לא הצלחתי לקרוא את הקמפיין ${plan.add_to_campaign.campaign_id}: ${e.message}`);
+    return 1;
+  }
 }
 
 // --- הקבוצה הקיימת שמוסיפים אליה מודעות - קריאה בלבד ---
@@ -439,11 +473,26 @@ async function runCheck(hashOf, audienceFailures = 0) {
   let failed = audienceFailures;
   title('קמפיין וקריאייטיבים - Meta בודקת בלי ליצור');
 
-  if (!addMode) {
+  if (!addMode && !campaignMode) {
     try {
       await graphPost(adAccountPath('campaigns'), { ...built.campaign, ...validateOnly });
       ok('קמפיין - Meta אישרה את הבקשה');
     } catch (e) { failed++; bad(`קמפיין - ${e.message}`); }
+  }
+
+  // קבוצה חדשה בקמפיין קיים: הקמפיין כבר קיים, ולכן Meta יכולה לבדוק גם את הקבוצה עצמה בלי ליצור
+  if (campaignMode) {
+    const withCampaign = buildAll(plan, {
+      env: process.env, safety,
+      ids: { campaignId: plan.add_to_campaign.campaign_id, adSetId: '0', adSetIdOf: () => '0', hashOf, creativeIdOf: () => '0' },
+    });
+    for (const { label, body } of adSetBodiesOf(withCampaign)) {
+      try {
+        assertPaused(body, 'האד-סט');
+        await graphPost(adAccountPath('adsets'), { ...body, ...validateOnly });
+        ok(`קבוצה${label ? ` "${label}"` : ''} - Meta אישרה את הבקשה (כולל הקהל, התקציב והמיקומים)`);
+      } catch (e) { failed++; bad(`קבוצה${label ? ` "${label}"` : ''} - ${e.message}`); }
+    }
   }
 
   for (const a of built.ads) {
@@ -453,7 +502,7 @@ async function runCheck(hashOf, audienceFailures = 0) {
     } catch (e) { failed++; bad(`קריאייטיב "${a.name}" - ${e.message}`); }
   }
 
-  if (addMode) {
+  if (addMode || campaignMode) {
     warn('המודעות עצמן לא נבדקו: Meta צריכה קריאייטיב קיים כדי לבדוק אותן. הן ייבדקו ביצירה עצמה (הקבוצה כבר נבדקה למעלה).');
   } else warn(
     'האד-סט והמודעות לא נבדקו: Meta צריכה קמפיין קיים כדי לבדוק אותם. הם ייבדקו ביצירה עצמה.' +
@@ -505,13 +554,20 @@ async function runCreate(hashOf) {
     return;
   }
 
-  const campaignBody = buildAll(plan, { env: process.env, safety, ids }).campaign;
-  assertPaused(campaignBody, 'הקמפיין');
-  const campaign = await graphPost(adAccountPath('campaigns'), campaignBody);
-  record('campaign', plan.name, campaign.id);
-  ok(`קמפיין נוצר: ${campaign.id}`);
-
-  ids.campaignId = campaign.id;
+  if (campaignMode) {
+    // קבוצה חדשה בקמפיין קיים: לא יוצרים קמפיין ולא משנים אותו
+    ids.campaignId = plan.add_to_campaign.campaign_id;
+    log.add_to_campaign = { ...plan.add_to_campaign };
+    writeFileSync(logPath, JSON.stringify(log, null, 2));
+    ok(`בתוך הקמפיין הקיים: ${ids.campaignId}`);
+  } else {
+    const campaignBody = buildAll(plan, { env: process.env, safety, ids }).campaign;
+    assertPaused(campaignBody, 'הקמפיין');
+    const campaign = await graphPost(adAccountPath('campaigns'), campaignBody);
+    record('campaign', plan.name, campaign.id);
+    ok(`קמפיין נוצר: ${campaign.id}`);
+    ids.campaignId = campaign.id;
+  }
 
   if (!hasAdSets(plan)) {
     // קבוצת מודעות אחת - בדיוק כמו קודם

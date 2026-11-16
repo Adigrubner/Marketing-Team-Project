@@ -68,6 +68,12 @@ function sendNow() {
   props.setProperty('lastSent', today);
 }
 
+// שליחה חוזרת של הדוח של היום (אחרי עדכון) - נוספה 15.11.2026
+function resendToday() {
+  PropertiesService.getScriptProperties().deleteProperty('lastSent');
+  sendNow();
+}
+
 // בדיקה: שולח את הדוח הנוכחי רק אלייך, בלי בדיקת תאריך
 function sendTestToMe() {
   const me = Session.getEffectiveUser().getEmail();
