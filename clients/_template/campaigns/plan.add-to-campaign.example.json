@@ -1,0 +1,55 @@
+{
+  "_הסבר": "דוגמה לקבוצת מודעות חדשה בתוך קמפיין שכבר קיים (מ-15.11.2026). add_to_campaign עם מזהה הקמפיין (מ-upload-log.json שלו), ותקציב וקהל כרגיל (או ad_sets). לא נוצר קמפיין והקמפיין לא משתנה; הקבוצה והמודעות נוצרות PAUSED, עם תקרת התקציב לקבוצה ולסך בחשבון. ב---check Meta בודקת גם את הקבוצה עצמה. שמים את התוכנית בתיקייה משלה (עם upload-log.json משלה).",
+  "name": "השם של הקמפיין הקיים",
+  "destination": "whatsapp",
+  "add_to_campaign": {
+    "campaign_id": "<מזהה הקמפיין>"
+  },
+  "ad_sets": [
+    {
+      "name": "שם הקבוצה החדשה",
+      "daily_budget_ils": 50,
+      "audience": {
+        "countries": [
+          "IL"
+        ],
+        "age_min": 25,
+        "advantage_audience": false,
+        "custom_audiences": [
+          {
+            "id": "<מזהה קהל>",
+            "name": "<שם>"
+          }
+        ],
+        "custom_audience_expansion": false
+      }
+    }
+  ],
+  "placements": {
+    "facebook": [
+      "feed",
+      "story",
+      "facebook_reels"
+    ],
+    "instagram": [
+      "stream",
+      "story",
+      "reels"
+    ]
+  },
+  "headline": "הכותרת",
+  "whatsapp": {
+    "autofill_message": "ההודעה המוכנה",
+    "greeting": "הודעת הברכה (חובה)"
+  },
+  "ads": [
+    {
+      "name": "מודעה",
+      "text": "הטקסט הראשי",
+      "placement_images": {
+        "feed": "../creatives/a-4x5.jpg",
+        "story": "../creatives/a-9x16.jpg"
+      }
+    }
+  ]
+}

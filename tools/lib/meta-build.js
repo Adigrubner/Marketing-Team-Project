@@ -117,6 +117,39 @@ function validateAddToAdSet(plan) {
   return errors;
 }
 
+// קבוצת מודעות חדשה בתוך קמפיין שכבר קיים (מ-15.11.2026, לבקשת עדי):
+//   { "add_to_campaign": { "campaign_id": "<הקמפיין הקיים>" }, "ad_sets": [...] או daily_budget_ils + audience, "ads": [...] }
+// לא נוצר קמפיין. נוצרות קבוצה (או קבוצות), קריאייטיבים ומודעות - הכל PAUSED, עם תקרת התקציב הרגילה.
+// הקמפיין הקיים לא משתנה. הוא נבדק מול Meta (קריאה בלבד) לפני יצירה.
+export const isAddToCampaignPlan = (plan) => Boolean(plan && plan.add_to_campaign !== undefined);
+
+function validateAddToCampaign(plan) {
+  const t = plan.add_to_campaign;
+  if (!t || typeof t !== 'object' || Array.isArray(t)) return ['add_to_campaign צריך להיות { "campaign_id": "..." } - המזהה של הקמפיין הקיים'];
+  const errors = [];
+  if (!isIdString(t.campaign_id)) errors.push('add_to_campaign.campaign_id - מזהה הקמפיין הקיים, כמחרוזת של ספרות (ב-upload-log.json של הקמפיין)');
+  if (isAddToAdSetPlan(plan)) errors.push('add_to_campaign ו-add_to_adset לא ביחד: או קבוצה חדשה בקמפיין קיים, או מודעות לקבוצה קיימת');
+  if (!isMultiAdPlan(plan)) errors.push('add_to_campaign נתמך רק בתוכנית עם רשימת מודעות (ads)');
+  if (goalOf(plan) !== 'whatsapp') errors.push('add_to_campaign נתמך כרגע רק בקמפיין שיחות בוואטסאפ (בלי goal)');
+  return errors;
+}
+
+// 🛑 הקמפיין הקיים, כפי ש-Meta מחזירה אותו (קריאה בלבד), מול התוכנית.
+// meta: { name, account_id, objective, effective_status, daily_budget, lifetime_budget }
+export function judgeExistingCampaign(meta, plan, { accountId }) {
+  const problems = [];
+  const acct = String(meta?.account_id ?? '').replace(/^act_/, '');
+  if (acct !== String(accountId ?? '').replace(/^act_/, '')) problems.push('הקמפיין לא נמצא בחשבון המודעות של הלקוח');
+  const expected = buildCampaign(plan).objective;
+  if (meta?.objective !== expected) problems.push(`המטרה של הקמפיין היא ${meta?.objective || '?'}, ולתוכנית הזו צריך ${expected}`);
+  if (['DELETED', 'ARCHIVED'].includes(meta?.effective_status)) problems.push(`הקמפיין ${meta.effective_status === 'DELETED' ? 'נמחק' : 'בארכיון'}`);
+  // תקציב ברמת הקמפיין (Advantage campaign budget) מתנגש עם תקציב לכל קבוצה
+  if (Number(meta?.daily_budget) > 0 || Number(meta?.lifetime_budget) > 0) {
+    problems.push('לקמפיין יש תקציב ברמת הקמפיין, והתוכנית קובעת תקציב לכל קבוצה - Meta לא תקבל את שניהם');
+  }
+  return { problems, lines: [`"${meta?.name}" · ${meta?.effective_status} · ${meta?.objective}`] };
+}
+
 // 🛑 הקבוצה הקיימת, כפי ש-Meta מחזירה אותה (קריאה בלבד), מול התוכנית.
 // meta: { name, account_id, campaign_id, effective_status, optimization_goal, destination_type, daily_budget, targeting }
 // מחזיר { problems: [...חוסמות], lines: [...מידע] }
@@ -374,6 +407,8 @@ export function validatePlan(plan, { safety, fileExists, today = new Date() }) {
   const need = (cond, msg) => { if (!cond) errors.push(msg); };
 
   need(isNonEmptyString(plan.name), 'חסר name (שם הקמפיין)');
+
+  if (isAddToCampaignPlan(plan)) errors.push(...validateAddToCampaign(plan));
 
   if (isAddToAdSetPlan(plan)) {
     // בלי תקציב ובלי קהל - הקבוצה הקיימת לא משתנה

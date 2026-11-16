@@ -1,0 +1,19 @@
+{
+  "_note": "הסטורי של סוניה וספיר (קולאז' 4 צילומים), לקבוצה לקהל החם (15.11). זהה ל-story-collage ב-design/story-spec.json, עם התיקון של עדי מ-2.11 (הפס הלבן מעל הכותרת): storyTop 200 ו-headerBottom 530 במקום 269 ו-570, כמו בענבל ובליהי. הפיד נשאר creatives/final/feed/ad4-collage-clean.jpg בלי שינוי. הרצה מתיקיית הפרויקט הראשית: node .claude/skills/ad-creative-design/render.mjs \"<הנתיב לקובץ הזה>\".",
+  "title": "סטורי · סוניה וספיר · לקהל החם",
+  "subtitle": "קובץ לסטורי ולריל בלבד, עם תיקון הפס הלבן (2.11)",
+  "out": ".",
+  "storyTop": 200,
+  "ads": [
+    {
+      "id": "story-collage", "label": "סטורי · קולאז' סוניה וספיר", "layout": "editorial", "format": "story", "headerBottom": 530,
+      "images": [
+        { "src": "../../creatives/source/cell-1-14.jpg", "pos": "50% 70%" },
+        { "src": "../../creatives/source/cell-2-06.jpg", "pos": "50% 40%" },
+        { "src": "../../creatives/source/cell-3-04.jpg", "pos": "50% 45%" },
+        { "src": "../../creatives/source/cell-4-05.jpg", "pos": "50% 55%" }
+      ],
+      "text": { "headline": "מעצבות ומעצבי פנים?", "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה", "highlight": "3 רילסים במתנה" }
+    }
+  ]
+}

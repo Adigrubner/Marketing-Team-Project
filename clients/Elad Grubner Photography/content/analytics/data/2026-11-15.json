@@ -1,0 +1,658 @@
+{
+  "client": "Elad Grubner Photography",
+  "reportDate": "2026-11-15",
+  "weekStart": "2026-11-08",
+  "weekEnd": "2026-11-14",
+  "generatedAt": "15.11.2026 09:30",
+  "pageUrl": "https://claude.ai/artifact/V3MyYrJgfbnyQasLkCHKq7",
+  "headline": "שבוע עם כוכב אחד ברור: הפרויקט של ליז לוז (12.11) הגיע ל-963 חשיפות (פי 2 מהממוצע) ו-9 שיתופים - ליז אישרה Collab והגיבה. שאר השבוע מתחת לממוצע, והחלש - ליאור רזו (168), שוב בלי Collab. שני הרילסים הראשונים של הווידאו של אלעד: חן 319, יערה עוד צעירה.",
+  "account": {
+    "followers": 2644,
+    "followersChange": 14
+  },
+  "baseline": {
+    "avgReach": 478,
+    "periodLabel": "30 הימים שלפני 8.11 (24 פוסטים ורילס, בלי שירן 30.10) · קרוסלות בלבד 436 · בלי הסלונים והרילס של עליא - 355"
+  },
+  "week": {
+    "posts": 6,
+    "postsNote": "6 פוסטים (שני 9.11 בלי פוסט - חן הוזזה ל-10.11). 2 רילסים של אלעד (וידאו אמיתי). מור (שישי, יומיים) ורילס יערה (מוצ\"ש, 9 שעות) עוד צעירים",
+    "avgReach": 328,
+    "avgReachVsBaseline": -31,
+    "savesShares": 12
+  },
+  "posts": [
+    {
+      "date": "2026-11-08",
+      "time": "16:04",
+      "format": "קרוסלה (11 רוחב)",
+      "title": "ליאור רזו - נילי (פרויקט מלא)",
+      "url": "https://www.instagram.com/p/Dfe7bH-FVZY/",
+      "reach": 168,
+      "likes": 12,
+      "comments": 2,
+      "saves": 0,
+      "shares": null,
+      "follows": 0,
+      "vsAvg": -65,
+      "young": false,
+      "note": "החלש של השבוע. 488 צפיות. **בלי Collab** - בראש הפוסט רק אלעד (ההזמנה נשלחה ולא אושרה), כמו באמבטיות 18.10. ליאור לא הגיבה."
+    },
+    {
+      "date": "2026-11-10",
+      "time": "20:09",
+      "format": "🎬 רילס - וידאו של אלעד (55 שנ׳)",
+      "title": "חן אברהמוף - חיפה (רילס)",
+      "url": "https://www.instagram.com/reel/Dfkg_07iCeH/",
+      "reach": 319,
+      "likes": 16,
+      "comments": 1,
+      "saves": 0,
+      "shares": 1,
+      "follows": null,
+      "vsAvg": -33,
+      "young": false,
+      "note": "הרילס הראשון מווידאו אמיתי של אלעד. 526 צפיות, 34.2% מעל 3 שניות (כמעט הסף 35%), זמן צפייה 8.4 שנ׳. Collab אושר. מתחת לממוצע, אבל פי 2-3 מהרילסים מסטילס של אוקטובר (105, 149)."
+    },
+    {
+      "date": "2026-11-11",
+      "time": "07:31",
+      "format": "קרוסלה (8 אורך)",
+      "title": "פינות עבודה - שש מעצבות",
+      "url": "https://www.instagram.com/p/DflvGyPFSX2/",
+      "reach": 250,
+      "likes": 38,
+      "comments": 5,
+      "saves": 0,
+      "shares": 1,
+      "follows": 0,
+      "vsAvg": -48,
+      "young": false,
+      "note": "בן 4 ימים. 702 צפיות, 38 לייקים ו-5 תגובות - מעורבות טובה, חשיפה נמוכה. Collab עם 3 מתוך 4 שהוזמנו. 'כמה מעצבות' בחדר צדדי - שוב מתחת ל-400 (כמו אמבטיות, מרפסות, וילונות, ילדים)."
+    },
+    {
+      "date": "2026-11-12",
+      "time": "12:32",
+      "format": "קרוסלה (11 רוחב)",
+      "title": "ליז לוז - חולון (פרויקט מלא)",
+      "url": "https://www.instagram.com/p/Dfo2VCQFRh7/",
+      "reach": 963,
+      "likes": 40,
+      "comments": 5,
+      "saves": 0,
+      "shares": 9,
+      "follows": 0,
+      "vsAvg": 101,
+      "young": false,
+      "note": "⭐ הכוכב, אחרי 2.7 ימים בלבד - עוד עולה. 3,184 צפיות, 9 שיתופים, 2 ריפוסטים. Collab אושר וליז הגיבה (🔥🔥🔥). הזווית: 'איזה כיף להגיע לפרויקט שבו הכל כבר מוכן' - רגע אישי וקליל של אלעד."
+    },
+    {
+      "date": "2026-11-13",
+      "time": "09:02",
+      "format": "קרוסלה קצרה (5 אורך)",
+      "title": "מור לויה - פינת האוכל (שישי)",
+      "url": "https://www.instagram.com/p/DfrDIKxlS8a/",
+      "reach": 116,
+      "likes": 11,
+      "comments": 0,
+      "saves": 0,
+      "shares": 1,
+      "follows": 0,
+      "vsAvg": null,
+      "young": true,
+      "note": "בת יומיים. 355 צפיות. Collab אושר, אין תגובות. פתיחה חלשה לשישי בבוקר (יערה - פינת איפור הייתה 300 באותו גיל)."
+    },
+    {
+      "date": "2026-11-14",
+      "time": "20:05",
+      "format": "🎬 רילס - וידאו של אלעד (68 שנ׳, המוזיקה שלו)",
+      "title": "יערה גולן - הבית בתנועה (מוצ\"ש)",
+      "url": "https://www.instagram.com/reel/Dfuzqx9hICI/",
+      "reach": 149,
+      "likes": 6,
+      "comments": 0,
+      "saves": 0,
+      "shares": 0,
+      "follows": null,
+      "vsAvg": null,
+      "young": true,
+      "note": "תמונת מצב אחרי ~9 שעות - בלי מסקנות. 189 צפיות, 31.3% מעל 3 שניות. באותו שלב בלה הייתה 114, נטלי 122. Collab לא נבדק (הדפדפן נתקע). ניתוח מלא ב-22.11."
+    }
+  ],
+  "star": {
+    "title": "ליז לוז - חולון (12.11, 12:30)",
+    "why": "963 חשיפות אחרי 2.7 ימים (‎+101% מול 478), 3,184 צפיות, 9 שיתופים - הכי הרבה שיתופים בפוסט פרויקט אצל אלעד (חוץ משירן, שהופץ בקבוצות). שלושה דברים חברו: Collab אושר וליז הגיבה בעצמה; זווית אישית וקלילה של אלעד ('בדרך כלל אני מזיז כמה דברים לפני שאני מצלם, וכאן הכל כבר היה במקום'); ופרויקט מלא בגוונים כהים ואמרלד שבולט בפיד. 12:30 - הפוסט הראשון בשעה הזו בניסיון."
+  },
+  "weak": {
+    "title": "ליאור רזו - נילי (8.11)",
+    "why": "168 חשיפות (‎-65%), 0 שמירות. Collab לא אושר - פעם שנייה אצל ליאור (גם באמבטיות 18.10). זה שוב מתיישב עם הדפוס: פוסטים עם Collab מאושר מגיעים לקהל של המעצבת, בלי - נשארים בקהל של אלעד בלבד. ראו ההצעה הממתינה 2026-10-11-1."
+  },
+  "referencesSummary": "ארבעה צלמים העלו, כולם נבדקו במטריקול. מאור מויאל העלה 9 תמונות פרויקט בבת אחת (3-12 אינטראקציות כל אחת) ורילס אישי 'כיף פה' - 112. שוב, האישי מנצח פי 10. שי אפשטיין - בית ביקנעם המושבה עם קרדיטים, 76. Daniel - 'Dreamy & cozy' במוצ\"ש 20:13 קיבל 31 (הכי הרבה שלו השבוע), וסרטון 'מאחורי הקלעים של צילום' 25. מירב - פרויקט בנס ציונה, 10.",
+  "references": [
+    {
+      "name": "שי אפשטיין",
+      "handle": "shai.epstein.photography",
+      "source": "metricool",
+      "followers": 13823,
+      "postsThisWeek": 1,
+      "highlight": "בית משפחה ביקנעם המושבה (8.11 בבוקר), טקסט דו-לשוני וקרדיט לאדריכלית ולספקים - 61 לייקים, 15 תגובות.",
+      "bestUrl": "https://www.instagram.com/p/DfeF0NHjk0u/"
+    },
+    {
+      "name": "אורן עמוס",
+      "handle": "oren.amos.photography",
+      "source": "metricool",
+      "followers": 7512,
+      "postsThisWeek": 0,
+      "highlight": "לא העלה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "מאור מויאל",
+      "handle": "moyalmaor",
+      "source": "metricool",
+      "followers": 7173,
+      "postsThisWeek": 10,
+      "highlight": "9 תמונות בודדות משני פרויקטים בתוך 25 דקות (8.11) - 3-12 אינטראקציות כל אחת. רילס אישי 'כיף פה 🫶🏻' (12.11) - 112. האישי פי 10.",
+      "bestUrl": "https://www.instagram.com/reel/Dfo3zagIEI0/"
+    },
+    {
+      "name": "אלנה מרגולין",
+      "handle": "alenafoto",
+      "source": "metricool",
+      "followers": 6592,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "מירב פלברג",
+      "handle": "merav.felberg.photographer",
+      "source": "metricool",
+      "followers": 6336,
+      "postsThisWeek": 1,
+      "highlight": "'Project in Nes-ziona' + קרדיט למעצבת (10.11) - 10.",
+      "bestUrl": "https://www.instagram.com/p/Dfkgc9nESad/"
+    },
+    {
+      "name": "אורית ארנון",
+      "handle": "orit.arnon.photographer",
+      "source": "metricool",
+      "followers": 4623,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "קרין רוונה",
+      "handle": "karinravenna_photography",
+      "source": "metricool",
+      "followers": 3661,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "Daniel Tzairi",
+      "handle": "danieltz_interior_photography",
+      "source": "metricool",
+      "followers": 3070,
+      "postsThisWeek": 3,
+      "highlight": "'Dreamy & cozy' במוצ\"ש 20:13 - 31 (הכי הרבה שלו). סרטון 'הסצנות האהובות עליי - בתהליך הצילום' (9.11) - 25. שירותי אורחים (12.11) - 5.",
+      "bestUrl": "https://www.instagram.com/p/Dfu0vzRFVHm/"
+    }
+  ],
+  "designers": [
+    {
+      "name": "ליאור רזו",
+      "handle": "lior_razo",
+      "post": "8.11 · פרויקט מלא",
+      "url": "https://www.instagram.com/p/Dfe7bH-FVZY/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 2,
+      "otherComments": null,
+      "commentsVsAvg": -27,
+      "savesShares": 0,
+      "rating": "😶",
+      "note": "Collab לא אושר - פעם שנייה (גם 18.10). ✅ קבוע אצלה: לא מאשרת ולא מגיבה. 168 חשיפות."
+    },
+    {
+      "name": "חן אברהמוף",
+      "handle": "chenabr_archen",
+      "post": "10.11 · רילס",
+      "url": "https://www.instagram.com/reel/Dfkg_07iCeH/",
+      "collab": true,
+      "commented": null,
+      "storyShare": null,
+      "comments": 1,
+      "otherComments": null,
+      "commentsVsAvg": -64,
+      "savesShares": 1,
+      "rating": "🙂",
+      "note": "הפעם Collab אושר (באמבטיות 18.10 לא). תגובה אחת - לא נבדק של מי."
+    },
+    {
+      "name": "מלי · לימור · אירית · ענת · חגית · עליא",
+      "handle": "mali_arch_design · limor.ziv.eden · irit_frihiter_interiordesign · anat.weissberg.interior.design · hagitgolandesignstudio · alia.gafari",
+      "post": "11.11 · פינות עבודה",
+      "url": "https://www.instagram.com/p/DflvGyPFSX2/",
+      "collab": true,
+      "commented": null,
+      "storyShare": null,
+      "comments": 5,
+      "otherComments": null,
+      "commentsVsAvg": 82,
+      "savesShares": 1,
+      "rating": "🙂",
+      "note": "בראש הפוסט 'ו-3 נוספים' - 3 מתוך 4 שהוזמנו אישרו (לא נראה מי). 5 תגובות - מעל הממוצע. לא נפתח מי הגיב."
+    },
+    {
+      "name": "ליז לוז",
+      "handle": "lylindesign",
+      "post": "12.11 · פרויקט מלא",
+      "url": "https://www.instagram.com/p/Dfo2VCQFRh7/",
+      "collab": true,
+      "commented": true,
+      "storyShare": null,
+      "comments": 5,
+      "otherComments": 3,
+      "commentsVsAvg": 82,
+      "savesShares": 9,
+      "rating": "🔥",
+      "note": "Collab אושר (בסלונים 15.10 לא) והגיבה 🔥🔥🔥. עוד תגובות מהסביבה שלה ('הכי יפה שראיתי בחיים'). 9 שיתופים ו-2 ריפוסטים - הכוכב. 🔎 פוסט אחד שלה."
+    },
+    {
+      "name": "מור לויה",
+      "handle": "loyamor",
+      "post": "13.11 · פינת אוכל (שישי)",
+      "url": "https://www.instagram.com/p/DfrDIKxlS8a/",
+      "collab": true,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 1,
+      "rating": "🙂",
+      "note": "Collab אושר, אין תגובות ('No comments yet'). באינסטגרם היא לא מגיבה - פעם שלישית. צעיר."
+    },
+    {
+      "name": "יערה גולן",
+      "handle": "yaara.golan.1",
+      "post": "14.11 · רילס (מוצ\"ש)",
+      "url": "https://www.instagram.com/reel/Dfuzqx9hICI/",
+      "collab": null,
+      "commented": null,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": null,
+      "savesShares": 0,
+      "rating": "❔",
+      "note": "לא נבדק - הדפדפן נתקע. צעיר (9 שעות). משלימים ב-22.11."
+    },
+    {
+      "name": "בלה חננייב (עדכון)",
+      "handle": "bella_hananaev_interiordesign",
+      "post": "7.11 · פרויקט מלא (מוצ\"ש)",
+      "url": "https://www.instagram.com/p/DfcyYCBDc66/",
+      "collab": true,
+      "commented": true,
+      "storyShare": null,
+      "comments": 3,
+      "otherComments": 1,
+      "commentsVsAvg": 0,
+      "savesShares": 0,
+      "rating": "🙂",
+      "note": "סופי: 286 (‎-40%), אבל **2 עוקבים חדשים** מהפוסט."
+    }
+  ],
+  "facebook": {
+    "avgReach": 88,
+    "summary": "שבוע חלש בדף: 8-44 אנשים לפוסט, כולם מתחת לממוצע 88. גם ליז, הכוכבת באינסטגרם, הגיעה בדף רק ל-44. מאז ההפרדה (25.10) הדף בממוצע ~50 - הירידה כבר שלושה שבועות. כל הפוסטים עבדו יותר באינסטגרם. אין מועמד לקידום בפייסבוק.",
+    "posts": [
+      {
+        "date": "2026-11-08",
+        "time": "16:04",
+        "format": "אלבום",
+        "title": "ליאור רזו",
+        "url": "https://facebook.com/2159408711605560/posts/2196221237924307",
+        "reach": 31,
+        "reactions": 1,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 5,
+        "vsAvg": -65,
+        "igReach": 168,
+        "young": false,
+        "note": ""
+      },
+      {
+        "date": "2026-11-10",
+        "time": "20:09",
+        "format": "רילס",
+        "title": "חן - רילס",
+        "url": "https://facebook.com/reel/1110692888630482",
+        "reach": null,
+        "reactions": null,
+        "comments": null,
+        "shares": null,
+        "clicks": null,
+        "vsAvg": null,
+        "igReach": 319,
+        "young": false,
+        "note": "מטריקול לא מחזיר רילס בפייסבוק."
+      },
+      {
+        "date": "2026-11-11",
+        "time": "07:30",
+        "format": "אלבום",
+        "title": "פינות עבודה",
+        "url": "https://facebook.com/2159408711605560/posts/2199437400936024",
+        "reach": 40,
+        "reactions": 3,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 6,
+        "vsAvg": -55,
+        "igReach": 250,
+        "young": false,
+        "note": ""
+      },
+      {
+        "date": "2026-11-12",
+        "time": "12:31",
+        "format": "אלבום",
+        "title": "ליז לוז",
+        "url": "https://facebook.com/2159408711605560/posts/2200950180784746",
+        "reach": 44,
+        "reactions": 0,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 5,
+        "vsAvg": -50,
+        "igReach": 963,
+        "young": false,
+        "note": "באינסטגרם פי 22"
+      },
+      {
+        "date": "2026-11-13",
+        "time": "09:02",
+        "format": "אלבום",
+        "title": "מור - פינת אוכל",
+        "url": "https://facebook.com/2159408711605560/posts/2202032527343178",
+        "reach": 8,
+        "reactions": 0,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 0,
+        "vsAvg": null,
+        "igReach": 116,
+        "young": true,
+        "note": ""
+      },
+      {
+        "date": "2026-11-14",
+        "time": "20:05",
+        "format": "רילס",
+        "title": "יערה - רילס",
+        "url": "https://facebook.com/reel/1008710094892565",
+        "reach": null,
+        "reactions": null,
+        "comments": null,
+        "shares": null,
+        "clicks": null,
+        "vsAvg": null,
+        "igReach": 149,
+        "young": true,
+        "note": "מטריקול לא מחזיר רילס בפייסבוק."
+      }
+    ]
+  },
+  "facebookPersonal": {
+    "summary": "נבדק שוב בבקשת עדי (15.11 בצהריים). ליז הכוכבת גם כאן: 13 ריאקשנים, 7 תגובות ו-3 שיתופים - מעל ממוצע הפרופיל (10 ו-3), וליז הגיבה בעצמה (\"צלם חד פעמי\"). בפרופיל האישי ליז הביאה יותר שיחה מבדף העסקי (44 איש, 0 תגובות). מעצבות הגיבו ב-4 מתוך 6 פוסטים: ליז, מור, ענת וייסברג (פינות עבודה) ואושרת גנץ (חן). השאר מתחת לממוצע. מחוץ לפוסטים של אלעד: בעלת בית מפרויקט של ענת זיו פרסמה את יום הצילום ותייגה את אלעד (\"על הדיגיטל אלעד האלוף\") - 42 ריאקשנים ו-26 תגובות.",
+    "avgReactions": 10,
+    "avgComments": 3,
+    "posts": [
+      {
+        "date": "2026-11-08",
+        "time": null,
+        "type": "פוסט של אלעד",
+        "title": "ליאור רזו",
+        "url": null,
+        "reactions": 5,
+        "comments": 0,
+        "shares": 1,
+        "designersCommented": false,
+        "note": "בדף העסקי 31, באינסטגרם 168"
+      },
+      {
+        "date": "2026-11-10",
+        "time": null,
+        "type": "רילס של אלעד",
+        "title": "חן - רילס",
+        "url": null,
+        "reactions": 4,
+        "comments": 2,
+        "shares": 0,
+        "designersCommented": true,
+        "note": "אושרת גנץ (מעצבת, לא מתויגת) הגיבה \"מקסים!\", אלעד ענה"
+      },
+      {
+        "date": "2026-11-11",
+        "time": null,
+        "type": "פוסט של אלעד",
+        "title": "פינות עבודה",
+        "url": null,
+        "reactions": 8,
+        "comments": 1,
+        "shares": 1,
+        "designersCommented": true,
+        "note": "ענת וייסברג הגיבה תגובה ארוכה על חדר העבודה שלה"
+      },
+      {
+        "date": "2026-11-12",
+        "time": null,
+        "type": "פוסט של אלעד",
+        "title": "ליז לוז",
+        "url": null,
+        "reactions": 13,
+        "comments": 7,
+        "shares": 3,
+        "designersCommented": true,
+        "note": "⭐ ליז הגיבה \"צלם חד פעמי\", אלעד ענה. מעל ממוצע הפרופיל"
+      },
+      {
+        "date": "2026-11-13",
+        "time": null,
+        "type": "פוסט של אלעד",
+        "title": "מור - פינת אוכל",
+        "url": null,
+        "reactions": 3,
+        "comments": 1,
+        "shares": 1,
+        "designersCommented": true,
+        "note": "מור הגיבה (\"האלוף, איזה כיף\") - באינסטגרם לא הגיבה. צעיר"
+      },
+      {
+        "date": "2026-11-14",
+        "time": null,
+        "type": "רילס של אלעד",
+        "title": "יערה - רילס",
+        "url": null,
+        "reactions": 1,
+        "comments": 0,
+        "shares": 0,
+        "designersCommented": null,
+        "note": "בן 14 שעות"
+      },
+      {
+        "date": "2026-11-09",
+        "time": null,
+        "type": "Collab של אירית",
+        "title": "אירית פרייהייטר ואלעד (רילס)",
+        "url": null,
+        "reactions": 6,
+        "comments": 0,
+        "shares": null,
+        "designersCommented": null,
+        "note": "ה-Collab שאירית העלתה ב-9.11"
+      }
+    ]
+  },
+  "extra": {
+    "title": "ניסיון השעות, מוצ\"ש והקהל",
+    "text": "ניסיון השעות (קרוסלות, אחרי 7 ימים): 16:00 - רעות 522, סוניה 400, קרן 368, חגית 198 (4 פוסטים, ממוצע 372; ליאור 168 בדרך) · 20:00 - מטבחים 826, ילדים 268 (ממוצע 547) · 7:30 - וילונות 247 (פינות עבודה 250 בדרך) · 18:00 - מריאנה 159 · 12:30 - ליז 963 אחרי 2.7 ימים (ראשון בשעה הזו). 16:00 הגיעה ל-4 - היא באמצע, לא מנצחת. סיכום ב-28.11. מוצ\"ש (5 שבתות, סופיים): שרה 188, טלי 244, יערה 707, נטלי 368, בלה 286 - ממוצע 359. הקהל: 90% מהאנשים שאלעד הגיע אליהם השבוע לא עוקבים (10,296 מתוך 11,461, סכום יומי) - אבל 8,733 מהם מהמודעות. השיא ב-12.11 (1,993 לא-עוקבים), יום הפוסט של ליז. העוקבים: 2,644 (‎+14, נוספו 16, עזבו 2). סטוריז: 10 השבוע, ממוצע 55, הכי נצפה 12.11 - 144 (יום ליז)."
+  },
+  "audience": {
+    "nonFollowerPct": 90,
+    "followerReach": 1165,
+    "nonFollowerReach": 10296,
+    "peakDay": "2026-11-12 (1,993 לא-עוקבים - יום הפוסט של ליז; 1,240 איש ממודעות באותו יום)",
+    "stories": {
+      "count": 10,
+      "avgReach": 55,
+      "top": "12.11 אחה\"צ - 144 (יום הפוסט של ליז)"
+    },
+    "cities": null,
+    "byFormat": {
+      "AD": {
+        "views": 13287,
+        "reach": 8733
+      },
+      "REEL": {
+        "views": 1011,
+        "reach": 681
+      },
+      "CAROUSEL_CONTAINER": {
+        "views": 7612,
+        "reach": 2161
+      },
+      "POST": {
+        "views": 123,
+        "reach": 11
+      },
+      "STORY": {
+        "views": 770,
+        "reach": 292
+      }
+    }
+  },
+  "promote": {
+    "summary": "הקידום התומך של השבוע: הרילס של חן (וידאו אמיתי של אלעד) במקום המטבחים - שבוע חלש באורגני, נבחר בגלל הפורמט. שני קידומים של 10₪ (חשיפה לקהל החם + מעורבות לקהל חדש בלי הרחבה), פיד וריל של אינסטגרם, ראשון-שישי. ליז, הכוכבת, לא ניתנת לקידום (11 תמונות). ממתין לאישור של עדי. בפייסבוק - אין מועמד.",
+    "candidates": [
+      {
+        "title": "קידום תומך · חן אברהמוף - רילס וידאו (אינסטגרם)",
+        "url": "https://www.instagram.com/reel/Dfkg_07iCeH/",
+        "date": "2026-11-10",
+        "why": "319 (‎-33%), 34.2% מעל 3 שניות, Collab. מתחת לממוצע - נבחר בגלל הפורמט: במטבחים החשיפה לקהל החם עבדה (3,587 איש, 7.22₪ לאלף) והמעורבות בקרוסלה נכשלה (2.31₪ לפעולה, 0 עוקבים, כובתה 10.11); ברילס של עליא המעורבות עלתה 0.56₪. סרטון אמיתי - מעצבת רואה שאלעד מצלם גם וידאו.",
+        "decision": "✅ האסטרטג: כדאי - חשיפה לקהל החם 10₪ + מעורבות לקהל חדש 10₪ בלי הרחבה (20₪ ליום, עם הקמפיין 70₪). אם עדי מאשרת היום קבוצה חדשה לקהל החם בקמפיין - רק המעורבות. חלופה אם Meta דוחה (מוזיקה): יערה - פינת איפור. ממתין לעדי."
+      },
+      {
+        "title": "ליז לוז - פרויקט מלא (אינסטגרם · 11 תמונות)",
+        "url": "https://www.instagram.com/p/Dfo2VCQFRh7/",
+        "date": "2026-11-12",
+        "why": "963 (‎+101%), 9 שיתופים - הכוכבת.",
+        "decision": "❌ האסטרטג: 11 תמונות - אי אפשר לקדם כמו שהוא. מודעה מהפוסט מאבדת את הלייקים והשיתופים ומחייבת חיתוך תמונות הרוחב. בפייסבוק חלשה (44)."
+      },
+      {
+        "title": "פינות עבודה · יערה - פינת איפור · סוניה וספיר",
+        "url": "",
+        "date": "2026-11-11",
+        "why": "250 · 433 · 400 - מתחת לממוצע.",
+        "decision": "❌ פינות עבודה - חשיפה נמוכה וטקסט לבעלי בתים. יערה - חלופה בלבד. סוניה וספיר - כבר במודעה של הקמפיין."
+      }
+    ]
+  },
+  "suggestions": [
+    {
+      "id": "2026-11-15-1",
+      "text": "מעצבת שלא אישרה Collab פעמיים - לא מתזמנים לה פרויקט מלא עד שהיא מאשרת: ליאור רזו (פעמיים, השבוע 168) ומלי אלבז (פעמיים). בפרויקט מלא כל החשיפה תלויה בקהל של מעצבת אחת, ובלי Collab הוא לא מגיע אליו. השבוע: עם Collab 250-963, בלי - 168. למעצבות האלה רק פוסטי \"כמה מעצבות\", עד ש-Collab אחד שלהן מאושר. ניסיון עד 13.12. הצלחה = 0 פרויקטים מלאים בלי Collab, וממוצע הפרויקטים המלאים מעל 355.",
+      "owner": "מתכננת התוכן"
+    }
+  ],
+  "history": [
+    {
+      "weekStart": "2026-09-06",
+      "posts": 3,
+      "avgReach": 190,
+      "avgSavesShares": 0.33,
+      "avgComments": 2,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-13",
+      "posts": 7,
+      "avgReach": 229,
+      "avgSavesShares": 0.29,
+      "avgComments": 0.57,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-20",
+      "posts": 7,
+      "avgReach": 159,
+      "avgSavesShares": 0.14,
+      "avgComments": 1,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-27",
+      "posts": 1,
+      "avgReach": 181,
+      "avgSavesShares": 0,
+      "avgComments": 2,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-10-04",
+      "posts": 3,
+      "avgReach": 218,
+      "avgSavesShares": 0.33,
+      "avgComments": 3,
+      "followers": 2793
+    },
+    {
+      "weekStart": "2026-10-11",
+      "posts": 5,
+      "avgReach": 555,
+      "avgSavesShares": 3.8,
+      "avgComments": 6.2,
+      "followers": 2799
+    },
+    {
+      "weekStart": "2026-10-18",
+      "posts": 7,
+      "avgReach": 305,
+      "avgSavesShares": 1.14,
+      "avgComments": 3.86,
+      "followers": 2804
+    },
+    {
+      "weekStart": "2026-10-25",
+      "posts": 6,
+      "avgReach": 575,
+      "avgSavesShares": 2.83,
+      "avgComments": 3.83,
+      "followers": 2623
+    },
+    {
+      "weekStart": "2026-11-01",
+      "posts": 6,
+      "avgReach": 426,
+      "avgSavesShares": 1.5,
+      "avgComments": 2.67,
+      "followers": 2630
+    },
+    {
+      "weekStart": "2026-11-08",
+      "posts": 6,
+      "avgReach": 328,
+      "avgSavesShares": 2,
+      "avgComments": 2.17,
+      "followers": 2644
+    }
+  ]
+}

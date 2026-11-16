@@ -945,3 +945,42 @@ test('הקבוצה הקיימת מול Meta: חשבון אחר, קמפיין א�
   const noTg = adSetMeta({ targeting: {} });
   assert.equal(judgeExistingAdSet(noTg, plan, { accountId: '999' }).problems.length, 1);
 });
+
+// --- קבוצה חדשה בקמפיין קיים (add_to_campaign) - 15.11.2026 ---
+import { isAddToCampaignPlan, judgeExistingCampaign } from './meta-build.js';
+
+const campPlan = () => {
+  const p = placementPlan();
+  p.placements = PL;
+  p.add_to_campaign = { campaign_id: '120254957888520745' };
+  return p;
+};
+const campMeta = (over = {}) => ({ name: 'הקמפיין', account_id: '999', objective: 'OUTCOME_ENGAGEMENT', effective_status: 'ACTIVE', ...over });
+
+test('קבוצה בקמפיין קיים: תוכנית תקינה עוברת, עם תקציב וקהל רגילים, והקבוצה מכוונת לקמפיין הקיים', () => {
+  assert.ok(isAddToCampaignPlan(campPlan()));
+  assert.deepEqual(v(campPlan()), []);
+  assert.equal(totalDailyBudgetIls(campPlan()), 50);
+  const all = buildAll(campPlan(), { env, safety, ids: { ...fakeIds, campaignId: campPlan().add_to_campaign.campaign_id } });
+  assert.equal(all.adSet.campaign_id, '120254957888520745');
+  assert.equal(all.adSet.status, 'PAUSED');
+  assert.equal(all.adSet.daily_budget, 5000);
+});
+
+test('קבוצה בקמפיין קיים: עדיין נאכפת תקרת התקציב, והמזהה חייב להיות מחרוזת ספרות', () => {
+  const a = campPlan(); a.daily_budget_ils = 500;
+  assert.ok(v(a).some((e) => e.includes('תקרת')));
+  const b = campPlan(); b.add_to_campaign.campaign_id = 1;
+  assert.ok(v(b).some((e) => e.includes('campaign_id')));
+  const c = campPlan(); c.add_to_adset = { campaign_id: '1', adset_id: '2' }; delete c.daily_budget_ils; delete c.audience;
+  assert.ok(v(c).some((e) => e.includes('לא ביחד')));
+});
+
+test('הקמפיין הקיים מול Meta: תקין עובר; חשבון אחר, מטרה אחרת, נמחק או תקציב ברמת הקמפיין - נחסם', () => {
+  const p = campPlan();
+  assert.deepEqual(judgeExistingCampaign(campMeta(), p, { accountId: '999' }).problems, []);
+  assert.equal(judgeExistingCampaign(campMeta({ account_id: '1' }), p, { accountId: '999' }).problems.length, 1);
+  assert.equal(judgeExistingCampaign(campMeta({ objective: 'OUTCOME_AWARENESS' }), p, { accountId: '999' }).problems.length, 1);
+  assert.equal(judgeExistingCampaign(campMeta({ effective_status: 'DELETED' }), p, { accountId: '999' }).problems.length, 1);
+  assert.equal(judgeExistingCampaign(campMeta({ daily_budget: '5000' }), p, { accountId: '999' }).problems.length, 1);
+});
