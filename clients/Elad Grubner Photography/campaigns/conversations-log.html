@@ -114,7 +114,7 @@ textarea { resize: vertical; min-height: 4.5em; line-height: 1.45; }
 
   <section aria-label="סיכום" class="stats">
     <div class="stat"><b id="s-all">0</b><span id="s-all-lbl">שיחות</span></div>
-    <div class="stat"><b id="s-rel">0</b><span>רלוונטיות (מעצבות ואדריכלים)</span></div>
+    <div class="stat"><b id="s-rel">0</b><span>רלוונטיות (אנשי מקצוע שיכולים לסגור צילום)</span></div>
     <div class="stat"><b id="s-won">0</b><span>נסגרו</span></div>
     <div class="stat"><b id="s-rev">0₪</b><span>הכנסות מהמודעות</span></div>
   </section>
@@ -138,13 +138,16 @@ textarea { resize: vertical; min-height: 4.5em; line-height: 1.45; }
 // 1.11.2026: הקמפיין של 22.10 הושהה (עדי), ונוסף "designers-text-all-placements". שם כל המודעות מסוניה וספיר,
 // ובצ'אט רואים רק אם זה צילום אחד או קולאז' (בסטורי מודעות 1 ו-2 נראות אותו דבר), ולכן שתי בחירות. הפירוט לפי מודעה מגיע מ-Meta.
 // 4.11.2026: בלי טופס. המודעה נקבעת בחיבור ל-CRM, לפי Meta (שלב 3a בבדיקה היומית).
+// 16.11.2026 (עדי: "כן, להוסיף"): נוספו ליהי לוי וענבל קרקו, שרצות מ-12.11, כדי שפנייה מהן לא תירשם כ"לא בטוח".
 const CAMPAIGNS = [
   {
     key: 'designers-text-all-placements', name: 'הקמפיין החדש · נובמבר',
-    hint: 'בהודעה המוכנה של הקמפיין החדש כתוב "ראיתי את המודעה עם 3 הרילסים במתנה". כל המודעות שלו מהפרויקט של סוניה וספיר.',
+    hint: 'בהודעה המוכנה של הקמפיין החדש כתוב "ראיתי את המודעה עם 3 הרילסים במתנה". המודעות: סוניה וספיר, ומ-12.11 גם ליהי לוי וענבל קרקו.',
     ads: [
-      { key: 'single', name: 'צילום אחד - המטבח' },
-      { key: 'collage', name: "קולאז' של 4 צילומים" },
+      { key: 'single', name: 'סוניה וספיר - צילום אחד (המטבח)' },
+      { key: 'collage', name: "סוניה וספיר - קולאז' של 4 צילומים" },
+      { key: 'lihi', name: "ליהי לוי - קולאז' מעורב" },
+      { key: 'inbal', name: 'ענבל קרקו - צילום גדול + פס' },
       { key: 'unknown', name: 'לא בטוח' },
     ],
   },
@@ -167,8 +170,9 @@ let view = CAMPAIGNS[0].key;
 const WHO = [
   { key: 'designer', name: 'מעצב/ת פנים', relevant: true },
   { key: 'architect', name: 'אדריכל/ית', relevant: true },
-  { key: 'supplier', name: 'ספק', relevant: false },
-  { key: 'other', name: 'אחר', relevant: false },
+  // 16.11.2026 (עדי): כל איש מקצוע שיכול לסגור יום צילום נספר כרלוונטי, גם ספק וגם "אחר" (מנהל פרויקטים, קבלן). במקום "רק מעצבות ואדריכלים".
+  { key: 'supplier', name: 'ספק', relevant: true },
+  { key: 'other', name: 'אחר', relevant: true },
   { key: 'irrelevant', name: 'לא רלוונטי', relevant: false, noDeal: true },
 ];
 // no_reply (עדי, 26.10): שלחה הודעה ואז לא ענתה. נפרד מ"לא רלוונטי", כי אולי היא מעצבת. "מי פנה" יכול להישאר ריק.

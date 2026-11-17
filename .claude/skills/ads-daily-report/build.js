@@ -24,7 +24,8 @@ const campaignKey = basename(campaignDir.replace(/[\\/]+$/, ''));
 // מפתח המודעה ביומן → מילה שמופיעה בשם המודעה ב-Meta (analytics/ads-map.json בתיקיית הקמפיין).
 // הערך הוא מחרוזת (המילה), או מ-1.11 {match, label}: label הוא השם בדף. מפתח שמתחיל ב-"_" הוא הערה.
 // מפתח אחד יכול להתאים לכמה מודעות ב-Meta (למשל "single" = בודדת עם טקסט + בודדת נקייה), והן מסוכמות.
-const adsMap = Object.entries(readJson(join(campaignDir, 'analytics', 'ads-map.json')))
+const mapRaw = readJson(join(campaignDir, 'analytics', 'ads-map.json'));
+const adsMap = Object.entries(mapRaw)
   .filter(([key]) => !key.startsWith('_'))
   .map(([key, v]) => (typeof v === 'string' ? { key, match: v, label: null } : { key, match: String(v.match), label: v.label || null }));
 const logKeyOf = (adName) => (adsMap.find((m) => String(adName || '').includes(m.match)) || {}).key || null;
@@ -40,9 +41,12 @@ function walk(dir) {
 const log = walk(logDir)
   .map((p) => { const j = readJson(p); return j && typeof j.data === 'object' && j.data ? j.data : j; })
   .filter((r) => r && r.campaign === campaignKey);
-const RELEVANT = new Set(['designer', 'architect']);
+// רלוונטי = כל איש מקצוע שיכול לסגור יום צילום: כל who חוץ מ-irrelevant (מעצבת, אדריכל, ספק, אחר).
+// ההחלטה של עדי (16.11.2026), במקום "רק designer / architect": "גם קבלן יכול לסגור צילומים, גם ספק".
+// שורה בלי who (למשל "לא ענתה" שלא סומנה) לא נספרת.
+const NOT_RELEVANT = new Set(['irrelevant']);
 // "לא ענתה" (no_reply) לא נספרת כשיחה רלוונטית, גם כשסומנה מעצבת (ads-analyst.md, עדי 26.10). תוקן 1.11.
-const isRel = (r) => RELEVANT.has(r.who) && r.status !== 'no_reply';
+const isRel = (r) => Boolean(r.who) && !NOT_RELEVANT.has(r.who) && r.status !== 'no_reply';
 // via: 'private' = ראתה את המודעה ופנתה בפרטי (מ-21.10). Meta לא סופרת אותה, ולכן בהשוואה ל-Meta מורידים אותה.
 // בלי השדה = דרך הכפתור במודעה.
 const isPrivate = (r) => r.via === 'private';
@@ -147,10 +151,26 @@ const reachedQuote = (r) => r.status === 'quote' || r.status === 'won' || (r.his
 // הקבוצה עם הקהל הכי קטן לפי Meta היא הקהל החם ("מכירים את אלעד"). אין גודל קהל = אין שדות warm_.
 // מ-1.11: רק כשיש יותר מקבוצה אחת. בקמפיין של קבוצה אחת (designers-text-all-placements, קהל רחב)
 // אין קהל חם נפרד, ולכן warm_ ריקים והדף מסתיר את השורה - אחרת הקהל הרחב היה מוצג כ"קהל חם".
-const warm = (report.adsets || []).length > 1
-  ? (report.adsets || []).filter((a) => a.audience_size)
-    .sort((a, b) => a.audience_size.upper - b.audience_size.upper)[0]
+// 16.11 (עדי: "כן, לתקן"): קודם מזהים את הקהל החם לפי שם הקבוצה, ורק אם אין שם כזה - לפי הקהל הכי קטן.
+// הסיבה: לקבוצה "קהל חם - מכירות את אלעד" (מ-15.11) Meta לא מחזירה גודל קהל, ואז הקבוצה הקרה, היחידה עם גודל,
+// סומנה בטעות כ"קהל חם". אפשר לקבוע ב-ads-map.json: "_warm_adset": { match, audience_lower, audience_upper }.
+// audience_lower / audience_upper משמשים לאחוז מהקהל רק כש-Meta לא מחזירה גודל לקבוצה.
+const warmCfg = mapRaw._warm_adset || {};
+const isWarmName = (name) => (warmCfg.match
+  ? String(name || '').includes(String(warmCfg.match))
+  : /קהל חם|מכירים את אלעד|מכירות את אלעד/.test(String(name || '')));
+const adsets = report.adsets || [];
+const warm = adsets.length > 1
+  ? (adsets.find((a) => isWarmName(a.adset))
+    || adsets.filter((a) => a.audience_size).sort((a, b) => a.audience_size.upper - b.audience_size.upper)[0])
   : undefined;
+const warmSize = warm?.audience_size
+  || (Number(warmCfg.audience_lower) > 0 && Number(warmCfg.audience_upper) > 0
+    ? { lower: Number(warmCfg.audience_lower), upper: Number(warmCfg.audience_upper) }
+    : null);
+const pctOf = (part, whole) => (whole > 0 ? Math.round((Number(part) / whole) * 1000) / 10 : null);
+const warmPctLow = warm?.reach_pct_of_audience?.low ?? (warm && warmSize ? pctOf(warm.reach, warmSize.upper) : null);
+const warmPctHigh = warm?.reach_pct_of_audience?.high ?? (warm && warmSize ? pctOf(warm.reach, warmSize.lower) : null);
 const num = (v) => (v == null ? null : Number(v));
 const status = [{
   updated: report.fetched_at,
@@ -172,8 +192,8 @@ const status = [{
   no_reply: log.filter((r) => r.status === 'no_reply').length,
   warm_adset: warm ? warm.adset : null,
   warm_reach: warm ? warm.reach : null,
-  warm_reach_pct_low: warm?.reach_pct_of_audience?.low ?? null,
-  warm_reach_pct_high: warm?.reach_pct_of_audience?.high ?? null,
+  warm_reach_pct_low: warmPctLow,
+  warm_reach_pct_high: warmPctHigh,
   warm_frequency_7d: warm ? warm.frequency_7d : null,
   open: log.filter((r) => r.status === 'open' || r.status === 'quote').length,
   // כמה ימים בממוצע מהפנייה ועד הסגירה (רק מה שנסגר)
