@@ -99,3 +99,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 19.10.2026 18:00 | קרוסלה קצרה 4 אורך - מסדרון | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/Deri3IuFRav/) · `content/posts/2026-10-19-marianna-dubnikova-corridor/` |
+| 20.11.2026 9:00 | קרוסלה קצרה 5 רוחב - מטבח | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/Df9Epg3DmOM/) · `content/posts/2026-11-20-marianna-dubnikova-kitchen/` |
