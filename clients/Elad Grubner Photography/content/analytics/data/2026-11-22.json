@@ -1,0 +1,639 @@
+{
+  "client": "Elad Grubner Photography",
+  "reportDate": "2026-11-22",
+  "weekStart": "2026-11-15",
+  "weekEnd": "2026-11-21",
+  "generatedAt": "22.11.2026 06:40",
+  "pageUrl": "https://claude.ai/artifact/V3MyYrJgfbnyQasLkCHKq7",
+  "headline": "שבוע של כוכבת אחת גדולה: הפרויקט של מיימונה (15.11) - 1,545 חשיפות (פי 3.4 מהממוצע), 26 שמירות ו-48 שיתופים, הכי הרבה שהיו לאלעד אי פעם, ו-3 עוקבים חדשים. שלושת החלשים (חדרי שינה, קאמיי, ליהי) - כולם בלי Collab. ⚠️ הרילס של שאגא (מוצ\"ש) עלה בגרסה הישנה עם החלוקים ועם מוזיקה אחרת.",
+  "account": {
+    "followers": 2654,
+    "followersChange": 10
+  },
+  "baseline": {
+    "avgReach": 454,
+    "periodLabel": "30 הימים שלפני 15.11 (26 פוסטים ורילס, בלי שירן 30.10) · קרוסלות בלבד 400 · בלי הרילס של עליא - 386"
+  },
+  "week": {
+    "posts": 6,
+    "postsNote": "6 פוסטים (חמישי 19.11 - יום החופש). 2 רילסים של אלעד (קאמיי, שאגא). מריאנה (שישי, יומיים) ושאגא (מוצ\"ש, 9 שעות) עוד צעירים",
+    "avgReach": 451,
+    "avgReachVsBaseline": -1,
+    "savesShares": 80
+  },
+  "posts": [
+    {
+      "date": "2026-11-15",
+      "time": "20:06",
+      "format": "קרוסלה (11 רוחב)",
+      "title": "מיימונה טאהא - כפר קאסם (פרויקט מלא, פוסט סיפורי)",
+      "url": "https://www.instagram.com/p/DfxYr7jG7Rl/",
+      "reach": 1545,
+      "likes": 61,
+      "comments": 8,
+      "saves": 26,
+      "shares": 48,
+      "follows": 3,
+      "vsAvg": 240,
+      "young": false,
+      "note": "⭐ הכוכבת. 5,512 צפיות. 26 שמירות ו-48 שיתופים - יותר מכל פוסט אחר של אלעד, כולל הסלונים. 3 עוקבים. Collab אושר, מיימונה הגיבה ('אין כמוך בן אדם מושלם'), ועוד 4 תגובות של אחרים. הסיפור: הוויז לא מצא את הבית, מיימונה באה לאסוף אותו, גלידה אלדו."
+    },
+    {
+      "date": "2026-11-16",
+      "time": "18:07",
+      "format": "קרוסלה (8 אורך)",
+      "title": "חדרי שינה ראשיים - ארבע מעצבות",
+      "url": "https://www.instagram.com/p/Dfzv29Jm-MQ/",
+      "reach": 202,
+      "likes": 8,
+      "comments": 0,
+      "saves": 0,
+      "shares": 1,
+      "follows": 0,
+      "vsAvg": -56,
+      "young": false,
+      "note": "**אף אחת מ-4 המעצבות לא אישרה Collab** (בראש הפוסט רק אלעד). 0 תגובות. חדר שינה ראשי - אחד החדרים 'המרכזיים' מההצעה 2026-11-08-1, ובכל זאת נמוך - כנראה בגלל ה-Collab."
+    },
+    {
+      "date": "2026-11-17",
+      "time": "07:31",
+      "format": "🎬 רילס - וידאו של אלעד (54 שנ׳, המוזיקה שלו)",
+      "title": "קאמיי - רילס",
+      "url": "https://www.instagram.com/reel/Df1LzHsJlyX/",
+      "reach": 181,
+      "likes": 10,
+      "comments": 5,
+      "saves": 2,
+      "shares": 0,
+      "follows": null,
+      "vsAvg": -60,
+      "young": false,
+      "note": "245 צפיות, 29% מעל 3 שניות, 8.5 שנ׳ צפייה. **בלי Collab** (פעם שנייה ברילס של קאמיי, גם 4.11). קאמיי הגיבה, ועוד 2 תגובות חמות. 7:30 בבוקר."
+    },
+    {
+      "date": "2026-11-18",
+      "time": "12:33",
+      "format": "קרוסלה (10 רוחב)",
+      "title": "ליהי לוי - בת ים (פרויקט מלא)",
+      "url": "https://www.instagram.com/p/Df4TMVilZCZ/",
+      "reach": 161,
+      "likes": 7,
+      "comments": 0,
+      "saves": 0,
+      "shares": 0,
+      "follows": 0,
+      "vsAvg": -65,
+      "young": false,
+      "note": "בת 3.7 ימים. 453 צפיות. **ה-Collab לא נקבע** (מטריקול: 'Could not set all collaborators'). החלשה של השבוע. בפייסבוק האישי ליהי כן הגיבה ('ללא ספק העברת את התחושה')."
+    },
+    {
+      "date": "2026-11-20",
+      "time": "09:02",
+      "format": "קרוסלה קצרה (5 רוחב)",
+      "title": "מריאנה דובניקובה - מטבח (שישי)",
+      "url": "https://www.instagram.com/p/Df9Epg3DmOM/",
+      "reach": 535,
+      "likes": 20,
+      "comments": 0,
+      "saves": 3,
+      "shares": null,
+      "follows": 0,
+      "vsAvg": null,
+      "young": true,
+      "note": "בת יומיים - וכבר 535 (‎+18% מול הממוצע). 1,434 צפיות. Collab אושר. הפתיחה הכי חזקה של שישי בבוקר עד היום (יערה 300, מור 116 באותו גיל)."
+    },
+    {
+      "date": "2026-11-21",
+      "time": "20:04",
+      "format": "🎬 רילס - וידאו של אלעד (50 שנ׳)",
+      "title": "סטודיו שאגא - יקנעם (מוצ\"ש)",
+      "url": "https://www.instagram.com/reel/DgA1JK3JYex/",
+      "reach": 83,
+      "likes": 6,
+      "comments": 0,
+      "saves": 0,
+      "shares": 0,
+      "follows": null,
+      "vsAvg": null,
+      "young": true,
+      "note": "תמונת מצב אחרי ~9 שעות - בלי מסקנות. 131 צפיות, 33.3% מעל 3 שניות. Collab עוד לא אושר. ⚠️ עלתה הגרסה הישנה (Video 1 Main, עם החלוקים) ולא Video 3, ובאינסטגרם מופיעה מוזיקה 'Kimo Sounds - My Moment' ולא המוזיקה של אלעד. ניתוח מלא ב-29.11."
+    }
+  ],
+  "star": {
+    "title": "מיימונה טאהא - כפר קאסם (15.11, 20:00)",
+    "why": "1,545 חשיפות (‎+240% מול 454), 5,512 צפיות, **26 שמירות ו-48 שיתופים** (השיא של אלעד, בלי שום קבוצות) ו-3 עוקבים חדשים. אותו מתכון כמו ליז בשבוע שעבר, רק חזק יותר: Collab מאושר, המעצבת מגיבה, וסיפור קטן ואמיתי של אלעד מיום הצילום (הוויז, מיימונה שבאה לאסוף אותו, הגלידה). פרויקט יוקרתי וחם, והופעה שלישית של מיימונה (סלונים, מטבחים)."
+  },
+  "weak": {
+    "title": "ליהי לוי (18.11), חדרי שינה (16.11), רילס קאמיי (17.11)",
+    "why": "161, 202 ו-181 (‎-56% עד ‎-65%). לשלושתם אין Collab: אצל ליהי הוא לא נקבע במטריקול, בחדרי השינה אף אחת מ-4 לא אישרה, ובקאמיי לא נראה בראש הרילס. שני הפוסטים עם Collab השבוע - 1,545 ו-535. זה שוב הדפוס הכי ברור שיש: בלי Collab הפוסט נשאר רק אצל הקהל של אלעד."
+  },
+  "referencesSummary": "שלושה צלמים העלו, כולם נבדקו במטריקול. אלנה - פוסט אישי 'Life behind the camera' קיבל 120 מול 59 לפרויקט בתל אביב. מאור - רילס אישי 'אין טעם להילחם בזה' 130. מירב - רילס מנטורינג 24. שוב: האישי מנצח פי 2-5. אצל אלעד השבוע הסיפור האישי (מיימונה) עשה את אותו דבר.",
+  "references": [
+    {
+      "name": "שי אפשטיין",
+      "handle": "shai.epstein.photography",
+      "source": "metricool",
+      "followers": 13822,
+      "postsThisWeek": 0,
+      "highlight": "לא העלה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "אורן עמוס",
+      "handle": "oren.amos.photography",
+      "source": "metricool",
+      "followers": 7521,
+      "postsThisWeek": 0,
+      "highlight": "לא העלה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "מאור מויאל",
+      "handle": "moyalmaor",
+      "source": "metricool",
+      "followers": 7174,
+      "postsThisWeek": 1,
+      "highlight": "רילס אישי-הומוריסטי 'אין טעם להילחם בזה 🥹🤓' (20.11) - 105 לייקים, 25 תגובות.",
+      "bestUrl": "https://www.instagram.com/reel/Df9iEwyITly/"
+    },
+    {
+      "name": "אלנה מרגולין",
+      "handle": "alenafoto",
+      "source": "metricool",
+      "followers": 6597,
+      "postsThisWeek": 2,
+      "highlight": "אישי 'when I'm not working I'm thinking about work - Life behind the camera' (20.11) - 120, מול פרויקט בלב תל אביב + קרדיט למעצבת (15.11) - 59.",
+      "bestUrl": "https://www.instagram.com/p/Df9x0uGiKWo/"
+    },
+    {
+      "name": "מירב פלברג",
+      "handle": "merav.felberg.photographer",
+      "source": "metricool",
+      "followers": 6345,
+      "postsThisWeek": 1,
+      "highlight": "רילס סיום מנטורינג לצלמת + 'הגיבו מנטורינג' (16.11) - 24. קהל של צלמים, לא מעצבות.",
+      "bestUrl": "https://www.instagram.com/reel/Dfz4UL1xD5N/"
+    },
+    {
+      "name": "אורית ארנון",
+      "handle": "orit.arnon.photographer",
+      "source": "metricool",
+      "followers": 4631,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "קרין רוונה",
+      "handle": "karinravenna_photography",
+      "source": "metricool",
+      "followers": 3667,
+      "postsThisWeek": 0,
+      "highlight": "לא העלתה השבוע.",
+      "bestUrl": ""
+    },
+    {
+      "name": "Daniel Tzairi",
+      "handle": "danieltz_interior_photography",
+      "source": "metricool",
+      "followers": 3080,
+      "postsThisWeek": 0,
+      "highlight": "לא העלה השבוע.",
+      "bestUrl": ""
+    }
+  ],
+  "designers": [
+    {
+      "name": "מיימונה טאהא",
+      "handle": "archmaymona",
+      "post": "15.11 · פרויקט מלא",
+      "url": "https://www.instagram.com/p/DfxYr7jG7Rl/",
+      "collab": true,
+      "commented": true,
+      "storyShare": null,
+      "comments": 8,
+      "otherComments": 5,
+      "commentsVsAvg": 186,
+      "savesShares": 74,
+      "rating": "🔥",
+      "note": "⭐ Collab אושר והגיבה ('אין כמוך בן אדם מושלם'). 26 שמירות, 48 שיתופים, 3 עוקבים - השיא. בפייסבוק האישי: אסתי כהן הגיבה. הופעה שלישית (סלונים ✅, מטבחים)."
+    },
+    {
+      "name": "גל ויסכה · אריאל מרוז · חן אברהמוף · לינוי כהן",
+      "handle": "gy.interior.design · ariel.maroz.interiordesign · chenabr_archen · linoycohen_design",
+      "post": "16.11 · חדרי שינה",
+      "url": "https://www.instagram.com/p/Dfzv29Jm-MQ/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 1,
+      "rating": "😶",
+      "note": "אף אחת לא אישרה Collab ואין תגובות באינסטגרם. גל, אריאל ולינוי - פעם שנייה בלי Collab (גם ילדים 28.10). בפייסבוק האישי חן ('חני אברהמוף') הגיבה 'אלוף'."
+    },
+    {
+      "name": "קאמיי",
+      "handle": "kamei_interiordesign",
+      "post": "17.11 · רילס וידאו",
+      "url": "https://www.instagram.com/reel/Df1LzHsJlyX/",
+      "collab": false,
+      "commented": true,
+      "storyShare": null,
+      "comments": 5,
+      "otherComments": 2,
+      "commentsVsAvg": 79,
+      "savesShares": 2,
+      "rating": "🙂",
+      "note": "הגיבה ('אין מקצועיים כמוך'), אבל Collab לא נראה בראש הרילס - פעם שנייה ברילס (גם 4.11). בקרוסלות שלה Collab כן אושר."
+    },
+    {
+      "name": "ליהי לוי",
+      "handle": "lihi_levy1",
+      "post": "18.11 · פרויקט מלא",
+      "url": "https://www.instagram.com/p/Df4TMVilZCZ/",
+      "collab": false,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 0,
+      "rating": "❔",
+      "note": "ה-Collab לא נקבע במטריקול ('Could not set all collaborators') - לא אשמתה. באינסטגרם לא הגיבה, בפייסבוק האישי כן ('ללא ספק העברת את התחושה'). 161 - החלשה."
+    },
+    {
+      "name": "מריאנה דובניקובה",
+      "handle": "mariannadubnikova.design",
+      "post": "20.11 · מטבח (שישי)",
+      "url": "https://www.instagram.com/p/Df9Epg3DmOM/",
+      "collab": true,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": -100,
+      "savesShares": 3,
+      "rating": "🙂",
+      "note": "Collab אושר (במסדרון 19.10 לא). 535 אחרי יומיים, 3 שמירות. צעיר."
+    },
+    {
+      "name": "סטודיו שאגא",
+      "handle": "studiosaga.design",
+      "post": "21.11 · רילס (מוצ\"ש)",
+      "url": "https://www.instagram.com/reel/DgA1JK3JYex/",
+      "collab": null,
+      "commented": false,
+      "storyShare": null,
+      "comments": 0,
+      "otherComments": 0,
+      "commentsVsAvg": null,
+      "savesShares": 0,
+      "rating": "❔",
+      "note": "9 שעות - Collab עוד לא אושר. ⚠️ עלתה הגרסה עם החלוקים, שלפי כרטיס הפרויקט עוד לא אושרה לפרסום."
+    }
+  ],
+  "facebook": {
+    "avgReach": 81,
+    "summary": "עוד שבוע חלש בדף: 19-47 אנשים לפוסט, כולם מתחת לממוצע 81. גם מיימונה, פי 3.4 באינסטגרם, הגיעה בדף ל-47. כל הפוסטים עבדו הרבה יותר באינסטגרם. אין מועמד לקידום בפייסבוק.",
+    "posts": [
+      {
+        "date": "2026-11-15",
+        "time": "20:06",
+        "format": "אלבום",
+        "title": "מיימונה",
+        "url": "https://facebook.com/2159408711605560/posts/2205281923684905",
+        "reach": 47,
+        "reactions": 2,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 0,
+        "vsAvg": -42,
+        "igReach": 1545,
+        "young": false,
+        "note": "באינסטגרם פי 33"
+      },
+      {
+        "date": "2026-11-16",
+        "time": "18:03",
+        "format": "אלבום",
+        "title": "חדרי שינה",
+        "url": "https://facebook.com/2159408711605560/posts/2206557163557381",
+        "reach": 19,
+        "reactions": 0,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 0,
+        "vsAvg": -77,
+        "igReach": 202,
+        "young": false,
+        "note": ""
+      },
+      {
+        "date": "2026-11-17",
+        "time": "07:31",
+        "format": "רילס",
+        "title": "קאמיי - רילס",
+        "url": "https://facebook.com/reel/1013311065161219",
+        "reach": null,
+        "reactions": null,
+        "comments": null,
+        "shares": null,
+        "clicks": null,
+        "vsAvg": null,
+        "igReach": 181,
+        "young": false,
+        "note": "מטריקול לא מחזיר רילס בפייסבוק."
+      },
+      {
+        "date": "2026-11-18",
+        "time": "12:31",
+        "format": "אלבום",
+        "title": "ליהי",
+        "url": "https://facebook.com/2159408711605560/posts/2208805206665910",
+        "reach": 31,
+        "reactions": 0,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 4,
+        "vsAvg": -62,
+        "igReach": 161,
+        "young": false,
+        "note": ""
+      },
+      {
+        "date": "2026-11-20",
+        "time": "09:02",
+        "format": "אלבום",
+        "title": "מריאנה - מטבח",
+        "url": "https://facebook.com/2159408711605560/posts/2210976486448782",
+        "reach": 20,
+        "reactions": 0,
+        "comments": 0,
+        "shares": 0,
+        "clicks": 2,
+        "vsAvg": null,
+        "igReach": 535,
+        "young": true,
+        "note": ""
+      },
+      {
+        "date": "2026-11-21",
+        "time": "20:04",
+        "format": "רילס",
+        "title": "שאגא - רילס",
+        "url": "https://facebook.com/reel/4576844419239080",
+        "reach": null,
+        "reactions": null,
+        "comments": null,
+        "shares": null,
+        "clicks": null,
+        "vsAvg": null,
+        "igReach": 83,
+        "young": true,
+        "note": "מטריקול לא מחזיר רילס בפייסבוק."
+      }
+    ]
+  },
+  "facebookPersonal": {
+    "summary": "בפרופיל האישי ההבדל מהאינסטגרם קטן יותר: מיימונה 10 ריאקשנים (הממוצע 10), חדרי שינה 7 ו-3 תגובות (חן הגיבה), ליהי 6 - וליהי הגיבה כאן ולא באינסטגרם. ה-Collab שאירית העלתה עם אלעד (19.11) - 18 ריאקשנים ו-7 תגובות, יותר מכל פוסט של אלעד בפרופיל השבוע. הרילסים לא נראו בעמוד.",
+    "avgReactions": 10,
+    "avgComments": 3,
+    "posts": [
+      {
+        "date": "2026-11-15",
+        "time": "20:00",
+        "type": "פוסט של אלעד",
+        "title": "מיימונה",
+        "url": null,
+        "reactions": 10,
+        "comments": 1,
+        "shares": 1,
+        "designersCommented": null,
+        "note": "אסתי גחטמן כהן הגיבה ('בית חמים ונעים'). באינסטגרם 1,545, בדף 47"
+      },
+      {
+        "date": "2026-11-16",
+        "time": "18:00",
+        "type": "פוסט של אלעד",
+        "title": "חדרי שינה",
+        "url": null,
+        "reactions": 7,
+        "comments": 3,
+        "shares": 1,
+        "designersCommented": true,
+        "note": "חן אברהמוף הגיבה 'אלוף'"
+      },
+      {
+        "date": "2026-11-18",
+        "time": "12:30",
+        "type": "פוסט של אלעד",
+        "title": "ליהי",
+        "url": null,
+        "reactions": 6,
+        "comments": 1,
+        "shares": 1,
+        "designersCommented": true,
+        "note": "ליהי הגיבה, אלעד ענה. באינסטגרם לא הגיבה"
+      },
+      {
+        "date": "2026-11-20",
+        "time": "09:00",
+        "type": "פוסט של אלעד",
+        "title": "מריאנה - מטבח",
+        "url": null,
+        "reactions": 4,
+        "comments": 0,
+        "shares": 2,
+        "designersCommented": false,
+        "note": "צעיר"
+      },
+      {
+        "date": "2026-11-19",
+        "time": null,
+        "type": "Collab של אירית",
+        "title": "אירית פרייהייטר ואלעד + 3",
+        "url": null,
+        "reactions": 18,
+        "comments": 7,
+        "shares": 2,
+        "designersCommented": null,
+        "note": "פרויקט עם מאסטר בקומת המרתף - ה-Collab שאירית העלתה"
+      }
+    ]
+  },
+  "extra": {
+    "title": "ניסיון השעות, מוצ\"ש והקהל",
+    "text": "ניסיון השעות (קרוסלות, אחרי 7 ימים, מספרים מעודכנים): 16:00 - רעות 529, סוניה 414, קרן 386, חגית 222, ליאור 199 (5 פוסטים, ממוצע 350) · 20:00 - מטבחים 861, ילדים 284, מיימונה 1,545 (3, ממוצע 897) · 12:30 - ליז 1,014, ליהי 161 (2) · 7:30 - וילונות 253, פינות עבודה 286 (2) · 18:00 - מסדרון 171, חדרי שינה 202 (2). רק 16:00 הגיעה ל-4 פוסטים. ההבדלים הגדולים מוסברים יותר ב-Collab מאשר בשעה: כל הפוסטים מתחת ל-210 - בלי Collab. סיכום מלא בדוח 29.11. מוצ\"ש (6 שבתות, סופיים): שרה 188, טלי 262, יערה 767, נטלי 383, בלה 327, רילס יערה 343 - ממוצע 378, קרוב לממוצע הכללי. הקהל: 75% מהאנשים שאלעד הגיע אליהם השבוע לא עוקבים (3,270 מתוך 4,371, סכום יומי) - והפעם רוב זה מהפוסטים: המודעות הגיעו רק ל-997 (שבוע שעבר 8,733). השיא 15.11 - 1,355 לא-עוקבים, יום הפוסט של מיימונה. עוקבים: 2,654 (‎+10, נוספו 12, עזבו 4). סטוריז: 4 השבוע, ממוצע 123, הכי נצפה 15.11 בערב - 381 (יום מיימונה)."
+  },
+  "audience": {
+    "nonFollowerPct": 75,
+    "followerReach": 1101,
+    "nonFollowerReach": 3270,
+    "peakDay": "2026-11-15 (1,355 לא-עוקבים - יום הפוסט של מיימונה; מודעות באותו יום 243 איש)",
+    "stories": {
+      "count": 4,
+      "avgReach": 123,
+      "top": "15.11 בערב - 381 (יום הפוסט של מיימונה)"
+    },
+    "cities": null,
+    "byFormat": {
+      "AD": {
+        "views": 2039,
+        "reach": 997
+      },
+      "REEL": {
+        "views": 1052,
+        "reach": 565
+      },
+      "CAROUSEL_CONTAINER": {
+        "views": 15765,
+        "reach": 2909
+      },
+      "POST": {
+        "views": 75,
+        "reach": 9
+      },
+      "STORY": {
+        "views": 735,
+        "reach": 490
+      }
+    }
+  },
+  "promote": {
+    "summary": "הקידום התומך של השבוע: הפרויקט של מיימונה, השיא של אלעד. יש בו 11 תמונות, ולכן האסטרטג מציע שאלעד יוריד ממנו תמונה אחת (הלייקים, השמירות והשיתופים נשארים). אם לא - המטבח של מריאנה. השבוע רק קידום מעורבות לקהל חדש, 10₪ ליום (60₪ עם הקמפיין): הקבוצה החמה בקמפיין כבר מגיעה לאותן נשים (תדירות 3.84). הקידום של חן מהשבוע שעבר לא נוצר. ממתין לאישור של עדי. בפייסבוק אין מועמד.",
+    "candidates": [
+      {
+        "title": "קידום תומך · מיימונה טאהא - פרויקט מלא (אינסטגרם · 11 תמונות)",
+        "url": "https://www.instagram.com/p/DfxYr7jG7Rl/",
+        "date": "2026-11-15",
+        "why": "1,545 (‎+240%), 26 שמירות, 48 שיתופים, 3 עוקבים, Collab, מיימונה הגיבה - השיא של אלעד.",
+        "decision": "✅ האסטרטג: קידום תומך, הפוסט עצמו אחרי שאלעד מוריד תמונה אחת (11 ← 10; אם יש תמונת חזית עם לוחית רישוי - היא הראשונה). מעורבות לקהל דומה, 10₪ ליום, בלי הרחבה, הקהל החם מוחרג. החשיפה לקהל החם לא מומלצת השבוע (הקהל החם עמוס מהקמפיין, תדירות 3.84) - סך 60₪ עם הקמפיין, במקום 70₪. ממתין לעדי ולאלעד."
+      },
+      {
+        "title": "מריאנה דובניקובה - מטבח (אינסטגרם · 5 תמונות)",
+        "url": "https://www.instagram.com/p/Df9Epg3DmOM/",
+        "date": "2026-11-20",
+        "why": "535 אחרי יומיים (‎+18%), 3 שמירות, Collab.",
+        "decision": "↪️ חלופה בלבד - אם אלעד לא מוריד תמונה ממיימונה או ש-Meta דוחה."
+      },
+      {
+        "title": "רילס קאמיי · חדרי שינה · ליהי · רילס שאגא",
+        "url": "",
+        "date": "2026-11-17",
+        "why": "181 · 202 · 161 · 83 (צעיר).",
+        "decision": "❌ נמוכים ובלי Collab. שאגא - צעיר ובגרסה שלא אושרה לפרסום."
+      },
+      {
+        "title": "פייסבוק",
+        "url": "",
+        "date": "2026-11-22",
+        "why": "כל הפוסטים מתחת לממוצע הדף (81).",
+        "decision": "❌ אין מועמד."
+      }
+    ]
+  },
+  "suggestions": [
+    {
+      "id": "2026-11-22-1",
+      "text": "בדיקת Collab ביום שאחרי כל פוסט, והודעה מוכנה למעצבת. השבוע 3 מתוך 5 הפוסטים הבוגרים בלי Collab (חדרי שינה - 0 מ-4, קאמיי, ליהי - לא נקבע במטריקול), והם שלושת החלשים: 161-202. עם Collab: 1,545 ו-535. הרכזת בודקת למחרת בבוקר בראש הפוסט אם ה-Collab אושר, ואם לא - כותבת לעדי/אלעד הודעת וואטסאפ קצרה ומוכנה למעצבת ('שלחתי לך הזמנה לשיתוף הפוסט, אשמח שתאשרי'). כשמטריקול כותב 'Could not set all collaborators' - אלעד מוסיף ידנית באותו ערב. מאחד את ההצעות הממתינות 2026-10-11-1 ו-2026-10-18-1. בודקים שבועיים: Collab מאושר ב-5 מכל 6 פוסטים.",
+      "owner": "רכזת הפרסום"
+    },
+    {
+      "id": "2026-11-22-2",
+      "text": "בדיקת גרסה לפני כל רילס: ביום שלפני, הרכזת משווה את הקובץ ואת המוזיקה בפוסט שמתוזמן במטריקול מול ההחלטה האחרונה ב-calendar.md, ומתקנת לפני שהוא עולה. השבוע הרילס של שאגא עלה בגרסה הישנה עם החלוקים (שלא אושרה לפרסום) במקום Video 3, ועם מוזיקה אחרת במקום של אלעד. בודקים: 0 פוסטים שעולים בגרסה שלא אושרה עד סוף דצמבר.",
+      "owner": "רכזת הפרסום"
+    }
+  ],
+  "history": [
+    {
+      "weekStart": "2026-09-06",
+      "posts": 3,
+      "avgReach": 190,
+      "avgSavesShares": 0.33,
+      "avgComments": 2,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-13",
+      "posts": 7,
+      "avgReach": 229,
+      "avgSavesShares": 0.29,
+      "avgComments": 0.57,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-20",
+      "posts": 7,
+      "avgReach": 159,
+      "avgSavesShares": 0.14,
+      "avgComments": 1,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-09-27",
+      "posts": 1,
+      "avgReach": 181,
+      "avgSavesShares": 0,
+      "avgComments": 2,
+      "followers": null
+    },
+    {
+      "weekStart": "2026-10-04",
+      "posts": 3,
+      "avgReach": 218,
+      "avgSavesShares": 0.33,
+      "avgComments": 3,
+      "followers": 2793
+    },
+    {
+      "weekStart": "2026-10-11",
+      "posts": 5,
+      "avgReach": 555,
+      "avgSavesShares": 3.8,
+      "avgComments": 6.2,
+      "followers": 2799
+    },
+    {
+      "weekStart": "2026-10-18",
+      "posts": 7,
+      "avgReach": 305,
+      "avgSavesShares": 1.14,
+      "avgComments": 3.86,
+      "followers": 2804
+    },
+    {
+      "weekStart": "2026-10-25",
+      "posts": 6,
+      "avgReach": 575,
+      "avgSavesShares": 2.83,
+      "avgComments": 3.83,
+      "followers": 2623
+    },
+    {
+      "weekStart": "2026-11-01",
+      "posts": 6,
+      "avgReach": 426,
+      "avgSavesShares": 1.5,
+      "avgComments": 2.67,
+      "followers": 2630
+    },
+    {
+      "weekStart": "2026-11-08",
+      "posts": 6,
+      "avgReach": 398,
+      "avgSavesShares": 2,
+      "avgComments": 2.5,
+      "followers": 2644
+    },
+    {
+      "weekStart": "2026-11-15",
+      "posts": 6,
+      "avgReach": 451,
+      "avgSavesShares": 13.33,
+      "avgComments": 2.17,
+      "followers": 2654
+    }
+  ]
+}
