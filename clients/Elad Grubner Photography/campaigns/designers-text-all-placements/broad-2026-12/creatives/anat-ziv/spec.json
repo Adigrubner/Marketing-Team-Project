@@ -1,0 +1,19 @@
+{
+  "_note": "סטורי וריל - מועמד ב': ענת זיו, חצרים (קולאז' 4 חללים), לקבוצה החדשה לקהל הרחב (דצמבר). אותו עיצוב בדיוק כמו warm-2026-11-15/sonia-story/spec.json (סוניה וספיר, עם תיקון הפס הלבן: storyTop 200, headerBottom 530). התאים חתוכים מראש ביחס של תא הסטורי (536x691) ב-source/story-*.jpg, ולכן pos הוא 50% 50%. הפיד: feed-collage-clean.jpg (נבנה ב-ffmpeg מ-source/feed-*.jpg, אותה פריסה כמו ad4-collage-clean.jpg). הרצה מתיקיית הפרויקט הראשית: node .claude/skills/ad-creative-design/render.mjs \"<הנתיב לקובץ הזה>\".",
+  "title": "סטורי · ענת זיו · קהל רחב, דצמבר",
+  "subtitle": "קובץ לסטורי ולריל בלבד, באותו עיצוב כמו הסטורי של סוניה וספיר (עם תיקון הפס הלבן)",
+  "out": ".",
+  "storyTop": 200,
+  "ads": [
+    {
+      "id": "story-collage", "label": "סטורי · קולאז' ענת זיו", "layout": "editorial", "format": "story", "headerBottom": 530,
+      "images": [
+        { "src": "source/story-1-16.jpg", "pos": "50% 50%" },
+        { "src": "source/story-2-07.jpg", "pos": "50% 50%" },
+        { "src": "source/story-3-39.jpg", "pos": "50% 50%" },
+        { "src": "source/story-4-32.jpg", "pos": "50% 50%" }
+      ],
+      "text": { "headline": "מעצבות ומעצבי פנים?", "sub": "מצלמים פרויקט ומקבלים 3 רילסים במתנה", "highlight": "3 רילסים במתנה" }
+    }
+  ]
+}
