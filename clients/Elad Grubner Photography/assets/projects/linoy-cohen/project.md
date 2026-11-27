@@ -154,3 +154,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 16.11.2026 18:00 | קרוסלה נושאית "חדרי שינה" (8 אורך → 4:5, 2 שלה) - חדר שינה ראשי · `Interior/38` · `Details/88` (סגירה) | אינסטגרם (Collab ×4) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/Dfzv29Jm-MQ/) · [פייסבוק](https://facebook.com/2159408711605560/posts/2206557163557381) · `content/posts/2026-11-16-bedrooms-four-designers/` |
+| 27.11.2026 9:00 | קרוסלה קצרה, מעצבת אחת (5 אורך → 4:5) - פינת האוכל, מזכרת בתיה · `Designer/76` · `Interior/42` · `Interior/08` · `Interior/09` · `Interior/14` | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DgPGVkhlWt-/) · [פייסבוק](https://facebook.com/2159408711605560/posts/2219464622266635) · `content/posts/2026-11-27-linoy-cohen-dining/` |
