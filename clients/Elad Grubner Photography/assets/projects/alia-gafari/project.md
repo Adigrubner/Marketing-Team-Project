@@ -173,3 +173,4 @@
 | תאריך | פורמט | רשת | קישור |
 |-------|--------|-----|--------|
 | 11.11.2026 7:30 | קרוסלה נושאית "פינות עבודה" (8 אורך, 2 שלה) - השולחן המעוגל · `Interior/62` · `Interior/65` (סגירה) | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DflvGyPFSX2/) · `content/posts/2026-11-11-home-offices-designers/` |
+| 26.11.2026 20:00 | קרוסלה קצרה (5 רוחב) - חדר הטלוויזיה · `Interior/01` · `04` · `06` · `Details/88` · `Designer/178` (סגירה, בפינה האפורה) | אינסטגרם (Collab) · פייסבוק · גוגל ביזנס | [אינסטגרם](https://www.instagram.com/p/DgNts6yFYFd/) · `content/posts/2026-11-26-alia-gafari-tv-room/` |

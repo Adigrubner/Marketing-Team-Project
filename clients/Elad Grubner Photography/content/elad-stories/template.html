@@ -1,0 +1,433 @@
+<title>סיפורים מהצילומים</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500&family=Heebo:wght@400;500;700&display=swap">
+<style>
+/* Layout: one narrow reading column, a post per section split by thin bronze rules (Elad's brand), photos as a swipeable strip. */
+:root {
+  --bg: #ffffff;
+  --surface: #f2eee8;
+  --fg: #2a2a2a;
+  --muted: #6f6a63;
+  --line: #e2dbd1;
+  --accent: #7b5a2e;
+  --accent-soft: #efe6da;
+  --ok: #3f6b45;
+  --ok-soft: #e4efe5;
+  --warn: #8a5a12;
+  --font-display: "Frank Ruhl Libre", "David Libre", "Times New Roman", serif;
+  --font-body: "Heebo", "Segoe UI", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #191816; --surface: #24221f; --fg: #ece7df; --muted: #a59f95; --line: #36332e;
+    --accent: #c9a06a; --accent-soft: #33291d; --ok: #8cc495; --ok-soft: #1f2e21; --warn: #e0b46a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #191816; --surface: #24221f; --fg: #ece7df; --muted: #a59f95; --line: #36332e;
+  --accent: #c9a06a; --accent-soft: #33291d; --ok: #8cc495; --ok-soft: #1f2e21; --warn: #e0b46a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  direction: rtl; text-align: right;
+}
+.wrap {
+  max-width: 760px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+  display: flex; flex-direction: column; gap: 40px;
+}
+header { display: flex; flex-direction: column; gap: 12px; }
+.eyebrow { font-size: 13px; letter-spacing: .08em; color: var(--accent); font-weight: 500; }
+h1 { font-family: var(--font-display); font-weight: 300; font-size: clamp(30px, 6vw, 42px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.intro { margin: 0; max-width: 60ch; color: var(--fg); }
+.intro-small { margin: 0; max-width: 60ch; color: var(--muted); font-size: 14.5px; }
+.progress { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.progress a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+  color: var(--fg); text-decoration: none; font-size: 14px; background: var(--bg);
+}
+.progress a .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.progress a[data-state="story"] .dot { background: var(--ok); }
+.progress a[data-state="none"] .dot { background: var(--muted); }
+.progress a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.post { display: flex; flex-direction: column; gap: 14px; padding-top: 28px; border-top: 1px solid var(--accent); scroll-margin-top: 16px; }
+.post-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; }
+.when { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.when b { color: var(--accent); font-weight: 500; }
+h2 { font-family: var(--font-display); font-weight: 500; font-size: 26px; line-height: 1.2; margin: 0; }
+.city { font-family: var(--font-body); font-weight: 400; font-size: 16px; color: var(--muted); }
+.meta { font-size: 14px; color: var(--muted); margin: 0; }
+.chip { display: inline-block; font-size: 13px; padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.none { background: var(--surface); color: var(--muted); }
+
+.strip {
+  display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity;
+  padding-bottom: 6px; margin-inline: -4px; padding-inline: 4px;
+}
+.strip button {
+  flex: 0 0 auto; border: 0; padding: 0; background: var(--surface); cursor: zoom-in;
+  scroll-snap-align: start; border-radius: 3px; overflow: hidden;
+}
+.strip img { display: block; height: 200px; width: auto; max-width: none; }
+.strip button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.count { font-size: 13px; color: var(--muted); margin: 0; }
+video { width: 100%; max-width: 360px; max-height: 70vh; background: #000; border-radius: 3px; display: block; }
+
+.ask { background: var(--surface); padding: 14px 16px; border-radius: 4px; display: flex; flex-direction: column; gap: 6px; }
+.ask p { margin: 0; }
+.ask .q { font-weight: 500; }
+.ask .due { font-size: 14px; color: var(--warn); }
+.ask .note { font-size: 14px; color: var(--muted); }
+
+label.lbl { font-size: 14px; font-weight: 500; }
+textarea {
+  width: 100%; min-height: 120px; resize: vertical;
+  font: inherit; color: var(--fg); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px; line-height: 1.6;
+}
+textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+.partial { min-height: 1.4em; margin: 0; color: var(--muted); font-style: italic; font-size: 15px; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.btn {
+  font: inherit; font-size: 15px; font-weight: 500; cursor: pointer;
+  padding: 9px 18px; border-radius: 999px; border: 1px solid var(--accent);
+  background: var(--accent); color: var(--bg);
+}
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.quiet { background: transparent; color: var(--muted); border-color: var(--line); }
+.btn.listening { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.btn[disabled] { opacity: .55; cursor: default; }
+.status { font-size: 14px; color: var(--muted); }
+.status.err { color: var(--warn); }
+.mic-hint { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+.speak { border: 1px solid var(--accent); border-radius: 4px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; max-width: 60ch; }
+.speak p { margin: 0; }
+.speak .speak-title { font-family: var(--font-display); font-weight: 500; font-size: 21px; color: var(--accent); }
+.speak ul { margin: 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: 4px; }
+.banner { padding: 10px 14px; border-radius: 4px; background: var(--accent-soft); color: var(--fg); font-size: 14.5px; }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.92);
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 16px) max(16px, env(safe-area-inset-left, 0px));
+  cursor: zoom-out;
+}
+.lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
+footer { font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+@media (max-width: 520px) { .strip img { height: 160px; } h2 { font-size: 23px; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="week-label"></div>
+    <h1>סיפור קטן לכל פוסט</h1>
+    <p class="intro">אלה הפוסטים של השבוע הבא, עם התמונות שנבחרו. ליד כל אחד אפשר לכתוב או לדבר כמה משפטים: משהו שקרה ביום הצילום, משהו על המעצבת, או מה אהבת בבית הזה. הטקסט של כל פוסט ייכתב רק אחרי שתגיד עליו משהו כאן, ואחר כך הוא יחכה לאישור שלך בדף האישור, כרגיל.</p>
+    <div class="speak">
+      <p class="speak-title">🎙️ לא בא לך לכתוב? אפשר פשוט לדבר.</p>
+      <p>הדיבור הופך לטקסט ונשמר לבד, כמו הודעה קולית שמתומללת.</p>
+      <ul>
+        <li><b>בטלפון:</b> נוגעים בתיבת הטקסט של הפוסט, ולוחצים על המיקרופון במקלדת.</li>
+        <li><b>במחשב:</b> לוחצים על "🎙️ לדבר במקום לכתוב" מתחת לפוסט, ואחר כך על "סיימתי לדבר".</li>
+      </ul>
+    </div>
+    <p class="intro-small">לא חייבים לנסח יפה, ומספיקים שניים-שלושה משפטים. אם אין מה לספר על פוסט, לוחצים "אין לי מה להוסיף" ונכתוב ממה שרואים בתמונות. כל מה שנכתב כאן נשמר לבד.</p>
+    <nav class="progress" id="progress" aria-label="הפוסטים של השבוע"></nav>
+    <div class="banner" id="conn" hidden></div>
+  </header>
+  <main id="posts" style="display:flex;flex-direction:column;gap:40px"></main>
+  <footer>הדף נשמר אוטומטית. אפשר לחזור אליו ולשנות עד שהטקסט עולה לדף האישור.</footer>
+</div>
+<div class="lightbox" id="lightbox" hidden><img id="lightbox-img" alt=""></div>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+(function () {
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("data").textContent);
+  var POSTS = DATA.posts;
+  var state = {};          // id -> {text, status, updatedAt}
+  var dirty = {};          // id -> true while local edits are unsaved
+  var timers = {};
+  var writing = {};
+  var pending = {};
+  var db = null, dict = null, dictActiveId = null, writeBlocked = false;
+
+  document.getElementById("week-label").textContent = DATA.weekLabel;
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  var progress = document.getElementById("progress");
+  var main = document.getElementById("posts");
+  var refs = {};
+
+  POSTS.forEach(function (p) {
+    var a = el("a");
+    a.href = "#" + p.anchor;
+    a.dataset.state = "";
+    a.appendChild(el("span", "dot"));
+    a.appendChild(el("span", null, p.dayShort + " · " + p.designerShort));
+    progress.appendChild(a);
+
+    var s = el("section", "post");
+    s.id = p.anchor;
+    var head = el("div", "post-head");
+    var when = el("div", "when");
+    var b = el("b", null, p.day);
+    when.appendChild(b);
+    when.appendChild(document.createTextNode(" · " + p.date + " · " + p.time));
+    head.appendChild(when);
+    var chip = el("span", "chip", "עוד לא");
+    head.appendChild(chip);
+    s.appendChild(head);
+
+    var h2 = el("h2", null, p.designer + " ");
+    h2.appendChild(el("span", "city", p.city));
+    s.appendChild(h2);
+    s.appendChild(el("p", "meta", p.format));
+
+    if (p.video) {
+      var v = document.createElement("video");
+      v.controls = true; v.preload = "metadata"; v.playsInline = true;
+      v.setAttribute("playsinline", "");
+      if (p.video.poster) v.poster = p.video.poster;
+      v.src = p.video.src;
+      s.appendChild(v);
+    }
+    if (p.images && p.images.length) {
+      var strip = el("div", "strip");
+      p.images.forEach(function (src, i) {
+        var btn = el("button");
+        btn.type = "button";
+        btn.setAttribute("aria-label", "תמונה " + (i + 1) + " מתוך " + p.images.length + ", להגדלה");
+        var img = document.createElement("img");
+        img.src = src; img.alt = ""; img.loading = i < 3 ? "eager" : "lazy";
+        btn.appendChild(img);
+        btn.addEventListener("click", function () { openLightbox(src); });
+        strip.appendChild(btn);
+      });
+      s.appendChild(strip);
+      s.appendChild(el("p", "count", p.images.length + " תמונות, לפי הסדר בפוסט. אפשר לגלול הצידה וללחוץ להגדלה."));
+    }
+
+    var ask = el("div", "ask");
+    ask.appendChild(el("p", "q", p.question));
+    if (p.note) ask.appendChild(el("p", "note", p.note));
+    if (p.due) ask.appendChild(el("p", "due", p.due));
+    s.appendChild(ask);
+
+    var lbl = el("label", "lbl", "מה לספר על " + p.designerShort + "?");
+    var ta = document.createElement("textarea");
+    ta.id = "story-" + p.id;
+    lbl.htmlFor = ta.id;
+    ta.placeholder = "למשל: מה קרה ביום הצילום, מה המעצבת סיפרה, או מה הכי אהבת בבית.";
+    s.appendChild(lbl);
+    s.appendChild(ta);
+    var partial = el("p", "partial");
+    partial.setAttribute("aria-live", "polite");
+    s.appendChild(partial);
+
+    var actions = el("div", "actions");
+    var mic = el("button", "btn ghost", "🎙️ לדבר במקום לכתוב");
+    mic.type = "button"; mic.hidden = true;
+    var save = el("button", "btn", "שמירה");
+    save.type = "button";
+    var none = el("button", "btn quiet", "אין לי מה להוסיף");
+    none.type = "button";
+    var status = el("span", "status");
+    status.setAttribute("aria-live", "polite");
+    actions.appendChild(mic); actions.appendChild(save); actions.appendChild(none); actions.appendChild(status);
+    s.appendChild(actions);
+    var hint = el("p", "mic-hint", "בטלפון אפשר גם לדבר: נוגעים בתיבה ולוחצים על המיקרופון במקלדת.");
+    s.appendChild(hint);
+
+    main.appendChild(s);
+    refs[p.id] = { ta: ta, chip: chip, nav: a, status: status, mic: mic, save: save, none: none, partial: partial, hint: hint };
+
+    ta.addEventListener("input", function () {
+      dirty[p.id] = true;
+      setStatus(p.id, "");
+      clearTimeout(timers[p.id]);
+      timers[p.id] = setTimeout(function () { persist(p.id, ta.value.trim() ? "story" : ""); }, 1500);
+    });
+    ta.addEventListener("blur", function () {
+      if (dirty[p.id]) { clearTimeout(timers[p.id]); persist(p.id, ta.value.trim() ? "story" : ""); }
+    });
+    save.addEventListener("click", function () {
+      clearTimeout(timers[p.id]);
+      persist(p.id, ta.value.trim() ? "story" : "", true);
+    });
+    none.addEventListener("click", function () {
+      clearTimeout(timers[p.id]);
+      var cur = state[p.id] || {};
+      persist(p.id, cur.status === "none" ? (ta.value.trim() ? "story" : "") : "none", true);
+    });
+    mic.addEventListener("click", function () { toggleDictation(p.id); });
+  });
+
+  function setStatus(id, text, isErr) {
+    var r = refs[id];
+    r.status.textContent = text;
+    r.status.className = "status" + (isErr ? " err" : "");
+  }
+
+  function paint(id) {
+    var r = refs[id], st = state[id] || {};
+    var s = st.status || "";
+    r.nav.dataset.state = s;
+    if (s === "story") { r.chip.className = "chip ok"; r.chip.textContent = "✓ יש סיפור"; }
+    else if (s === "none") { r.chip.className = "chip none"; r.chip.textContent = "אין מה להוסיף"; }
+    else { r.chip.className = "chip"; r.chip.textContent = "עוד לא"; }
+    r.none.textContent = s === "none" ? "בעצם יש לי משהו" : "אין לי מה להוסיף";
+  }
+
+  function fmtTime(iso) {
+    try { var d = new Date(iso); return d.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; }
+  }
+
+  function persist(id, status, explicit) {
+    if (!db) { setStatus(id, "אין חיבור לשמירה כרגע. הטקסט נשאר בתיבה, נסו שוב בעוד רגע.", true); return; }
+    if (writeBlocked) { setStatus(id, "אין הרשאה לשמור בדף הזה.", true); return; }
+    var body = { text: refs[id].ta.value.trim(), status: status, updatedAt: new Date().toISOString() };
+    var cur = state[id] || {};
+    if (!explicit && cur.text === body.text && cur.status === body.status) { dirty[id] = false; return; }
+    if (writing[id]) { pending[id] = body; return; }
+    write(id, body);
+  }
+
+  function write(id, body) {
+    writing[id] = true;
+    setStatus(id, "שומר...");
+    db.collection("stories").doc(id).set(body).then(function () {
+      state[id] = body; dirty[id] = false; paint(id);
+      setStatus(id, "נשמר ✓ " + fmtTime(body.updatedAt));
+    }).catch(function (e) {
+      var code = e && e.code;
+      if (code === "invalid_argument") { writeBlocked = true; setStatus(id, "אין הרשאה לשמור בדף הזה.", true); }
+      else if (code === "quota_exceeded") setStatus(id, "לא נשמר: הדף מלא. כדאי להגיד לעדי.", true);
+      else setStatus(id, "לא נשמר. הטקסט נשאר בתיבה, אפשר ללחוץ שוב על שמירה.", true);
+    }).then(function () {
+      writing[id] = false;
+      if (pending[id]) { var nb = pending[id]; pending[id] = null; write(id, nb); }
+    });
+  }
+
+  // Lightbox
+  var lb = document.getElementById("lightbox"), lbImg = document.getElementById("lightbox-img");
+  function openLightbox(src) { lbImg.src = src; lb.hidden = false; }
+  lb.addEventListener("click", function () { lb.hidden = true; lbImg.removeAttribute("src"); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) { lb.hidden = true; } });
+
+  // Dictation
+  function setMicLabels() {
+    Object.keys(refs).forEach(function (id) {
+      var m = refs[id].mic;
+      var on = dictActiveId === id;
+      m.classList.toggle("listening", on);
+      m.textContent = on ? "⏹ סיימתי לדבר" : "🎙️ לדבר במקום לכתוב";
+    });
+  }
+  function toggleDictation(id) {
+    if (!dict) return;
+    if (dictActiveId === id) { dict.stop().catch(function () {}); return; }
+    if (dictActiveId) { dict.stop().catch(function () {}); }
+    dictActiveId = id;
+    setMicLabels();
+    refs[id].partial.textContent = "מקשיב...";
+    dict.start({ language: "he" }).catch(function (e) {
+      var code = e && e.code;
+      refs[id].partial.textContent = "";
+      if (code === "not_granted") { hideMics("המיקרופון לא אושר בדף הזה. אפשר לכתוב, או לדבר דרך המקלדת בטלפון."); }
+      else if (code === "unavailable") { hideMics(""); }
+      else if (code === "dismissed") { setStatus(id, "אפשר ללחוץ שוב על המיקרופון."); }
+      else if (code !== "stopped") { setStatus(id, "הדיבור לא עבד הפעם. אפשר לנסות שוב או לכתוב.", true); }
+      dictActiveId = null; setMicLabels();
+    });
+  }
+  function hideMics(msg) {
+    Object.keys(refs).forEach(function (id) {
+      refs[id].mic.hidden = true;
+      refs[id].hint.hidden = false;
+    });
+    if (msg && dictActiveId) setStatus(dictActiveId, msg, true);
+    dict = null;
+  }
+
+  function startup() {
+    if (!window.claude || !window.claude.use) { showConn("הדף פתוח מחוץ ל-Claude, ולכן אין שמירה. פתחו אותו מהקישור ששלחה עדי."); return; }
+    var loadTimer = setTimeout(function () { showConn("עוד לא הצלחנו להתחבר לשמירה. אם זה נמשך, כדאי לרענן את הדף."); }, 10000);
+    window.claude.use("db").then(function (d) {
+      if (!d) { clearTimeout(loadTimer); showConn("השמירה לא זמינה כרגע בתצוגה הזו. הטקסט לא יישמר."); return; }
+      db = d;
+      db.collection("stories").onSnapshot(function (snap) {
+        snap.docs.forEach(function (doc) {
+          if (!refs[doc.id]) return;
+          var body = doc.data() || {};
+          state[doc.id] = { text: body.text || "", status: body.status || "", updatedAt: body.updatedAt || "" };
+          if (!dirty[doc.id] && document.activeElement !== refs[doc.id].ta && !writing[doc.id]) {
+            refs[doc.id].ta.value = state[doc.id].text;
+            if (state[doc.id].updatedAt) setStatus(doc.id, "נשמר ✓ " + fmtTime(state[doc.id].updatedAt));
+          }
+          paint(doc.id);
+        });
+        if (!snap.metadata.fromCache) { clearTimeout(loadTimer); hideConn(); }
+      }, function () {
+        clearTimeout(loadTimer);
+        showConn("החיבור לשמירה נפל. כדאי לרענן את הדף.");
+      });
+    });
+    window.claude.use("dictation").then(function (d) {
+      if (!d) return;
+      dict = d;
+      Object.keys(refs).forEach(function (id) { refs[id].mic.hidden = false; refs[id].hint.hidden = true; });
+      d.onPartial(function (e) { if (dictActiveId) refs[dictActiveId].partial.textContent = e.text || ""; });
+      d.onFinal(function (e) {
+        if (!dictActiveId) return;
+        var ta = refs[dictActiveId].ta;
+        var t = e.text || "";
+        if (!ta.value) t = t.replace(/^\s+/, "");
+        ta.value += t;
+        dirty[dictActiveId] = true;
+        var id = dictActiveId;
+        clearTimeout(timers[id]);
+        timers[id] = setTimeout(function () { persist(id, ta.value.trim() ? "story" : ""); }, 1500);
+      });
+      d.onState(function (e) {
+        if (e.state === "idle") {
+          var id = dictActiveId;
+          if (id) {
+            refs[id].partial.textContent = "";
+            if (dirty[id]) { clearTimeout(timers[id]); persist(id, refs[id].ta.value.trim() ? "story" : ""); }
+            if (e.reason === "unavailable") hideMics("");
+            else if (e.reason === "not_granted") hideMics("המיקרופון לא אושר בדף הזה. אפשר לכתוב, או לדבר דרך המקלדת בטלפון.");
+            else if (e.reason === "rate_limited" || e.reason === "upstream_error") setStatus(id, "הדיבור נעצר. אפשר לנסות שוב.", true);
+          }
+          dictActiveId = null; setMicLabels();
+        }
+      });
+    });
+  }
+  var conn = document.getElementById("conn");
+  function showConn(t) { conn.textContent = t; conn.hidden = false; }
+  function hideConn() { conn.hidden = true; }
+  startup();
+})();
+</script>
